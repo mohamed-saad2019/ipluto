@@ -157,7 +157,7 @@
                 <div class="col-12 col-md-6 col-lg-3 folders mb-4" id="{{$folder->id}}" >
                   <div class="single__paste">
                     <a  class="w-100 d-flex align-items-center" href="{{url('instructor/library?id='.$folder->id.'&parent_id='.$folder->parent_id)}}" >
-                      <i class="fa fa-folder fa-2x" ></i>
+                      <i class="fa fa-folder fa-2x text-info " ></i>
                       <span class="description ml-2" >{{$folder->name}}</span>
                     </a>
                   </div>

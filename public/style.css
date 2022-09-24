@@ -2102,7 +2102,8 @@ textarea {
 
 .folders a:hover,.more
 {
-  background-color: rgb(220, 188, 188) !important;
+  /* background-color: rgb(220, 188, 188) !important; */
+  opacity: .8;
 }
 
 .more
