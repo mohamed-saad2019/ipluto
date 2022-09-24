@@ -12,7 +12,7 @@
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous" />
     <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet" />
   <link rel="stylesheet" href="./../style.css" />
-  <link rel="stylesheet" href="{{ url('css/style.css') }}" />
+  <!-- <link rel="stylesheet" href="{{ url('css/style.css') }}" /> -->
     @include('admin.layouts.head')
   <title>@yield('title')</title>
   
