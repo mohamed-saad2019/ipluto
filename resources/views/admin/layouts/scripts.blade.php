@@ -9,8 +9,8 @@ $rtl = array('ar','he','ur', 'arc', 'az', 'dv', 'ku', 'fa'); //make a list of rt
 @endif
 
 
-<!-- <script src="{{ url('admin_assets/assets/js/jquery.min.js') }}"></script>
-<script src="{{ url('admin_assets/assets/js/togglepassword.js')}}"></script> -->
+<script src="https://releases.jquery.com/git/jquery-3.x-git.min.js"></script>
+<!-- <script src="{{ url('admin_assets/assets/js/togglepassword.js')}}"></script>  -->
 
 
  <!-- Datatable js -->
@@ -41,7 +41,7 @@ $rtl = array('ar','he','ur', 'arc', 'az', 'dv', 'ku', 'fa'); //make a list of rt
 <script src="{{ url('admin_assets/assets/plugins/bootstrap-tagsinput/typeahead.bundle.js') }}"></script>
 <script src="{{ url('admin_assets/assets/js/modernizr.min.js') }}"></script>
 <script src="{{ url('admin_assets/assets/js/detect.js') }}"></script>
-<script src="{{ url('admin_assets/assets/js/jquery.slimscroll.js') }}"></script>
+<!-- <script src="{{ url('admin_assets/assets/js/jquery.slimscroll.js') }}"></script> -->
 <script src="{{ url('admin_assets/assets/js/vertical-menu.js') }}"></script> -->
 <!-- Switchery js -->
 <!-- <script src="{{ url('admin_assets/assets/plugins/switchery/switchery.min.js') }}"></script>
@@ -92,7 +92,7 @@ $rtl = array('ar','he','ur', 'arc', 'az', 'dv', 'ku', 'fa'); //make a list of rt
 <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script> -->
 
 <!-- <script src="{{ url('js/custom-toggle.js') }}"></script> -->
-<!-- <script src="{{ url('js/custom-file-input.js')}}"></script> -->
+<script src="{{ url('js/custom-file-input.js')}}"></script>
 <script src="{{ url('js/add_class.js')}}"></script>
 
 
@@ -199,21 +199,21 @@ $rtl = array('ar','he','ur', 'arc', 'az', 'dv', 'ku', 'fa'); //make a list of rt
       (function($) {
       "use strict";
            document.onkeydown = function(e) {
-          if(event.keyCode == 123) {
-             return false;
-          }
-          if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-             return false;
-          }
-          if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
-             return false;
-          }
-          if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-             return false;
-          }
-          if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-             return false;
-          }
+          // if(event.keyCode == 123) {
+          //    return false;
+          // }
+          // if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+          //    return false;
+          // }
+          // if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+          //    return false;
+          // }
+          // if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+          //    return false;
+          // }
+          // if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+          //    return false;
+          // }
         }
       })(jQuery);
     </script>
