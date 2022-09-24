@@ -450,14 +450,11 @@
 @endif
 
 @section('scripts')
-
-
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css">
 <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js'></script>
 
-<script type="text/javascript">
-
-  $(document).ready(function(){
+<script >
+     $(document).ready(function(){
      var id = '';
     var ex = '';
 
@@ -661,8 +658,4 @@
              $('#footer_from_library_js').css('display','none');
 
 </script>
-
-
-
-
 @endsection
