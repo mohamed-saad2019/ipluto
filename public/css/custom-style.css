@@ -20,7 +20,7 @@
   height: 64px;
 }
 .navbar-collapse{
-  background: #fff;
+  /* background: #fff; */
   padding: 0px 12px;
 }
 .navbar-brand img {
@@ -1379,10 +1379,9 @@ text-align: center;
   background: radial-gradient(transparent,#eee);
   font-family: 'Raleway', sans-serif;
   text-align: center;
-  padding: 4px 12px 15px;
+  /* padding: 4px 12px 15px; */
   border-radius: 15px;
   box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.2);
-  /* overflow: hidden; */
   position: relative;
 }
 .more__btn{
@@ -1390,17 +1389,7 @@ text-align: center;
   top: .5em;
   right: 2px;
 }
-/* .lessons:before{
-  content: "";
-  background: #faa31a;
-  width: 150px;
-  height: 150px;
-  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.15);
-  transform: rotate(45deg);
-  position: absolute;
-  top: -85px;
-  left: -85px;
-} */
+
 .lessons .title {
   margin: 0 0.7em;
 }
@@ -1415,26 +1404,22 @@ text-align: center;
   border-top: 5px dotted #faa31a;
   height: 3px;
   width: 100px;
-  margin: 11px auto 0;
-  display: block;
-  clear: both;
+  /* margin: 11px auto 0; */
+  /* display: block;
+  clear: both; */
 }
 .lessons .description{
   color: #888;
   font-size: 15px;
   line-height: 25px;
-  margin: 0 0 15px;
+  /* margin: 0 0 15px; */
 }
 .lessons .service-icon{
   color: #faa31a;
   font-size: 45px;
   line-height: 45px;
 }
-.lessons.col-2 {
-  -ms-flex: 0 0 16.666667%;
-  flex: 1 0 17.666667%;
-  max-width: 18.666667%;
-}
+
 
 @media only screen and (max-width: 990px){
   .lessons{ margin: 0 0 20px; }

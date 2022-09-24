@@ -1,8 +1,8 @@
   <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>ipiuto</h3>
-            </div>
+            <img src="./images/iPluto_Logo_Animation.gif" style="width: 97px;height: 57px;" alt="">            
+        </div>
 
             <ul class="list-unstyled components">
                 <li class="active">

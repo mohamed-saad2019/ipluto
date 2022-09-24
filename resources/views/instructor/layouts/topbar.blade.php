@@ -1,8 +1,7 @@
- <div class="container">
+ <!-- <div class="container">
         <div class="navbarStuTop">
           <div class="logoNavStu">
             <a href="#">
-              <!-- <img src="./../../image/logo.png" alt="" /> -->
 
            <img src="../images/iPluto_Logo_Animation.gif" style="width: 97px;height: 57px;" alt="" />
             </a>
@@ -20,8 +19,6 @@
                 <a class="dropdown-item" href="{{url('instructor/add_lesson')}}"> Lesson</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#"> Video</a>
-                <!-- <div class="dropdown-divider"></div>
-                <a class="dropdown-item" data-toggle="modal" data-target="#exampleModalCenter"> Folder</a> -->
               </div>
             </div>
             <div class="avatarNavStu">
@@ -74,4 +71,4 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->

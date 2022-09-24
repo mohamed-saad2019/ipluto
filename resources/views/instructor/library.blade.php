@@ -23,7 +23,7 @@
          @endif
                
                  @if(!request()->has('id') and !request()->has('parent_id'))
-          <div class="myLessoncont">
+                 <div class="myLessoncont">
             <h3 style="">My Lessons</h3>
                     @if ($errors->any())
                     <div class="alert alert-danger">
@@ -34,37 +34,53 @@
                       </ul>
                     </div>
                     @endif
-            <div class="myLessoncont1">
+            <div class="myLessoncont1 mt-4 mb-3">
               <div class="d-flex">
                   <div class="dropdown">
-                  <button class="btn dropdown-toggle togCreate" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false" style="margin-top:10px;width:120px;">
-                Create</button>
+                  <button class="btn  dropdown-toggle togCreate" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false" >
+                      Create
+                </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     
                     <li class="dropdown-item dropdown-itemLesspar">
-                      <a href="{{url('instructor/add_lesson')}}" class="icon"> <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 48 48"><style></style><g id="Svg_Export___1gun0Zjm"><path d="M38.7 9.6H3.1c-1.1 0-2 .8-2 1.7v31.5c0 .9.9 1.7 2 1.7h35.6c1.1 0 2-.8 2-1.7V11.3c0-.9-.9-1.7-2-1.7zm-3.6 27.9c0 .7-.6 1.3-1.4 1.3H8.2c-.8 0-1.4-.6-1.4-1.3V25.7c0-.7.6-1.3 1.4-1.3h25.5c.8 0 1.4.6 1.4 1.3v11.8zm0-17.3c0 .8-.6 1.4-1.4 1.4H8.2c-.8 0-1.4-.6-1.4-1.4v-3c0-.8.6-1.4 1.4-1.4h25.5c.8 0 1.4.6 1.4 1.4v3z" fill="#00a8ff"></path><path d="M46.9 5.1c0-.9-.7-1.6-1.6-1.6H8.9c-.9 0-1.5.8-1.5 1.7 0 .4.2.8.4 1 .3.3.7.4 1.1.5H42c.9 0 1.6.7 1.6 1.6v33.2c0 1.4 3.2 1.5 3.2 0 .1 0 .1-36.4.1-36.4z" fill="#7ccbff"></path></g></svg> Lesson</a>
+                      <a href="{{url('instructor/add_lesson')}}" class="icon"> <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 48 48"><style>
+                      </style><g id="Svg_Export___1gun0Zjm">
+                        <path d="M38.7 9.6H3.1c-1.1 0-2 .8-2 1.7v31.5c0 .9.9 1.7 2 1.7h35.6c1.1 0 2-.8 2-1.7V11.3c0-.9-.9-1.7-2-1.7zm-3.6 27.9c0 .7-.6 1.3-1.4 1.3H8.2c-.8 0-1.4-.6-1.4-1.3V25.7c0-.7.6-1.3 1.4-1.3h25.5c.8 0 1.4.6 1.4 1.3v11.8zm0-17.3c0 .8-.6 1.4-1.4 1.4H8.2c-.8 0-1.4-.6-1.4-1.4v-3c0-.8.6-1.4 1.4-1.4h25.5c.8 0 1.4.6 1.4 1.4v3z" fill="#00a8ff"></path>
+                        <path d="M46.9 5.1c0-.9-.7-1.6-1.6-1.6H8.9c-.9 0-1.5.8-1.5 1.7 0 .4.2.8.4 1 .3.3.7.4 1.1.5H42c.9 0 1.6.7 1.6 1.6v33.2c0 1.4 3.2 1.5 3.2 0 .1 0 .1-36.4.1-36.4z" fill="#7ccbff"></path>
+                      </g></svg> Lesson</a>
                     
                     </li>
 
                     <li class="dropdown-divider"></li>
 
                      <li class="dropdown-item dropdown-itemLesspar">
-                      <a href="#" class="icon"> <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 48 48"><style></style><g id="Svg_Export___Kwe8ari9"><path d="M29.1 29.4c.6-.9 1.7-1.5 2.8-1.5.3 0 .7.1 1 .2h.2l.1.1 9.2 4.1c1.2-2.5 1.8-5.4 1.8-8.3 0-11.1-9-20.2-20.2-20.2-11.1 0-20.2 9-20.2 20.2s9 20.2 20.2 20.2c3 0 5.9-.7 8.5-1.9l-3.7-9.8c-.5-1-.3-2.1.3-3.1z" fill="#00a8ff"></path><path d="M43.7 36.1L32 30.9c-.4-.1-.8.3-.6.7l4.4 11.6c.1.3.4.4.6.3.1 0 .2-.1.3-.2l1.6-2.9 3.6 3.7c.1-.1.2-.1.3-.1h.1s.1 0 .1-.1l1.7-1.6c.1-.1.1-.3 0-.5l-3.5-3.6 3.1-1.2c.3-.1.4-.4.3-.6 0-.1-.1-.2-.3-.3z" fill="#7ccbff"></path><path d="M23.1 16.1l6.5 6.5c.6.6.6 1.6 0 2.1l-6.5 6.5c-1 1-2.6.3-2.6-1.1V17.2c0-1.4 1.7-2.1 2.6-1.1z" fill="#fff"></path></g></svg> Video</a>
+                      <a href="#" class="icon"> 
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 48 48">
+                            <style></style><g id="Svg_Export___Kwe8ari9">
+                              <path d="M29.1 29.4c.6-.9 1.7-1.5 2.8-1.5.3 0 .7.1 1 .2h.2l.1.1 9.2 4.1c1.2-2.5 1.8-5.4 1.8-8.3 0-11.1-9-20.2-20.2-20.2-11.1 0-20.2 9-20.2 20.2s9 20.2 20.2 20.2c3 0 5.9-.7 8.5-1.9l-3.7-9.8c-.5-1-.3-2.1.3-3.1z" fill="#00a8ff"></path>
+                              <path d="M43.7 36.1L32 30.9c-.4-.1-.8.3-.6.7l4.4 11.6c.1.3.4.4.6.3.1 0 .2-.1.3-.2l1.6-2.9 3.6 3.7c.1-.1.2-.1.3-.1h.1s.1 0 .1-.1l1.7-1.6c.1-.1.1-.3 0-.5l-3.5-3.6 3.1-1.2c.3-.1.4-.4.3-.6 0-.1-.1-.2-.3-.3z" fill="#7ccbff"></path>
+                              <path d="M23.1 16.1l6.5 6.5c.6.6.6 1.6 0 2.1l-6.5 6.5c-1 1-2.6.3-2.6-1.1V17.2c0-1.4 1.7-2.1 2.6-1.1z" fill="#fff">
+                              </path>
+                            </g>
+                          </svg>
+                          Video
+                        </a>
                     
                     </li>
 
                   </div>
                 </div>
                  <div class="col-md-4 col-lg-4">
-                     <div class="widgetbar">
-                  <button href="{{ route('vacation.reset') }}" class="btn btn-sucess" data-toggle="modal" data-target="#exampleModalCenter"  style="margin-top:10px;width:120px;background:green;" >
-                        <i class="feather icon-plus mr-2"></i>{{ __("Folder")}}</button>
-                          </div>                    
+                    <div class="widgetbar">
+                      <button href="{{ route('vacation.reset') }}" class="btn folder-btn" data-toggle="modal" data-target="#exampleModalCenter">
+                          <i class="feather icon-plus mr-2"></i>{{ __("Folder")}}
+                      </button>
+                  </div>                    
                 </div>
                  </div>
               <div class="sort">
-                <label>Sort By</label>
+                <label>Sort By :</label>
                 <select>
                   <option>Seniority</option>
                   <option>Alphabetically</option>
@@ -151,61 +167,23 @@
     <br>
 
     <div class="container">
-    <div class="row">
 
-      <div class="col-lg-3 col-md-4 col-sm-6">
-        <div class="lessons">
-                  <div class="more__btn btn-group">
-                    <button type="button" class="btn drop-down-button " data-toggle="dropdown" aria-expanded="true">
-                    <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
-                    </button>
-                    <div class="dropdown-menu " x-placement="top-start">
-                      <a class="dropdown-item" href="#"><i class="fa fa-eye mr-2" aria-hidden="true"></i> View Lesson</a>
-                      <a class="dropdown-item" href="#"><i class="fa fa-floppy-o mr-2" aria-hidden="true"></i> Save Changes</a>
-                      <a class="dropdown-item" href="#"><i class="fa fa-pencil-square-o mr-2" aria-hidden="true"></i> Edit</a>
-                      <a class="dropdown-item" href="#"><i class="fa fa-files-o mr-2" aria-hidden="true"></i> Duplicate</a>
-                      <a class="dropdown-item" href="#"><i class="fa fa-folder-open-o mr-2" aria-hidden="true"></i> Add To Folder</a>
-                      <a class="dropdown-item" href="#"><i class="fa fa-trash mr-2" aria-hidden="true"></i> Delete</a>
-                    </div>
-                  </div>
-                  <div class="title">
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
-                      <label class="form-check-label" for="inlineCheckbox3">Untitled Lesson</label>
-                    </div>
-                    <p>( 156 )</p>
-                  </div>
-
-                <p class="description d-flex justify-content-between mt-5 ">
-                  <span class="date">18-09-2022</span>
-                  <span class="size">623kB</span>
-                </p>
-                <div class="service-icon">
-                    <span><img class="img-fluid " width="60px" src="{{url('image/logo.png')}}" alt=""></span>
-                </div>
-                <p class="status mt-3">
-                  <span> Unsaved Lesson</span>
-                </p>
-            </div>
-        </div>
-      </div>
-</div>
 <!-- begin  -->
+<div class="container">
   <div class="row go" id="dvSource">
+
     @foreach($lessons as $lesson)
-      <div class="col-md-2 lessons sort contTechFolder drog" id="{{$lesson->id}}">
+      <div class="col-md-3 lessons sort contTechFolder drog" id="{{$lesson->id}}">
           <div>
             <div class="dropdown cus_dropdown" style="display:none;"
                 id="{{$lesson->id.'_cus_dropdown'}}">
-                  <button type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="drop-down-button more">
+                <button type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="drop-down-button more">
                   <svg height="10" width="20" viewBox="0 0 38 10" class="library_npp_content__hover-layer-more-actions-btn-svg--1Jsnz"> <path d="M 5 10 C 7.76 10 10 7.76 10 5 C 10 2.24 7.76 0 5 0 C 2.24 0 0 2.24 0 5 C 0 7.76 2.24 10 5 10 Z M 5 10" fill="#333" class="library_npp_content__color-change--37R-g"></path> <path d="M 19 10 C 21.76 10 24 7.76 24 5 C 24 2.24 21.76 0 19 0 C 16.24 0 14 2.24 14 5 C 14 7.76 16.24 10 19 10 Z M 19 10" fill="#333" class="library_npp_content__color-change--37R-g"></path> <path d="M 33 10 C 35.76 10 38 7.76 38 5 C 38 2.24 35.76 0 33 0 C 30.24 0 28 2.24 28 5 C 28 7.76 30.24 10 33 10 Z M 33 10" fill="#333" class="library_npp_content__color-change--37R-g"></path> </svg>
                   </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenu2" 
-                    style="width:130px !important;">
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                       
                         <a class="dropdown-item cu_items"
                           href="{{url('instructor/add_lesson?id='.$lesson->id)}}">
-                      
                             View Lesson
                       </a>
 
@@ -220,7 +198,6 @@
                               fill="#2c5f9e"></path>
                             </g>
                           </svg>
-
                             Save Changes
                             </a>
                           @endif
@@ -229,7 +206,7 @@
                           href="{{url('instructor/add_lesson?id='.$lesson->id)}}">
                       
                           <svg width="20px" height="20px" viewBox="0 0 19 20" class="library_npp_content__hover-layer-preview-btn-svg--2rgQj"><path fill="#2c5f9e" d="M13.758,12.559c0,0.427-0.356,0.773-0.795,0.773H2.54c-0.437,0-0.794-0.347-0.794-0.773V2.422 c0-0.427,0.357-0.754,0.794-0.754h9.848l2.125-1.638C14.483,0.02,14.473,0,14.452,0H1.05C0.485,0,0.028,0.427,0.028,0.973v13.034 C0.028,14.554,0.485,15,1.05,15h13.402c0.566,0,1.023-0.446,1.023-0.993V6.691l-1.718,1.33V12.559L13.758,12.559z" class="library_npp_content__color-change--37R-g"></path><path fill="#2c5f9e" d="M16.202,0.155l-0.78,0.72l1.78,1.8l0.77-0.72L16.202,0.155z" class="library_npp_content__color-change--37R-g"></path><path fill="#2c5f9e" d="M7.352,8.285l1.77,1.79l7.35-6.81l-1.77-1.8L7.352,8.285z" class="library_npp_content__color-change--37R-g"></path><path fill="#2c5f9e" d="M5.751,11.436l1.81,0.04h0.02l0.64-0.591l-1.77-1.799l0,0l-0.65,0.6L5.751,11.436z" class="library_npp_content__color-change--37R-g"></path></svg>
-                        Edit
+                            Edit
                         </a>
 
                           <a class="dropdown-item cu_items"
@@ -268,29 +245,26 @@
                     </div>
                     </div>
                   <br>
-                <small style="margin-top:-30px;color:#000;display: block;">
+                <small class="title text-center">
                       <input type="checkbox" name="select[]" value="{{$lesson->id}}"
                               id="{{$lesson->id.'_checkbox'}}" class="select_lesson">
+                              <br>
                       <label for="{{$lesson->id.'_checkbox'}}">{{$lesson->name}}</label>
                 </small>
-                <small style="color:#000;display: block;">
-                  {{\Carbon\Carbon::parse($lesson->updated_at)->format('d-m-Y')}}
-
-                  <span style="float:right;">{{get_size_lesson($lesson->id)}}
-                  </span>
-                </small>
+                <div class="description d-flex justify-content-between">
+                  <span>{{\Carbon\Carbon::parse($lesson->updated_at)->format('d-m-Y')}}</span>
+                  <span>{{get_size_lesson($lesson->id)}}</span>
+                </div>
                 
-              </div><hr style="margin:7px !important;">
-              
-              <div style="color:#000;font-size:13px;font-weight:bolder;">
-                <center><img src="{{url('image/logo.png')}}"
-                style="width:120px;height:60px"></center>
+              </div>
+              <div >
+                <img class="img-fluid " width="60px" src="{{url('image/logo.png')}}">
               </div>
               @if(empty(($lesson->ensure_save)))
               <div>
-                  <small style="color:#000;display: block;width:100%;margin-top:10px;">
+                <span >
                   Unsaved Lesson
-                </small>
+                </span>
               </div>
               @endif
             </div>
@@ -298,6 +272,8 @@
       </div>
   </div>
   </div>
+  </div>
+
 <!-- End -->
 
 
