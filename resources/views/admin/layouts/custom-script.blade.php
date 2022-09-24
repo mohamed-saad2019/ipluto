@@ -53,6 +53,7 @@
 
 <script src="{{ url('admin_assets/js/courseclass.js')}}"></script>
 <script src="{{ url('admin_assets/js/subscription-pricing.js') }}"></script>
+<script src="{{ url('js/public.js') }}"></script>
 
 
 <!-- End js -->

@@ -1,4 +1,4 @@
-@extends('instructor.layouts.head')    
+@extends('instructor.layouts.head')        
 @section('title','Create class')
 @section('maincontent')
 <div class="Become" style="margin: 30px 0;">

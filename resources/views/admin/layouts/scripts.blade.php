@@ -9,8 +9,8 @@ $rtl = array('ar','he','ur', 'arc', 'az', 'dv', 'ku', 'fa'); //make a list of rt
 @endif
 
 
-<script src="{{ url('admin_assets/assets/js/jquery.min.js') }}"></script>
-<script src="{{ url('admin_assets/assets/js/togglepassword.js')}}"></script>
+<!-- <script src="{{ url('admin_assets/assets/js/jquery.min.js') }}"></script>
+<script src="{{ url('admin_assets/assets/js/togglepassword.js')}}"></script> -->
 
 
  <!-- Datatable js -->
@@ -34,18 +34,18 @@ $rtl = array('ar','he','ur', 'arc', 'az', 'dv', 'ku', 'fa'); //make a list of rt
 <script src="{{ url('admin_assets/assets/js/popper.min.js') }}"></script>
 <script src="{{ url('admin_assets/assets/js/bootstrap.min.js') }}"></script>
 
-<script src="{{  url('admin_assets/js/bootstrap-iconpicker.bundle.min.js') }}"></script>
-<script src="{{ url('admin_assets/assets/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+<!-- <script src="{{  url('admin_assets/js/bootstrap-iconpicker.bundle.min.js') }}"></script> -->
+<!-- <script src="{{ url('admin_assets/assets/plugins/jquery-ui/jquery-ui.min.js') }}"></script> -->
  <!-- Tagsinput js -->
-<script src="{{ url('admin_assets/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js') }}"></script>
+<!-- <script src="{{ url('admin_assets/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js') }}"></script>
 <script src="{{ url('admin_assets/assets/plugins/bootstrap-tagsinput/typeahead.bundle.js') }}"></script>
 <script src="{{ url('admin_assets/assets/js/modernizr.min.js') }}"></script>
 <script src="{{ url('admin_assets/assets/js/detect.js') }}"></script>
 <script src="{{ url('admin_assets/assets/js/jquery.slimscroll.js') }}"></script>
-<script src="{{ url('admin_assets/assets/js/vertical-menu.js') }}"></script>
+<script src="{{ url('admin_assets/assets/js/vertical-menu.js') }}"></script> -->
 <!-- Switchery js -->
-<script src="{{ url('admin_assets/assets/plugins/switchery/switchery.min.js') }}"></script>
-<script src="{{ url('admin_assets/assets/js/custom/custom-switchery.js') }}"></script>
+<!-- <script src="{{ url('admin_assets/assets/plugins/switchery/switchery.min.js') }}"></script>
+<script src="{{ url('admin_assets/assets/js/custom/custom-switchery.js') }}"></script> -->
 
 <!-- Slick js -->
 <script src="{{ url('admin_assets/assets/plugins/slick/slick.min.js') }}"></script>
@@ -53,7 +53,7 @@ $rtl = array('ar','he','ur', 'arc', 'az', 'dv', 'ku', 'fa'); //make a list of rt
 <script src="{{ url('admin_assets/assets/plugins/datepicker/i18n/datepicker.en.js') }}"></script>
 <script src="{{ url('admin_assets/assets/js/custom/custom-form-datepicker.js') }}"></script>
 <!-- Pnotify js -->
-<script src="{{ url('admin_assets/assets/plugins/pnotify/js/pnotify.custom.min.js') }}"></script>
+<!-- <script src="{{ url('admin_assets/assets/plugins/pnotify/js/pnotify.custom.min.js') }}"></script> -->
 <!-- Select2 js -->
 <script src="{{ url('admin_assets/assets/plugins/select2/select2.min.js') }}"></script>
 <script src="{{ url('admin_assets/assets/js/core.js') }}"></script>
@@ -69,42 +69,42 @@ $rtl = array('ar','he','ur', 'arc', 'az', 'dv', 'ku', 'fa'); //make a list of rt
 
 <!-- Apex js -->
  
-<script src="{{ url('admin_assets/assets/plugins/chart.js/chart.min.js') }}"></script>
+<!-- <script src="{{ url('admin_assets/assets/plugins/chart.js/chart.min.js') }}"></script>
 <script src="{{ url('admin_assets/assets/plugins/chart.js/chart-bundle.min.js') }}"></script>
 
 <script src="{{ url('admin_assets/assets/plugins/apexcharts/apexcharts.min.js') }}"></script>
 <script src="{{ url('admin_assets/assets/plugins/apexcharts/irregular-data-series.js') }}"></script>  
 
 <script src="{{ url('admin_assets/assets/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
-<script src="{{ url('admin_assets/assets/js/custom/custom-form-touchspin.js') }}"></script>
+<script src="{{ url('admin_assets/assets/js/custom/custom-form-touchspin.js') }}"></script> -->
 
-{{-- <script src="{{ url('admin_assets/assets/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js') }}"></script>
+<!-- {{-- <script src="{{ url('admin_assets/assets/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js') }}"></script>
     <script src="{{ url('admin_assets/assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script> --}}
-<script src="{{ url('admin_assets/assets/js/custom/custom-chart-apex.js') }}"></script>
+<script src="{{ url('admin_assets/assets/js/custom/custom-chart-apex.js') }}"></script> -->
 
-<script src="{{ url('admin_assets/assets/plugins/colorpicker/bootstrap-colorpicker.js') }}"></script>
+<!-- <script src="{{ url('admin_assets/assets/plugins/colorpicker/bootstrap-colorpicker.js') }}"></script>
 <script src="{{ url('admin_assets/assets/js/custom/custom-form-colorpicker.js') }}"></script>
- <script src="{{ url('admin_assets/assets/js/custom/custom-dashboard.js') }}"></script>
-<script>var baseurl = @json(url('/'));</script>
- <script src="{{ url('js/updater.js') }}"></script>
+ <script src="{{ url('admin_assets/assets/js/custom/custom-dashboard.js') }}"></script> -->
+<!-- <script>var baseurl = @json(url('/'));</script> -->
+ <!-- <script src="{{ url('js/updater.js') }}"></script> -->
 
-<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script> -->
 
-<script src="{{ url('js/custom-toggle.js') }}"></script>
-<script src="{{ url('js/custom-file-input.js')}}"></script>
+<!-- <script src="{{ url('js/custom-toggle.js') }}"></script> -->
+<!-- <script src="{{ url('js/custom-file-input.js')}}"></script> -->
 <script src="{{ url('js/add_class.js')}}"></script>
 
 
-<script>var youtubekey = @json(env('YOUTUBE_API_KEY'));</script>
+<!-- <script>var youtubekey = @json(env('YOUTUBE_API_KEY'));</script> -->
 @if($gsetting->youtube_enable == 1)
-<script src="{{ url('js/youtube.js') }}"></script>
+<!-- <script src="{{ url('js/youtube.js') }}"></script> -->
 @endif
 
-<script>var vimeokey = @json(env('VIMEO_ACCESS'));</script>
+<!-- <script>var vimeokey = @json(env('VIMEO_ACCESS'));</script> -->
 
 @if($gsetting->vimeo_enable == 1)
-<script src="{{ url('js/vimeo.js') }}"></script>
+<!-- <script src="{{ url('js/vimeo.js') }}"></script> -->
 
 @endif
 {!! midia_js() !!}
