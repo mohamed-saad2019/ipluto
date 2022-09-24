@@ -1,4 +1,5 @@
-<nav id="sidebar">
+  <!-- Sidebar  -->
+        <nav id="sidebar">
             <div class="sidebar-header">
                 <h3>ipiuto</h3>
             </div>

@@ -784,11 +784,11 @@
   background-color: #1a6bb4 !important;
   border-color: #1a6bb4 !important;
 }
-.btn-primary:hover,
+/* .btn-primary:hover,
 .btn-primary:hover {
   background-color: rgb(246, 162, 51) !important;
   border-color: rgb(246, 162, 51) !important;
-}
+} */
 .login .btn-primary:not(:disabled):not(.disabled).active:focus,
 .login .btn-primary:not(:disabled):not(.disabled):active:focus,
 .login .show > .btn-primary.dropdown-toggle:focus,
@@ -1359,6 +1359,7 @@ text-align: center;
 
 /* end cretae Classes */
 .paste{
+  border-top: 1px dashed #ddd; 
   border-bottom: 1px dashed #ddd; 
   padding:3em .4em ;
 }
@@ -1378,7 +1379,7 @@ text-align: center;
   background: radial-gradient(transparent,#eee);
   font-family: 'Raleway', sans-serif;
   text-align: center;
-  padding: 95px 15px 20px;
+  padding: 4px 12px 15px;
   border-radius: 15px;
   box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.2);
   /* overflow: hidden; */
@@ -1404,7 +1405,7 @@ text-align: center;
   margin: 0 0.7em;
 }
 .lessons .title label{
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.5px;
   text-transform: uppercase;
@@ -1428,6 +1429,11 @@ text-align: center;
   color: #faa31a;
   font-size: 45px;
   line-height: 45px;
+}
+.lessons.col-2 {
+  -ms-flex: 0 0 16.666667%;
+  flex: 1 0 17.666667%;
+  max-width: 18.666667%;
 }
 
 @media only screen and (max-width: 990px){

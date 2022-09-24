@@ -826,9 +826,9 @@
 
 .btn-primary:hover,
 .btn-primary:hover {
-  background-color: rgb(246, 162, 51) !important;
-  border-color: rgb(246, 162, 51) !important;
+  opacity: .7;
 }
+
 
 .login .btn-primary:not(:disabled):not(.disabled).active:focus,
 .login .btn-primary:not(:disabled):not(.disabled):active:focus,
@@ -1711,8 +1711,9 @@ textarea {
 .search input {
   border-radius: 52px;
   margin-top: 10px;
-  border: 1px solid #888;
+  /* border: 1px solid #888; */
   padding: 21px;
+  outline: none;
 }
 
 .search i {
@@ -1790,7 +1791,7 @@ textarea {
 .myLessoncont1 {
   height: 64px;
   align-items: center;
-  border-bottom: 1px solid #eaeef1;
+  /* border-bottom: 1px solid #eaeef1; */
   display: flex;
   padding: 20px;
   position: relative;
@@ -1802,14 +1803,30 @@ textarea {
 }
 
 .myLessoncont1 button {
-  background: #2c5f9e;
+  background: #00a8ff;
   color: #fff;
   font-size: 17px;
-  width: 102px;
-  margin-right: 19px;
-  border: 2px solid;
+  /* width: 102px; */
+  /* margin-right: 19px; */
+  /* border: 2px solid; */
+  margin-top: 0;
   height: 40px;
   border-radius: 5px;
+}
+.myLessoncont1 .folder-btn {
+  background-color: #ffffff;
+  border: 1px solid #00a8ff;
+  color: #00a8ff;
+}
+.myLessoncont1 .folder-btn:hover{
+  background-color:  #00aaff3e;
+  color: #00a8ff;
+  outline: hidden;
+}
+.myLessoncont1 .folder-btn,
+.myLessoncont1 .folder-btn i {
+  font-weight:600;
+
 }
 
 .myLessoncont1 .lastbut:last-of-type {
@@ -1826,18 +1843,32 @@ textarea {
 }
 
 .myLessoncont1 select {
-  width: 141px;
-  border: 1px solid #f6a233;
-  color: #f6a233;
-  padding: 8px;
-  cursor: pointer;
-  font-size: 15px;
+  /* width: 141px; */
+  border-radius: 4px;
+  background: #ffffff;
+  border: solid 1px #b8c0c6c3;
+  transition: border-color .5s ease;
+  /* position: relative; */
+  padding: .3em;
+  color: #b8c0c6;
 }
 
 .sort {
-  font-size: 15px;
+  font-size: 16px;
+  color: #b8c0c6;
 }
+.sort label{
+  margin: 0;
+  color: #b8c0c6;
+}
+.sort select{
+  box-shadow:0 .1rem 1rem rgba(0,0,0,.15)!important;
+  /* border: 1px soled #ddd; */
+}
+.sort select option{
+  color: #8b9195;
 
+}
 .myLessoncont1 select:focus-visible {
   border: 1px solid #2c5f9e;
   color: #2c5f9e;
@@ -2073,7 +2104,7 @@ textarea {
 
 .folders a:hover,.more
 {
-  background-color: #ddd !important;
+  background-color: rgb(220, 188, 188) !important;
 }
 
 .more
@@ -2082,10 +2113,9 @@ textarea {
     cursor: pointer;
     display: block;
     float: right;
-    margin-top: -10px;
-    margin-right:-15px;
     border:0px;
     z-index: 10;
+    border-radius: 5px;
 }
 .dropdown-menu a.cu_items
 {
@@ -2162,3 +2192,174 @@ tr.cus_table:hover
   margin:0px 10px !important;
 }
 
+
+/*
+    DEMO STYLE
+*/
+
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fafafa;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+a,
+a:hover,
+a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.navbar {
+    padding: 15px 10px;
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 40px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #ddd;
+    margin: 40px 0;
+}
+
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #1d1919;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+    color: #f8b739;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    /* background: #ffcc5c; */
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+
+#sidebar ul li a:hover {
+    opacity: .7;
+}
+
+#sidebar ul li.active>a,
+a[aria-expanded="true"] {
+    color: #fff;
+    color: #ffcc5c;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    /* background: #ffcc5c; */
+}
+ul ul a:hover{
+    color: #f8b739;
+}
+ul.CTAs {
+    padding: 20px;
+}
+
+ul.CTAs a {
+    text-align: center;
+    font-size: 0.9em !important;
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+a.download {
+    background: #fff;
+    color: #ffeead;
+}
+
+a.article,
+a.article:hover {
+    background: #ffcc5c !important;
+    color: #fff !important;
+}
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+
+#content {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+    #sidebarCollapse span {
+        display: none;
+    }
+}
