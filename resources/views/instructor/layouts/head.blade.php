@@ -193,7 +193,6 @@
                 </div>
             </nav>
 
-             @include('instructor.layouts.topbar')
              @yield('maincontent')
 
         </div>

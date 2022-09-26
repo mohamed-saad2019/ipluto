@@ -8,9 +8,9 @@
 @section('maincontent')
          
 
-             <div class="Become" style="margin: 10px 0;">
-                <div class="container">
-                    <div class="formTe">
+             <div class="Become" style="margin: 20px 0;">
+                <div class="">
+                    <div class="formTe" style="width:95%">
 
                 <h4 style="display:inline;"> 
                    <span> Student  </span> List @if(request()->has('type'))({{request('type')}})@endif
@@ -78,10 +78,10 @@
                 </div>
 
             </h4>
-             
-                        <table class="table" style="padding:0px;margin-top:20px;">
-                          <thead class="thead-dark">
-                            <tr>
+            <br>
+                    <div class="table-responsive" style="margin-top: 30px;">
+                        <table class="table table-hover" id='example1'>
+                            <thead class="thead-dark">
                               <th scope="col">#</th>
                               <th scope="col">Name</th>
                               <th scope="col">Phone</th>
@@ -184,7 +184,7 @@
                             @endforeach
                           </tbody>
                         </table>
-   
+                        </div>
                     </div>
                 </div>
             </div>
@@ -194,6 +194,15 @@
 @endif
 
 @section('scripts')
+
+<script>
+    $(function () {
+      $('#example1').DataTable({
+               'ordering'    : false,
+      })
+    }) 
+    
+  </script>
 
 <script type="text/javascript">
     $(document).on("change",".user",function() {
@@ -208,6 +217,5 @@
             }
         });
     })
-
 </script>
 @endsection

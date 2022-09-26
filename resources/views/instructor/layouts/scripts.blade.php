@@ -45,7 +45,13 @@
 <script src="{{ url('js/custom-toggle.js') }}"></script>
 <script src="{{ url('js/custom-file-input.js')}}"></script>
 
-<script src="{{ url('teacher/script.js')}}"></script>
+<script>
+      $('.select2').select2();
+
+</script>
+
 
 <!-- End js -->
+
+
 @yield('script')

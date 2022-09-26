@@ -85,12 +85,17 @@
                     <div class="form-group col-md-2 form1">
                         <i class="fa fa-plus add_day" aria-hidden="true" style="margin-top: 10px;cursor: pointer;"></i>
                     </div>
-                    <div class="accordion col-md-6 add_new_day">
+                        <div class="accordion form-group col-md-6 add_new_day form1" style="">
 
-                    </div>
-                    <div class="form-group col-md-4 form1 add_time">
+                        </div>
+                        <div class="accordion form-group col-md-4 add_time form1">
+                            
+                        </div>
+
+                         <div class="form-group col-md-2 form1 delete_record">
+                       
+                          </div>
                         
-                    </div>
 
 
                     
@@ -100,7 +105,7 @@
                                 <h2 class="mb-0">
                                   
                             <input type="number" value="{{old('duration')}}" class="form-control" 
-                                   step="any" name="duration" required placeholder="Duration">
+                                   step="any" name="duration" required placeholder="Duration" min="1" max="30">
                                 </h2>
                             </div>
                             
@@ -147,9 +152,10 @@
         </div>
     </div>
 </div>
-<script src="{{ url('js/custom-js.js')}}"></script>
-
 
 @endsection
 
-
+@section('scripts')
+<script src="{{ url('js/custom-js.js')}}"></script>
+<script src="{{ url('js/add_class.js')}}"></script>
+@endsection
