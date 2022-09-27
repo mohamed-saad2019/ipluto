@@ -241,6 +241,9 @@
                         Delete
                           
                         </a>
+                        <a  class="cu_items" href="{{route('lesson.share',$lesson->id)}}">
+                          <i class="fa fa-share-alt" style="font-size: 18px;" aria-hidden="true"> Share </i>
+                        </a>
                       
                       </div>
                       </div>

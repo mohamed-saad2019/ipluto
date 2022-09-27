@@ -15,13 +15,72 @@ $(document).ready(function () {
 
     });
 
- $("body").on("click",".fa-trash", function(){
+    $("body").on("click",".fa-trash", function(){
         id = this.id;
         $("#"+id).remove();
         $("."+id).remove();
     });    
     
+
+    $("body").on("change",".choosedClass", function(){
+        class_id = $(this).val();
+        div_id   = $(this).attr("id");
+        if(class_id)
+        {
+            $.ajax({
+                type: "get",
+                url: "/classes/getStudentInClass",
+                data: {'class_id': class_id , 'div_id':div_id},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                success: function(data){
+                    if(data)
+                    {
+                        $(".student_"+div_id).remove() ;
+                        $(".student_"+div_id).remove() ;
+                        $("#shareLesson").append(data) ;
+                    }
+                },
+                error: function (data) {
+                   console.log(data)
+                }
+            });
+        }
+    }); 
+
+    $("body").on("click",".add_new_class", function(){
+        lesson_id = $("#lesson_id").val();
+        if(lesson_id)
+        {
+            $.ajax({
+                type: "get",
+                url: "/classes/getClasses",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                data: {'lesson_id': lesson_id },
+                success: function(data){
+                    if(data)
+                    {
+                        $("#shareLesson").append(data) ;
+                    }
+                },
+                error: function (data) {
+                   console.log(data)
+                }
+            });
+        }
+    }); 
+
+
+
+
+
+
+
 });
+
 
 
 

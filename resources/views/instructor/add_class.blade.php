@@ -135,11 +135,11 @@
                                 @endforeach
                             @endif
                         </select>
-                         @if ($errors->has('students'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('students') }}</strong>
-                                </span>
-                            @endif
+                        @if ($errors->has('students'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('students') }}</strong>
+                            </span>
+                        @endif
                     </div>
 
                 </div>
