@@ -60,7 +60,7 @@
                             <div class="form-group col-md-9 form1 student_{{$class->id}}" >
                                 <select class="form-control select2"  multiple name="class_students[]" required>
                                     @foreach( \App\ClassesStudent::with('student')->where([['class_id',$class->id],['teacher_id' , auth()->user()->id ]])->get() as  $c_student)
-                                        {{$data=array()}}
+                                        @php ($data = [])
                                         @foreach( $class->sharelesson as  $share_student)
                                             @if($c_student->student->id ==  $share_student->student->id ) 
                                             {{$data[]=$share_student->student->id}}
