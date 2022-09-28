@@ -53,6 +53,18 @@
                 <form action="{{url('instructor/add_viedo_to_lesson').'/'.request('id')}}" 
                       method="post" enctype="multipart/form-data">
                 {{ csrf_field() }} 
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal{{$v->id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                  aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <video id="video1" controls>
+                        <source src="{{ url('storage/vedioTeachr/'.$v->path_video) }}" type="video/mp4" />
+                      </video>
+                    </div>
+                  </div>
+                </div>
+                <!-- Modal -->
                 <div class="course">
                   <div class="courseHead">
                     <div class="courseHeadLeft">
@@ -63,9 +75,11 @@
                     </div>
                     <input type="checkbox" name="videos[]" value="{{$v->path_video}}">
                   </div>
-                  <video id="{{$v->id}}" poster="{{ url('storage/vedioTeachrBackground/'.$v->path_background) }}"></video>
+                  <video id="{{$v->id}}" poster="{{ url('storage/vedioTeachrBackground/'.$v->path_background) }}">
+                    <source src="{{ url('storage/vedioTeachr/'.$v->path_video) }}" type="video/mp4" />
+                  </video>
                   <div class="overlayCourse">
-                    <i class="fas fa-play" id="{{$v->path_video}}"></i>
+                    <i class="fas fa-play" data-toggle="modal" data-target="#exampleModal{{$v->id}}"></i>
                     <p>5:25</p>
                   </div>
                 </div>
@@ -108,37 +122,10 @@
           </div>
         </div>
       </div>
-
-
-       <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                  aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <video id="video1" controls>
-                        <source src="./../vedioTeachr/vedio1.webm" type="video/webm" />
-                        <source id ='src' src="" type="video/mp4" />
-                      </video>
-                    </div>
-                  </div>
-                </div>
-     <!-- Modal -->
-
 @endsection
 
 @section('scripts')
 
-  <script type="text/javascript">
-    $('.fa-play').click(function(){
-
-      var id   = this.id; 
-      var file = "{{ url('storage/vedioTeachr')}}"+'/'+id;
-
-      $('#src').attr('src', file);
-      $('#exampleModal').modal('show');
-
-    });
-  </script>
 @endsection
 @endif
 
