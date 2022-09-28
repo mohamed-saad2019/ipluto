@@ -19,17 +19,17 @@ class Video extends Model
 
    public function admin()
     {
-      return $this->hasOne('App\User', 'id','created_by');
+      return $this->hasOne('\App\User', 'id','created_by');
     }
 
     public function subject()
     {
-      return $this->hasOne('App\ChildCategory', 'id','subject_id');
+      return $this->hasOne('\App\ChildCategory', 'id','subject_id');
     }
 
     public function grade()
     {
-      return $this->hasOne('App\subcategory', 'id','grade_id');
+      return $this->hasOne('\App\subcategory', 'id','grade_id');
     }
 
     
