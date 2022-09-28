@@ -226,12 +226,12 @@
                <div class="col-md-6">
                <select class="multiple-select one form-control" data-placeholder="Uint" name='units'
                        id='three' multiple="multiple" style="padding: 0px;">
-                 @for ($i = 1; $i <= 20 ; $i++)
+                @foreach($all_units as $i)
                      <option value="{{ $i }}"
                      @if(!empty($units) and in_array($i,explode(',',$units))) {{'selected'}}@endif>
                         Unit ( {{$i}} )
                     </option>
-                 @endfor       
+                @endforeach      
                </select>
               </div>
 

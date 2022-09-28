@@ -59,6 +59,7 @@
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <video id="video1" controls>
+                        <source src="{{ url('storage/vedioTeachr/'.$v->path_video) }}" type="video/mp4" />
                       </video>
                     </div>
                   </div>
