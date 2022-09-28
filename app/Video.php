@@ -29,7 +29,7 @@ class Video extends Model
 
     public function grade()
     {
-      return $this->hasOne('\App\Subcategory', 'id','grade_id');
+      return $this->hasOne('\App\SubCategory', 'id','grade_id');
     }
 
     
