@@ -463,15 +463,19 @@ class InstructorController extends Controller
         $all_units = Video::where('subject_id',$subject)->where('unit','!=','')
                             ->groupBy('unit')->pluck('unit')->toArray();
 
-        $units   = $all_units;
+        
 
         if(request('unit') and is_array(request('unit')))
         {
             $units = request('unit');
         }
-        else
+        else if (request('unit'))
         {
            $units = explode(',',request('unit'));
+        }
+        else
+        {
+            $units   = $all_units;
         }
 
         $videos = Video::where('status','1')->where('subject_id',$subject)->where('grade_id',$grade)
