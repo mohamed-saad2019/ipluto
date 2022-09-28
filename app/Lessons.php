@@ -17,6 +17,7 @@ class Lessons extends Model
         'subject',
         'grade',
         'folder_id',
-        'ensure_save'
+        'ensure_save',
+        'unit',
     ];
 }

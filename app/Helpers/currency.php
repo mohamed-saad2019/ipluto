@@ -8,6 +8,18 @@ if(!function_exists('get_release')){
     }
 }
 
+if(!function_exists('get_subject_instructor')){
+    function get_subject_instructor($instructor_id){
+       return \App\InstructorGrade::where('instructor_id',$instructor_id)->first()->subject_id;
+    }
+}
+
+if(!function_exists('get_grade_instructor')){
+    function get_grade_instructor($instructor_id){
+       return \App\InstructorGrade::where('instructor_id',$instructor_id)->first()->grade_id;
+    }
+}
+
 if(!function_exists('checkMail')){
     function checkMail($str)
     {

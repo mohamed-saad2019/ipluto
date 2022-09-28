@@ -12,6 +12,7 @@ return [
     'subjects'=>'Subjects',
     'subject'=>'Subject',
     'title'=>'Title',
+    'unit'=>'Unit',
     'video_background'=>'Background-image',
     'Subcategories'=>'Grades',
     'choose_videos'=>'Choose Videos',
@@ -690,7 +691,9 @@ return [
     'AdminURL' => 'Admin URL',
     'InvoiceSettings' => 'Invoice Settings',
     'PleaseSelect' => 'Please',
-    'Please' => 'Please'
+    'Please' => 'Please',
+    'created_by'=>'Created By',
+    'created_at'=>'Created At',
 
 
 

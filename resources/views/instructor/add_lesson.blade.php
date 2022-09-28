@@ -12,7 +12,6 @@
 <div class="wrap">
   <div class="lesson">
         <div class="container">
-         
           @if(Session::has('success') and !empty(Session::get('success')))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <strong>{{ Session::get('success') }}</strong>
@@ -191,8 +190,6 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" style="font-size:22px">×</span>
         </button><br>
-        <form>
-            {{ csrf_field() }} 
         <div class="row">
               <div class="col-md-12">
                 <center>
@@ -209,29 +206,35 @@
                 
               <div class="col-md-12">
               <input type="text" class="form-control" name="des" id="two" 
-                 value="" placeholder='Description & Tags (e.g. Algebra, US Presidents, Verbs, etc.)'  
+                 value="{{$des}}" 
+                 placeholder='Description & Tags (e.g. Algebra, US Presidents, Verbs, etc.)'  
                 style="border:1px solid #ddd;color:#000;height:80px;" max="500" min="5">
               </div>
 
-              <div class="col-md-6">
-              <select class="form-control" style="border:1px solid #ddd;color:#000;" name='subject'
-                id='three'>
-                <option>Subject</option>
-                @foreach($subjects as $s)
-                  <option value="{{$s->id}}">{{$s->title}}</option>
-                @endforeach
-              </select>
-              </div>
+             
 
                 <div class="col-md-6">
               <select class="form-control" style="border:1px solid #ddd;color:#000;" name="grade"
               id='four'>
-                <option>Grade</option>
+                <option selected value="">Grade</option>
                 @foreach($grades as $s)
-                  <option value="{{$s->id}}">{{$s->title}}</option>
+                  <option value="{{$s->id}}" @if($s->id == $grade) {{'selected'}}@endif>{{$s->title}}</option>
                 @endforeach
               </select>
               </div>
+                   
+               <div class="col-md-6">
+               <select class="multiple-select one form-control" data-placeholder="Uint" name='units'
+                       id='three' multiple="multiple" style="padding: 0px;">
+                 @for ($i = 1; $i <= 20 ; $i++)
+                     <option value="{{ $i }}"
+                     @if(!empty($units) and in_array($i,explode(',',$units))) {{'selected'}}@endif>
+                        Unit ( {{$i}} )
+                    </option>
+                 @endfor       
+               </select>
+              </div>
+
 
 
                 <input type="hidden" name="id" value="{{$id}}" id='five'/>
@@ -242,7 +245,6 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         <button type="button" class="btn btn-primary" id="save">Save</button>
-                </form>
 
       </div>
     </div>
@@ -257,7 +259,7 @@
 <!--                   <p style="">Add content to your lesson</p>
  -->                    <div class="row">
                         <div class="col-6 col-md-4 col-lg-3 IconCont">
-                           <a href="{{url('instructor/attach_viedo?id='.$id)}}" style="color:#2c5f9e">
+                           <a href="{{url('instructor/attach_viedo?id='.$id.'&grade='.$grade.'&unit='.$units)}}" style="color:#2c5f9e">
                               <i class="fas fa-plus-square"></i>
                               <h6>ipluto</h6>
                            </a>
@@ -495,7 +497,7 @@
                     method: "POST",
                     data: {
                         _token: '{{ csrf_token() }}',
-                        name:$('#one').val(),des:$('#two').val(),subject:$('#three').val()
+                        name:$('#one').val(),des:$('#two').val(),units:$('#three').val()
                         ,grade:$('#four').val(),
                     },
                     success: function(data) {
@@ -657,5 +659,10 @@
 /////////
              $('#footer_from_library_js').css('display','none');
 
+
+</script>
+<script type="text/javascript">
+    $('.multiple-select.one').multipleSelect();
+    $('.ms-select-all label span').text('All Subject Units');
 </script>
 @endsection

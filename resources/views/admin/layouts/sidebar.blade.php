@@ -29,7 +29,7 @@
                             </li>
 
                             <!-- dashboard end -->
-                            <li class="header">{{ __('Users') }}</li>
+                            <li class="">{{ __('Users') }}</li>
 
                             <!-- user start  -->
                             <li
@@ -56,14 +56,14 @@
 
                                 </ul>
                             </li>
-                            <li class="{{ Nav::isRoute('admin.index') }}">
+                        {{--     <li class="{{ Nav::isRoute('admin.index') }}">
                                 <a class="nav-link" href="{{route('admin.index')}}">
                                     <i class="feather icon-pie-chart text-secondary"></i>
                                     <span>{{ __('adminstaticword.Dashboard') }}</span>
                                 </a>
                             </li>
 
-                           {{-- <li
+                           <li
                                 class="{{ Nav::isResource('plan/subscribe/settings') }} {{ Nav::isResource('subscription/plan') }} {{ Nav::isResource('orders/subscription') }} {{ Nav::isRoute('all.instructor') }} {{ Nav::isResource('requestinstructor') }}">
                                 <a href="javaScript:void();">
                                     <i
@@ -134,7 +134,7 @@
                                 </ul>
                             </li>--}}
                             <!-- user end -->
-                            <li class="header">{{ __('Education') }}</li>
+                            <li class="">{{ __('Education') }}</li>
                             <!-- ====================Course start======================== -->
                             <li
                                 class="{{ Nav::isResource('category') }} {{ Nav::isResource('subcategory') }} {{ Nav::isResource('childcategory') }} {{ Nav::isResource('course') }} {{ Nav::isResource('bundle') }} {{ Nav::isResource('courselang') }} {{ Nav::isResource('coursereview') }} {{ Nav::isRoute('assignment.view') }} {{ Nav::isResource('refundpolicy') }} {{ Nav::isResource('batch') }} {{ Nav::isRoute('quiz.review') }} {{ Nav::isResource('private-course') }}">
