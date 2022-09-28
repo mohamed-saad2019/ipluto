@@ -39,10 +39,15 @@ Videos
                         <table id="datatable-buttons" class="table table-striped table-bordered">
                             <thead>
                             <tr>
-                              <th> 
-                                {{ __("#")}}</th>
+                              <th>{{ __("#")}}</th>
                               <th>{{ __("title")}} </th>
                               <th>{{ __("video")}}</th>
+                              <th>{{ __('adminstaticword.subject') }}</th>
+                              <th>{{ __('adminstaticword.grade') }}</th>
+                              <th>{{ __('adminstaticword.unit') }}</th>
+                              <th>{{ __('adminstaticword.created_by') }}</th>
+                              <th>{{ __('adminstaticword.created_at') }}</th>
+                              <th>{{ __('adminstaticword.Status') }}</th>
                               <th>{{ __("Action")}}</th>
                       
                             </tr>
@@ -60,6 +65,28 @@ Videos
                                         Your browser does not support the video tag.
                                         </video>
                                     </td>
+                                 <td>
+                                     @if(!empty($v->subject)){{$v->subject->title}}@endif
+                                 </td>
+                                 <td>
+                                     @if(!empty($v->grade)){{$v->grade->title}}@endif
+                                 </td>
+                                 <td>
+                                     {{$v->unit}}
+                                 </td>
+                                 <td>
+                                     @if(!empty($v->admin)){{$v->admin->fname}} {{$v->admin->lname}}@endif
+                                 </td>
+                                 <td>
+                                     {{$v->created_at}}
+                                 </td>
+                                 <td>
+                                     <label class="switch">
+                                        <input class="video" type="checkbox"  data-id="{{$v->id}}" name="status" {{ $v->status == '1' ? 'checked' : '' }}>
+                                        <span class="knob"></span>
+                                    </label>
+                                                    
+                                 </td>
                                <td>
                                 
                                   <div class="dropdown">
@@ -80,10 +107,10 @@ Videos
                                                 <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <div class="modal-body">
+                                            <div class="modal-body" style="background-color:#fff;">
                                                 <p class="text-muted">{{ __("Do you really want to delete these records? This process cannot be undone.")}}</p>
                                             </div>
-                                            <div class="modal-footer">
+                                            <div class="modal-footer" style="background-color:#fff;">
                                               <form  method="post" action="{{url('videos/destroy/'.$v->id)}}
                                                 "data-parsley-validate class="form-horizontal form-label-left">
                                                 {{ csrf_field() }}
@@ -117,4 +144,24 @@ Videos
 </div>        
 
 
+@endsection
+@section('script')
+  <script>
+        $(function() {
+          $('.video').change(function() {
+
+            var status = $(this).prop('checked') == true ? 1 : 0; 
+            var id = $(this).data('id'); 
+              $.ajax({
+                  type: "GET",
+                  dataType: "json",
+                  url: 'videos/status',
+                  data: {'status': status, 'id': id},
+                  success: function(data){
+                    console.log(id);
+                  }
+              });
+          })
+        })
+      </script>
 @endsection

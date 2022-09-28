@@ -522,6 +522,7 @@ Route::middleware(['web'])->group(function () {
             Route::get('/videos/create','VideoController@create')->name('video.create'); 
             Route::get('/videos','VideoController@index')->name('video.index'); 
             Route::put('/videos/store','VideoController@store')->name('video.store'); 
+            Route::get('/videos/status','VideoController@status')->name('video.status'); 
             Route::post('/videos/destroy/{id}','VideoController@destroy')->name('video.destroy'); 
 
             Route::resource('subcategory','SubcategoryController');

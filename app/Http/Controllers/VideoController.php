@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\ChildCategory;
+use App\SubCategory;
 use Illuminate\Http\Request;
 use App\User;
 use App\Video;
 use Auth;
 use Session;
+use App\Setting;
+
 use Illuminate\Support\Facades\Storage;
 
 class VideoController extends Controller
@@ -20,19 +23,34 @@ class VideoController extends Controller
 
     public function create()
     {
+        $grades = SubCategory::where('status', '1')->orderBy('id','ASC')->get();
         $subjects = ChildCategory::where('status', '1')->GroupBy('slug')->orderBy('id','ASC')->get();
 
-        return view('admin.videos.create' ,  compact('subjects')) ;
+        return view('admin.videos.create' ,  compact('subjects','grades')) ;
     }
 
     public function store(Request $request)
     {
+        $max_size_video =  Setting::first()->size_lesson_videos;
+
         $data = $this->validate($request, [
-            'title' => 'required',
+            'title' => 'required|min:3|max:255|string',
             'subject_id' => 'required',
-            'videos' => 'required' ,
-            'img' => 'required'
+            'grade_id' => 'required',
+            'unit' => 'required',
+            'videos' => 'required|array',
+            'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
+
+    
+          $check = Video::where('unit',$request->unit)->where('subject_id',$request->subject_id)
+                    ->where('grade_id',$request->grade_id)->count();
+
+         if($check != 0 )
+         {
+               return back()->withInput()->withErrors('The title of the video should not be repeated');
+
+         }
 
 
         if($request->hasfile('videos'))
@@ -40,10 +58,27 @@ class VideoController extends Controller
 
             foreach($request->file('videos') as $file)
             {
+                $i = 1 ;
                 $name=$file->getClientOriginalName();  
+                $size = $file->getSize();
+                $mime_type = $file->getMimeType();
+
+                if ($size > $max_size_video) {
+                    
+                    $mb = number_format($max_size_video / 1048576, 2).'MB';
+
+                 return back()->withInput()->withErrors('File size must be less than '.$mb .' In Video #'.$i);
+                }
+                if (!str_contains($mime_type, 'video'))
+                {
+                  return back()->withInput()->withErrors('File type must video In Video #'.$i);
+                }
+
                 $name = time().$name ;
                 Storage::put("public/vedioTeachr/". $name, file_get_contents($file->getRealPath()));
                 $list[] = $name ;
+
+                $i++;
             }
 
          }
@@ -63,10 +98,13 @@ class VideoController extends Controller
                 Video::create([
                     'title' => $request->title ,
                     'subject_id' => $request->subject_id ,
+                    'grade_id' => $request->grade_id ,
+                    'unit' => $request->unit ,
+                    'status' => $request->status ,
                     'path_background' => $imgName ,
                     'path_video' => $v ,
                     'created_by' => auth()->user()->id ,
-                    'created_by' => NOW() ,
+                    'created_at' => NOW() ,
                 ]);
             }
             
@@ -95,6 +133,17 @@ class VideoController extends Controller
         $video->delete();
         session()->flash('delete',trans('flash.DeletedSuccessfully'));
         return redirect('videos');
+        
+    }
+
+    public function status(Request $request)
+    {
+
+        $video = Video::find($request->id);
+        $video->status = $request->status;
+        $video->save();
+        return back()->with('success',trans('flash.UpdatedSuccessfully'));
+        
         
     }
 }
