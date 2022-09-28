@@ -46,7 +46,7 @@
                     Size Lesson : <span style="color:#888">
                        {{get_size_lesson(request('id'))}}</span>
                 </span>
-                @endif
+            @endif
             
 
               <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#exampleModalCenter" style="margin:0px 10px;">
@@ -65,11 +65,16 @@
 
           <ul>
 
-
          @if($current_storage < $storage)
-            <li data-toggle="modal" data-target="#exampleModalCenter2" class='tab' id='tab_add'>
-             <i class="fas fa-plus"></i>Add
-           </li>
+              @if(!empty($grade))
+                <li data-toggle="modal" data-target="#exampleModalCenter2" class='tab' id='tab_add'>
+                 <i class="fas fa-plus"></i>Add
+               </li>
+               @else
+                 <li data-toggle="modal" data-target="#exampleModalCenter" class='tab' id='tab_add'>
+                 <i class="fas fa-plus"></i>Add
+                  </li>
+              @endif
          @else
              <li data-toggle="modal" data-target="#exampleModalCenter55" class='tab' id='tab_not_add'>
                 <i class="fas fa-plus"></i>Add

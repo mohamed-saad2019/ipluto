@@ -248,9 +248,7 @@ class InstructorController extends Controller
       {
 
             $subject = get_subject_instructor(\Auth::user()->id);
-            $grade   = get_grade_instructor(\Auth::user()->id);
           
-
             if(request()->has('folder_id') and !empty(request('folder_id')))
             {
                 $folder_id = request('folder_id');
