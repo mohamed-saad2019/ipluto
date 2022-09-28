@@ -40,6 +40,7 @@ $(document).ready(function () {
                         $(".student_"+div_id).remove() ;
                         $(".student_"+div_id).remove() ;
                         $("#shareLesson").append(data) ;
+                        $('.select2').select2();
                     }
                 },
                 error: function (data) {

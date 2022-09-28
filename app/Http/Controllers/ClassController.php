@@ -15,8 +15,11 @@ class ClassController extends Controller
     {
 
         $lesson     = Lessons::findOrfail($lesson_id);
-        $classes    = Classes::where([['instructor_id' , $lesson->instructor_id] , ['grade_id' , $lesson->grade ]])->get() ;
-        return view("instructor.classes.share" , compact('classes','lesson')) ;
+        $classes    = Classes::with('sharelesson.student')->where([['instructor_id' , $lesson->instructor_id] , ['grade_id' , $lesson->grade ]])->get() ;
+        $share      = ShareLessons::where('lesson_id',$lesson_id)->get();
+
+        // return $classes ;
+        return view("instructor.classes.share" , compact('classes','lesson','share')) ;
     }
 
     public function getStudentInClass()
@@ -37,7 +40,6 @@ class ClassController extends Controller
                 $content .= '<option value="'.$class_id.'_'.$item->student->id.'">'.$item->student->fname . ' ' .$item->student->lname.'</option>' ; 
             }
             $content .= '</select></div>' ;
-            $content .= '</select></div>' ;
             echo $content ;
             exit ;
         }
@@ -52,7 +54,7 @@ class ClassController extends Controller
             $classes    = Classes::where([['instructor_id' , $lesson->instructor_id] , ['grade_id' , $lesson->grade ]])->get() ;
             $rand_id = rand('1111','9999') ;
             $content = '<div class="form-group col-md-3 form1"><label>Choose Class </label></div><div class="accordion col-md-9 form1" >' ;
-            $content .= '<select class="form-control select2 choosedClass" id="'.$rand_id.'" name="class_id[]" required >' ;
+            $content .= '<select class="choosedClass" id="'.$rand_id.'" name="class_id[]" required >' ;
             $content .= '<option value="">Choose Class</option>' ;
             foreach($classes as $item)
             {
@@ -67,7 +69,7 @@ class ClassController extends Controller
     public function saveShare(Request $request)
     {
 
-        $checkShare = ShareLessons::where('lesson_id',$request->lesson_id)->delete();
+        ShareLessons::where('lesson_id',$request->lesson_id)->delete();
         foreach($request->class_students as $_item)
         {
             $explode_item   =   explode('_',$_item);
@@ -82,6 +84,9 @@ class ClassController extends Controller
                 "type"              =>  'lesson' 
             ]);
         }
+
+        \Session::flash('success','Updated successfully'); 
+        return back();
         
     }
 
