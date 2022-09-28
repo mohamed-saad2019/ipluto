@@ -228,6 +228,8 @@ class InstructorController extends Controller
        {
              $storage = \Auth::user()->storage==null?100:\Auth::user()->storage;
              $current_storage = str_replace("MB","",get_size_instructor());
+
+
                 
                 if($current_storage >= $storage)
                 {
@@ -241,12 +243,12 @@ class InstructorController extends Controller
         $units='';$grade=0;
 
 
+
       if (!request()->has('id'))
       {
 
             $subject = get_subject_instructor(\Auth::user()->id);
-            $grade   = get_grade_instructor(\Auth::user()->id);
-
+          
             if(request()->has('folder_id') and !empty(request('folder_id')))
             {
                 $folder_id = request('folder_id');
@@ -297,10 +299,14 @@ class InstructorController extends Controller
       }
        
 
-         $subjects = ChildCategory::where('status', '1')->GroupBy('slug')->orderBy('id','ASC')->get();
+        $subjects = ChildCategory::where('status', '1')->GroupBy('slug')->orderBy('id','ASC')->get();
+
         $grades   = SubCategory::where('status', '1')->orderBy('id','ASC')->get();
 
-          return view('instructor.add_lesson',compact('full_name','id','subjects','grades','des','subject','grade','files','folder_id','parent_id','units'));
+        $all_units = Video::where('subject_id',$subject)->where('unit','!=','')
+                            ->groupBy('unit')->pluck('unit')->toArray();
+
+          return view('instructor.add_lesson',compact('full_name','id','subjects','grades','des','subject','grade','files','folder_id','parent_id','units','all_units'));
         }
 
     }
@@ -455,17 +461,21 @@ class InstructorController extends Controller
         $all_units = Video::where('subject_id',$subject)->where('unit','!=','')
                             ->groupBy('unit')->pluck('unit')->toArray();
 
-        $units   = [1];
+        
 
         if(request('unit') and is_array(request('unit')))
         {
             $units = request('unit');
         }
-        else
+        else if (request('unit'))
         {
            $units = explode(',',request('unit'));
         }
-        
+        else
+        {
+            $units   = $all_units;
+        }
+
         $videos = Video::where('status','1')->where('subject_id',$subject)->where('grade_id',$grade)
                         ->whereIn('unit',$units)->orderBy('id','DESC')->get() ;
 

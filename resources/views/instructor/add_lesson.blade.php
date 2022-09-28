@@ -46,7 +46,7 @@
                     Size Lesson : <span style="color:#888">
                        {{get_size_lesson(request('id'))}}</span>
                 </span>
-                @endif
+            @endif
             
 
               <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#exampleModalCenter" style="margin:0px 10px;">
@@ -65,11 +65,16 @@
 
           <ul>
 
-
          @if($current_storage < $storage)
-            <li data-toggle="modal" data-target="#exampleModalCenter2" class='tab' id='tab_add'>
-             <i class="fas fa-plus"></i>Add
-           </li>
+              @if(!empty($grade))
+                <li data-toggle="modal" data-target="#exampleModalCenter2" class='tab' id='tab_add'>
+                 <i class="fas fa-plus"></i>Add
+               </li>
+               @else
+                 <li data-toggle="modal" data-target="#exampleModalCenter" class='tab' id='tab_add'>
+                 <i class="fas fa-plus"></i>Add
+                  </li>
+              @endif
          @else
              <li data-toggle="modal" data-target="#exampleModalCenter55" class='tab' id='tab_not_add'>
                 <i class="fas fa-plus"></i>Add
@@ -226,12 +231,12 @@
                <div class="col-md-6">
                <select class="multiple-select one form-control" data-placeholder="Uint" name='units'
                        id='three' multiple="multiple" style="padding: 0px;">
-                 @for ($i = 1; $i <= 20 ; $i++)
+                @foreach($all_units as $i)
                      <option value="{{ $i }}"
                      @if(!empty($units) and in_array($i,explode(',',$units))) {{'selected'}}@endif>
                         Unit ( {{$i}} )
                     </option>
-                 @endfor       
+                @endforeach      
                </select>
               </div>
 
@@ -511,6 +516,7 @@
                          $('.msg_lesson').addClass('alert-success');
                          $('.msg_lesson').removeClass('alert-danger');
                          $('.msg_lesson p').text('Lesson Settings have been updated.');
+                         window.location.href = "{{url('instructor/add_lesson?id='.$id)}}";
                      }
 
                     if(data==-1)

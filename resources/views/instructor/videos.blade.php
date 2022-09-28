@@ -76,6 +76,7 @@
                     <input type="checkbox" name="videos[]" value="{{$v->path_video}}">
                   </div>
                   <video id="{{$v->id}}" poster="{{ url('storage/vedioTeachrBackground/'.$v->path_background) }}">
+                    <source src="./../vedioTeachr/vedio1.webm" type="video/webm" />
                     <source src="{{ url('storage/vedioTeachr/'.$v->path_video) }}" type="video/mp4" />
                   </video>
                   <div class="overlayCourse">
