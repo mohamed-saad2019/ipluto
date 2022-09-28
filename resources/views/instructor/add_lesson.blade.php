@@ -511,6 +511,7 @@
                          $('.msg_lesson').addClass('alert-success');
                          $('.msg_lesson').removeClass('alert-danger');
                          $('.msg_lesson p').text('Lesson Settings have been updated.');
+                         window.location.href = "{{url('instructor/add_lesson?id='.$id)}}";
                      }
 
                     if(data==-1)
