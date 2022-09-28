@@ -9,4 +9,9 @@ class Classes extends Model
     protected $table = 'classes';
     protected $fillable = ['id' , 'name' , 'instructor_id' , 'grade_id' , 'duration' , 'status','created_at'] ;
 
+
+    public function sharelesson()
+    {
+    	return $this->hasMany('App\ShareLessons','class_id');
+    }
 }

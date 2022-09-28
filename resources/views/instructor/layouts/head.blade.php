@@ -103,7 +103,10 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="{{route('instructor.library')}}">Library</a>
+                        <a href="{{route('instructor.library')}}">Lessons</a>
+                    </li>
+                    <li>
+                        <a href="#">Library</a>
                     </li>
         
                 </ul>
