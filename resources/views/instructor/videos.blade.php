@@ -4,15 +4,49 @@
 @if(Auth::User()->role == "instructor")
 
 @section('maincontent')
-  <div class="Mylesson">
+  <div class="Mylesson" style="padding:0px">
         <div class="container">
           <div class="courses">
-              <br>
-              <a href="{{url()->previous()}}" class="float-right btn btn-primary-rgba mr-2">
-                            <i class="feather icon-arrow-left mr-2"></i>Back
-                        </a> 
-               <br>
             <div class="row">
+              <div class="col-md-12">
+                   <a href="{{url()->previous()}}" class="float-right btn btn-primary-rgba mr-2">
+                            <i class="feather icon-arrow-left mr-2"></i>Back
+                   </a> 
+              </div>
+            </div>
+
+          <div class="row">
+            <div class="col-md-4">
+             <form>
+              <select class="select2 form-control" style="border:1px solid #ddd;color:#000;" name="grade"
+              id='four'>
+                <option selected value="">Grade</option>
+                @foreach($grades as $s)
+                  <option value="{{$s->id}}" @if($s->id == $grade) {{'selected'}}@endif>{{$s->title}}</option>
+                @endforeach
+              </select>
+              </div>
+                
+               <div class="col-md-4">
+               <select class="select2 one form-control" data-placeholder="Uint" name='unit[]'
+                       id='three' multiple="multiple" style="padding: 0px;">
+                @foreach($all_units as $s)
+                  <option value="{{$s}}" 
+                   @if(!empty($units) and in_array($s,$units)) {{'selected'}}@endif>{{$s}}
+                  </option>
+                @endforeach      
+               </select>
+              </div>
+
+              <div class="col-md-2">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-filter"></i> Filter</button>
+                </form>
+              </div>
+
+            </form>
+          </div>
+          <br>
+          <div class="row">
               @if(count($videos) > 0)
               @foreach ($videos as $v)
               <div class="col-12 col-md-6 col-lg-4">
@@ -52,13 +86,14 @@
                 </div>
               </div>
               @endforeach
-              @endif
               
             </div>
             <div class="pagiOldQuez">
                <center><button  class="btn btn-primary" type="submit" 
                  style="margin-top:10px;font-size:17px;" > Save & Exit</button></center>
               </form>
+          @endif
+
               <!-- <nav aria-label="Page navigation example">
                 <ul class="pagination">
                   <li class="page-item">
@@ -89,4 +124,9 @@
         </div>
       </div>
 @endsection
+
+@section('scripts')
+
+@endsection
 @endif
+

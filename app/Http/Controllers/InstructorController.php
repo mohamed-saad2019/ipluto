@@ -228,6 +228,8 @@ class InstructorController extends Controller
        {
              $storage = \Auth::user()->storage==null?100:\Auth::user()->storage;
              $current_storage = str_replace("MB","",get_size_instructor());
+
+
                 
                 if($current_storage >= $storage)
                 {
@@ -238,12 +240,15 @@ class InstructorController extends Controller
 
 
         $full_name='';$id='';$des='';$subject='';$grade='';$files=[];$folder_id=0;$parent_id=0;
+        $units='';$grade=0;
+
 
 
       if (!request()->has('id'))
       {
 
-
+            $subject = get_subject_instructor(\Auth::user()->id);
+          
             if(request()->has('folder_id') and !empty(request('folder_id')))
             {
                 $folder_id = request('folder_id');
@@ -276,8 +281,12 @@ class InstructorController extends Controller
 
          $fetch = Lessons::where('id',request('id'))->first();
          $full_name = $fetch->name;
+         $des = $fetch->des;
+         $units = $fetch->unit;
+         $grade = $fetch->grade;
+         $subject= $fetch->subject;
          $id = request('id');
-
+   
    $files = File::where('instructor_id',\Auth::user()->id)->where('lesson_id',request('id'))->get();
 
         $folder_id = Lessons::where('id',request('id'))->first()->folder_id;
@@ -290,10 +299,14 @@ class InstructorController extends Controller
       }
        
 
-         $subjects = ChildCategory::where('status', '1')->GroupBy('slug')->orderBy('id','ASC')->get();
+        $subjects = ChildCategory::where('status', '1')->GroupBy('slug')->orderBy('id','ASC')->get();
+
         $grades   = SubCategory::where('status', '1')->orderBy('id','ASC')->get();
 
-          return view('instructor.add_lesson',compact('full_name','id','subjects','grades','des','subject','grade','files','folder_id','parent_id'));
+        $all_units = Video::where('subject_id',$subject)->where('unit','!=','')
+                            ->groupBy('unit')->pluck('unit')->toArray();
+
+          return view('instructor.add_lesson',compact('full_name','id','subjects','grades','des','subject','grade','files','folder_id','parent_id','units','all_units'));
         }
 
     }
@@ -342,6 +355,11 @@ class InstructorController extends Controller
 
         $name = empty($lastInfo->last_lesson)?1:$lastInfo->last_lesson+1;
 
+        $units = '';
+        if (request()->has('units') and !empty(request('units'))) {
+           $units = implode(',', request('units'));
+        }
+
         $full_name = request('name');
 
         $input = Lessons::where('id',$id)->update(
@@ -350,8 +368,9 @@ class InstructorController extends Controller
             'last_lesson'=>$name,
             'saved'=>1,
             'des'=>request('des'),
-            'subject'=>request('subject'),
-            'grade'=>request('grade')]
+            'subject'=>get_subject_instructor(\Auth::user()->id),
+            'grade'=>request('grade'),
+            'unit'=>$units]
                 );
 
           Lessons::where('instructor_id','=',\Auth::user()->id)->where('id','!=',$id)->where('saved',null)->delete();
@@ -433,8 +452,34 @@ class InstructorController extends Controller
     public function attach_viedo()
     {
         
-        $videos = Video::orderBy('id','DESC')->get() ; 
-        return view('instructor.videos' , compact('videos'));
+        $subject = get_subject_instructor(\Auth::user()->id);
+
+        $grade   = request('grade');
+
+        $grades = SubCategory::where('status', '1')->orderBy('id','ASC')->get();
+
+        $all_units = Video::where('subject_id',$subject)->where('unit','!=','')
+                            ->groupBy('unit')->pluck('unit')->toArray();
+
+        
+
+        if(request('unit') and is_array(request('unit')))
+        {
+            $units = request('unit');
+        }
+        else if (request('unit'))
+        {
+           $units = explode(',',request('unit'));
+        }
+        else
+        {
+            $units   = $all_units;
+        }
+
+        $videos = Video::where('status','1')->where('subject_id',$subject)->where('grade_id',$grade)
+                        ->whereIn('unit',$units)->orderBy('id','DESC')->get() ;
+
+        return view('instructor.videos' , compact('videos','grades','grade','units','all_units'));
     }
 
     public function add_viedo_to_lesson()

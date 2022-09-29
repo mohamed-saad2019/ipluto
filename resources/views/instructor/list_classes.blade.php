@@ -32,32 +32,32 @@
         <br>
    
         <div class="table-responsive" style="margin-top:-15px">
-            <table class="table table-hover">
+            <table class="table table-hover" id='example1'>
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col" style="min-width: 50px;">id</th>
-                        <th scope="col" style="min-width: 110px;">Class Name</th>
-                        <th scope="col" style="min-width: 100px;">Class Day</th>
-                        <th scope="col" style="min-width: 120px;">Class Time</th>
-                        <th scope="col" style="min-width: 100px;">Duration</th>
-                        <th scope="col" style="min-width: 200px;">Number Of students</th>
-                        <th scope="col" style="min-width:170px;">Settings</th>
+                        <th scope="col" style="">id</th>
+                        <th scope="col" style="">Class Name</th>
+                        <th scope="col" style="">Class Day</th>
+                        <th scope="col" style="">Class Time</th>
+                        <th scope="col" style="">Duration</th>
+                        <th scope="col" style="">Number Of Students</th>
+                        <th scope="col" style="">Settings</th>
                     </tr>
                 </thead>
                 <tbody style="background:#fff !important;">
                     @if($classes)
                     @foreach($classes as $class)
                     <tr class="cus_table">
-                        <td scope="row" style="min-width: 50px;">{{$class->id}}</td>
-                        <td style="min-width: 110px;">{{$class->name}}</td>
-                        <td style="min-width: 100px;">
+                        <td scope="row" style="">{{$class->id}}</td>
+                        <td style="">{{$class->name}}</td>
+                        <td style="">
                              
                             @foreach(getDaysClass($class->id) as $day)
                                 <p>{{$day->day}}</p>
                             @endforeach
 
                         </td>
-                        <td style="min-width: 120px;">
+                        <td style="">
 
                             @foreach(getDaysClass($class->id) as $day)
                                 <p>{{$day->time}}</p>
@@ -65,9 +65,9 @@
 
                         </td>
                         
-                        <td style="min-width: 110px;">{{$class->duration}}</td>
+                        <td style="">{{$class->duration}}</td>
 
-                        <td style="min-width: 200px;">
+                        <td style="">
                           @if($class->count_students!=0)
                             <a href="{{url('instructor/students?class_id='.$class->id)}}" style="text-decoration:underline">{{$class->count_students}}</a>
                           @else
@@ -75,7 +75,7 @@
                          @endif
                         </td>
 
-                        <td style="min-width:170px;">
+                        <td style="">
                               <a class="btn btn-success btn-xs"
                                href="{{url('instructor/edit_class?id='.$class->id)}}" 
                                style="padding:5px 10px !important">
@@ -124,24 +124,19 @@
         </div>
     </div>
 </div>
-<script src="{{ url('js/custom-js.js')}}"></script>
-<script>
-function filterFunction() {
-  var input, filter, ul, li, a, i;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  div = document.getElementById("myDropdown");
-  a = div.getElementsByTagName("a");
-  for (i = 0; i < a.length; i++) {
-    txtValue = a[i].textContent || a[i].innerText;
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      a[i].style.display = "";
-    } else {
-      a[i].style.display = "none";
-    }
-  }
-}
-</script>
+
 @endsection
 
+@section('scripts')
+<script>
+    $(function () {
+      $('#example1').DataTable({
+      
+               'ordering'    : false,
 
+
+      })
+    }) 
+    
+  </script>
+@endsection

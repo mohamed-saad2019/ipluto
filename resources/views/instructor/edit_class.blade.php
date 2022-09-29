@@ -4,7 +4,7 @@
 <div class="Become" style="margin: 30px 0;">
     <div class="container">
         <div class="formTe">
-            <h4> Create <span> classes </span> </h4>
+            <h4> Edit <span> classes </span> </h4>
             
              @if ($errors->any())
                     <div class="alert alert-danger">
@@ -42,56 +42,39 @@
                       
                     </div>
 
+                  <?php $i = 1; ?>
                 @foreach($days as $day)
-                    <div class="accordion col-md-6" id="accordionExampleDay">
-                        <div class="card">
-                            <div class="card-header" id="headingOneDay">
-                                <h2 class="mb-0">
-                                    <button id="hiddenDayButClasses"
-                                        class="btn btn-link btn-block text-left" type="button"
-                                        data-toggle="collapse" data-target="#collapseOneDay"
-                                        aria-expanded="true" aria-controls="collapseOneDay">
-                                        {{$day->day}}
-                                    </button>
-                                    <input type="hidden" id="hiddenDayClasses" name="day[]" required
-                                    value="{{$day->day}}">
-                                </h2>
-                            </div>
-                            <div id="collapseOneDay" class="collapse" aria-labelledby="headingOneDay"
-                                data-parent="#accordionExampleDay">
-                                <span class="arow10"></span>
-                                <div class="card-body" onclick="createValueInputDayClasses('Saturday')">
-                                    <span></span>Saturday
-                                </div>
-                                <div class="card-body" onclick="createValueInputDayClasses('Sunday')">
-                                    <span></span>Sunday
-                                </div>
-                                <div class="card-body" onclick="createValueInputDayClasses('Monday')">
-                                    <span></span>Monday
-                                </div>
-                                <div class="card-body" onclick="createValueInputDayClasses('Tuesday')">
-                                    <span></span>Tuesday
-                                </div>
-                                <div class="card-body" onclick="createValueInputDayClasses('Wednesday')">
-                                    <span></span>Wednesday
-                                </div>
-                                <div class="card-body" onclick="createValueInputDayClasses('Thursday')">
-                                    <span></span>Thursday
-                                </div>
-                                <div class="card-body" onclick="createValueInputDayClasses('Friday')">
-                                    <span></span>Friday
-                                </div>
-                            </div>
-                        </div>                       
+                    <div class="accordion col-md-6 {{$day->id}}" >
+                      <div class="card " style="margin-bottom:17px">
+                        <select class="form-control select2" name="day[]">
+                    <option value="Saturday" @if($day->day=='Saturday'){{'selected'}}@endif>Saturday</option>
+                    <option value="Sunday" @if($day->day=='Sunday'){{'selected'}}@endif>Sunday</option>
+                    <option value="Monday" @if($day->day=='Monday'){{'selected'}}@endif>Monday</option>
+                    <option value="Tuesday" @if($day->day=='Tuesday'){{'selected'}}@endif>Tuesday</option>
+                   <option value="Wednesday" @if($day->day=='Wednesday'){{'selected'}}@endif>Wednesday</option>
+                    <option value="Thursday" @if($day->day=='Thursday'){{'selected'}}@endif>Thursday</option>
+                    <option value="Friday" @if($day->day=='Friday'){{'selected'}}@endif>Friday</option>
+                        </select>
+                      </div>
                     </div>
-                    <div class="form-group col-md-4 form1">
+                    <div class="form-group col-md-4 form1 {{$day->id}}">
                         <input type="time" class="form-control" placeholder="Time" name="time[]" 
                         value="{{$day->time}}" required>
                     </div>
-                @endforeach
-                    <div class="form-group col-md-2 form1">
+                  @if($i== 1)
+                        <div class="form-group col-md-2 form1">
                         <i class="fa fa-plus add_day" aria-hidden="true" style="margin-top: 10px;cursor: pointer;"></i>
-                    </div>
+                       </div>
+                  @else
+                    <i class="fa fa-trash" id="{{$day->id}}" style="padding:17px 10px;color:red;display:block;font-size:22px;cursor: pointer"></i>
+
+                  @endif
+
+                       <?php $i++; ?>
+
+
+                @endforeach
+                    
                     <div class="accordion col-md-6 add_new_day">
 
                     </div>
@@ -99,8 +82,10 @@
                         
                     </div>
 
+                    <div class="form-group col-md-2 form1 delete_record">
+                       
+                    </div>
 
-                    
                     <div class="accordion col-md-12" id="accordionExampleHours">
                         <div class="card">
                             <div class="card-header" id="headingOneHours">
@@ -144,9 +129,10 @@
         </div>
     </div>
 </div>
-<script src="{{ url('js/custom-js.js')}}"></script>
-
 
 @endsection
 
-
+@section('scripts')
+<script src="{{ url('js/custom-js.js')}}"></script>
+<script src="{{ url('js/add_class.js')}}"></script>
+@endsection

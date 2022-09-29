@@ -2354,3 +2354,19 @@ a[aria-expanded="true"] {
         display: none;
     }
 }
+
+.ms-drop{
+  height: 270px !important;
+  overflow: auto; !important;
+}
+.ms-parent{
+  padding: 0px !important;
+}
+.ms-parent .ms-choice
+{
+  height: 37px !important;
+}
+.ms-parent .ms-choice span {
+    color: #000;
+    padding: 6px 10px;
+  }

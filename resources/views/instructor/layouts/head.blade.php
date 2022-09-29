@@ -10,6 +10,9 @@
   <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet" />
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous" />
+    
+  <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
+
   <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet" />
   <link rel="stylesheet" href="./../style.css" />
   <!-- <link rel="stylesheet" href="{{ url('css/style.css') }}" /> -->
@@ -100,7 +103,10 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="{{route('instructor.library')}}">Library</a>
+                        <a href="{{route('instructor.library')}}">Lessons</a>
+                    </li>
+                    <li>
+                        <a href="#">Library</a>
                     </li>
         
                 </ul>
@@ -193,7 +199,6 @@
                 </div>
             </nav>
 
-             @include('instructor.layouts.topbar')
              @yield('maincontent')
 
         </div>

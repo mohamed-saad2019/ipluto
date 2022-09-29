@@ -522,6 +522,7 @@ Route::middleware(['web'])->group(function () {
             Route::get('/videos/create','VideoController@create')->name('video.create'); 
             Route::get('/videos','VideoController@index')->name('video.index'); 
             Route::put('/videos/store','VideoController@store')->name('video.store'); 
+            Route::get('/videos/status','VideoController@status')->name('video.status'); 
             Route::post('/videos/destroy/{id}','VideoController@destroy')->name('video.destroy'); 
 
             Route::resource('subcategory','SubcategoryController');
@@ -571,6 +572,12 @@ Route::middleware(['web'])->group(function () {
 
          Route::get('instructor/multiple_del_lesson', 'InstructorController@multiple_del_lesson')->name('instructor.multiple_del_lesson');
 
+        /* start route classes */
+        Route::get('sharelesson/{id}', 'ClassController@share')->name('lesson.share');
+        Route::get('classes/getStudentInClass', 'ClassController@getStudentInClass');
+        Route::get('classes/getClasses', 'ClassController@getClasses');
+        Route::post('classes/saveShare', 'ClassController@saveShare')->name('saveShare');
+        /* end route classes */
 
        Route::get('instructor/del_sildes', 'InstructorController@del_sildes')->name('instructor.del_sildes');
 

@@ -46,18 +46,39 @@
                   {{ method_field('PUT') }}
                   <div class="row">
                     <div class="col-md-6">
-                        <label for="exampleInputTit1e">{{ __('adminstaticword.title') }}:<sup class="redstar">*</sup></label>
-                        <input type="text" class="form-control" name="title" id="exampleInputTitle" placeholder="Enter Your subcategory" value="">
+                        <label >{{ __('adminstaticword.title') }}:<sup class="redstar">*</sup></label>
+                        <input type="text" class="form-control" name="title" id="exampleInputTitle" placeholder="Video Title" value="{{old('title')}}">
                     </div>
                     <div class="col-md-6">
-                      <label for="exampleInputTit1e">{{ __('adminstaticword.subject') }}</label>
+                      <label >{{ __('adminstaticword.subject') }}:<sup class="redstar">*</sup></label>
                       <select name="subject_id" class="form-control select2">
+                        <option value="">Choose Subject</option>
                         @foreach($subjects as $subject)
-                        <option value="{{$subject->id}}">{{$subject->title}}</option>
+                        <option value="{{$subject->id}}"
+                         @if(old("subject_id")== $subject->id) {{'selected'}} @endif>
+                         {{$subject->title}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label >{{ __('adminstaticword.grade') }}:<sup class="redstar">*</sup></label>
+                      <select name="grade_id" class="form-control select2">
+                        <option value="">Choose Grade</option>
+                        @foreach($grades as $grade)
+                        <option value="{{$grade->id}}"
+                         @if(old("grade_id")== $grade->id) {{'selected'}} @endif>
+                         {{$grade->title}}</option>
                         @endforeach
                       </select>
                     </div>
                     
+                    <div class="col-md-6">
+                      <label >Unit:<sup class="redstar">*</sup></label>
+                      <input type="number" name="unit" min="1" max="15" class="form-control" 
+                             placeholder="Choose Unit" value="{{old('unit')}}">
+                    </div>
+
                   </div>
                   <br>
                   <div class="row">
@@ -67,21 +88,22 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                       <label for="exampleInputTit1e">{{ __('adminstaticword.video_background') }}:<sup class="redstar">*</sup></label>
                       <input type="file" name="img" class="form-control">
                     </div>
-                  </div>
-                  <br>
-    
-                  <div class="row">
+                 
     
                     <div class="col-md-6">
                       <label for="exampleInputDetails">{{ __('adminstaticword.Status') }}:<sup
                         class="redstar text-danger">*</sup></label><br>
-                    <input id="status_toggle" type="checkbox" class="custom_toggle" name="status" checked/>
-                    <input type="hidden" name="free" value="0" for="status" id="status">
-                     
+                        
+                        <select name="status" class="form-control select2">
+                        <option value="1" @if(old("status")== 1) {{'selected'}} @endif >
+                          Active</option>
+                        <option value="0" @if(old("status")== 0) {{'selected'}} @endif>
+                          Pending</option>
+                      </select>                     
                     </div>
                   </div>
                   <br>
@@ -104,7 +126,6 @@
     </div>
   </div>
 </div>
-@include('admin.category.subcategory.cat') 
 
 @endsection
 
