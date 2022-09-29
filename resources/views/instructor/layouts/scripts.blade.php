@@ -41,14 +41,25 @@
 <script src="{{ url('admin_assets/js/master.js')}}"></script>
  <script src="{{ url('js/updater.js') }}"></script>
 
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-colorselector@0.1.0/dist/bootstrap-colorselector.js">
+</script>
+
 <script src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
 
 <script src="{{ url('js/custom-toggle.js') }}"></script>
 <script src="{{ url('js/custom-file-input.js')}}"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-colorselector@0.1.0/dist/bootstrap-colorselector.js"></script>
 
 
 <script>
+        $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('active');
+        });
+     });
+
       $('.select2').select2();
 
 </script>

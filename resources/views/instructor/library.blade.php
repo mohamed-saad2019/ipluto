@@ -79,19 +79,25 @@
                   </div>                    
                 </div>
                  </div>
-              <div class="sort">
-                <label>Sort By :</label>
-                <select>
-                  <option>Seniority</option>
-                  <option>Alphabetically</option>
-                </select>
+              <div class="sort d-flex align-items-center">
+                <div class="dropdown">
+
+                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Sort By
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                 <a  class="dropdown-item" href="#">Seniority</a>
+                  <a  class="dropdown-item" href="#">Alphabetically</a>
+                </div>
+              </div>
+
               </div>              
             </div>
           </div>
             
         @else
                     <h3>My Lessons</h3>
-                  
+            
                    @if ($errors->any())
                       <div class="alert alert-danger">
                         <ul>
@@ -111,11 +117,15 @@
                       @php $i=1 ; @endphp
                     <li style="font-size:22px;">                         
                           @if($p->id != request('id'))
-                          <a href="{{url('/instructor/library?id='.$p->id.'&parent_id='.$p->parent_id)}}">{{$p->name}}</a>
+                          <a href="{{url('/instructor/library?id='.$p->id.'&parent_id='.$p->parent_id)}}" 
+                            style="color:{{$p->color}}">{{$p->name}} </a>
                             <span style="padding:0px 20px;"> > </span>
                           @else
+                             @php $color = $p->color @endphp
                             <div class="dropdown">
-                            <span id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">{{$p->name}}</span>
+                            <span id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle" 
+                            style="color:{{$p->color}}"> {{$p->name}}
+                            </span>
                               <div class="dropdown-menu folder_elem" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item"
                           href="{{url('instructor/add_lesson?folder_id='.$p->id.'&parent_id='.$p->parent_id)}}">
@@ -129,7 +139,7 @@
                             <a class="dropdown-item" href="#"data-toggle="modal" data-target="#exampleModalCenter1" id='{{request("id")}}' data-name="{{$p->name}}">
                                    <i class="fas fa-edit"></i>
 
-                                     Rename
+                                     Folder Setting
                                 </a>
                                
 
@@ -137,6 +147,7 @@
                                   <i class="feather icon-trash mr-2"></i>
                                     Delete
                                 </a>
+
                               </div>
                             </div>
                           @endif
@@ -155,10 +166,14 @@
                 <div class="row paste" id="dvDest">
                 @foreach($folders as $folder)
                 <div class="col-12 col-md-6 col-lg-3 folders mb-4" id="{{$folder->id}}" >
-                  <div class="single__paste">
+                  <div class="single__paste" style="border:1px solid {{$folder->color}} ;">
                     <a  class="w-100 d-flex align-items-center" href="{{url('instructor/library?id='.$folder->id.'&parent_id='.$folder->parent_id)}}" >
-                      <i class="fa fa-folder fa-2x text-info " ></i>
-                      <span class="description ml-2" >{{$folder->name}}</span>
+                     <i class="fa fa-folder fa-2x text-info "
+                    style="color:{{$folder->color}} !important;border-right:1px solid {{$folder->color}}"
+                      ></i>
+                      <span class="description ml-2" 
+                            style="color:{{$folder->color}} !important"
+                       >{{$folder->name}}</span>
                     </a>
                   </div>
                 </div>
@@ -174,7 +189,9 @@
       @foreach($lessons as $lesson)
         <div class="col-md-3 mb-4">
         <div class="lessons sort contTechFolder drog" id="{{$lesson->id}}">
-            <div>
+            <div class="d-flex justify-content-between">
+              <input type="checkbox" name="select[]" value="{{$lesson->id}}"
+                     id="{{$lesson->id.'_checkbox'}}" class="select_lesson">
               <div class="dropdown cus_dropdown" style="display:none;"
                   id="{{$lesson->id.'_cus_dropdown'}}">
                   <button type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="drop-down-button more">
@@ -247,11 +264,10 @@
                       
                       </div>
                       </div>
+            </div>
+              
                     <br>
                   <small class="title text-center">
-                        <input type="checkbox" name="select[]" value="{{$lesson->id}}"
-                                id="{{$lesson->id.'_checkbox'}}" class="select_lesson">
-                                <br>
                         <label for="{{$lesson->id.'_checkbox'}}">{{$lesson->name}}</label>
                   </small>
                   <div class="description d-flex justify-content-between">
@@ -259,7 +275,6 @@
                     <span>{{get_size_lesson($lesson->id)}}</span>
                   </div>
                   
-                </div>
                 <div >
                   <img class="img-fluid " width="60px" src="{{url('image/logo.png')}}">
                 </div>
@@ -269,6 +284,8 @@
                     Unsaved Lesson
                   </span>
                 </div>
+                @else
+                 <br>
                 @endif
               </div>
               </div>
@@ -310,12 +327,12 @@
       </div>
     </div>
   </div>
-
+@if(request()->has('id'))
   <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <div class="title_secondary__title_icon--3m9hH"><svg height="30px" width="50px" viewBox="0 0 19 14"> <path d="M18.49 2.06H8.02L5.97.16C5.85.06 5.71 0 5.56 0H.71C.37 0 0 .17 0 .51v12.77c0 .34.37.72.71.72h17.78c.34 0 .51-.38.51-.72V2.57c0-.34-.17-.51-.51-.51z" fill="#5FD598"></path> <path d="M12.92 5.08v2.735h2.735v.79H12.92v2.735h-.79V8.605H9.394v-.79h2.734V5.08h.79z" fill="blue"></path> </svg></div><span style="margin-top:5px; font-size:20px;color: #fff;"> Name Folder</span>
+          <span style="margin-top:5px; font-size:20px;color: #fff;"> Folder Setting</span>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -325,15 +342,43 @@
                 method="post" enctype="multipart/form-data">
               {{ csrf_field() }} 
           <div class="row">
-              <div class="col-md-11" style="margin:10px auto">
-              <input type="title" class="form-control" name="name" id="one" placeholder="Folder Name" value="{{ (old('name')) }}" required style="border:1px solid #ddd">
-                  <input type="hidden" name="parent_id" 
+                   <input type="hidden" name="parent_id" 
                   value="{{request()->has('id')?request('id'):''}}">
                   <input type="hidden" name="instructor_id" value="{{ Auth::user()->id }}">
-                </div>
-              
+                  <input type="hidden" name="color" value="" id="f_color">
+
+              <div class="col-md-11" style="margin:10px auto">
+               <label>Folder Name:<span class="redstar">*</span></label>
+               <input type="title" class="form-control" name="name" id="one" placeholder="Enter Folder Name" value="{{ (old('name')) }}" required style="border:1px solid #ddd">
               </div>
+             <div class="col-md-11" style="margin:0px auto;margin-bottom:35px;">
+              <label>Folder Color:<span class="redstar">*</span></label>
+              <select id="colorselector">
+              <option value="102" data-color="#ddd" @if($color=='#dddd') selected @endif>test</option>
+              <option value="106" data-color="#A0522D" @if($color=='#A0522D') selected @endif>test</option>
+              <option value="47" data-color="#CD5C5C" @if($color=='#CD5C5Cd') selected @endif>test</option>
+              <option value="87" data-color="#FF4500" @if($color=='#FF4500')selected @endif>test</option>
+              <option value="15" data-color="#DC143C" @if($color=='#DC143C') selected @endif>test</option>
+              <option value="24" data-color="#FF8C00"@if($color=='#FF8C00') selected @endif>test</option>
+             <option value="78" data-color="#C71585"@if($color=='#C71585') selected @endif>test</option>
+            <option value="1006" data-color="#3498ff"@if($color=='#3498ff') selected @endif>test</option>
+               <option value="407" data-color="#ffff00"@if($color=='#ffff00') selected @endif>test</option>
+               <option value="807" data-color="#5fd598"@if($color=='#5fd598') selected @endif>test</option>
+               <option value="105" data-color="#8e8e93"@if($color=='#8e8e93') selected @endif>test</option>
+               <option value="204" data-color="#cddc39"@if($color=='#cddc39') selected @endif>test</option>
+              <option value="108" data-color="#4caf50"@if($color=='#4caf50') selected @endif>test</option>
+             <option value="808" data-color="#3c3f43"@if($color=='#3c3f43')selected @endif>test</option>
+             <option value="908" data-color="#000000"@if($color=='#000000') selected @endif>test</option>
+             <option value="508" data-color="#00804e"@if($color=='#00804e')selected @endif>test</option>
+             <option value="408" data-color="#080099"@if($color=='#b8c0c6')selected @endif>test</option>
+             <option value="108" data-color="#80004a"@if($color=='#80004a')selected @endif>test</option>
+             <option value="208" data-color="#9b0329"@if($color=='#9b0329') selected @endif>test</option>
+            <option value="308" data-color="#22d8d5"@if($color=='#22d8d5')selected @endif>test</option>
+              </select>
+            </div>
+         </div>
         </div>
+
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
           <button type="submit" class="btn btn-primary">Save</button>
@@ -378,8 +423,7 @@
       </div>
     </div>
   </div>
-
-
+@endif
 
   <!-- Modal HTML for delete -->
   <div class="modal fade" id="del_show" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
@@ -415,6 +459,7 @@
     </div>
   </div>
 
+
 @endsection
 
 @endif
@@ -423,9 +468,20 @@
 
 @if(request()->has('id'))
 <script type="text/javascript">
+
     $('#{{request("id")}}').click(function(){
         $('#one').val($(this).data('name'));
     });
+
+   $('#colorselector').colorselector({
+          callback: function (value, color, title) {
+
+              $('#f_color').val(color);
+              $('.st0 path').css('fill',color);
+
+          }
+    });
+  
 </script>
 @endif
 <script type="text/javascript">
