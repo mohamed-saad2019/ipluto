@@ -171,111 +171,111 @@
 <!-- begin  -->
 <div class="container">
   <div class="row go" id="dvSource">
-      @foreach($lessons as $lesson)
+    @foreach($lessons as $lesson)
         <div class="col-md-3 mb-4">
         <div class="lessons sort contTechFolder drog" id="{{$lesson->id}}">
-            <div>
-              <div class="dropdown cus_dropdown" style="display:none;"
-                  id="{{$lesson->id.'_cus_dropdown'}}">
-                  <button type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="drop-down-button more">
-                    <svg height="10" width="20" viewBox="0 0 38 10" class="library_npp_content__hover-layer-more-actions-btn-svg--1Jsnz"> <path d="M 5 10 C 7.76 10 10 7.76 10 5 C 10 2.24 7.76 0 5 0 C 2.24 0 0 2.24 0 5 C 0 7.76 2.24 10 5 10 Z M 5 10" fill="#333" class="library_npp_content__color-change--37R-g"></path> <path d="M 19 10 C 21.76 10 24 7.76 24 5 C 24 2.24 21.76 0 19 0 C 16.24 0 14 2.24 14 5 C 14 7.76 16.24 10 19 10 Z M 19 10" fill="#333" class="library_npp_content__color-change--37R-g"></path> <path d="M 33 10 C 35.76 10 38 7.76 38 5 C 38 2.24 35.76 0 33 0 C 30.24 0 28 2.24 28 5 C 28 7.76 30.24 10 33 10 Z M 33 10" fill="#333" class="library_npp_content__color-change--37R-g"></path> </svg>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        
+          <div>
+            <div class="dropdown cus_dropdown" style="display:none;"
+                id="{{$lesson->id.'_cus_dropdown'}}">
+                <button type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="drop-down-button more">
+                  <svg height="10" width="20" viewBox="0 0 38 10" class="library_npp_content__hover-layer-more-actions-btn-svg--1Jsnz"> <path d="M 5 10 C 7.76 10 10 7.76 10 5 C 10 2.24 7.76 0 5 0 C 2.24 0 0 2.24 0 5 C 0 7.76 2.24 10 5 10 Z M 5 10" fill="#333" class="library_npp_content__color-change--37R-g"></path> <path d="M 19 10 C 21.76 10 24 7.76 24 5 C 24 2.24 21.76 0 19 0 C 16.24 0 14 2.24 14 5 C 14 7.76 16.24 10 19 10 Z M 19 10" fill="#333" class="library_npp_content__color-change--37R-g"></path> <path d="M 33 10 C 35.76 10 38 7.76 38 5 C 38 2.24 35.76 0 33 0 C 30.24 0 28 2.24 28 5 C 28 7.76 30.24 10 33 10 Z M 33 10" fill="#333" class="library_npp_content__color-change--37R-g"></path> </svg>
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                      
+                        <a class="dropdown-item cu_items"
+                          href="{{url('instructor/add_lesson?id='.$lesson->id)}}">
+                            View Lesson
+                      </a>
+
+                        @if(empty(($lesson->ensure_save)))
                           <a class="dropdown-item cu_items"
-                            href="{{url('instructor/add_lesson?id='.$lesson->id)}}">
-                              View Lesson
+                          href="{{url('instructor/saved_lesson?id='.$lesson->id)}}">
+                      
+                          <svg width="15px" height="15px" viewBox="0 0 19 20" xmlns="http://www.w3.org/2000/svg">
+                            <g fill="#8B9195" class="color-change" fill-rule="evenodd">
+                              <path d="M18.8 15.3c0 .7-.6 1.3-1.3 1.3H4.6c-.7 0-1.3-.6-1.3-1.3v-14C3.3.6 3.9 0 4.6 0h9.6v2.8c0 1.1.9 1.9 1.9 1.9h2.7v10.6z" fill="#2c5f9e"></path>
+                              <path d="M18.6 4h-2.5c-.3 0-.5-.1-.7-.3-.3-.2-.5-.6-.5-1V.1l3.5 3.6.2.3zM3.2 18.1c-.7 0-1.3-.6-1.3-1.3V3.4h-.6C.6 3.4 0 4 0 4.7v14c0 .7.6 1.3 1.3 1.3h12.5c.7 0 1.3-.6 1.3-1.3v-.6H3.2z"
+                              fill="#2c5f9e"></path>
+                            </g>
+                          </svg>
+                            Save Changes
+                            </a>
+                          @endif
+                          
+                          <a class="dropdown-item cu_items"
+                          href="{{url('instructor/add_lesson?id='.$lesson->id)}}">
+                      
+                          <svg width="20px" height="20px" viewBox="0 0 19 20" class="library_npp_content__hover-layer-preview-btn-svg--2rgQj"><path fill="#2c5f9e" d="M13.758,12.559c0,0.427-0.356,0.773-0.795,0.773H2.54c-0.437,0-0.794-0.347-0.794-0.773V2.422 c0-0.427,0.357-0.754,0.794-0.754h9.848l2.125-1.638C14.483,0.02,14.473,0,14.452,0H1.05C0.485,0,0.028,0.427,0.028,0.973v13.034 C0.028,14.554,0.485,15,1.05,15h13.402c0.566,0,1.023-0.446,1.023-0.993V6.691l-1.718,1.33V12.559L13.758,12.559z" class="library_npp_content__color-change--37R-g"></path><path fill="#2c5f9e" d="M16.202,0.155l-0.78,0.72l1.78,1.8l0.77-0.72L16.202,0.155z" class="library_npp_content__color-change--37R-g"></path><path fill="#2c5f9e" d="M7.352,8.285l1.77,1.79l7.35-6.81l-1.77-1.8L7.352,8.285z" class="library_npp_content__color-change--37R-g"></path><path fill="#2c5f9e" d="M5.751,11.436l1.81,0.04h0.02l0.64-0.591l-1.77-1.799l0,0l-0.65,0.6L5.751,11.436z" class="library_npp_content__color-change--37R-g"></path></svg>
+                            Edit
                         </a>
 
-                          @if(empty(($lesson->ensure_save)))
-                            <a class="dropdown-item cu_items"
-                            href="{{url('instructor/saved_lesson?id='.$lesson->id)}}">
+                          <a class="dropdown-item cu_items"
+                          href="{{url('instructor/duplicate_lesson?id='.$lesson->id)}}">
                         
                             <svg width="15px" height="15px" viewBox="0 0 19 20" xmlns="http://www.w3.org/2000/svg">
-                              <g fill="#8B9195" class="color-change" fill-rule="evenodd">
-                                <path d="M18.8 15.3c0 .7-.6 1.3-1.3 1.3H4.6c-.7 0-1.3-.6-1.3-1.3v-14C3.3.6 3.9 0 4.6 0h9.6v2.8c0 1.1.9 1.9 1.9 1.9h2.7v10.6z" fill="#2c5f9e"></path>
-                                <path d="M18.6 4h-2.5c-.3 0-.5-.1-.7-.3-.3-.2-.5-.6-.5-1V.1l3.5 3.6.2.3zM3.2 18.1c-.7 0-1.3-.6-1.3-1.3V3.4h-.6C.6 3.4 0 4 0 4.7v14c0 .7.6 1.3 1.3 1.3h12.5c.7 0 1.3-.6 1.3-1.3v-.6H3.2z"
-                                fill="#2c5f9e"></path>
-                              </g>
-                            </svg>
-                              Save Changes
-                              </a>
-                            @endif
-                            
-                            <a class="dropdown-item cu_items"
-                            href="{{url('instructor/add_lesson?id='.$lesson->id)}}">
-                        
-                            <svg width="20px" height="20px" viewBox="0 0 19 20" class="library_npp_content__hover-layer-preview-btn-svg--2rgQj"><path fill="#2c5f9e" d="M13.758,12.559c0,0.427-0.356,0.773-0.795,0.773H2.54c-0.437,0-0.794-0.347-0.794-0.773V2.422 c0-0.427,0.357-0.754,0.794-0.754h9.848l2.125-1.638C14.483,0.02,14.473,0,14.452,0H1.05C0.485,0,0.028,0.427,0.028,0.973v13.034 C0.028,14.554,0.485,15,1.05,15h13.402c0.566,0,1.023-0.446,1.023-0.993V6.691l-1.718,1.33V12.559L13.758,12.559z" class="library_npp_content__color-change--37R-g"></path><path fill="#2c5f9e" d="M16.202,0.155l-0.78,0.72l1.78,1.8l0.77-0.72L16.202,0.155z" class="library_npp_content__color-change--37R-g"></path><path fill="#2c5f9e" d="M7.352,8.285l1.77,1.79l7.35-6.81l-1.77-1.8L7.352,8.285z" class="library_npp_content__color-change--37R-g"></path><path fill="#2c5f9e" d="M5.751,11.436l1.81,0.04h0.02l0.64-0.591l-1.77-1.799l0,0l-0.65,0.6L5.751,11.436z" class="library_npp_content__color-change--37R-g"></path></svg>
-                              Edit
-                          </a>
-
-                            <a class="dropdown-item cu_items"
-                            href="{{url('instructor/duplicate_lesson?id='.$lesson->id)}}">
-                          
-                              <svg width="15px" height="15px" viewBox="0 0 19 20" xmlns="http://www.w3.org/2000/svg">
-                              <g fill="#8B9195" class="color-change" fill-rule="evenodd">
-                                <path d="M18.8 15.3c0 .7-.6 1.3-1.3 1.3H4.6c-.7 0-1.3-.6-1.3-1.3v-14C3.3.6 3.9 0 4.6 0h9.6v2.8c0 1.1.9 1.9 1.9 1.9h2.7v10.6z" fill="#2c5f9e"></path>
-                                <path d="M18.6 4h-2.5c-.3 0-.5-.1-.7-.3-.3-.2-.5-.6-.5-1V.1l3.5 3.6.2.3zM3.2 18.1c-.7 0-1.3-.6-1.3-1.3V3.4h-.6C.6 3.4 0 4 0 4.7v14c0 .7.6 1.3 1.3 1.3h12.5c.7 0 1.3-.6 1.3-1.3v-.6H3.2z"
-                                fill="#2c5f9e"></path>
-                              </g>
-                            </svg>
-                          Duplicate
-                          
-                        </a>
-                        <a class="dropdown-item cu_items" href="#" style="">
-                          
-                            <svg width="20px" height="20px" viewBox="0 -4 18 23">
-                              <g id="Page-1___kp0CKxNX" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-                                  <path class="color-change" d="M16.8,2 L7.3,2 L5.4,0.3 C5.3,0.2 5.2,0.2 5,0.2 L0.6,0.2 C0.3,0.2 0,0.4 0,0.7 L0,12.3 C0,12.6 0.3,13 0.6,13 L16.7,13 C17,13 17.2,12.7 17.2,12.3 L17.2,2.6 C17.3,2.2 17.1,2 16.8,2" id="folder___kp0CKxNX" fill="#2c5f9e" sketch:type="MSShapeGroup"></path>
-                              </g>
+                            <g fill="#8B9195" class="color-change" fill-rule="evenodd">
+                              <path d="M18.8 15.3c0 .7-.6 1.3-1.3 1.3H4.6c-.7 0-1.3-.6-1.3-1.3v-14C3.3.6 3.9 0 4.6 0h9.6v2.8c0 1.1.9 1.9 1.9 1.9h2.7v10.6z" fill="#2c5f9e"></path>
+                              <path d="M18.6 4h-2.5c-.3 0-.5-.1-.7-.3-.3-.2-.5-.6-.5-1V.1l3.5 3.6.2.3zM3.2 18.1c-.7 0-1.3-.6-1.3-1.3V3.4h-.6C.6 3.4 0 4 0 4.7v14c0 .7.6 1.3 1.3 1.3h12.5c.7 0 1.3-.6 1.3-1.3v-.6H3.2z"
+                              fill="#2c5f9e"></path>
+                            </g>
                           </svg>
-                          Add To Folder
-                          
-                        </a>
-                          <a class="dropdown-item cu_items del_lesson" id='{{$lesson->id}}'
-                          href="#exampleModal22222" class="trigger-btn" data-toggle="modal">
-                          
-                          <svg class="" height="15" width="15" viewBox="0 0 13 14">
-                              <path class="color-change" d="M.34.64S0 .64 0 1.27c0 .64.34.64.34.64h12.32s.34 0 .34-.64c0-.63-.34-.63-.34-.63H.34zm.33 1.91H12.3L10.93 14h-8.9L.67 2.55zM5.46 0c-.69 0-.69.64-.69.64h3.42s0-.64-.68-.64H5.46zM4.09 12.73h.68L4.09 2.52H3.4l.69 10.21zM8.88 2.52l-.69 10.21h.69l.68-10.21h-.68zm-2.74 0v10.21h.68V2.52h-.68zm0 0" fill="#2c5f9e"></path>
+                        Duplicate
+                        
+                      </a>
+                      <a class="dropdown-item cu_items" href="#" style="">
+                        
+                          <svg width="20px" height="20px" viewBox="0 -4 18 23">
+                            <g id="Page-1___kp0CKxNX" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                                <path class="color-change" d="M16.8,2 L7.3,2 L5.4,0.3 C5.3,0.2 5.2,0.2 5,0.2 L0.6,0.2 C0.3,0.2 0,0.4 0,0.7 L0,12.3 C0,12.6 0.3,13 0.6,13 L16.7,13 C17,13 17.2,12.7 17.2,12.3 L17.2,2.6 C17.3,2.2 17.1,2 16.8,2" id="folder___kp0CKxNX" fill="#2c5f9e" sketch:type="MSShapeGroup"></path>
+                            </g>
                         </svg>
-                        Delete
-                          
-                        </a>
+                        Add To Folder
+                        
+                      </a>
+                        <a class="dropdown-item cu_items del_lesson" id='{{$lesson->id}}'
+                        href="#exampleModal22222" class="trigger-btn" data-toggle="modal">
+                        
+                        <svg class="" height="15" width="15" viewBox="0 0 13 14">
+                            <path class="color-change" d="M.34.64S0 .64 0 1.27c0 .64.34.64.34.64h12.32s.34 0 .34-.64c0-.63-.34-.63-.34-.63H.34zm.33 1.91H12.3L10.93 14h-8.9L.67 2.55zM5.46 0c-.69 0-.69.64-.69.64h3.42s0-.64-.68-.64H5.46zM4.09 12.73h.68L4.09 2.52H3.4l.69 10.21zM8.88 2.52l-.69 10.21h.69l.68-10.21h-.68zm-2.74 0v10.21h.68V2.52h-.68zm0 0" fill="#2c5f9e"></path>
+                      </svg>
+                      Delete
+                        
+                      </a>
                         <a  class="cu_items" href="{{route('lesson.share',$lesson->id)}}">
                           <i class="fa fa-share-alt" style="font-size: 18px;" aria-hidden="true"> Share </i>
                         </a>
-                      
-                      </div>
-                      </div>
-                    <br>
-                  <small class="title text-center">
-                        <input type="checkbox" name="select[]" value="{{$lesson->id}}"
-                                id="{{$lesson->id.'_checkbox'}}" class="select_lesson">
-                                <br>
-                        <label for="{{$lesson->id.'_checkbox'}}">{{$lesson->name}}</label>
-                  </small>
-                  <div class="description d-flex justify-content-between">
-                    <span>{{\Carbon\Carbon::parse($lesson->updated_at)->format('d-m-Y')}}</span>
-                    <span>{{get_size_lesson($lesson->id)}}</span>
-                  </div>
-                  
+                    
+                    </div>
+                    </div>
+                  <br>
+                <small class="title text-center">
+                      <input type="checkbox" name="select[]" value="{{$lesson->id}}"
+                              id="{{$lesson->id.'_checkbox'}}" class="select_lesson">
+                              <br>
+                      <label for="{{$lesson->id.'_checkbox'}}">{{$lesson->name}}</label>
+                </small>
+                <div class="description d-flex justify-content-between">
+                  <span>{{\Carbon\Carbon::parse($lesson->updated_at)->format('d-m-Y')}}</span>
+                  <span>{{get_size_lesson($lesson->id)}}</span>
                 </div>
-                <div >
-                  <img class="img-fluid " width="60px" src="{{url('image/logo.png')}}">
-                </div>
-                @if(empty(($lesson->ensure_save)))
-                <div>
-                  <span >
-                    Unsaved Lesson
-                  </span>
-                </div>
-                @endif
+                
               </div>
+              <div >
+                <img class="img-fluid " width="60px" src="{{url('image/logo.png')}}">
               </div>
-      @endforeach
+              @if(empty(($lesson->ensure_save)))
+              <div>
+                <span >
+                  Unsaved Lesson
+                </span>
+              </div>
+              @endif
+            </div>
+              </div>
+          @endforeach
+      </div>
   </div>
-  </div>
-
+  
 <!-- End -->
 
 
