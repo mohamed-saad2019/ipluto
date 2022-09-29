@@ -1372,14 +1372,17 @@ text-align: center;
   padding: 4px 10px;
   
 }
-
+.avatarNavStu .dropdown-menu{
+  position: absolute;
+  float: right !important;
+  right: 0 !important;
+}
 /* begin Lessons */
 .lessons{
   color: #696969;
   background: radial-gradient(transparent,#eee);
   font-family: 'Raleway', sans-serif;
   text-align: center;
-  /* padding: 4px 12px 15px; */
   border-radius: 15px;
   box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.2);
   position: relative;
@@ -1404,22 +1407,17 @@ text-align: center;
   border-top: 5px dotted #faa31a;
   height: 3px;
   width: 100px;
-  /* margin: 11px auto 0; */
-  /* display: block;
-  clear: both; */
 }
 .lessons .description{
   color: #888;
   font-size: 15px;
   line-height: 25px;
-  /* margin: 0 0 15px; */
 }
 .lessons .service-icon{
   color: #faa31a;
   font-size: 45px;
   line-height: 45px;
 }
-
 
 @media only screen and (max-width: 990px){
   .lessons{ margin: 0 0 20px; }
