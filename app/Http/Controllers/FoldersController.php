@@ -122,6 +122,7 @@ class FoldersController extends Controller
             DB::table('lessons_folders')->where('id',$id)
             ->update([
                'name'=> $request->name,
+               'color'=>$request->color,
                'updated_at'=>now(),
             ]);
 

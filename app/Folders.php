@@ -12,5 +12,6 @@ class Folders extends Model
         'name',
         'instructor_id',
         'parent_id',
+        'color'
     ];
 }

@@ -326,3 +326,4 @@ if(!function_exists('getDaysClass'))
             return $class_days;
         }
     }
+
