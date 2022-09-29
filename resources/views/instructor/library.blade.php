@@ -24,7 +24,20 @@
                
                  @if(!request()->has('id') and !request()->has('parent_id'))
                  <div class="myLessoncont">
-            <h3 style="">My Lessons</h3>
+                  <h3 style="">My Lessons</h3>
+                   <div class="sort d-flex align-items-center" style="float:right;">
+                  <div class="dropdown">
+                  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Recent
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                   <a  class="dropdown-item" href="{{url('/instructor/library?filter=recent')}}">Recent</a>
+                   <a  class="dropdown-item" href="{{url('/instructor/library?filter=size')}}">Size</a>
+                  <a class="dropdown-item" href="{{url('/instructor/library?filter=title')}}">Lesson Title</a>
+                </div>
+               </div>
+
+              </div> 
                     @if ($errors->any())
                     <div class="alert alert-danger">
                       <ul>
@@ -78,26 +91,26 @@
                       </button>
                   </div>                    
                 </div>
-                 </div>
-              <div class="sort d-flex align-items-center">
-                <div class="dropdown">
-
-                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Sort By
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                 <a  class="dropdown-item" href="#">Seniority</a>
-                  <a  class="dropdown-item" href="#">Alphabetically</a>
-                </div>
-              </div>
-
-              </div>              
+                 </div>             
             </div>
           </div>
             
         @else
-                    <h3>My Lessons</h3>
-            
+            <h3>My Lessons</h3>
+                    
+              <div class="sort d-flex align-items-center" style="float: right;">
+                <div class="dropdown">
+                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Recent
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                 <a  class="dropdown-item" href="{{url('/instructor/library?filter=recent')}}">Recent</a>
+                 <a  class="dropdown-item" href="{{url('/instructor/library?filter=size')}}">Size</a>
+                 <a class="dropdown-item" href="{{url('/instructor/library?filter=title')}}">Lesson Title</a>
+                </div>
+              </div>
+            </div>  
+
                    @if ($errors->any())
                       <div class="alert alert-danger">
                         <ul>
@@ -156,6 +169,7 @@
                     @endforeach 
 
                 </ol>
+
                
         @endif
              <br>
