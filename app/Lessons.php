@@ -19,5 +19,7 @@ class Lessons extends Model
         'folder_id',
         'ensure_save',
         'unit',
+        'size',
+        'change_default_name'
     ];
 }

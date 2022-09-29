@@ -28,12 +28,12 @@
                    <div class="sort d-flex align-items-center" style="float:right;">
                   <div class="dropdown">
                   <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Recent
+                    {{$sort == 'Title'?"Lesson Title" : $sort}}
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                   <a  class="dropdown-item" href="{{url('/instructor/library?filter=recent')}}">Recent</a>
-                   <a  class="dropdown-item" href="{{url('/instructor/library?filter=size')}}">Size</a>
-                  <a class="dropdown-item" href="{{url('/instructor/library?filter=title')}}">Lesson Title</a>
+                   <a  class="dropdown-item" href="{{url('/instructor/library?sort=Recent')}}">Recent</a>
+                   <a  class="dropdown-item" href="{{url('/instructor/library?sort=Size')}}">Size</a>
+                  <a class="dropdown-item" href="{{url('/instructor/library?sort=Title')}}">Lesson Title</a>
                 </div>
                </div>
 
@@ -100,13 +100,13 @@
                     
               <div class="sort d-flex align-items-center" style="float: right;">
                 <div class="dropdown">
-                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Recent
-                </button>
+                 <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{$sort == 'Title'?"Lesson Title" : $sort}}
+                  </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                 <a  class="dropdown-item" href="{{url('/instructor/library?filter=recent')}}">Recent</a>
-                 <a  class="dropdown-item" href="{{url('/instructor/library?filter=size')}}">Size</a>
-                 <a class="dropdown-item" href="{{url('/instructor/library?filter=title')}}">Lesson Title</a>
+                 <a  class="dropdown-item" href="{{url('/instructor/library?id='.request('id').'&parent_id='.request('parent_id').'&sort=Recent')}}">Recent</a>
+                 <a  class="dropdown-item" href="{{url('/instructor/library?id='.request('id').'&parent_id='.request('parent_id').'&sort=Size')}}">Size</a>
+                 <a class="dropdown-item" href="{{url('/instructor/library?id='.request('id').'&parent_id='.request('parent_id').'&sort=Title')}}">Lesson Title</a>
                 </div>
               </div>
             </div>  

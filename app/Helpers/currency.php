@@ -106,7 +106,7 @@ if(!function_exists('get_parent'))
 
 if(!function_exists('get_size_lesson'))
     {
-       function get_size_lesson($lesson_id)
+       function get_size_lesson($lesson_id,$withou_unit='')
         {
 
           $files_count = \App\File::where('instructor_id','=',\Auth::user()->id)
@@ -125,14 +125,18 @@ if(!function_exists('get_size_lesson'))
                     $size = $size + floatval($s);
                 }
 
-       
-              $base = log($size) / log(1024);
-              $suffix = array("", "kB", "MB", "GB", "TB")[floor($base)];
-              return  number_format(pow(1024, $base - floor($base)),0).$suffix;
+                        if($withou_unit != '')
+                        {
+                            return $size;
+                        }
+
+                      $base = log($size) / log(1024);
+                      $suffix = array("", "KB", "MB", "GB", "TB")[floor($base)];
+                      return  number_format(pow(1024, $base - floor($base)),0).$suffix;
          }
          else
         {
-            return '0MB';
+            return '0KB';
         }
           
 
