@@ -172,7 +172,7 @@
 <div class="container">
   <div class="row go" id="dvSource">
     @foreach($lessons as $lesson)
-      <div class="col-md-3 lessons sort contTechFolder drog mb-2" id="{{$lesson->id}}">
+      <div class="col-md-3 lessons sort contTechFolder drog mb-3" id="{{$lesson->id}}">
           <div>
             <div class="dropdown cus_dropdown" style="display:none;"
                 id="{{$lesson->id.'_cus_dropdown'}}">
