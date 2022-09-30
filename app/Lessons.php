@@ -22,4 +22,10 @@ class Lessons extends Model
         'size',
         'change_default_name'
     ];
+
+
+    public function classes()
+    {
+        return $this->belongsToMany(Classes::class,'share_lessons','lesson_id','class_id');
+    } 
 }

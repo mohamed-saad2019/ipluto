@@ -40,6 +40,7 @@
                         <th scope="col" style="">Class Day</th>
                         <th scope="col" style="">Class Time</th>
                         <th scope="col" style="">Duration</th>
+                        <th scope="col" style="">Number Of lessons</th>
                         <th scope="col" style="">Number Of Students</th>
                         <th scope="col" style="">Settings</th>
                     </tr>
@@ -66,9 +67,15 @@
                         </td>
                         
                         <td style="">{{$class->duration}}</td>
-
                         <td style="">
-                          @if($class->count_students!=0)
+                          @if($class->count_lessons!=0)
+                            <a href="{{route('lessons.index')}}?class_id={{$class->id}}" style="text-decoration:underline">{{$class->count_lessons}}</a>
+                          @else
+                             0
+                         @endif
+                        </td>
+                        <td style="">
+                          @if($class->count_lessons!=0)
                             <a href="{{url('instructor/students?class_id='.$class->id)}}" style="text-decoration:underline">{{$class->count_students}}</a>
                           @else
                              0

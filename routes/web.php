@@ -579,6 +579,11 @@ Route::middleware(['web'])->group(function () {
         Route::post('classes/saveShare', 'ClassController@saveShare')->name('saveShare');
         /* end route classes */
 
+
+        /* start route lessons */
+        Route::get('lessons/index', 'LessonController@index')->name('lessons.index');
+        /* end route lessons */
+
        Route::get('instructor/del_sildes', 'InstructorController@del_sildes')->name('instructor.del_sildes');
 
         Route::get('instructor/duplicate_lesson', 'InstructorController@duplicate_lesson')->name('instructor.duplicate_lesson'); 

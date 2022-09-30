@@ -925,7 +925,7 @@ class InstructorController extends Controller
 
     public function list_classes()
     {
-        $classes = DB::select("SELECT * , (SELECT count(*) FROM `classes_student` WHERE class_id = `classes`.id ) AS count_students FROM `classes` WHERE `instructor_id` = '".auth()->user()->id."' ORDER BY id DESC ");
+        $classes = DB::select("SELECT * , (SELECT count(*) FROM `classes_student` WHERE class_id = `classes`.id ) AS count_students , (SELECT count(distinct lesson_id) FROM `share_lessons` sh WHERE sh.class_id = `classes`.id ) AS count_lessons FROM `classes` WHERE `instructor_id` = '".auth()->user()->id."' ORDER BY id DESC ");
         
         return view('instructor.list_classes' , compact('classes')) ;
  
