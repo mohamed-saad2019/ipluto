@@ -49,7 +49,7 @@
                     <a class="dropdown-item" href="#"> Notification </a>
                   </div> -->
                     <li >
-                        <a href="#Assignment" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Dashboarddd</a>
+                        <a href="#Assignment" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Dashboard</a>
                         <ul class="collapse list-unstyled" id="Assignment">
                             <li>
                             <a href="{{url('instructor/students')}}"> Students</a>
