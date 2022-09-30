@@ -614,9 +614,9 @@
 
 /* ########################### Start Become A Teacher ################################ */
 .Become .formTe {
-  background-color: #f8f8f8;
+  /* background-color: #ffffff; */
   padding: 40px;
-  width: 80%;
+  /* width: 80%; */
   margin: auto;
   border-radius: 5px;
 }
@@ -632,8 +632,8 @@
 .Become .formTe h4 span {
   color: #f6a233;
 }
-.Become .form-control {
-  border: 1px solid transparent !important;
+.Become .form-control  {
+  border: 1px solid #ddd !important;
   padding: 22px 16px !important;
   margin-bottom: 18px;
 }
@@ -1402,12 +1402,12 @@ text-align: center;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
-.lessons .title:after{
+ /* .title:after{
   content: '';
   border-top: 5px dotted #faa31a;
   height: 3px;
   width: 100px;
-}
+} */
 .lessons .description{
   color: #888;
   font-size: 15px;
@@ -1418,7 +1418,14 @@ text-align: center;
   font-size: 45px;
   line-height: 45px;
 }
-
+.lessons .lesson_image{
+  margin-top: .4em;
+  border-top: 1px dashed #ddd;
+  /* border-bottom: 1px dashed #ddd; */
+}
+.lessons .lesson_image img{
+  padding: .2em 0;
+}
 @media only screen and (max-width: 990px){
   .lessons{ margin: 0 0 20px; }
 }

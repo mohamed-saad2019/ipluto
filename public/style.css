@@ -2111,10 +2111,8 @@ textarea {
 }
 
 .more {
-  height: 20px;
   cursor: pointer;
   display: block;
-  float: right;
   border: 0px;
   z-index: 10;
   border-radius: 5px;
@@ -2128,27 +2126,11 @@ textarea {
 
 }
 
-/* .active
-{
-   background-color: #2c5f9e !important;
-   color: #fff !important;
-} */
-
 .del {
   border: 2px solid #2c5f9e !important;
 }
 
-/*.more_select
-{
-    height: 20px;
-    cursor: pointer;
-    display: block;
-    margin-top: -12px;
-    margin-right:-20px;
-    border:0px;
-    z-index: 10;
-}
-*/
+
 .footer {
   position: fixed;
   bottom: 0;

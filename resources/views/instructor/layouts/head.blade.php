@@ -29,7 +29,7 @@
                     <img src="../images/iPluto_Logo_Animation.gif" alt="">            
                 </div>
 
-                <ul class="list-unstyled sidebar_links">
+                <ul class="list-unstyled sidebar_links ml-2">
                     <!-- <li class="active">
                         <a href="#">Dashboarddd</a>
                     </li> -->

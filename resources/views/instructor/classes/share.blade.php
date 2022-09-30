@@ -1,9 +1,9 @@
 @extends('instructor.layouts.head')        
 @section('title','Share the lessons')
 @section('maincontent')
-<div class="Become" style="margin: 30px 0;">
-    <div class="container">
-        <div class="formTe">
+<div class="Become ">
+    <div class="custom-container">
+        <div class="formTe bg-white">
             <h4> Share the lessons </h4>
             
              @if ($errors->any())
@@ -34,11 +34,13 @@
                     @if(count($share) > 0)
                         @foreach($classes as $class)
                             @if(count($class->sharelesson) > 0)
-                            <div class="form-group col-md-3 form1">
+                            <div class="shadow p-3 mb-5 rounded-lg">
+                                <div class="row">
+                                <div class="form-group col-md-3 form1">
                                 <label>Choose Class </label>
                             </div>
                             <div class="accordion col-md-9 form1" >
-                                <select class=" choosedClass" id="c_{{$class->id}}" name="class_id[]" required >
+                                <select class="form-control choosedClass" id="c_{{$class->id}}" name="class_id[]" required >
                                         <option value="">Choose Class</option>
                                         @foreach($classes as $_class)
                                             @if(count($_class->sharelesson) > 0)
@@ -54,6 +56,7 @@
                                         @endforeach
                                 </select>
                             </div>
+
                             <div class="form-group col-md-3 student_{{$class->id}}">
                                 <label>Students </label>
                             </div>
@@ -74,6 +77,10 @@
                                     @endforeach
                                 </select>
                             </div>
+                                </div>
+                            </div>
+               
+
                             @endif
 
                         @endforeach
@@ -92,17 +99,14 @@
                         </select>
                     </div>
                     @endif
-                    
-                    
 
                 </div>
 
-                <div class="accordion col-md-12" >
-                    <div class="form-group col-md-2 form1">
+                <div class="col-md-12 " >
+                    <div class="accordion d-flex justify-content-between">
                         <i class="fa fa-plus add_new_class" aria-hidden="true" style="margin-top: 10px;cursor: pointer;"></i>
+                        <button type="submit" class="btn btn-primary">Save Share</button>
                     </div>
-                     <br>
-                    <button type="submit" class="btn btn-primary">Save Share</button>
                 </div>
             </form>
         </div>
