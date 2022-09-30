@@ -555,7 +555,7 @@
                   url : "{{url('instructor/upload_files/'.$id)}}",
                   paramName : 'file',
                   // uploadMultiple : false,
-                  maxFiles:1 ,//# file,
+                  maxFiles:15,//# file,
                   maxFilessize:15, //MB,
                   parallelUploads: 1,
                   acceptedFiles:x,
@@ -581,7 +581,7 @@
                          });
                         
                   },
-                    addRemoveLinks: false,
+                    addRemoveLinks: true,
                 dictRemoveFile: "",
                         }
             );
