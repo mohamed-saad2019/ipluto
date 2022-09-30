@@ -28,16 +28,29 @@
                    <div class="sort d-flex align-items-center" style="float:right;">
                   <div class="dropdown">
                   <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<<<<<<< HEAD
                     Recent
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                    <a  class="dropdown-item" href="{{url('/instructor/library?filter=recent')}}">Recent</a>
                    <a  class="dropdown-item" href="{{url('/instructor/library?filter=size')}}">Size</a>
                   <a class="dropdown-item" href="{{url('/instructor/library?filter=title')}}">Lesson Title</a>
+=======
+                    {{$sort == 'Title'?"Lesson Title" : $sort}}
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                   <a  class="dropdown-item" href="{{url('/instructor/library?sort=Recent')}}">Recent</a>
+                   <a  class="dropdown-item" href="{{url('/instructor/library?sort=Size')}}">Size</a>
+                  <a class="dropdown-item" href="{{url('/instructor/library?sort=Title')}}">Lesson Title</a>
+>>>>>>> 06a9c5da908c7d33be6e1de08aeb9dc8a559446c
                 </div>
                </div>
 
               </div> 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 06a9c5da908c7d33be6e1de08aeb9dc8a559446c
                     @if ($errors->any())
                     <div class="alert alert-danger">
                       <ul>
@@ -91,15 +104,25 @@
                       </button>
                   </div>                    
                 </div>
+<<<<<<< HEAD
                  </div>             
+=======
+                 </div>
+                      
+>>>>>>> 06a9c5da908c7d33be6e1de08aeb9dc8a559446c
             </div>
           </div>
             
         @else
+<<<<<<< HEAD
+=======
+
+>>>>>>> 06a9c5da908c7d33be6e1de08aeb9dc8a559446c
             <h3>My Lessons</h3>
                     
               <div class="sort d-flex align-items-center" style="float: right;">
                 <div class="dropdown">
+<<<<<<< HEAD
                 <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Recent
                 </button>
@@ -107,10 +130,23 @@
                  <a  class="dropdown-item" href="{{url('/instructor/library?filter=recent')}}">Recent</a>
                  <a  class="dropdown-item" href="{{url('/instructor/library?filter=size')}}">Size</a>
                  <a class="dropdown-item" href="{{url('/instructor/library?filter=title')}}">Lesson Title</a>
+=======
+                 <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{$sort == 'Title'?"Lesson Title" : $sort}}
+                  </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                 <a  class="dropdown-item" href="{{url('/instructor/library?id='.request('id').'&parent_id='.request('parent_id').'&sort=Recent')}}">Recent</a>
+                 <a  class="dropdown-item" href="{{url('/instructor/library?id='.request('id').'&parent_id='.request('parent_id').'&sort=Size')}}">Size</a>
+                 <a class="dropdown-item" href="{{url('/instructor/library?id='.request('id').'&parent_id='.request('parent_id').'&sort=Title')}}">Lesson Title</a>
+>>>>>>> 06a9c5da908c7d33be6e1de08aeb9dc8a559446c
                 </div>
               </div>
             </div>  
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 06a9c5da908c7d33be6e1de08aeb9dc8a559446c
                    @if ($errors->any())
                       <div class="alert alert-danger">
                         <ul>
@@ -206,7 +242,11 @@
             <div class="d-flex justify-content-between">
               <input type="checkbox" name="select[]" value="{{$lesson->id}}"
                      id="{{$lesson->id.'_checkbox'}}" class="select_lesson">
+<<<<<<< HEAD
               <div class="dropdown cus_dropdown"
+=======
+              <div class="dropdown cus_dropdown" style="display:none;"
+>>>>>>> 06a9c5da908c7d33be6e1de08aeb9dc8a559446c
                   id="{{$lesson->id.'_cus_dropdown'}}">
                   <button type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="drop-down-button more">
                     <svg height="10" width="20" viewBox="0 0 38 10" class="library_npp_content_hover-layer-more-actions-btn-svg--1Jsnz"> <path d="M 5 10 C 7.76 10 10 7.76 10 5 C 10 2.24 7.76 0 5 0 C 2.24 0 0 2.24 0 5 C 0 7.76 2.24 10 5 10 Z M 5 10" fill="#333" class="library_npp_contentcolor-change--37R-g"></path> <path d="M 19 10 C 21.76 10 24 7.76 24 5 C 24 2.24 21.76 0 19 0 C 16.24 0 14 2.24 14 5 C 14 7.76 16.24 10 19 10 Z M 19 10" fill="#333" class="library_npp_contentcolor-change--37R-g"></path> <path d="M 33 10 C 35.76 10 38 7.76 38 5 C 38 2.24 35.76 0 33 0 C 30.24 0 28 2.24 28 5 C 28 7.76 30.24 10 33 10 Z M 33 10" fill="#333" class="library_npp_content_color-change--37R-g"></path> </svg>
@@ -280,7 +320,12 @@
                       </div>
             </div>
               
+<<<<<<< HEAD
                   <small class="title text-center mt-2">
+=======
+                    <br>
+                  <small class="title text-center">
+>>>>>>> 06a9c5da908c7d33be6e1de08aeb9dc8a559446c
                         <label for="{{$lesson->id.'_checkbox'}}">{{$lesson->name}}</label>
                   </small>
                   <div class="description d-flex justify-content-between">
@@ -288,6 +333,7 @@
                     <span>{{get_size_lesson($lesson->id)}}</span>
                   </div>
                   
+<<<<<<< HEAD
                 <div class="lesson_image">
                   <img class="img-fluid rounded " width="100%" style="height: 7em;" src="{{url('image/overlayGlobale.jpg')}}">
                 </div>
@@ -300,6 +346,16 @@
                       <small>Grad</small>
                       <small> Subject</small>
                   </div>
+=======
+                <div >
+                  <img class="img-fluid " width="60px" src="{{url('image/logo.png')}}">
+                </div>
+                @if(empty(($lesson->ensure_save)))
+                <div>
+                  <span >
+                    Unsaved Lesson
+                  </span>
+>>>>>>> 06a9c5da908c7d33be6e1de08aeb9dc8a559446c
                 </div>
                 @else
                  <br>
@@ -307,8 +363,13 @@
               </div>
               </div>
       @endforeach
+<<<<<<< HEAD
   </div>
   </div>
+=======
+  </div>
+  </div>
+>>>>>>> 06a9c5da908c7d33be6e1de08aeb9dc8a559446c
 
 <!-- End -->
 

@@ -190,13 +190,20 @@ class InstructorController extends Controller
         {
 
 
-        $path ='';$d=''; $lessons=[];
+        $path ='';$d=''; $lessons=[];$orderBy ='updated_at';
+
+        $sort  = request()->has('sort')?request('sort'):'Recent';
+
+                if    ($sort == 'Size') {$orderBy = 'size';} 
+                elseif($sort =='Title') {$orderBy = 'change_default_name';}
+                else                    {$orderBy = 'updated_at';}
 
                  if(!request()->has('id'))
                  {
                     $folders = Folders::where('parent_id',Null)->where('instructor_id',\Auth::user()->id )->orderBy('id','ASC')->get();
 
-                    $lessons = Lessons::where('instructor_id','=',\Auth::user()->id)->orderBy('updated_at','DESC')->where('saved',1)->where('folder_id',0)->get();
+                    $lessons = Lessons::where('instructor_id','=',\Auth::user()->id)
+                              ->orderBy($orderBy,'DESC')->where('saved',1)->where('folder_id',0)->get();
                  }
                  else
                  {
@@ -207,12 +214,13 @@ class InstructorController extends Controller
 
                       $folders = Folders::where('parent_id',request('id'))->where('instructor_id',\Auth::user()->id )->orderBy('id','ASC')->get();
 
-                     $lessons = Lessons::where('instructor_id','=',\Auth::user()->id)->orderBy('updated_at','DESC')->where('saved',1)->where('folder_id',request('id'))->get();
+                     $lessons = Lessons::where('instructor_id','=',\Auth::user()->id)
+                      ->orderBy($orderBy,'DESC')->where('saved',1)->where('folder_id',request('id'))->get();
                  }
     
                    $l =Lessons::where('saved','=',0)->orWhere('saved',null)->delete();
             
-            return view('instructor.library',compact('folders','path','d','lessons'));
+            return view('instructor.library',compact('folders','path','d','lessons','sort'));
         }
 
      else
@@ -370,8 +378,9 @@ class InstructorController extends Controller
             'des'=>request('des'),
             'subject'=>get_subject_instructor(\Auth::user()->id),
             'grade'=>request('grade'),
-            'unit'=>$units]
-                );
+            'unit'=>$units,
+            'change_default_name'=>str_contains(request('name'), 'Untitled')?0:1
+             ]);
 
           Lessons::where('instructor_id','=',\Auth::user()->id)->where('id','!=',$id)->where('saved',null)->delete();
 
@@ -423,6 +432,13 @@ class InstructorController extends Controller
 
                  $file->store('public/'.\Auth::user()->id.'/'.$id);
                  // return $add->id;
+
+                 DB::table('instructor_lessons')->where('id',$id)
+                    ->update([
+                       'size'=>  get_size_lesson($id,'no_unit'),
+                       'updated_at'=>now(),
+                    ]);
+
                 return response (['status' => true,'id'=>$add->id,'type'=>$add->mime_type,'size'=>$size,'name'=>$name] , 200 );
             // }
             // else
@@ -443,6 +459,12 @@ class InstructorController extends Controller
                     'instructor_id'=> \Auth::user()->id,
                     'lesson_id'=>$id,
                 ]);
+
+              DB::table('instructor_lessons')->where('id',$id)
+                    ->update([
+                       'size'=>  get_size_lesson($id,'no_unit'),
+                       'updated_at'=>now(),
+                    ]);
 
             return redirect(url('instructor/add_lesson?id='.$id));
         }
