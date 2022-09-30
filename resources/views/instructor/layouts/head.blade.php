@@ -178,9 +178,13 @@
                                 <a class="dropdown-item" href="#">Notification Preferences</a>
                                 <a class="dropdown-item" href="#">Help & FAQs</a>
                                 <div class="dropdown-divider"></div>
-                            <a href="http://127.0.0.1:8000/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item">Logout
-                                <form id="logout-form" action="http://127.0.0.1:8000/logout" method="POST" class="display-none">{{ csrf_field() }}  </form>
-                            </a>
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        {{ __('frontstaticword.Logout') }}
+                                        
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="display-none">
+                                            @csrf
+                                        </form>
+                                </a>
                             </div>
 
                                     @if($image = @file_get_contents('../public/images/user_img/'.\Auth::user()->user_img))
