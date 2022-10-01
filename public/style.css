@@ -629,7 +629,9 @@
   padding: 22px 16px !important;
   margin-bottom: 18px;
 }
-
+.Become .lessonBtn .btn{
+  color: #2668a7;
+}
 .custom-file {
   height: 46px !important;
   margin-bottom: 10px !important;
