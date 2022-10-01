@@ -154,6 +154,7 @@
                 </div>
             </div>
             <!-- End Lesson Name -->
+            <div class="shadow rounded p-3">
             <div class="chooseClass">
                     <div class="form-group row">
                         <label for="lessonName" class="col-md-3 col-form-label">Choose Class</label>
@@ -185,6 +186,7 @@
                         </select>
                     </div>
                 </div>
+            </div>
             </div>
     </div>
     </form>
