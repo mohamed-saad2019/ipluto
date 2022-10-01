@@ -100,6 +100,7 @@
             <h3>My Lessons</h3>
                     
               <div class="sort d-flex align-items-center" style="float: right;">
+                Sort by:  
                 <div class="dropdown">
                  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{$sort == 'Title'?"Lesson Title" : $sort}}
@@ -254,14 +255,15 @@
                           Duplicate
                           
                         </a>
-                        <a class="dropdown-item cu_items" href="#" style="">
+                        <a class="dropdown-item cu_items move_lesson" id='{{$lesson->id}}'
+                          href="#move_lesson" class="trigger-btn" data-toggle="modal">
                           
                             <svg width="20px" height="20px" viewBox="0 -4 18 23">
                               <g id="Page-1___kp0CKxNX" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
                                   <path class="color-change" d="M16.8,2 L7.3,2 L5.4,0.3 C5.3,0.2 5.2,0.2 5,0.2 L0.6,0.2 C0.3,0.2 0,0.4 0,0.7 L0,12.3 C0,12.6 0.3,13 0.6,13 L16.7,13 C17,13 17.2,12.7 17.2,12.3 L17.2,2.6 C17.3,2.2 17.1,2 16.8,2" id="folder___kp0CKxNX" fill="#2c5f9e" sketch:type="MSShapeGroup"></path>
                               </g>
                           </svg>
-                          Add To Folder
+                          Add to Folder
                           
                         </a>
                           <a class="dropdown-item cu_items del_lesson" id='{{$lesson->id}}'
@@ -315,170 +317,7 @@
 
 <!-- End -->
 
-
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content" >
-        <div class="modal-header">
-          <div class="title_secondary__title_icon--3m9hH"><svg height="30px" width="50px" viewBox="0 0 19 14"> <path d="M18.49 2.06H8.02L5.97.16C5.85.06 5.71 0 5.56 0H.71C.37 0 0 .17 0 .51v12.77c0 .34.37.72.71.72h17.78c.34 0 .51-.38.51-.72V2.57c0-.34-.17-.51-.51-.51z" fill="#5FD598"></path> <path d="M12.92 5.08v2.735h2.735v.79H12.92v2.735h-.79V8.605H9.394v-.79h2.734V5.08h.79z" fill="blue"></path> </svg></div><span style="margin-top:5px; font-size:20px;color: #fff;"> Name Folder</span>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body" >
-          <form action="{{url('add_folder')}}" method="post" enctype="multipart/form-data">
-              {{ csrf_field() }} 
-          <div class="row">
-                <div class="col-md-11" style="margin:10px auto">
-                        <input type="title" class="form-control" name="name" id="" placeholder="Folder Name" value="{{ (old('name')) }}" required style="border:1px solid #ccc">
-                  <input type="hidden" name="parent_id" 
-                  value="{{request()->has('id')?request('id'):''}}">
-                  <input type="hidden" name="instructor_id" value="{{ Auth::user()->id }}">
-                </div>
-              
-              </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary">Create</button>
-                  </form>
-
-        </div>
-      </div>
-    </div>
-  </div>
-@if(request()->has('id'))
-  <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <span style="margin-top:5px; font-size:20px;color: #fff;"> Folder Setting</span>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form action="{{url('update_folder/'.request('id'))}}"
-                method="post" enctype="multipart/form-data">
-              {{ csrf_field() }} 
-          <div class="row">
-                   <input type="hidden" name="parent_id" 
-                  value="{{request()->has('id')?request('id'):''}}">
-                  <input type="hidden" name="instructor_id" value="{{ Auth::user()->id }}">
-                  <input type="hidden" name="color" value="" id="f_color">
-
-              <div class="col-md-11" style="margin:10px auto">
-               <label>Folder Name:<span class="redstar">*</span></label>
-               <input type="title" class="form-control" name="name" id="one" placeholder="Enter Folder Name" value="{{ (old('name')) }}" required style="border:1px solid #ddd">
-              </div>
-             <div class="col-md-11" style="margin:0px auto;margin-bottom:35px;">
-              <label>Folder Color:<span class="redstar">*</span></label>
-              <select id="colorselector">
-              <option value="102" data-color="#ddd" @if($color=='#dddd') selected @endif>test</option>
-              <option value="106" data-color="#A0522D" @if($color=='#A0522D') selected @endif>test</option>
-              <option value="47" data-color="#CD5C5C" @if($color=='#CD5C5Cd') selected @endif>test</option>
-              <option value="87" data-color="#FF4500" @if($color=='#FF4500')selected @endif>test</option>
-              <option value="15" data-color="#DC143C" @if($color=='#DC143C') selected @endif>test</option>
-              <option value="24" data-color="#FF8C00"@if($color=='#FF8C00') selected @endif>test</option>
-             <option value="78" data-color="#C71585"@if($color=='#C71585') selected @endif>test</option>
-            <option value="1006" data-color="#3498ff"@if($color=='#3498ff') selected @endif>test</option>
-               <option value="407" data-color="#ffff00"@if($color=='#ffff00') selected @endif>test</option>
-               <option value="807" data-color="#5fd598"@if($color=='#5fd598') selected @endif>test</option>
-               <option value="105" data-color="#8e8e93"@if($color=='#8e8e93') selected @endif>test</option>
-               <option value="204" data-color="#cddc39"@if($color=='#cddc39') selected @endif>test</option>
-              <option value="108" data-color="#4caf50"@if($color=='#4caf50') selected @endif>test</option>
-             <option value="808" data-color="#3c3f43"@if($color=='#3c3f43')selected @endif>test</option>
-             <option value="908" data-color="#000000"@if($color=='#000000') selected @endif>test</option>
-             <option value="508" data-color="#00804e"@if($color=='#00804e')selected @endif>test</option>
-             <option value="408" data-color="#080099"@if($color=='#b8c0c6')selected @endif>test</option>
-             <option value="108" data-color="#80004a"@if($color=='#80004a')selected @endif>test</option>
-             <option value="208" data-color="#9b0329"@if($color=='#9b0329') selected @endif>test</option>
-            <option value="308" data-color="#22d8d5"@if($color=='#22d8d5')selected @endif>test</option>
-              </select>
-            </div>
-         </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save</button>
-                  </form>
-
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content" style="width:300px !important">
-        <div class="modal-header">
-          <div class="title_secondary__title_icon--3m9hH">
-              <svg height="30px" width="50px" viewBox="0 0 19 14"> <path d="M23.36 2.5H10.13L7.54.19C7.4.07 7.21 0 7.02 0H.89C.47 0 0 .21 0 .63v15.5c0 .41.47.87.89.87h22.47c.42 0 .64-.46.64-.87v-13c0-.42-.22-.63-.64-.63zm0 0" fill="#f26c59"></path> <path d="M12.5 10h8" fill="none" stroke="#fff" stroke-linecap="square" stroke-width="2"></path> </svg>
-          </div><span style="margin:5px; font-size:20px;color: #fff;">  Delete Folder</span>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form action="{{url('delete_folder/'.request('id'))}}"
-                method="post" enctype="multipart/form-data">
-              {{ csrf_field() }} 
-          <div class="row">
-                <div class="col-md-12">
-                  <h5 style="margin:5px;">
-                      Are you sure you want to delete this folder? All contents will also be deleted
-                  </h5>
-                  <input type="hidden" name="instructor_id" value="{{ Auth::user()->id }}">
-                </div>
-              
-              </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-danger">Delete</button>
-                  </form>
-
-        </div>
-      </div>
-    </div>
-  </div>
-@endif
-
-  <!-- Modal HTML for delete -->
-  <div class="modal fade" id="del_show" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content" style="width:300px !important">
-        <div class="modal-header">
-          <div class="title_secondary__title_icon--3m9hH">
-            <svg class="" height="30" width="25" viewBox="0 0 13 14">
-                <path class="color-change" d="M.34.64S0 .64 0 1.27c0 .64.34.64.34.64h12.32s.34 0 .34-.64c0-.63-.34-.63-.34-.63H.34zm.33 1.91H12.3L10.93 14h-8.9L.67 2.55zM5.46 0c-.69 0-.69.64-.69.64h3.42s0-.64-.68-.64H5.46zM4.09 12.73h.68L4.09 2.52H3.4l.69 10.21zM8.88 2.52l-.69 10.21h.69l.68-10.21h-.68zm-2.74 0v10.21h.68V2.52h-.68zm0 0" fill="red"></path>
-              </svg>
-          </div><span style="margin:5px; font-size:18px;color: #fff;"> Delete lessons </span>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">
-        
-          <div class="row">
-                <div class="col-md-12">
-                  <h5 style="margin:10px 5px">
-                    Delete lesson will delete all files, remove it from all folder and render share links invalid.
-                  </h5>
-                </div>
-              
-              </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <a href="{{url('/instructor/del_lesson')}}" class="btn btn-danger insure_del">Delete</a>
-
-        </div>
-      </div>
-    </div>
-  </div>
-
+        @include('instructor.modales.library_modales')
 
 @endsection
 
@@ -491,15 +330,6 @@
 
     $('#{{request("id")}}').click(function(){
         $('#one').val($(this).data('name'));
-    });
-
-   $('#colorselector').colorselector({
-          callback: function (value, color, title) {
-
-              $('#f_color').val(color);
-              $('.st0 path').css('fill',color);
-
-          }
     });
   
 </script>
@@ -528,7 +358,6 @@
 
         });
       });
-
 
 
           $(function(){
@@ -649,6 +478,35 @@
      
       });
     });
+
+//start colorselector library//////////////
+
+      $('.colorselector').colorselector({
+          callback: function (value, color, title) {
+              $('#f_color').val(color);
+          }
+    });
+
+//end colorselector library//////////////
+
+
+///start add lesson to folder/////////
+
+    $('.move_lesson').click(function() {
+             $('.lesson_moved').val(this.id);
+        });
+
+      //start create_new_folder//////////////
+
+            $("#create_new_folder").click(function(){
+              $('#move_lesson').modal('hide'); 
+              $('#exampleModalCenter').modal('toggle');
+             myFunction(ex);
+            }); 
+
+      //end create_new_folder//////////////
+
+///end add lesson to folder/////////
 
 </script>
 

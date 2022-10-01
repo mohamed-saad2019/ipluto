@@ -343,12 +343,19 @@ class InstructorController extends Controller
 
 
         $validator = \Validator::make(request()->all(), [
-            'name' => 'required|max:255|min:3',            
-            ],[],['name'=>'Lesson Name']); // create the validations
+            'name' => 'required|max:255|min:3', 
+            'des' => 'nullable|string|max:500|min:3', 
+            'img' =>  'nullable |image|mimes:jpeg,png,jpg',
+            'grade' => 'required',
+            'units' => 'required',
+            ]); // create the validations
           
             if ($validator->fails())   
             {
-               return -1;
+                return \Response::json([
+                    'response' => false,
+                    'errors' => $validator->getMessageBag()->toArray()
+                ], 422);
             }
 
 
@@ -369,6 +376,8 @@ class InstructorController extends Controller
         }
 
         $full_name = request('name');
+
+        
 
         $input = Lessons::where('id',$id)->update(
              ['name' => request('name'),
