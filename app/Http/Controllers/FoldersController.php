@@ -12,6 +12,8 @@ use App\Mail\UserAppointment;
 use Validator;
 use DB;
 use App\Folders;
+use App\Lessons;
+
 class FoldersController extends Controller
 {
     /**
@@ -62,9 +64,18 @@ class FoldersController extends Controller
                 array(
                     'name'=> $request->name,
                     'instructor_id' => $request->instructor_id,
+                    'color'=>$request->color,
                     'parent_id'=>$request->parent_id,
                 )
             );
+
+         
+     if(request()->has('lesson_id') and !empty(request('lesson_id')))
+         {
+            Lessons::where('id',request('lesson_id'))
+              ->update(['folder_id' => $data->id]);
+         }
+
        $parent_id = !empty($data->parent_id)?$data->parent_id:'NULL';
         return redirect('instructor/library?id='.$data->id.'&parent_id='.$parent_id);
     }
@@ -147,7 +158,5 @@ class FoldersController extends Controller
             Folders::where('parent_id',$id)->delete();
             return redirect('instructor/library');
     }
-
-   
 
 }

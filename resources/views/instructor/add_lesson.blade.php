@@ -539,9 +539,11 @@
                       // alert(data);
                     },
 
-                     error: function(data) {
-                        // console.log('dssdds');
-                      alert(data);
+                    error:function (response){
+                        
+                        $.each(response.responseJSON.errors,function(field_name,error){
+                            $(document).find('[name='+field_name+']').after('<span class="text-strong textdanger alert-danger">' +error+ '</span>')
+                        })
                     },
                 });
 });

@@ -550,9 +550,7 @@ Route::middleware(['web'])->group(function () {
 
             Route::get('instructor', 'InstructorController@index')->name('instructor.index');
             Route::get('instructor/library', 'InstructorController@library')->name('instructor.library');
-            Route::post('add_folder', 'FoldersController@store');
-            Route::post('update_folder/{id}', 'FoldersController@update');
-            Route::post('delete_folder/{id}', 'FoldersController@delete');
+
 
         Route::get('instructor/add_lesson', 'InstructorController@add_lesson')->name('instructor.add_lesson');
         Route::get('instructor/add_class', 'InstructorController@add_class')->name('instructor_add_class');
@@ -572,6 +570,13 @@ Route::middleware(['web'])->group(function () {
 
          Route::get('instructor/multiple_del_lesson', 'InstructorController@multiple_del_lesson')->name('instructor.multiple_del_lesson');
 
+        /* start route folder */
+            Route::post('add_folder', 'FoldersController@store');
+            Route::post('update_folder/{id}', 'FoldersController@update');
+            Route::post('delete_folder/{id}', 'FoldersController@delete');
+        /* end route folder */
+
+
         /* start route classes */
         Route::get('sharelesson/{id}', 'ClassController@share')->name('lesson.share');
         Route::get('classes/getStudentInClass', 'ClassController@getStudentInClass');
@@ -582,6 +587,7 @@ Route::middleware(['web'])->group(function () {
 
         /* start route lessons */
         Route::get('lessons/index', 'LessonController@index')->name('lessons.index');
+        Route::post('add_lesson_to_folder', 'LessonController@add_lesson_to_folder');
         /* end route lessons */
 
        Route::get('instructor/del_sildes', 'InstructorController@del_sildes')->name('instructor.del_sildes');
