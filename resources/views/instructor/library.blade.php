@@ -26,8 +26,8 @@
                  <div class="myLessoncont">
                   <h3 style="">My Lessons</h3>
                    <div class="sort d-flex align-items-center" style="float:right;">
-                  <div class="dropdown">
-                  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <div class="dropdown recent">
+                  <button class="btn  dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{$sort == 'Title'?"Lesson Title" : $sort}}
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenu2">

@@ -632,14 +632,14 @@
 .Become .formTe h4 span {
   color: #f6a233;
 }
-.Become .form-control  {
+/* .Become .form-control  {
   border: 1px solid #ddd !important;
   padding: 22px 16px !important;
   margin-bottom: 18px;
-}
-.Become .form-control::placeholder {
+} */
+/* .Become .form-control::placeholder {
   color: #888;
-}
+} */
 .Become .form-control:focus {
   border: 1px solid #f6a233 !important;
   box-shadow: 0 0 0 0 transparent !important;
@@ -775,7 +775,7 @@
 .form-control:focus {
   color: #6c757d !important;
   background-color: #fff;
-  border-color: rgb(246, 162, 51) !important;
+  /* border-color: rgb(246, 162, 51) !important; */
   outline: 0;
   box-shadow: 0 0 0 0rem #1a6cb45f !important;
 }

@@ -811,7 +811,7 @@
 .form-control:focus {
   color: #6c757d !important;
   background-color: #fff;
-  border-color: rgb(246, 162, 51) !important;
+  /* border-color: rgb(246, 162, 51) !important; */
   outline: 0;
   box-shadow: 0 0 0 0rem #1a6cb45f !important;
 }
@@ -1840,6 +1840,11 @@ textarea {
 .myLessoncont1 button:hover {
   color: #fff;
 }
+.myLessoncont .recent button {
+  background-color: #00a8ff ;
+  color: #fff;
+}
+
 
 .myLessoncont1 select {
   /* width: 141px; */
