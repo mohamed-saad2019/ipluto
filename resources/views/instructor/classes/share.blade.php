@@ -22,13 +22,28 @@
             <form method="post" action="{{route('saveShare')}}" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 {{ method_field('post') }}
-                <div class="form-row" id="shareLesson">
+                <div class="form-row " id="shareLesson">
                     <div class="form-group col-md-3 form1">
                         <label>Lesson Name </label>
                     </div>
-                    <div class="form-group col-md-9 form1">
-                        <input type="hidden" type="text" id="lesson_id" value="{{$lesson->id}}" class="form-control" name="lesson_id">
-                        {{$lesson->name}}
+                    <div class="col-md-9">
+                    <div class="form-group  form1">
+                        <div class="d-flex justify-content-between">
+                            <div class="lessonName">
+                                <input type="hidden" type="text" id="lesson_id" value="{{$lesson->id}}" class="form-control" name="lesson_id">
+                                {{$lesson->name}}
+                            </div>
+                            <div class="lessonBtn">
+                                <button class="btn ">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </button>
+                                <button class="btn">
+                                    <i class="fa fa-minus" aria-hidden="true"></i>
+                                </button>
+                                
+                            </div>
+                        </div>
+                    </div>
                     </div>
 
                     @if(count($share) > 0)
@@ -102,7 +117,7 @@
 
                 </div>
 
-                <div class="col-md-12 " >
+                <div class="col-md-12 mt-5" >
                     <div class="accordion d-flex justify-content-between">
                         <i class="fa fa-plus add_new_class" aria-hidden="true" style="margin-top: 10px;cursor: pointer;"></i>
                         <button type="submit" class="btn btn-primary">Save Share</button>

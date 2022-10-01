@@ -282,7 +282,8 @@
                       
                       </div>
                       </div>
-            </div>
+            
+                    </div>
               
                   <small class="title text-center mt-2">
                         <label for="{{$lesson->id.'_checkbox'}}">{{$lesson->name}}</label>
@@ -309,6 +310,7 @@
                  <br>
                 @endif
               </div>
+              
               </div>
       @endforeach
   </div>

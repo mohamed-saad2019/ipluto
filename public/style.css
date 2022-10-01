@@ -629,7 +629,9 @@
   padding: 22px 16px !important;
   margin-bottom: 18px;
 }
-
+.Become .lessonBtn .btn{
+  color: #2668a7;
+}
 .custom-file {
   height: 46px !important;
   margin-bottom: 10px !important;
@@ -2117,7 +2119,9 @@ textarea {
   z-index: 10;
   border-radius: 5px;
 }
-
+.cus_dropdown .show{
+  left: -88px;
+}
 .dropdown-menu a.cu_items {
   font-size: 15px !important;
   padding: 10px !important;
