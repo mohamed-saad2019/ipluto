@@ -2119,7 +2119,9 @@ textarea {
   z-index: 10;
   border-radius: 5px;
 }
-
+.cus_dropdown .show{
+  left: -88px;
+}
 .dropdown-menu a.cu_items {
   font-size: 15px !important;
   padding: 10px !important;
