@@ -27,26 +27,39 @@ $(document).ready(function () {
         div_id   = $(this).attr("id");
         if(class_id)
         {
-            $.ajax({
-                type: "get",
-                url: "/classes/getStudentInClass",
-                data: {'class_id': class_id , 'div_id':div_id},
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                },
-                success: function(data){
-                    if(data)
-                    {
-                        $(".student_"+div_id).remove() ;
-                        $(".student_"+div_id).remove() ;
-                        $("#shareLesson").append(data) ;
-                        $('.select2').select2();
-                    }
-                },
-                error: function (data) {
-                   console.log(data)
+            i = 0 
+            $(".choosedClass").each(function()
+            {
+                if($(this).val() == class_id)
+                {
+                    i = i + 1 ;
                 }
             });
+
+            if(i == 1 || i == 1)
+            {            
+                $.ajax({
+                    type: "get",
+                    url: "/classes/getStudentInClass",
+                    data: {'class_id': class_id , 'div_id':div_id},
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+                    success: function(data){
+                        if(data)
+                        {
+                            $(".students_"+div_id).show() ;
+                            $("#student_"+div_id).html(data) ;
+                            $('.select2').select2();
+                        }
+                    },
+                    error: function (data) {
+                    console.log(data)
+                    }
+                });
+            }else{
+                alert("It is not possible to choose the same class name twice") ;
+            }
         }
     }); 
 
@@ -64,7 +77,7 @@ $(document).ready(function () {
                 success: function(data){
                     if(data)
                     {
-                        $("#shareLesson").append(data) ;
+                        $("#all_classes").append(data) ;
                     }
                 },
                 error: function (data) {
@@ -74,6 +87,27 @@ $(document).ready(function () {
         }
     }); 
 
+    $("body").on("click",".show", function(){
+        div_id = $(this).attr('id');
+        statusShow = $(this).attr('status');
+
+        if(statusShow == 1)
+        {
+            $(".students_"+div_id).hide();
+            $(this).attr('status',0);
+        }else{
+            $(".students_"+div_id).show();
+            $(this).attr('status',1);
+        }
+    }); 
+
+
+    $("body").on("click",".deleteDivClass", function(){
+        div_id = $(this).attr('id');
+        if (confirm("Are you sure you want to delete this class ? ") == true) {
+            $("#main_"+div_id).remove() ;
+        } 
+    }); 
 
 
 
