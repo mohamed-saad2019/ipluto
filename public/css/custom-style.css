@@ -16,8 +16,8 @@
 /* start navbar */
 .navbar {
   box-shadow: 1px 1px 8px -6px #1a6bb4;
-  z-index: 55;
-  height: 64px;
+  margin-bottom: 0;
+  background-color: #fff;
 }
 .navbar-collapse{
   /* background: #fff; */

@@ -1,5 +1,26 @@
 /* ########################### Start Home ################################ */
+@font-face {
+  font-family: Comfortaa-Bold;
+  src: url(./admin_assets/assets/fonts/Comfortaa/Comfortaa-Bold.ttf);
+}
+
+@font-face {
+  font-family: Comfortaa-Regular;
+  src: url(../fonts/Comfortaa/Comfortaa-Regular.ttf);
+}
+
+@font-face {
+  font-family: Comfortaa-Light;
+  src: url(../fonts/Comfortaa/Comfortaa-Light.ttf);
+}
+
+body {
+  font-family: "Comfortaa-Bold" !important;
+
+}
+
 /* start navbar */
+
 .navbar {
   box-shadow: 1px 1px 8px -6px #1a6bb4;
   z-index: 55;
@@ -629,9 +650,11 @@
   padding: 22px 16px !important;
   margin-bottom: 18px;
 }
-.Become .lessonBtn .btn{
+
+.Become .lessonBtn .btn {
   color: #2668a7;
 }
+
 .custom-file {
   height: 46px !important;
   margin-bottom: 10px !important;
@@ -1431,6 +1454,8 @@ textarea {
   right: 0;
   height: 100%;
   width: 100%;
+  border: 2px solid #3460BF;
+  border-radius: 50%;
 }
 
 .avatarNavStu .dropdown-toggle::after {
@@ -1707,20 +1732,61 @@ textarea {
 .search input {
   border-radius: 52px;
   margin-top: 10px;
-  /* border: 1px solid #888; */
-  padding: 21px;
+  padding: 1.2em 1.2em 1.2em 3em;
   outline: none;
+}
+
+.search input::placeholder {
+  font-weight: 500;
+  color: #98A5B7;
+  font-family: "Comfortaa-Bold";
 }
 
 .search i {
   position: absolute;
-  right: 6px;
-  top: 16px;
-  background: #88888869;
+  left: 1em;
+  top: 15px;
   padding: 7px;
-  border-radius: 50%;
-  color: #fff;
+  color: #98A5B7;
   cursor: pointer;
+}
+
+.collapse {
+  color: #98A5B7;
+}
+
+.collapse .Create button {
+  color: #98A5B7;
+  font-weight: 400;
+}
+
+.collapse .notification {
+  position: relative;
+  width: 2em;
+  height: 1.2em;
+}
+
+.collapse .notification--bell {
+  animation: bell 2.2s linear infinite;
+  transform-origin: 50% 0%;
+}
+
+.collapse .notification .notification--bellClapper {
+  animation: bellClapper 2.2s 0.1s linear infinite;
+}
+
+.collapse .notification .notification--num {
+  position: absolute;
+  top: -12%;
+  left: 26%;
+  font-size: .8rem;
+  border-radius: 50%;
+  width: 1.25em;
+  height: 1.25em;
+  background-color: #C6342E;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.45em;
 }
 
 .togCreate {
@@ -1778,8 +1844,6 @@ textarea {
 }
 
 .Mylesson {
-  /* background-color: #f8f8f8; */
-  padding: 30px 0;
   min-height: calc(100vh - 120px);
 }
 
@@ -1787,7 +1851,6 @@ textarea {
 .myLessoncont1 {
   height: 64px;
   align-items: center;
-  /* border-bottom: 1px solid #eaeef1; */
   display: flex;
   padding: 20px;
   position: relative;
@@ -1840,19 +1903,20 @@ textarea {
 .myLessoncont1 button:hover {
   color: #fff;
 }
+
 .myLessoncont .recent button {
-  background-color: #00a8ff ;
-  color: #fff;
+  color: #98A5B7;
+  border: 1px solid #98A5B7;
+}
+.myLessoncont .recent button:hover{
+  opacity: .7;
 }
 
-
 .myLessoncont1 select {
-  /* width: 141px; */
   border-radius: 4px;
   background: #ffffff;
   border: solid 1px #b8c0c6c3;
   transition: border-color .5s ease;
-  /* position: relative; */
   padding: .3em;
   color: #b8c0c6;
 }
@@ -2124,9 +2188,11 @@ textarea {
   z-index: 10;
   border-radius: 5px;
 }
-.cus_dropdown .show{
+
+.cus_dropdown .show {
   left: -88px;
 }
+
 .dropdown-menu a.cu_items {
   font-size: 15px !important;
   padding: 10px !important;
@@ -2215,15 +2281,14 @@ tr.cus_table:hover {
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
-nav {
-  font-family: 'avenirmedium', Helvetica, Arial, sans-serif;
-}
-
-#sidebar .sidebar-header img {
-  background-color: #fff;
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
+.navbarStudent #sidebar .breadcrumb {
+  background-color: inherit;
+  border-radius: 0;
+  color: #3166AD;
+  border-bottom: 1.5px solid #F0B243;
+  font-family: "Comfortaa-Bold";
+  font-weight: 500;
+  padding-bottom: 10px;
 }
 
 .navbarStudent .wrapper {
@@ -2235,18 +2300,40 @@ nav {
 .navbarStudent #sidebar {
   min-width: 250px;
   max-width: 250px;
-  background: #1d1919;
+  background: #F8FAFB;
+  border: 1px solid #A7B2C1;
   color: #fff;
   transition: all 0.3s;
 }
 
 .navbarStudent #sidebar .sidebar_links li a {
-  color: #fff;
+  color: #98A5B7;
 
 }
 
-.navbarStudent #sidebar .sidebar_links li a:hover {
-  color: #f8b739;
+.navbarStudent #sidebar .collapse li a:hover {
+  opacity: .7;
+}
+
+.navbarStudent #sidebar .collapse li a::before,
+.navbarStudent #sidebar ul li.active>a::before {
+  content: "";
+  display: inline-block;
+  width: 1em;
+  height: 0.2em;
+  padding: 0.2em 0 0;
+  background: #98A5B7;
+  /* background: #EFAC42; */
+}
+
+.navbarStudent #sidebar ul li.active>a::before {
+  width: 1.4em;
+  background: #EFAC42;
+  color: #EFAC42;
+}
+
+.navbarStudent #sidebar ul li.active>a {
+  color: #EFAC42;
 
 }
 
@@ -2273,17 +2360,9 @@ nav {
   padding: 10px;
   font-size: 1.1em;
   display: block;
+
 }
 
-.navbarStudent #sidebar ul li a:hover {
-  opacity: .7;
-}
-
-.navbarStudent #sidebar ul li.active>a,
-a[aria-expanded="true"] {
-  /* color: #fff; */
-  color: #ffcc5c;
-}
 
 .navbarStudent a[data-toggle="collapse"] {
   position: relative;
@@ -2337,6 +2416,18 @@ a[aria-expanded="true"] {
   width: 100%;
   min-height: 100vh;
   transition: all 0.3s;
+  background-color: #F8FAFB;
+}
+
+#content .breadcrumb {
+  border-bottom: 1px solid #98A5B7;
+  background-color: #F8FAFB;
+  font-family: "Comfortaa-Bold";
+  border-radius: 0;
+}
+
+#content .breadcrumb .breadcrumb-item {
+  color: #3166AD;
 }
 
 /* ---------------------------------------------------
@@ -2371,9 +2462,10 @@ a[aria-expanded="true"] {
 }
 
 .ms-parent .ms-choice span {
-    color: #000;
-    padding: 6px 10px;
+  color: #000;
+  padding: 6px 10px;
 }
+
 /* colorselector dropdown */
 .dropdown-colorselector>.dropdown-menu {
   top: 80%;
@@ -2412,7 +2504,7 @@ a[aria-expanded="true"] {
 .dropdown-colorselector>.dropdown-menu>li>.color-btn:hover {
   text-decoration: none;
   opacity: 0.8;
-  filter: alpha(opacity = 80);
+  filter: alpha(opacity=80);
   -webkit-transform: scale(1.08);
   -ms-transform: scale(1.08);
   transform: scale(1.08);
@@ -2461,19 +2553,20 @@ a[aria-expanded="true"] {
   position: absolute;
   top: -6px;
 }
+
 #colcss {
   height: 500px;
 }
 
-      .avatarNavStu .dropdown-menu {
-    position: absolute !important;
-    float: right !important;
-    right: 0 !important;
-    left: unset !important;
-   width: 310px !important;
+.avatarNavStu .dropdown-menu {
+  position: absolute !important;
+  float: right !important;
+  right: 0 !important;
+  left: unset !important;
+  width: 310px !important;
 
 }
-  
+
 .funkyradio div {
   clear: both;
   overflow: hidden;
@@ -2490,19 +2583,19 @@ a[aria-expanded="true"] {
   display: none;
 }
 
-.funkyradio input[type="radio"]:empty ~ label {
+.funkyradio input[type="radio"]:empty~label {
   position: relative;
   line-height: 2.5em;
   text-indent: 3.25em;
   margin: 3px auto;
   cursor: pointer;
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-.funkyradio input[type="radio"]:empty ~ label:before {
+.funkyradio input[type="radio"]:empty~label:before {
   position: absolute;
   display: block;
   top: 0;
@@ -2514,33 +2607,32 @@ a[aria-expanded="true"] {
   border-radius: 3px 0 0 3px;
 }
 
-.funkyradio input[type="radio"]:hover:not(:checked) ~ label{
+.funkyradio input[type="radio"]:hover:not(:checked)~label {
   color: #888;
 }
 
-.funkyradio input[type="radio"]:hover:not(:checked) ~ label:before {
+.funkyradio input[type="radio"]:hover:not(:checked)~label:before {
   content: '\2714';
   text-indent: .9em;
   color: #777;
 }
 
-.funkyradio input[type="radio"]:checked ~ label {
+.funkyradio input[type="radio"]:checked~label {
   color: #777;
 }
 
-.funkyradio input[type="radio"]:checked ~ label:before{
+.funkyradio input[type="radio"]:checked~label:before {
   content: '\2714';
   text-indent: .9em;
   color: green;
   background-color: #ccc;
 }
 
-.funkyradio input[type="radio"]:focus ~ label:before {
+.funkyradio input[type="radio"]:focus~label:before {
   box-shadow: 0 0 0 3px #999;
 }
 
-.funkyradio-default input[type="radio"]:checked ~ label:before {
-  color:green;
+.funkyradio-default input[type="radio"]:checked~label:before {
+  color: green;
   background-color: #ccc;
 }
-
