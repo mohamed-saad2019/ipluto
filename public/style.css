@@ -1854,7 +1854,6 @@ textarea {
   display: flex;
   padding: 20px;
   position: relative;
-  background: #fff;
   font-size: 20px;
   color: #888;
   margin-bottom: 0;
@@ -1865,9 +1864,6 @@ textarea {
   background: #00a8ff;
   color: #fff;
   font-size: 17px;
-  /* width: 102px; */
-  /* margin-right: 19px; */
-  /* border: 2px solid; */
   margin-top: 0;
   height: 40px;
   border-radius: 5px;

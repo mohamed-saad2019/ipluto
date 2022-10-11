@@ -9,7 +9,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
 
 @section('maincontent')
 <div class="Mylesson">
-  <div class="custom-container shadow p-3 mb-5 bg-white rounded">
+  <div class="custom-container">
 
     @if($current_storage >= $storage)
     <div class="alert alert-danger alert-dismissible fade show" style="background-color:#b31c20;">
@@ -202,16 +202,20 @@ $current_storage = str_replace("MB","",get_size_instructor());
 
     <div id="le" style="display:none"></div>
 
-    <div class="row paste" id="dvDest">
+    <div class="row paste shadow-sm mb-5 bg-white rounded" id="dvDest">
       @foreach($folders as $folder)
       <div class="col-12 col-md-6 col-lg-3 folders mb-4" id="{{$folder->id}}">
-        <div class="single__paste" style="border:1px solid {{$folder->color}} ;">
+        <div class="single__paste d-flex justify-content-between">
+          <div class="">
           <a class="w-100 d-flex align-items-center"
             href="{{url('instructor/library?id='.$folder->id.'&parent_id='.$folder->parent_id)}}">
-            <i class="fa fa-folder fa-2x text-info "
-              style="color:#707070 !important;border-right:1px solid {{$folder->color}}"></i>
-            <span class="description ml-2" style="color:{{$folder->color}} !important">{{$folder->name}}</span>
+            <i class="fa fa-folder"></i>
+            <span class="description ml-2">{{$folder->name}}</span>
           </a>
+          </div>
+          <div class="sizing d-flex align-items-end mr-1 mb-1" >
+            <span>2 files</span> | <span>2 MB</span>
+          </div>
         </div>
       </div>
       @endforeach

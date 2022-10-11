@@ -1359,18 +1359,28 @@ text-align: center;
 
 /* end cretae Classes */
 .paste{
-  border-top: 1px dashed #ddd; 
-  border-bottom: 1px dashed #ddd; 
-  padding:3em .4em ;
+  padding:3em .4em;
 }
-.paste .single__paste{
-  border: 1px solid #ddd;
+.paste .folders .single__paste{
+  background-color: #F8FAFB;
+  border: 1px solid #E6E8F0;
   border-radius: 5px;
+  box-shadow: 0 0rem .3rem rgba(0,0,0,.15);
 }
-.single__paste i{
-  border-right:1px solid #ddd;
-  padding: 4px 10px;
-  
+.paste .folders .single__paste i{
+  color: #707070;
+  margin:  4px 10px 6px;
+  font-size: 2em;
+}
+.paste .folders .single__paste span{
+  color: #98A5B7;
+}
+.paste .folders .single__paste:hover i,
+.paste .folders .single__paste:hover .description{
+  color: #58C0F9;
+}
+.paste .folders .single__paste .sizing{
+  font-size: 10px;
 }
 .avatarNavStu .dropdown-menu{
   position: absolute;
