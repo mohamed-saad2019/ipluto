@@ -22,7 +22,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
     @endif
 
     @if(!request()->has('id') and !request()->has('parent_id'))
-    <div class="myLessoncont d-flex justify-content-between" >
+    <div class="myLessoncont d-flex justify-content-between">
       <div class="sort d-flex align-items-center">
         <span class="mr-2">Sort by</span>
         <div class="dropdown recent">
@@ -113,25 +113,25 @@ $current_storage = str_replace("MB","",get_size_instructor());
     </div>
 
     @else
-<div class="myLessoncont1 d-flex justify-content-end">
-    <div class="sort d-flex align-items-center ">
-      Sort by:
-      <div class="dropdown ml-1">
-        <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          {{$sort == 'Title'?"Lesson Title" : $sort}}
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-          <a class="dropdown-item"
-            href="{{url('/instructor/library?id='.request('id').'&parent_id='.request('parent_id').'&sort=Recent')}}">Recent</a>
-          <a class="dropdown-item"
-            href="{{url('/instructor/library?id='.request('id').'&parent_id='.request('parent_id').'&sort=Size')}}">Size</a>
-          <a class="dropdown-item"
-            href="{{url('/instructor/library?id='.request('id').'&parent_id='.request('parent_id').'&sort=Title')}}">Lesson
-            Title</a>
+    <div class="myLessoncont1 d-flex justify-content-end">
+      <div class="sort d-flex align-items-center ">
+        Sort by:
+        <div class="dropdown ml-1">
+          <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            {{$sort == 'Title'?"Lesson Title" : $sort}}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <a class="dropdown-item"
+              href="{{url('/instructor/library?id='.request('id').'&parent_id='.request('parent_id').'&sort=Recent')}}">Recent</a>
+            <a class="dropdown-item"
+              href="{{url('/instructor/library?id='.request('id').'&parent_id='.request('parent_id').'&sort=Size')}}">Size</a>
+            <a class="dropdown-item"
+              href="{{url('/instructor/library?id='.request('id').'&parent_id='.request('parent_id').'&sort=Title')}}">Lesson
+              Title</a>
+          </div>
         </div>
       </div>
-    </div>
     </div>
 
     @if ($errors->any())
@@ -207,13 +207,13 @@ $current_storage = str_replace("MB","",get_size_instructor());
       <div class="col-12 col-md-6 col-lg-3 folders mb-4" id="{{$folder->id}}">
         <div class="single__paste d-flex justify-content-between">
           <div class="">
-          <a class="w-100 d-flex align-items-center"
-            href="{{url('instructor/library?id='.$folder->id.'&parent_id='.$folder->parent_id)}}">
-            <i class="fa fa-folder"></i>
-            <span class="description ml-2">{{$folder->name}}</span>
-          </a>
+            <a class="w-100 d-flex align-items-center"
+              href="{{url('instructor/library?id='.$folder->id.'&parent_id='.$folder->parent_id)}}">
+              <i class="fa fa-folder"></i>
+              <span class="description ml-2">{{$folder->name}}</span>
+            </a>
           </div>
-          <div class="sizing d-flex align-items-end mr-1 mb-1" >
+          <div class="sizing d-flex align-items-end mr-1 mb-1">
             <span>2 files</span> | <span>2 MB</span>
           </div>
         </div>
@@ -228,9 +228,24 @@ $current_storage = str_replace("MB","",get_size_instructor());
       <div class="container">
         <div class="row go" id="dvSource">
           @foreach($lessons as $lesson)
-          <div class="col-md-3 mb-4">
-            <div class="lessons sort contTechFolder drog" id="{{$lesson->id}}">
-              <div class="d-flex justify-content-between">
+          <div class="col-md-3 col-sm-6 mb-4">
+            <div class="lessons sort contTechFolder drog " id="{{$lesson->id}}">
+              <div class="overlay">
+                <div class="content">
+                <div class="overlay_btn mt-5">
+
+                  <button class="btn live__Session d-flex align-items-center justify-content-center"> <i class="fa fa-folder mr-2"></i>Live Session</button>
+                  <button class="btn in__Class d-flex align-items-center justify-content-center"> <i class="fa fa-folder mr-2"></i>In Class</button>
+                </div>
+                <div class="">
+                  <div class="overlay__footer d-flex justify-content-between mx-2">
+                    <span> <i class="fa fa-pencil-square-o"></i>Edit</span>
+                    <span> <i class="fa fa-eye" aria-hidden="true"></i>Preview</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+              <div class="d-flex justify-content-between mx-2">
                 <input type="checkbox" name="select[]" value="{{$lesson->id}}" id="{{$lesson->id.'_checkbox'}}"
                   class="select_lesson">
                 <div class="dropdown cus_dropdown" id="{{$lesson->id.'_cus_dropdown'}}">
@@ -338,28 +353,31 @@ $current_storage = str_replace("MB","",get_size_instructor());
                 </div>
 
               </div>
-
-              <small class="title text-center mt-2">
-                <label for="{{$lesson->id.'_checkbox'}}">{{$lesson->name}}</label>
-              </small>
-              <div class="description d-flex justify-content-between">
-                <span>{{\Carbon\Carbon::parse($lesson->updated_at)->format('d-m-Y')}}</span>
-                <span>{{get_size_lesson($lesson->id)}}</span>
+              <div class="lessons__card__header d-flex mx-2">
+                <div class="w-25 d-flex align-items-center">
+                  <div class="d-flex">
+                    <img class="img-fluid" src="../images/logo.png" alt="logo image not found">
+                  </div>
+                </div>
+                <div class="w-75">
+                  <div class="title">
+                    <span for="{{$lesson->id.'_checkbox'}}" class="d-block text-capitalize">{{$lesson->name}}</span>
+                    <span class="d-block text-capitalize">hatem</span>
+                    <span>{{\Carbon\Carbon::parse($lesson->updated_at)->format('d-m-Y')}}</span> - 
+                    <span>{{get_size_lesson($lesson->id)}}</span>
+                  </div>
+                </div>
               </div>
-
+              <p class="mt-2 lessons__Unsaved px-2 py-1">
+                Unsaved
+              </p>
               <div class="lesson_image">
-                <img class="img-fluid rounded " width="100%" style="height: 7em;"
+                <img class="img-fluid " width="100%" style="height: 7em;"
                   src="{{url('image/overlayGlobale.jpg')}}">
               </div>
               @if(empty(($lesson->ensure_save)))
               <div>
-                <span class="mt-2">
-                  Unsaved Lesson
-                </span>
-                <div class="d-flex justify-content-between mt-2">
-                  <small>Grad</small>
-                  <small> Subject</small>
-                </div>
+
               </div>
               @else
               <br>

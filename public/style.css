@@ -1679,7 +1679,6 @@ textarea {
 }
 
 .contTechFolder {
-  padding: 15px 10px;
   box-shadow: 1px 1px 8px -6px #1a6bb4;
   cursor: pointer;
   transition: 0.4s;
@@ -1735,9 +1734,12 @@ textarea {
   padding: 1.2em 1.2em 1.2em 3em;
   outline: none;
 }
-.search input:focus{
+
+.search input:focus {
   border: 1px solid rgb(197 47 47 / 3%);
-  box-shadow: 0 .125rem .25rem rgba(0, 0, 0, 0.232)!important;}
+  box-shadow: 0 .125rem .25rem rgba(0, 0, 0, 0.232) !important;
+}
+
 .search input::placeholder {
   font-weight: 500;
   color: #98A5B7;
@@ -1906,7 +1908,8 @@ textarea {
   color: #98A5B7;
   border: 1px solid #98A5B7;
 }
-.myLessoncont .recent button:hover{
+
+.myLessoncont .recent button:hover {
   opacity: .7;
 }
 
@@ -2175,7 +2178,7 @@ textarea {
 
 .folders a:hover,
 .more {
-  /* background-color: rgb(220, 188, 188) !important; */
+  background-color: unset;
   opacity: .8;
 }
 
