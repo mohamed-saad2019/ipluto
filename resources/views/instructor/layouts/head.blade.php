@@ -121,11 +121,11 @@
                                 @file_get_contents('../public/images/user_img/'.\Auth::user()->user_img))
                                 <img @error('photo') is-invalid @enderror
                                     src="{{ url('images/user_img/'.\Auth::user()->user_img) }}" alt="profilephoto"
-                                    width='50px' height="50px" class="rounded-circle" style="padding: 3px">
+                                    width='50px' height="50px" class="rounded-circle">
                                 @else
                                 <img @error('photo') is-invalid @enderror
                                     src="{{ Avatar::create(\Auth::user()->fname)->toBase64() }}" alt="profilephoto"
-                                    width='50px' height="50px" style="padding: 3px" class="rounded-circle">
+                                    width='50px' height="50px" class="rounded-circle">
                                 @endif
                             </div>
                             </div>
