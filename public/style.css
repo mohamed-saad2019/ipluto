@@ -1725,7 +1725,7 @@ textarea {
 /* ########################### end Profil Student ################################ */
 /* ########################### start teacher ################################ */
 .search {
-  width: 60%;
+  width: 50%;
   position: relative;
 }
 
@@ -1735,7 +1735,9 @@ textarea {
   padding: 1.2em 1.2em 1.2em 3em;
   outline: none;
 }
-
+.search input:focus{
+  border: 1px solid rgb(197 47 47 / 3%);
+  box-shadow: 0 .125rem .25rem rgba(0, 0, 0, 0.232)!important;}
 .search input::placeholder {
   font-weight: 500;
   color: #98A5B7;
