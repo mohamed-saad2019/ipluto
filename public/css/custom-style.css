@@ -16,8 +16,8 @@
 /* start navbar */
 .navbar {
   box-shadow: 1px 1px 8px -6px #1a6bb4;
-  z-index: 55;
-  height: 64px;
+  margin-bottom: 0;
+  background-color: #fff;
 }
 .navbar-collapse{
   /* background: #fff; */
@@ -1359,18 +1359,28 @@ text-align: center;
 
 /* end cretae Classes */
 .paste{
-  border-top: 1px dashed #ddd; 
-  border-bottom: 1px dashed #ddd; 
-  padding:3em .4em ;
+  padding:3em .4em;
 }
-.paste .single__paste{
-  border: 1px solid #ddd;
+.paste .folders .single__paste{
+  background-color: #F8FAFB;
+  border: 1px solid #E6E8F0;
   border-radius: 5px;
+  box-shadow: 0 0rem .3rem rgba(0,0,0,.15);
 }
-.single__paste i{
-  border-right:1px solid #ddd;
-  padding: 4px 10px;
-  
+.paste .folders .single__paste i{
+  color: #707070;
+  margin:  4px 10px 6px;
+  font-size: 2em;
+}
+.paste .folders .single__paste span{
+  color: #98A5B7;
+}
+.paste .folders .single__paste:hover i,
+.paste .folders .single__paste:hover .description{
+  color: #58C0F9;
+}
+.paste .folders .single__paste .sizing{
+  font-size: 10px;
 }
 .avatarNavStu .dropdown-menu{
   position: absolute;
@@ -1381,11 +1391,70 @@ text-align: center;
 .lessons{
   color: #696969;
   background: radial-gradient(transparent,#eee);
-  font-family: 'Raleway', sans-serif;
-  text-align: center;
-  border-radius: 15px;
   box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.2);
   position: relative;
+  border-radius: 5px;
+  
+}
+.lessons:hover .overlay{
+  opacity: 1;
+}
+.lessons:hover .more svg 
+{
+  fill: #fff !important;
+}
+
+.lessons .overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #204472c0;
+  color: #fff !important;
+  font-size: 16px;
+  opacity: 0;
+  transition: opacity 1s;
+}
+.lessons .overlay .live__Session{
+  color: #fff;
+  background-color: #4DAAEB;
+  border: 1.5px solid #fff;
+  margin: 0 auto 1em auto;
+  width: 80%
+}
+
+.lessons .overlay .in__Class{
+  color: #fff;
+  background-color: #F0B243;
+  border: 2px solid #fff;
+  margin: 0 auto;
+  width: 80%
+}
+
+.lessons .overlay .in__Class i,.lessons .overlay .live__Session i{
+  color: #fff;
+  margin-right: 5px;
+  font-size: 13px;
+  margin: 0;
+}
+.lessons .overlay  .overlay__footer{
+  font-size: .7em;
+margin-top: 4.5em;
+}
+.lessons .overlay  .overlay__footer i{
+  color: #fff;
+  font-size: 1.5em;
+  margin-right: 0.2em;
+}
+.lessons__card__header .title{
+  font-size: 12px;
+}
+.lessons__Unsaved{
+  background-color: #3166AD; 
+  font-size: .7em;
+  color: #fff;
+  margin-bottom: 0;
 }
 .more__btn{
   position: absolute;
@@ -1393,21 +1462,12 @@ text-align: center;
   right: 2px;
 }
 
-.lessons .title {
-  margin: 0 0.7em;
-}
 .lessons .title label{
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
- /* .title:after{
-  content: '';
-  border-top: 5px dotted #faa31a;
-  height: 3px;
-  width: 100px;
-} */
 .lessons .description{
   color: #888;
   font-size: 15px;
@@ -1418,13 +1478,8 @@ text-align: center;
   font-size: 45px;
   line-height: 45px;
 }
-.lessons .lesson_image{
-  margin-top: .4em;
-  border-top: 1px dashed #ddd;
-  /* border-bottom: 1px dashed #ddd; */
-}
 .lessons .lesson_image img{
-  padding: .2em 0;
+  border-radius:  0 0 5px 5px;
 }
 @media only screen and (max-width: 990px){
   .lessons{ margin: 0 0 20px; }

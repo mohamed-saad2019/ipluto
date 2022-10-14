@@ -1383,4 +1383,11 @@ class InstructorController extends Controller
 
      return redirect('instructor/add_students?type=pluck');                      
     }
+
+
+   public function whiteboard(Request $request)
+    {
+       
+        return view('instructor.test');
+    }
 }
