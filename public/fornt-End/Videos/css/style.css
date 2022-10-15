@@ -1,0 +1,79 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    direction: ltr;
+    font-family: 'segoe ui light';
+}
+body
+{
+    height: 1500px;
+}
+.header
+{
+    background-color: #09c;
+    width: 100%;
+    color: #fff;
+    margin: 20px 0px;
+    border-radius: 5px;
+    padding: 8px;
+    font-weight: bold;
+    font-size: 18px;
+
+}
+.header .btnback .btn
+{
+    width: 90px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.video_playnow
+{
+    width: 100%;
+    height: 400px;
+}
+.footer_video
+{
+    border-bottom: 1px solid #aaa;
+}
+.footer_video .like
+{
+    border-radius: 15px;
+}
+.content_vid
+{
+    border-bottom: 1px solid #aaa;
+}
+.add_comment img
+{
+    margin: 10px 2px;
+}
+.add_comment .coment
+{
+    border-bottom: 1px solid #aaa;
+    margin-right: 10px;
+}
+.add_comment input
+{
+    width: 100%;
+    border: none;
+}
+.add_comment input:focus
+{
+    border: none;
+}
+.list_video
+{
+    height: 150px;
+    margin: 10px 0px;
+}
+.activelike
+{
+    color: #09c;
+    cursor: pointer;
+}
+.activeunlike
+{
+    color:firebrick;
+    cursor: pointer;
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Live Session </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+
+</head>
+
+<body>
+  <div class="student__Profile">
+
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Disabled</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+    <!-- End navbar -->
+    <div class="custom-container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb inner__breadcrumb d-flex justify-content-between">
+          <li class="breadcrumb-item active d-flex align-items-center" aria-current="page">
+            <img src="./images/Profile/breadcrumb_icon.png" class="img-fluid" alt="">
+            Live Session
+          </li>
+          <li class="back" aria-current="page">
+            <button type="button" class="btn btn-light text-capitalize">back </button>
+          </li>
+        </ol>
+      </nav>
+    </div>
+
+    <div class="Page__content">
+      <div class="live__session">
+        <div class="container">
+          <div class="join__lesson">
+            <div class="text-center">
+              <h4 class="h4 title"> Join a Lesson</h3>
+                <p class="">Your teacher will give you 5 letter CODE to enter </p>
+              </div>
+              <div class="enter__code">
+                <small class="text-capitalize">enter code</small>
+                <div class="code">
+                  <div class="d-flex">
+                      <input type="text" class="form-control" maxlength="5" placeholder="Enter code">
+                    <!-- <label for="inputPassword" class="col-sm-2 col-form-label"> </label> -->
+                    <button type="button" class="btn btn-primary">Join</button>
+                  </div>
+                </div>
+              </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,158 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Comfortaa;
+}
+
+:root {
+    --blue: #3166AD;
+    --gray: #98A5B7;
+    --box-shadow: 0 0 0 0.07rem rgb(216 217 219 / 50%);
+}
+
+@font-face {
+    font-family: Comfortaa;
+    src: url(../fonts/Comfortaa-Regular.ttf);
+    src: url(../fonts/Comfortaa-Bold.ttf);
+    src: url(../fonts/Comfortaa-Light.ttf);
+}
+
+.custom-container {
+    width: 93%;
+    margin: 0 auto;
+}
+
+.inner__breadcrumb {
+    background-color: var(--blue);
+    margin-top: 1.5em;
+    border-radius: .5em;
+}
+
+.inner__breadcrumb li {
+    font-weight: bold;
+    color: #fff !important;
+}
+
+.inner__breadcrumb .breadcrumb-item img {
+    width: 2em !important;
+    margin-right: .8em;
+}
+
+.inner__breadcrumb .back button {
+    color: var(--blue);
+    padding: 0.3em 1.2em;
+    border: 2px solid #98A5B7;
+    border-radius: 0.4em;
+    font-weight: bold;
+    font-size: .9em;
+}
+
+.inner__breadcrumb .back button:focus {
+    box-shadow: 0 0 0 0.07rem rgb(216 217 219 / 50%)
+}
+
+/* beggin sub__breadcrumb */
+.sub__breadcrumb {
+    margin-top: 2em;
+    color: var(--gray);
+    font-weight: 600;
+    font-size: .9em;
+}
+
+.sub__breadcrumb .dropdown {
+    border-radius: .5em;
+}
+
+.sub__breadcrumb .dropdown button {
+    color: #98A5B7;
+    border: 1px solid var(--gray);
+    padding-top: .4em;
+    padding-bottom: .4em;
+    font-weight: 600;
+}
+
+/* End .sub__breadcrumb */
+/* begin student__dashbord */
+.student__dashbord {
+    margin-top: 3em;
+    margin-bottom: 5em;
+}
+
+.student__dashbord .student_dashbord_card {
+    border: 1px solid rgba(221, 221, 221, 0.329);
+    padding: 2em 3.5em;
+    box-shadow: 0 0 5px #E6E8F0;
+    border-radius: .5em;
+    margin-top: 3em;
+}
+
+.student__dashbord .student_dashbord_card .card__header {
+    color: var(--blue);
+    margin-bottom: .7em;
+    font-weight: bold;
+}
+
+/* End student__dashbord */
+
+/******************************** begin live session page ********************************/
+
+.live__session {
+    margin-top: 7em;
+}
+
+.live__session .join__lesson {
+    width: 60%;
+    margin: 0 auto;
+    border: 1px solid rgba(221, 221, 221, 0.466);
+    border-radius: .5em;
+    padding: 2em 0;
+    /* text-align: center; */
+    box-shadow: var(--box-shadow);
+
+}
+
+.live__session .join__lesson h4 {
+    color: var(--blue);
+    font-weight: bold;
+}
+
+.live__session .join__lesson p {
+    color: var(--gray);
+    font-weight: bold;
+    font-size: smaller;
+}
+
+.live__session .join__lesson .enter__code {
+    width: 25%;
+    margin: 0 auto;
+}
+/* .live__session .join__lesson .enter__code small {
+    text-align: left;
+
+} */
+.live__session .join__lesson .enter__code small {
+    color: var(--blue);
+    font-weight: bold;
+}
+.live__session .join__lesson .enter__code .code {
+    border: 1px solid #B9C1C4;
+    border: .25rem;
+}
+.live__session .join__lesson .enter__code .code .col-sm-10{
+    padding-right: 0 ;
+}
+.live__session .join__lesson .enter__code .code .form-control{
+    border-radius: .25rem 0 0 .25rem;
+}
+.live__session .join__lesson .enter__code .code .form-control::placeholder{
+    font-weight: bold;
+    color: var(--gray);
+    font-size: .75em;
+}
+.live__session .join__lesson .enter__code .code .btn{
+    border-radius:  0 .25rem  .25rem 0;
+    font-weight: bold;
+}
+
+
+/******************************** end live session page ********************************/
