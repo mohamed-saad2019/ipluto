@@ -112,6 +112,7 @@ Route::middleware(['web'])->group(function () {
     });
 
 
+
     Route::get('language-switch/{local}', 'LanguageSwitchController@languageSwitch')->name('languageSwitch');
 
     Route::middleware(['is_active', 'auth', 'maintanance_mode'])->group(function () {
@@ -585,7 +586,10 @@ Route::middleware(['web'])->group(function () {
         Route::post('classes/saveShare', 'ClassController@saveShare')->name('saveShare');
         /* end route classes */
 
-
+        Route::get('/testfront', function(){
+            return view('instructor.testfront') ;
+        }) ;
+        
         /* start route lessons */
         Route::get('lessons/index', 'LessonController@index')->name('lessons.index');
         Route::post('add_lesson_to_folder', 'LessonController@add_lesson_to_folder');
