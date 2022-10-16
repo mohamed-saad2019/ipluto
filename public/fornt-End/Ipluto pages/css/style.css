@@ -306,4 +306,47 @@ body{
 }
 
 /******************************** end video page ********************************/
+/******************************** begin Create a live Lesson ********************************/
+.Createlive__session {
+    margin-top: 7em;
+}
+.Createlive__session button{ 
+    background-color: var(--blue);
+}
+.Createlive__session .Create__lesson{
+    width: 60%;
+    margin: 0 auto;
+    border: 1px solid rgba(221, 221, 221, 0.466);
+    border-radius: .5em;
+    padding: 2em 0;
+    /* text-align: center; */
+    box-shadow: var(--box-shadow);
+
+}
+.Createlive__session .Create__lesson .title,.Createlive__session .Create__lesson label{
+    color: var(--blue);
+    font-weight: bold;
+
+}
+.Createlive__session .Create__lesson p{
+    color: var(--gray);
+}
+.Createlive__session .Create__lesson .class{
+    padding-bottom: 1.2em;
+    border-bottom: 2px solid #ddd;
+}
+
+.Createlive__session .Create__lesson .class select{
+    box-shadow: var(--box-shadow);
+    opacity: .7;
+}
+.Createlive__session .Create__lesson .class select option{
+    color: var(--gray);
+}
+.Createlive__session .Create__lesson .date__time input{
+    box-shadow: var(--box-shadow);
+    opacity: .7;
+}
+/******************************** EndCreate a live Lesson ********************************/
+
 
