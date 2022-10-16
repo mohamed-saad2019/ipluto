@@ -2,20 +2,25 @@
     margin: 0;
     padding: 0;
     font-family: Comfortaa;
-}
+    box-sizing:border-box;
 
-:root {
-    --blue: #3166AD;
-    --gray: #98A5B7;
-    --box-shadow: 0 0 0 0.07rem rgb(216 217 219 / 50%);
 }
-
+body{
+    background-color: #F8FAFB;
+}
 @font-face {
     font-family: Comfortaa;
     src: url(../fonts/Comfortaa-Regular.ttf);
     src: url(../fonts/Comfortaa-Bold.ttf);
     src: url(../fonts/Comfortaa-Light.ttf);
 }
+
+:root {
+    --blue: #3166AD;
+    --gray: #98A5B7;
+    --box-shadow: 0 0 0 0.09rem rgb(216 217 219 / 50%);
+}
+
 
 .custom-container {
     width: 93%;
@@ -153,6 +158,152 @@
     border-radius:  0 .25rem  .25rem 0;
     font-weight: bold;
 }
-
-
 /******************************** end live session page ********************************/
+/******************************** end my video page ********************************/
+.video_playnow
+{
+    width: 100%;
+    height: 400px;
+}
+.footer_video
+{
+    border-bottom: 1px solid #aaa;
+}
+.footer_video .like
+{
+    border-radius: 15px;
+}
+.content_vid
+{
+    border-bottom: 1px solid #aaa;
+}
+.add_comment img
+{
+    margin: 10px 2px;
+}
+.add_comment .coment
+{
+    border-bottom: 1px solid #aaa;
+    margin-right: 10px;
+}
+.add_comment .coment input:focus-visible{
+    outline: unset
+    ;
+}
+.add_comment input
+{
+    width: 100%;
+    border: none;
+}
+.add_comment input:focus
+{
+    border: none;
+}
+.list_video
+{
+    height: 150px;
+    margin: 10px 0px;
+}
+.activelike
+{
+    color: #09c;
+    cursor: pointer;
+}
+.activeunlike
+{
+    color:firebrick;
+    cursor: pointer;
+}
+.list_video{
+    overflow: hidden;
+}
+.video_next {
+    width: 50%;
+}
+.video_next_content{
+    font-size: .9em;
+    
+}
+.vedio__subject{
+    color: #595959;
+    font-weight: bold;
+}
+.content_vid img{
+    height: 3em;
+}
+.video__listTile{
+    font-size: .9em;
+}
+.coment_contet span:first-child{
+    font-size: .9em;
+    color: #595959;
+}
+.video__comment{
+    font-size: .75em;
+}
+.comment__replay{
+    font-size: .8em;
+    text-transform: capitalize;
+}
+/******************************** end my video page ********************************/
+/******************************** beggin video page ********************************/
+
+.student__singleVideo{
+    position:relative;
+}
+
+.student__video  .info__icon button:focus{
+    outline: 0;
+    box-shadow: unset;
+}
+.student__video  .info__icon button:hover{
+ opacity: .7;
+}
+.student__video  .info__icon button i{
+    position: absolute;
+    top: .2 ;
+    right: .5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.2em;
+    height: 1.2em;
+    margin: 0 0.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: #fff;
+    /* background-image: linear-gradient(#e4e9ed, #bec9d1); */
+    color: #666;
+    outline: 0;
+
+}
+
+.student__video .student__singleVideo{
+    border: 1px solid rgba(221, 221, 221, 0.107);
+    box-shadow: var(--box-shadow);
+    padding-bottom: .5em;
+}
+.student__video .student__singleVideo:hover{
+    transform: scale(1.2);
+    transition: ease-in-out  .3s;
+}
+.student__video .student__singleVideo video{
+    max-height: 10.5em;
+}
+.student__video .video__details .logo__icon img{
+    height: 2em;
+    margin-right: .5em;
+}
+.student__video .video__details .description h5{
+    font-size: 1.1em;
+    margin-bottom: .3em;
+}
+.student__video .video__details .description h6{
+    margin-bottom: .4em;
+    font-size: .8em;
+    font-weight: bold;
+    color: #595959;
+}
+
+/******************************** end video page ********************************/
+
