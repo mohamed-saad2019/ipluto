@@ -39,4 +39,9 @@ class InstructorGrade extends Model
     {
         return $this->belongsTo('App\SubCategory','grade_id','id');
     }
+
+     public function instructor()
+    {
+        return $this->belongsTo('App\User','instructor_id','id');
+    }
 }

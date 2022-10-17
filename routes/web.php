@@ -837,6 +837,14 @@ Route::middleware(['web'])->group(function () {
             return view('front.help.faq',compact('data', 'item')); 
             })->name('help.show');
 
+            /* start routes center student dashboard */
+           Route::group(['middleware' => ['center_student']], function () {
+                Route::get('student/lessons', 'StudentController@lessons')->name('student.lessons');
+                Route::get('student/profile', 'StudentController@profile')->name('student.profile');
+            });
+           /* end routes route center student dashboard */
+
+
             Route::get('pages/{slug}','PageController@showpage')->name('page.show');
 
             Route::post('show/wishlist/{id}','WishlistController@wishlist');

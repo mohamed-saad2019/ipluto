@@ -52,6 +52,28 @@
               </span>
           @endif
         </div>
+
+      @php
+        $grades = \App\SubCategory::where('status', '1')->orderBy('id','ASC')->get(); 
+      @endphp
+        <div class="form-group">
+          <label for="exampleInputEmail1">Grade</label>
+          <select name='grade' 
+                 class="form-control{{ $errors->has('grade') ? ' is-invalid' : '' }}" required>
+            <option value="">Choose Your Grade</option>
+             @if($grades)
+               @foreach($grades as $grade)
+                      <option value="{{$grade->id}}">{{$grade->title}}</option>
+               @endforeach
+            @endif
+          </select>
+          @if($errors->has('grade'))
+              <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('grade') }}</strong>
+              </span>
+          @endif
+        </div>
+
         <!--################################### start Choose A Photo ################################### -->
         <label for="exampleInputEmail1">Choose A Photo</label>
         <div

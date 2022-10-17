@@ -331,3 +331,17 @@ if(!function_exists('getDaysClass'))
         }
     }
 
+
+
+if(!function_exists('get_student_subjects')){
+    function get_student_subjects(){
+
+       return $mySubjects = \App\ChildCategory::where('subcategory_id',auth()->user()->grade)->get();
+    }
+}
+
+if(!function_exists('get_name_subject')){
+    function get_name_subject($id){
+       return $mySubjects = \App\ChildCategory::where('id',$id)->first()->title;
+    }
+}

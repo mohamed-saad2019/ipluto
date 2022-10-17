@@ -13,4 +13,14 @@ class ShareLessons extends Model
     {
     	return $this->belongsTo('App\User','student_id','id');
     }
+
+    public function instructor()
+    {
+        return $this->belongsTo('App\User','instructor_id','id');
+    }
+
+    public function lessons()
+    {
+        return $this->belongsTo('App\Lesson','lesson_id','id');
+    }
 }

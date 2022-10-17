@@ -1,0 +1,352 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Comfortaa;
+    box-sizing:border-box;
+
+}
+body{
+    background-color: #F8FAFB;
+}
+@font-face {
+    font-family: Comfortaa;
+    src: url(../fonts/Comfortaa-Regular.ttf);
+    src: url(../fonts/Comfortaa-Bold.ttf);
+    src: url(../fonts/Comfortaa-Light.ttf);
+}
+
+:root {
+    --blue: #3166AD;
+    --gray: #98A5B7;
+    --box-shadow: 0 0 0 0.09rem rgb(216 217 219 / 50%);
+}
+
+
+.custom-container {
+    width: 93%;
+    margin: 0 auto;
+}
+
+.inner__breadcrumb {
+    background-color: var(--blue);
+    margin-top: 1.5em;
+    border-radius: .5em;
+}
+
+.inner__breadcrumb li {
+    font-weight: bold;
+    color: #fff !important;
+}
+
+.inner__breadcrumb .breadcrumb-item img {
+    width: 2em !important;
+    margin-right: .8em;
+}
+
+.inner__breadcrumb .back button {
+    color: var(--blue);
+    padding: 0.3em 1.2em;
+    border: 2px solid #98A5B7;
+    border-radius: 0.4em;
+    font-weight: bold;
+    font-size: .9em;
+}
+
+.inner__breadcrumb .back button:focus {
+    box-shadow: 0 0 0 0.07rem rgb(216 217 219 / 50%)
+}
+
+/* beggin sub__breadcrumb */
+.sub__breadcrumb {
+    margin-top: 2em;
+    color: var(--gray);
+    font-weight: 600;
+    font-size: .9em;
+}
+
+.sub__breadcrumb .dropdown {
+    border-radius: .5em;
+}
+
+.sub__breadcrumb .dropdown button {
+    color: #98A5B7;
+    border: 1px solid var(--gray);
+    padding-top: .4em;
+    padding-bottom: .4em;
+    font-weight: 600;
+}
+
+/* End .sub__breadcrumb */
+/* begin student__dashbord */
+.student__dashbord {
+/*    margin-top: 3em;
+    margin-bottom: 5em;*/
+}
+
+.student__dashbord .student_dashbord_card {
+    border: 1px solid rgba(221, 221, 221, 0.329);
+    padding: 2em 3.5em;
+    box-shadow: 0 0 5px #E6E8F0;
+    border-radius: .5em;
+    margin-top: 3em;
+}
+
+.student__dashbord .student_dashbord_card .card__header {
+    color: var(--blue);
+    margin-bottom: .7em;
+    font-weight: bold;
+}
+
+/* End student__dashbord */
+
+/******************************** begin live session page ********************************/
+
+.live__session {
+    margin-top: 7em;
+}
+
+.live__session .join__lesson {
+    width: 60%;
+    margin: 0 auto;
+    border: 1px solid rgba(221, 221, 221, 0.466);
+    border-radius: .5em;
+    padding: 2em 0;
+    /* text-align: center; */
+    box-shadow: var(--box-shadow);
+
+}
+
+.live__session .join__lesson h4 {
+    color: var(--blue);
+    font-weight: bold;
+}
+
+.live__session .join__lesson p {
+    color: var(--gray);
+    font-weight: bold;
+    font-size: smaller;
+}
+
+.live__session .join__lesson .enter__code {
+    width: 25%;
+    margin: 0 auto;
+}
+/* .live__session .join__lesson .enter__code small {
+    text-align: left;
+
+} */
+.live__session .join__lesson .enter__code small {
+    color: var(--blue);
+    font-weight: bold;
+}
+.live__session .join__lesson .enter__code .code {
+    border: 1px solid #B9C1C4;
+    border: .25rem;
+}
+.live__session .join__lesson .enter__code .code .col-sm-10{
+    padding-right: 0 ;
+}
+.live__session .join__lesson .enter__code .code .form-control{
+    border-radius: .25rem 0 0 .25rem;
+}
+.live__session .join__lesson .enter__code .code .form-control::placeholder{
+    font-weight: bold;
+    color: var(--gray);
+    font-size: .75em;
+}
+.live__session .join__lesson .enter__code .code .btn{
+    border-radius:  0 .25rem  .25rem 0;
+    font-weight: bold;
+}
+/******************************** end live session page ********************************/
+/******************************** end my video page ********************************/
+.video_playnow
+{
+    width: 100%;
+    height: 400px;
+}
+.footer_video
+{
+    border-bottom: 1px solid #aaa;
+}
+.footer_video .like
+{
+    border-radius: 15px;
+}
+.content_vid
+{
+    border-bottom: 1px solid #aaa;
+}
+.add_comment img
+{
+    margin: 10px 2px;
+}
+.add_comment .coment
+{
+    border-bottom: 1px solid #aaa;
+    margin-right: 10px;
+}
+.add_comment .coment input:focus-visible{
+    outline: unset
+    ;
+}
+.add_comment input
+{
+    width: 100%;
+    border: none;
+}
+.add_comment input:focus
+{
+    border: none;
+}
+.list_video
+{
+    height: 150px;
+    margin: 10px 0px;
+}
+.activelike
+{
+    color: #09c;
+    cursor: pointer;
+}
+.activeunlike
+{
+    color:firebrick;
+    cursor: pointer;
+}
+.list_video{
+    overflow: hidden;
+}
+.video_next {
+    width: 50%;
+}
+.video_next_content{
+    font-size: .9em;
+    
+}
+.vedio__subject{
+    color: #595959;
+    font-weight: bold;
+}
+.content_vid img{
+    height: 3em;
+}
+.video__listTile{
+    font-size: .9em;
+}
+.coment_contet span:first-child{
+    font-size: .9em;
+    color: #595959;
+}
+.video__comment{
+    font-size: .75em;
+}
+.comment__replay{
+    font-size: .8em;
+    text-transform: capitalize;
+}
+/******************************** end my video page ********************************/
+/******************************** beggin video page ********************************/
+
+.student__singleVideo{
+    position:relative;
+}
+
+.student__video  .info__icon button:focus{
+    outline: 0;
+    box-shadow: unset;
+}
+.student__video  .info__icon button:hover{
+ opacity: .7;
+}
+.student__video  .info__icon button i{
+    position: absolute;
+    top: .2 ;
+    right: .5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.2em;
+    height: 1.2em;
+    margin: 0 0.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: #fff;
+    /* background-image: linear-gradient(#e4e9ed, #bec9d1); */
+    color: #666;
+    outline: 0;
+
+}
+
+.student__video .student__singleVideo{
+    border: 1px solid rgba(221, 221, 221, 0.107);
+    box-shadow: var(--box-shadow);
+    padding-bottom: .5em;
+}
+.student__video .student__singleVideo:hover{
+    transform: scale(1.2);
+    transition: ease-in-out  .3s;
+}
+.student__video .student__singleVideo video{
+    max-height: 10.5em;
+}
+.student__video .video__details .logo__icon img{
+    height: 2em;
+    margin-right: .5em;
+}
+.student__video .video__details .description h5{
+    font-size: 1.1em;
+    margin-bottom: .3em;
+}
+.student__video .video__details .description h6{
+    margin-bottom: .4em;
+    font-size: .8em;
+    font-weight: bold;
+    color: #595959;
+}
+
+/******************************** end video page ********************************/
+/******************************** begin Create a live Lesson ********************************/
+.Createlive__session {
+    margin-top: 7em;
+}
+.Createlive__session button{ 
+    background-color: var(--blue);
+}
+.Createlive__session .Create__lesson{
+    width: 60%;
+    margin: 0 auto;
+    border: 1px solid rgba(221, 221, 221, 0.466);
+    border-radius: .5em;
+    padding: 2em 0;
+    /* text-align: center; */
+    box-shadow: var(--box-shadow);
+
+}
+.Createlive__session .Create__lesson .title,.Createlive__session .Create__lesson label{
+    color: var(--blue);
+    font-weight: bold;
+
+}
+.Createlive__session .Create__lesson p{
+    color: var(--gray);
+}
+.Createlive__session .Create__lesson .class{
+    padding-bottom: 1.2em;
+    border-bottom: 2px solid #ddd;
+}
+
+.Createlive__session .Create__lesson .class select{
+    box-shadow: var(--box-shadow);
+    opacity: .7;
+}
+.Createlive__session .Create__lesson .class select option{
+    color: var(--gray);
+}
+.Createlive__session .Create__lesson .date__time input{
+    box-shadow: var(--box-shadow);
+    opacity: .7;
+}
+/******************************** EndCreate a live Lesson ********************************/
+
+

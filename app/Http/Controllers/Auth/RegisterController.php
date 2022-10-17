@@ -69,7 +69,7 @@ class RegisterController extends Controller
                 'password' => ['required', 'string', 'min:6', 'confirmed'],
                 'g-recaptcha-response' => 'required|captcha',
                 'mobile' => ['regex:/^([0-9\s\-\+\(\)]*)$/', 'max:17'],
-                // 'term' => 'required',
+                'grade' => 'required'
             ]);
         }
         else{
@@ -80,7 +80,7 @@ class RegisterController extends Controller
                 'password' => ['required', 'string', 'min:6', 'confirmed'],
                 'mobile' => ['regex:/^([0-9\s\-\+\(\)]*)$/', 'max:17'],
                 'image'    => 'required',
-                // 'term' => 'required',
+                'grade' => 'required'
             ]);
 
         }
@@ -94,7 +94,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-    
+
+        
         $setting = Setting::first();
 
         if($setting->mobile_enable == 1)
@@ -167,6 +168,8 @@ class RegisterController extends Controller
                 'referred_by' => $referred_by,
                 'affiliate_id' => $refercode,
                 'user_img' => $data['image'].".png",
+                'grade'=>$data['grade'],
+
 
             ]);
         }
@@ -181,6 +184,7 @@ class RegisterController extends Controller
                 'email_verified_at'  => $verified,
                 'password' => Hash::make($data['password']),
                 'user_img' => $data['image'].".png",
+                'grade'=>$data['grade'],
             ]);
 
         }
