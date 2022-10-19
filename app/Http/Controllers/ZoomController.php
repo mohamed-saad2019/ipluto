@@ -17,6 +17,12 @@ use Image;
 use App\Setting;
 use Carbon\Carbon;
 use App\Attandance;
+use App\Classes;
+use App\ClassesStudent;
+use App\Zoom;
+use App\ZoomClasses;
+use Session;
+use Redirect ;
 
 class ZoomController extends Controller
 {
@@ -649,6 +655,138 @@ class ZoomController extends Controller
     }
 
 
+    public function startZoom(Request $request)
+    {
+      $classes    = Classes::where([['instructor_id' , auth()->user()->id] ])->get() ;
+      return view("zoom.create_zoom",compact('classes'));
+    }
+
+    public function storeZoom(Request $request)
+    {
+      
+      $jwtToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6Im9PczB1Y0hQVExLd2FKLWRLTHZ6U2ciLCJleHAiOjE5MTgxNDc4NjAsImlhdCI6MTY2NTA4MjM2OH0.bRHzGefC0bSSJs2-pzDZ-j0nm0vQDePYiDwwH6uylqM';  
+      
+      if($request->now == 'on')
+      {
+        $start_time = date('Y-m-dTh:i:00').'Z' ;
+      }else{
+        $datetime = $request->date." ".$request->time ;
+        $start_time = date('Y-m-dTh:i:00',strtotime($datetime)).'Z' ;
+      }
+
+      $requestBody = [
+        'topic'			  => $meetingConfig['topic'] 		?? 'PHP General Talk',
+        'type'			  => $meetingConfig['type'] 		?? 2,
+        'start_time'	=> $start_time ,
+        'duration'		=> $meetingConfig['duration'] 	?? 30,
+        'password'		=> $meetingConfig['password'] 	?? mt_rand(),
+        'timezone'		=> 'Africa/Cairo',
+        'agenda'		=> 'PHP Session',
+        'settings'		=> [
+            'host_video'			=> false,
+            'participant_video'		=> true,
+            'cn_meeting'			=> false,
+            'in_meeting'			=> false,
+            'join_before_host'		=> true,
+            'mute_upon_entry'		=> true,
+            'watermark'				=> false,
+            'use_pmi'				=> false,
+            'approval_type'			=> 1,
+            'registration_type'		=> 1,
+            'audio'					=> 'voip',
+          'auto_recording'		=> 'none',
+          'waiting_room'			=> false
+        ]
+      ];
+  
+      $zoomUserId = 'w4kwLh9ISEeto4-MYLXYUw';
+  
+      $curl = curl_init();
+      curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0); // Skip SSL Verification
+      curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://api.zoom.us/v2/users/".$zoomUserId."/meetings",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_SSL_VERIFYHOST => 0,
+        CURLOPT_SSL_VERIFYPEER => 0,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => json_encode($requestBody),
+        CURLOPT_HTTPHEADER => array(
+          "Authorization: Bearer ".$jwtToken,
+          "Content-Type: application/json",
+          "cache-control: no-cache"
+        ),
+      ));
+  
+      $response = curl_exec($curl);
+      $data = json_decode($response);
+      $err = curl_error($curl);
+  
+      curl_close($curl);
+      $code = "Z".auth()->user()->id.rand(1111,9999) ;
+      $now  = ($request->now == 'on') ? 1 : 0 ;
+      $zoom = Zoom::create([
+                "start_time"      =>  $data->start_time,
+                "now"             =>  $now ,
+                "instructor_id"   =>  auth()->user()->id,
+                "code"            =>  $code,
+                "url"             =>  $data->join_url ,
+                "other"           =>  $response
+              ]);
+
+      foreach($request->classes as $_class){
+          ZoomClasses::create([
+            "zoom_id"   => $zoom->id ,
+            "class_id"  => $_class
+          ]);
+      }
+
+      if($request->now == 'on')
+      {
+        $start_time = date('Y-m-dTh:i:00').'Z' ;
+      }else{
+        $datetime = $request->date." ".$request->time ;
+        $start_time = date('Y-m-dTh:i:00',strtotime($datetime)).'Z' ;
+      }
+      header("Location: ".$data->join_url); 
+      exit;
+      
+    }
+
+    public function liveSession(Request $request)
+    {
+      return view('student.livesession');
+    }
+    public function joinZoom(Request $request)
+    {
+      $code = $request->code ;
+      $zoom = Zoom::where('code',$code)
+                  ->where('start_time' ,"<=", date("Y-m-d h:i:s") )
+                  ->first();
+
+      if($zoom)
+      {
+        $checkClass = ClassesStudent::where('teacher_id',$zoom->instructor_id)
+                                    ->where('student_id',auth()->user()->id )
+                                    ->whereIN('class_id', ZoomClasses::where('zoom_id',$zoom->id)->pluck('class_id') )
+                                    ->first();
+
+        if($checkClass)
+        {
+          header("Location: ".$zoom->url); 
+          exit;
+        }else{
+          Session::flash('error', 'You are not subscribed to this class ');
+        }
+      }else{
+        Session::flash('error', 'Invalid verification code ');
+      }
+      return redirect()->back(); 
+      
+    }
 
 
 }

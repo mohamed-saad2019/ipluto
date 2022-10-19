@@ -2629,3 +2629,98 @@ tr.cus_table:hover {
   color: green;
   background-color: #ccc;
 }
+
+/******************************** begin Create a live Lesson ********************************/
+.Createlive__session {
+  margin-top: 7em;
+}
+.Createlive__session button{ 
+  background-color: var(--blue);
+}
+.Createlive__session .Create__lesson{
+  width: 60%;
+  margin: 0 auto;
+  border: 1px solid rgba(221, 221, 221, 0.466);
+  border-radius: .5em;
+  padding: 2em 0;
+  /* text-align: center; */
+  box-shadow: var(--box-shadow);
+
+}
+.Createlive__session .Create__lesson .title,.Createlive__session .Create__lesson label{
+  color: var(--blue);
+  font-weight: bold;
+
+}
+.Createlive__session .Create__lesson p{
+  color: var(--gray);
+}
+.Createlive__session .Create__lesson .class{
+  padding-bottom: 1.2em;
+  border-bottom: 2px solid #ddd;
+}
+
+.Createlive__session .Create__lesson .class select{
+  box-shadow: var(--box-shadow);
+  opacity: .7;
+}
+.Createlive__session .Create__lesson .class select option{
+  color: var(--gray);
+}
+.Createlive__session .Create__lesson .date__time input{
+  box-shadow: var(--box-shadow);
+  opacity: .7;
+}
+/******************************** EndCreate a live Lesson ********************************/
+.inner__breadcrumb {
+  background-color: var(--blue);
+  margin-top: 1.5em;
+  border-radius: .5em;
+}
+
+.inner__breadcrumb li {
+  font-weight: bold;
+  color: #fff !important;
+}
+
+.inner__breadcrumb .breadcrumb-item img {
+  width: 2em !important;
+  margin-right: .8em;
+}
+
+.inner__breadcrumb .back button {
+  color: var(--blue);
+  padding: 0.3em 1.2em;
+  border: 2px solid #98A5B7;
+  border-radius: 0.4em;
+  font-weight: bold;
+  font-size: .9em;
+}
+
+.inner__breadcrumb .back button:focus {
+  box-shadow: 0 0 0 0.07rem rgb(216 217 219 / 50%)
+}
+
+/* beggin sub__breadcrumb */
+.sub__breadcrumb {
+  margin-top: 2em;
+  color: var(--gray);
+  font-weight: 600;
+  font-size: .9em;
+}
+
+.sub__breadcrumb .dropdown {
+  border-radius: .5em;
+}
+
+.sub__breadcrumb .dropdown button {
+  color: #98A5B7;
+  border: 1px solid var(--gray);
+  padding-top: .4em;
+  padding-bottom: .4em;
+  font-weight: 600;
+}
+
+.div_zoom{
+  display: contents !important;
+}

@@ -79,7 +79,7 @@
                                         My Dashboard
                                     </button></a>
                                 @elseif(Auth::User()['role'] == 'user')
-                                    <a href="student/courses.html"><button class="form-control" style="margin-top: 9px">
+                                    <a href="{{route('student.profile')}}"><button class="form-control" style="margin-top: 9px">
                                         My Dashboard
                                     </button></a>
                                 @endif

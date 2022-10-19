@@ -20,7 +20,7 @@
               </a>
             </div>
             <div class="col-md-4">
-               <a class='' href="#">
+               <a class='' href="{{route('show_library')}}">
                   <div class="student_dashbord_card text-center">
                   <h3 class="h4 card__header text-capitalize">Videos</h3>
                   <div class="card-content">
@@ -32,7 +32,7 @@
             <div class="col-md-4">
              
               
-             <a class='' href="#">
+             <a class='' href="{{route('student.livesession')}}">
                   <div class="student_dashbord_card text-center">
                   <h3 class="h4 card__header text-capitalize">Live Session</h3>
                   <div class="card-content">

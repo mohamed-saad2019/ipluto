@@ -595,6 +595,12 @@ Route::middleware(['web'])->group(function () {
         Route::post('add_lesson_to_folder', 'LessonController@add_lesson_to_folder');
         /* end route lessons */
 
+
+        /* start route zoom */
+        Route::get('zoom_create', 'ZoomController@startZoom')->name('create.zoom');
+        Route::post('store_zoom', 'ZoomController@storeZoom')->name('saveZoom');
+        /* end route zoom */
+
        Route::get('instructor/del_sildes', 'InstructorController@del_sildes')->name('instructor.del_sildes');
 
         Route::get('instructor/duplicate_lesson', 'InstructorController@duplicate_lesson')->name('instructor.duplicate_lesson'); 
@@ -841,6 +847,17 @@ Route::middleware(['web'])->group(function () {
            Route::group(['middleware' => ['center_student']], function () {
                 Route::get('student/lessons', 'StudentController@lessons')->name('student.lessons');
                 Route::get('student/profile', 'StudentController@profile')->name('student.profile');
+                Route::get('student/livesession', 'ZoomController@liveSession')->name('student.livesession');
+                Route::post('student/join_zoom', 'ZoomController@joinZoom')->name('join.zoom');
+                
+                //start labirary
+                Route::get('student/show_library', function(){
+                    return view('student.show_library');
+                })->name('show_library');
+                Route::get('student/showlist', function(){
+                    return view('student.showlist');
+                })->name('showlist');
+                // end library
             });
            /* end routes route center student dashboard */
 
