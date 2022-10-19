@@ -207,7 +207,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
       <div class="col-12 col-md-6 col-lg-3 folders mb-4" id="{{$folder->id}}">
         <div class="single__paste d-flex justify-content-between">
           <div class="">
-            <a class="w-100 d-flex align-items-center"
+            <a class="w-100 d-flex align-items-center" style="color:{{$folder->color}}"
               href="{{url('instructor/library?id='.$folder->id.'&parent_id='.$folder->parent_id)}}">
               <i class="fa fa-folder"></i>
               <span class="description ml-2">{{$folder->name}}</span>

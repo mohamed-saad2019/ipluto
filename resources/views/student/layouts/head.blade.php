@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/icon" href="{{url('images/logo.png')}}"> <!-- favicon-icon -->
+    <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
+    <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet" />
     <link rel="stylesheet" href="./../style.css" />
         @include('admin.layouts.head')
     <link rel="stylesheet" href="{{ url('student/css/bootstrap.min.css') }}">
@@ -100,6 +102,10 @@
             <img src="./images/Profile/breadcrumb_icon.png" class="img-fluid" alt="">
               @yield('title')
           </li>
+           <a href="{{url()->previous()}}" 
+            style="margin:10px;color: #fff;border: 1px solid #FFE;padding: 0px 14px;">
+           <i class="feather icon-arrow-left mr-2"></i>Back
+        </a>
           <!-- <li class="back" aria-current="page">
             <button type="button" class="btn btn-light text-capitalize">back </button>
           </li> -->
@@ -107,6 +113,7 @@
       </nav>
     </div>
         @yield('select_subject')
+
         @yield('maincontent')
 
   </div>
