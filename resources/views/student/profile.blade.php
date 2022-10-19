@@ -8,6 +8,15 @@
     <div class="Page__content">
       <div class="student__dashbord">
         <div class="container">
+           @if(Session::has('info') and !empty(Session::get('info')))
+                       <br>
+                        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                            <strong>{{ Session::get('info') }}</strong>
+                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                               <span aria-hidden="true">&times;</span>
+                         </button>
+                        </div> 
+           @endif
           <div class="row">
             <div class="col-md-4">
               <a class='' href="#">

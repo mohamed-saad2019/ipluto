@@ -1368,17 +1368,17 @@ text-align: center;
   box-shadow: 0 0rem .3rem rgba(0,0,0,.15);
 }
 .paste .folders .single__paste i{
-  color: #707070;
+/*  color: #707070;*/
   margin:  4px 10px 6px;
   font-size: 2em;
 }
 .paste .folders .single__paste span{
-  color: #98A5B7;
-}
+/*  color: #98A5B7;*/
+ }
 .paste .folders .single__paste:hover i,
 .paste .folders .single__paste:hover .description{
-  color: #58C0F9;
-}
+/*  color: #58C0F9;
+*/}
 .paste .folders .single__paste .sizing{
   font-size: 10px;
 }

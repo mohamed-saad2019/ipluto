@@ -106,13 +106,15 @@ if(!function_exists('get_parent'))
 
 if(!function_exists('get_size_lesson'))
     {
-       function get_size_lesson($lesson_id,$withou_unit='')
+       function get_size_lesson($lesson_id,$withou_unit='',$user = '')
         {
 
-          $files_count = \App\File::where('instructor_id','=',\Auth::user()->id)
+          $user = empty($user)?\Auth::user()->id : $user;
+
+          $files_count = \App\File::where('instructor_id','=',$user)
                                 ->where('lesson_id',$lesson_id)->count();
 
-         $files = \App\File::where('instructor_id','=',\Auth::user()->id)
+         $files = \App\File::where('instructor_id','=',$user)
                                 ->where('lesson_id',$lesson_id)->get();
 
         if ($files_count!=0) 
@@ -345,3 +347,6 @@ if(!function_exists('get_name_subject')){
        return $mySubjects = \App\ChildCategory::where('id',$id)->first()->title;
     }
 }
+
+
+
