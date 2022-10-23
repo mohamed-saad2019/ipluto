@@ -2731,7 +2731,9 @@ tr.cus_table:hover {
 }
 
 /************************ uplode ************************/
-
+.uplode__page .nav-tabs .nav-link{
+  background: none !important;
+}
 .uplode__page .drop-zone {
   max-width: 250px;
   height: 200px;
@@ -2759,9 +2761,9 @@ tr.cus_table:hover {
 .nav-link{
   border-bottom: 1.5px solid  var(--gray);
 }
-.uplode__page .dropdown .btn-light{
+.uplode__page .dropdown .btn-light ,.uplode__page .form-group input,.uplode__page .form-group textarea{
   box-shadow: var(--box-shadow);
-  background-color: #fff;
+  background-color: #fff !important;
   opacity: .8;
 }
 .uplode__page .dropdown .dropdown-toggle::before{

@@ -79,19 +79,113 @@
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home"
-                                        type="button" role="tab" aria-controls="home" aria-selected="true">Home</button>
+                                        type="button" role="tab" aria-controls="home" aria-selected="true">
+                                        store</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile"
-                                        type="button" role="tab" aria-controls="profile"
-                                        aria-selected="false">Profile</button>
+                                    <button class="nav-link" id="students-tab" data-toggle="tab" data-target="#students"
+                                        type="button" role="tab" aria-controls="students" aria-selected="false">My
+                                        students</button>
                                 </li>
-                   
+
                             </ul>
-                            <div class="tab-content" id="myTabContent">
+                            <div class="tab-content mt-4" id="myTabContent">
                                 <div class="tab-pane fade show active" id="home" role="tabpanel"
-                                    aria-labelledby="home-tab">...</div>
-                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"> ...</div>
+                                    aria-labelledby="home-tab">
+                                    <!-- begin class dropdown  -->
+                                    <div class="row class__dropdown">
+                                        <div class="col-md-6">
+                                            <label for="class__dropdown" class="col-form-label text-capitalize"> Grade
+                                            </label>
+                                            <div class="dropdown" id="class__dropdown">
+                                                <button class="btn btn-light dropdown-toggle text-capitalize"
+                                                    type="button" data-toggle="dropdown" aria-expanded="false">
+                                                    Chose grade
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#">Action</a>
+                                                    <a class="dropdown-item" href="#">Action</a>
+                                                    <a class="dropdown-item" href="#">Action</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- begin Unit -->
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+
+                                                <label for="class__dropdown" class="col-form-label text-capitalize">
+                                                    Unit</label>
+                                                <div class="dropdown" id="class__dropdown">
+                                                    <button class="btn btn-light dropdown-toggle text-capitalize"
+                                                        type="button" data-toggle="dropdown" aria-expanded="false">
+                                                        Chose Unit
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#">Action</a>
+                                                        <a class="dropdown-item" href="#">Action</a>
+                                                        <a class="dropdown-item" href="#">Action</a>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Unit -->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="store__title">title</label>
+                                                <input type="text" class="form-control " id="store__title">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="store__title">Price</label>
+                                                <input type="text" class="form-control" id="store__title"
+                                                    placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="store__info">info</label>
+                                                <textarea class="form-control" id="info" rows="3"
+                                                    placeholder="the purpose of the video"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- End class dropdown  -->
+                                </div>
+                                <div class="tab-pane fade" id="students" role="tabpanel" aria-labelledby="students-tab">
+                                    <!-- begin class dropdown  -->
+                                    <div class="form-group row class__dropdown">
+                                        <label for="class__dropdown" class="col-sm-2 col-form-label"> Class</label>
+                                        <div class="col-sm-8 dropdown" id="class__dropdown">
+                                            <button class="btn btn-light dropdown-toggle" type="button"
+                                                data-toggle="dropdown" aria-expanded="false">
+                                                Chose class
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#">Action</a>
+                                                <a class="dropdown-item" href="#">Another action</a>
+                                                <a class="dropdown-item" href="#">Something else here</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End class dropdown  -->
+                                    <div class="form-group row class__dropdown">
+                                        <label for="class__dropdown" class="col-sm-2 col-form-label">Lesson</label>
+                                        <div class="col-sm-8 dropdown" id="class__dropdown">
+                                            <button class="btn btn-light dropdown-toggle" type="button"
+                                                data-toggle="dropdown" aria-expanded="false">
+                                                Select lesson
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#">Action</a>
+                                                <a class="dropdown-item" href="#">Another action</a>
+                                                <a class="dropdown-item" href="#">Something else here</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
 
@@ -102,7 +196,10 @@
 
                     </div>
                     <!--End tab-content -->
-
+                    <div class="uplode__footer">
+                        <button class="btn btn-primary text-capitalize px-5"> upload</button>
+                        <button class="btn btn-light text-capitalize"> cancel</button>
+                    </div>
 
                 </div>
 
