@@ -34,12 +34,16 @@
 
 
          <div class="alert msg_lesson" role="alert" style="display:none">
-          <p> sa</p>
+          <p> </p>
         </div>
 
              
 
-          <h3 style="margin-bottom:5px"><span id='change_name'>{{$full_name}} </span> 
+          <h3 style="margin-bottom:5px">
+            
+            <span id='change_name'>
+             {{$full_name}}
+             </span> 
 
              @if(request()->has('id'))
                  <span style="margin:0px 15px;font-size:14px;">
@@ -191,11 +195,13 @@
   <div class="modal-dialog" role="document" >
     <div class="modal-content" style="width:650px!important;padding: 20px;">
   
-      <div class="modal-body">
+      <div class="modal-body" style="border:0px !important">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" style="font-size:22px">×</span>
         </button><br>
+       <form id='form' enctype="multipart/form-data">
         <div class="row">
+                @csrf
               <div class="col-md-12">
                 <center>
                   <img src="https://a3.nearpod.com/4.1.1660323733/img/create/customize.png"
@@ -219,8 +225,8 @@
              
 
                 <div class="col-md-6">
-              <select class="form-control" style="border:1px solid #ddd;color:#000;" name="grade"
-              id='four'>
+              <select class="form-control" style="border:1px solid #ddd;color:#000;"
+               name="grade" id='four'>
                 <option selected value="">Grade</option>
                 @foreach($grades as $s)
                   <option value="{{$s->id}}" @if($s->id == $grade) {{'selected'}}@endif>{{$s->title}}</option>
@@ -229,23 +235,29 @@
               </div>
                    
                <div class="col-md-6">
-               <select class="multiple-select one form-control" data-placeholder="Uint" name='units'
-                       id='three' multiple="multiple" style="padding: 0px;">
+               <select class="multiple-select one form-control" data-placeholder="Uint" name='units[]' id='three' multiple="multiple" style="padding: 0px;">
                 @foreach($all_units as $i)
                      <option value="{{ $i }}"
-                     @if(!empty($units) and in_array($i,explode(',',$units))) {{'selected'}}@endif>
+                     @if(!empty($units) and in_array($i,explode(',',$units)))
+                      {{'selected'}}@endif>
                         Unit ( {{$i}} )
                     </option>
                 @endforeach      
                </select>
               </div>
-
-
+            
+              <div class="custom-file col-md-11" 
+                   style="border: 1px solid #ddd;margin: 0px 13px;border-radius:5px;">
+                 <input type="file" name="img" class="custom-file-input form-control" required aria-describedby="inputGroupFileAddon01" id='five'>
+                  <label class="custom-file-label" for="inputGroupFile01">
+                     Choose  Lesson Background
+                  </label>
+              </div>
 
                 <input type="hidden" name="id" value="{{$id}}" id='five'/>
                 <input type="hidden" name="instructor_id" value="{{ Auth::user()->id }}" id='sex'>
-             
             </div>
+         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -496,15 +508,17 @@
       });    
 
   $("#save").click(function(){
-       
+            var form = $('#form')[0];
+            var data = new FormData(form);
             $.ajax({
+                  
+                    type: "POST",
+                    enctype: "multipart/form-data",
                     url: "{{url('instructor/update_lesson/'.$id)}}",
-                    method: "POST",
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        name:$('#one').val(),des:$('#two').val(),units:$('#three').val()
-                        ,grade:$('#four').val(),
-                    },
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    cache: false,
                     success: function(data) {
 
                          $('#exampleModalCenter').modal('hide');
@@ -516,7 +530,7 @@
                          $('.msg_lesson').addClass('alert-success');
                          $('.msg_lesson').removeClass('alert-danger');
                          $('.msg_lesson p').text('Lesson Settings have been updated.');
-                         window.location.href = "{{url('instructor/add_lesson?id='.$id)}}";
+                     window.location.href = "{{url('instructor/add_lesson?id='.$id)}}";
                      }
 
                     if(data==-1)

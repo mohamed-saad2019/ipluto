@@ -49,7 +49,8 @@
 
         @if(!empty($myFolders))  
             <div class="row paste shadow-sm mb-5 bg-white rounded" id="">
-              @foreach($myFolders as $folder)
+         @foreach($myFolders as $folder)
+           @if(check_share_child_folders($folder->id,get_child($folder->id)))
               <div class="col-12 col-md-6 col-lg-3 folders mb-4" id="">
                 <div class="single__paste d-flex justify-content-between">
                   <div class="">
@@ -59,12 +60,19 @@
                       <span class="description ml-2">{{$folder->name}}</span>
                     </a>
                   </div>
-                  <div class="sizing d-flex align-items-end mr-1 mb-1">
-                    <span>2 files</span> | <span>2 MB</span>
+                  <div class="sizing d-flex align-items-end mr-1 mb-1" >           
+                     <span>
+                     {{number_of_lessons_in_folder($folder->id,get_child($folder->id),'student')}} Lesson
+                    </span>
+                    <span style="margin:0px 1px">|</span>
+                    <span>
+                      {{get_size_folder($folder->id,get_child($folder->id),'student')}}
+                    </span>
                   </div>
                 </div>
               </div>
-              @endforeach
+            @endif
+          @endforeach
             </div>
             <br>
        @endif
@@ -109,8 +117,13 @@
                 </div>
               </div>
               <div class="lesson_image">
+                @if(!empty($lesson->background))
+                <img class="img-fluid " width="100%" style="height: 7em;"
+                  src="{{url('storage/'.$lesson->background)}}">
+                @else
                 <img class="img-fluid " width="100%" style="height: 7em;"
                   src="{{url('image/overlayGlobale.jpg')}}">
+                @endif
               </div>
             </div>
 
@@ -129,11 +142,8 @@
 @section('scripts')
 <script>
     $(function () {
-      $('#example1').DataTable({
-      
-               'ordering'    : false,
-
-
+      $('#example1').DataTable({  
+             'ordering'    : false,
       })
     }) 
     

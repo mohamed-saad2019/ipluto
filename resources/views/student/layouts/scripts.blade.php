@@ -11,4 +11,4 @@
     <!-- End js -->
 
 
-    @yield('script')
+    @yield('scripts')

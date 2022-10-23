@@ -214,7 +214,13 @@ $current_storage = str_replace("MB","",get_size_instructor());
             </a>
           </div>
           <div class="sizing d-flex align-items-end mr-1 mb-1">
-            <span>2 files</span> | <span>2 MB</span>
+            <span>
+                {{number_of_lessons_in_folder($folder->id,get_child($folder->id),'teacher')}} Lesson
+            </span>
+            <span style="margin:0px 1px">|</span>
+            <span>
+              {{get_size_folder($folder->id,get_child($folder->id),'teacher')}}
+            </span>
           </div>
         </div>
       </div>
@@ -368,20 +374,25 @@ $current_storage = str_replace("MB","",get_size_instructor());
                   </div>
                 </div>
               </div>
+           
+             @if($lesson->ensure_save != '1')
               <p class="mt-2 lessons__Unsaved px-2 py-1">
                 Unsaved
               </p>
+             @else
+               <p class="mt-2 lessons__Unsaved px-2 py-1">
+                 Saved
+              </p>
+             @endif
               <div class="lesson_image">
+                @if(!empty($lesson->background))
+                <img class="img-fluid " width="100%" style="height: 7em;"
+                  src="{{url('storage/'.$lesson->background)}}">
+                @else
                 <img class="img-fluid " width="100%" style="height: 7em;"
                   src="{{url('image/overlayGlobale.jpg')}}">
+                @endif
               </div>
-              @if(empty(($lesson->ensure_save)))
-              <div>
-
-              </div>
-              @else
-              <br>
-              @endif
             </div>
 
           </div>

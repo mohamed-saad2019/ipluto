@@ -1,4 +1,3 @@
-    @yield('scripts')
 
     @include('student.layouts.scripts')
 

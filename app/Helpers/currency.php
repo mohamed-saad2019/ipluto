@@ -342,11 +342,139 @@ if(!function_exists('get_student_subjects')){
     }
 }
 
+if(!function_exists('get_student_grade')){
+    function get_student_grade($id){
+       return $grade = \App\SubCategory::where('id',$id)->first()->title;
+    }
+}
+
 if(!function_exists('get_name_subject')){
     function get_name_subject($id){
        return $mySubjects = \App\ChildCategory::where('id',$id)->first()->title;
     }
 }
+
+
+if(!function_exists('get_child'))
+    {
+       function get_child($f_id)
+        {
+            $kids = []; $items=[];
+            $items = App\Folders::where('parent_id',$f_id)->get()->toArray();
+             foreach ($items as $key => $item) 
+             {
+                if ($item['parent_id'] == $f_id) {
+                    $kids[] = $item['id'] ;
+                    if ($f_id != $item['id']) {
+                        array_push($kids, ...get_child($item['id']));
+                    }
+                }
+            }
+                return $kids;
+        }
+    }
+
+
+if(!function_exists('check_share_child_folders'))
+    {
+       function check_share_child_folders($parent , $childs)
+        {
+
+
+             $share_lesson = \App\ShareLessons::where('student_id',\Auth::user()->id)
+                             ->pluck('lesson_id')->toArray();
+
+             array_push($childs, $parent);
+
+             $check        = \App\Lessons::whereIn('id',$share_lesson)
+                            ->whereIN('folder_id',$childs)
+                            ->count();
+
+            return  $check > 0 ? true : false;
+            
+        }
+    }
+
+
+if(!function_exists('number_of_lessons_in_folder'))
+    {
+       function number_of_lessons_in_folder($f_id,$f_childs,$type_user)
+        {
+            array_push($f_childs, $f_id);
+            
+            if ($type_user == 'teacher') 
+            {
+                $count        = \App\Lessons::WhereIN('folder_id',$f_childs)            
+                                ->count();
+            }
+            elseif ($type_user == 'student') 
+            {
+               $share_lesson = \App\ShareLessons::where('student_id',\Auth::user()->id)
+                                ->pluck('lesson_id')->toArray();
+
+               $count        = \App\Lessons::whereIn('id',$share_lesson)
+                               ->whereIN('folder_id',$f_childs)
+                               ->count();
+            }
+
+            return  $count ;   
+        }
+    }
+
+
+if(!function_exists('get_size_folder'))
+    {
+       function get_size_folder($f_id , $f_childs , $type_user  , $user = '')
+        {
+
+          $user = empty($user)?\Auth::user()->id : $user;
+
+          array_push($f_childs, $f_id);   $t_size = 0;
+
+           if ($type_user == 'teacher') 
+            {
+                $lessons      = \App\Lessons::WhereIN('folder_id',$f_childs)            
+                                ->pluck('id')->toArray();
+            }
+           elseif ($type_user == 'student') 
+            {
+               $share_lesson = \App\ShareLessons::where('student_id',\Auth::user()->id)
+                                ->pluck('lesson_id')->toArray();
+
+               $lessons      = \App\Lessons::whereIn('id',$share_lesson)
+                               ->whereIN('folder_id',$f_childs)
+                               ->pluck('id')->toArray();
+            }
+
+           foreach($lessons as $lesson)
+           {
+             $files_count = \App\File::where('lesson_id',$lesson)->count();
+
+             $files = \App\File::where('lesson_id',$lesson)->get();
+
+             $size = 0;      
+                foreach($files as $file)
+                {
+                    $s = $file->size!=0 ?$file->size : 1024 ;
+                    $size= $size + floatval($s);
+                }
+
+             $t_size= $t_size + floatval($size);
+           }
+         
+        if ($t_size!=0) 
+         {
+             $base = log($t_size) / log(1024);
+             $suffix = array("", "KB", "MB", "GB", "TB")[floor($base)];
+             return  number_format(pow(1024, $base - floor($base)),0).$suffix;
+         }
+         else
+        {
+            return '0KB';
+        }
+     }
+    }
+
 
 
 

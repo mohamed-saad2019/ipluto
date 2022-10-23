@@ -1422,8 +1422,8 @@ textarea {
 }
 
 .dropdownHead img {
-  width: 100px;
-  height: 55px;
+  width: 70px;
+  height: 60px;
   margin-right: 10px;
   border: 2px solid #2c5f9e;
   padding: 3px;
@@ -1789,22 +1789,6 @@ textarea {
   text-align: center;
   line-height: 1.45em;
 }
-.notification-list{
-  padding-left: .5em !important;
-  font-size: .9em;
-}
-.notification-list .notification-item{
-  border-bottom: 1px solid #ddd;
-  padding-top: 0.3em
-}
-.notification-list .notification-details,.notification-list .notification-content {
-  color: var(--gray);
-
-}
-.notification-list .notification-details strong {
-  font-weight: bold;
-}
-
 
 .togCreate {
   color: #2c5f9e;
@@ -2392,7 +2376,7 @@ tr.cus_table:hover {
 
 .navbarStudent ul ul a {
   font-size: 0.9em !important;
-  /* padding-left: 30px !important; */
+  padding-left: 30px !important;
 }
 
 .navbarStudent ul ul a:hover {

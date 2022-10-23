@@ -14,4 +14,9 @@ class Classes extends Model
     {
     	return $this->hasMany('App\ShareLessons','class_id');
     }
+
+    public function grade()
+    {
+      return $this->hasOne('\App\SubCategory', 'id','grade_id');
+    }
 }
