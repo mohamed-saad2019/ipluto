@@ -41,16 +41,20 @@
                                 </a>
                                 <div class="dropdown-menu">
                                     <div class="dropdownHead ">
-                                        @if($image =
-                                        @file_get_contents('../public/images/user_img/'.\Auth::user()->user_img))
-                                        <img @error('photo') is-invalid @enderror
-                                            src="{{ url('images/user_img/'.\Auth::user()->user_img) }}"
-                                            alt="profilephoto" class="img-responsive img-circle">
+
+                                        @if(Auth()->User()['user_img'] != null && Auth()->User()['user_img'] !='' && @file_get_contents('images/user_img/'.Auth::user()['user_img']))
+                                         <img src="{{ url('images/user_img/'.Auth()->User()['user_img'])}}" 
+                                         alt="profilephoto" class="rounded-circle">
+
+                                        @elseif(Auth()->User()['user_img'] != null && Auth()->User()['user_img'] !='' && @file_get_contents('images/avatar/'.Auth::user()['user_img']))
+                                         <img src="{{ url('images/avatar/'.Auth()->User()['user_img'])}}" 
+                                         alt="profilephoto" class="rounded-circle">
+
                                         @else
-                                        <img @error('photo') is-invalid @enderror
-                                            src="{{ Avatar::create(\Auth::user()->fname)->toBase64() }}"
-                                            alt="profilephoto" class="img-responsive img-circle">
-                                        @endif
+
+                                         <img @error('photo') is-invalid @enderror src="{{ Avatar::create(Auth::user()->fname)->toBase64() }}"
+                                             alt="profilephoto"  class="rounded-circle">
+                                       @endif
                                         <div class="dropdownHeadText">
                                              <br>
                                             <h5>{{\Auth::user()->fname.' '.\Auth::user()->lname}}</h5>
@@ -76,16 +80,17 @@
                                     </a>
                                 </div>
 
-                                @if($image =
-                                @file_get_contents('../public/images/user_img/'.\Auth::user()->user_img))
-                                <img @error('photo') is-invalid @enderror
-                                    src="{{ url('images/user_img/'.\Auth::user()->user_img) }}" alt="profilephoto"
-                                    width='50px' height="50px" class="rounded-circle">
-                                @else
-                                <img @error('photo') is-invalid @enderror
-                                    src="{{ Avatar::create(\Auth::user()->fname)->toBase64() }}" alt="profilephoto"
-                                    width='50px' height="50px" class="rounded-circle">
+                               @if(Auth()->User()['user_img'] != null && Auth()->User()['user_img'] !='' && @file_get_contents('images/user_img/'.Auth::user()['user_img']))
+                               <img src="{{ url('images/user_img/'.Auth()->User()['user_img'])}}" alt="profilephoto" width='50px' height="50px" class="rounded-circle">
+
+                              @elseif(Auth()->User()['user_img'] != null && Auth()->User()['user_img'] !='' && @file_get_contents('images/avatar/'.Auth::user()['user_img']))
+                               <img src="{{ url('images/avatar/'.Auth()->User()['user_img'])}}" alt="profilephoto" width='50px' height="50px" class="rounded-circle">
+                                           
+                                 @else
+                                  <img @error('photo') is-invalid @enderror src="{{ Avatar::create(Auth::user()->fname)->toBase64() }}" alt="profilephoto" width='50px' height="50px" class="rounded-circle">
+        
                                 @endif
+                        
                             </div>
                             </div>
 

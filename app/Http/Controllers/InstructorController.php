@@ -19,6 +19,7 @@ use App\File;
 use App\InstructorStudents;
 use App\Video;
 use App\Excel\SimpleXLSX;
+use App\ClassesStudent;
 
 class InstructorController extends Controller
 {
@@ -189,7 +190,6 @@ class InstructorController extends Controller
      if(Auth::User()->role == "instructor")
         {
 
-
         $path ='';$d=''; $lessons=[];$orderBy ='updated_at';
 
         $sort  = request()->has('sort')?request('sort'):'Recent';
@@ -247,8 +247,8 @@ class InstructorController extends Controller
                 }
 
 
-        $full_name='';$id='';$des='';$subject='';$grade='';$files=[];$folder_id=0;$parent_id=0;
-        $units='';$grade=0;
+        $full_name='';$id='';$des='';$subject='';$grade='';$files=[];$folder_id=0;
+        $parent_id=0;$units='';$grade=0;$background='';
 
 
 
@@ -289,6 +289,7 @@ class InstructorController extends Controller
 
          $fetch = Lessons::where('id',request('id'))->first();
          $full_name = $fetch->name;
+         $background = $fetch->background;
          $des = $fetch->des;
          $units = $fetch->unit;
          $grade = $fetch->grade;
@@ -314,7 +315,8 @@ class InstructorController extends Controller
         $all_units = Video::where('subject_id',$subject)->where('unit','!=','')
                             ->groupBy('unit')->pluck('unit')->toArray();
 
-          return view('instructor.add_lesson',compact('full_name','id','subjects','grades','des','subject','grade','files','folder_id','parent_id','units','all_units'));
+          return view('instructor.add_lesson',compact('full_name','id','subjects','grades','des','subject','grade','files','folder_id','parent_id','units',
+              'all_units','background'));
         }
 
     }
@@ -340,14 +342,13 @@ class InstructorController extends Controller
 
     public function update_lesson($id)
     {
-
-
         $validator = \Validator::make(request()->all(), [
             'name' => 'required|max:255|min:3', 
             'des' => 'nullable|string|max:500|min:3', 
             'img' =>  'nullable |image|mimes:jpeg,png,jpg',
             'grade' => 'required',
-            'units' => 'required',
+            'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'units'=>'required'
             ]); // create the validations
           
             if ($validator->fails())   
@@ -378,6 +379,15 @@ class InstructorController extends Controller
         $full_name = request('name');
 
         
+         if(request()->hasfile('img'))
+         {
+              
+                $file = request()->file('img');
+                $f_name = $file->getClientOriginalName();
+                $hashName = $file->hashName();
+                $file->store('public/'.\Auth::user()->id.'/'.$id);
+
+         }
 
         $input = Lessons::where('id',$id)->update(
              ['name' => request('name'),
@@ -388,6 +398,7 @@ class InstructorController extends Controller
             'subject'=>get_subject_instructor(\Auth::user()->id),
             'grade'=>request('grade'),
             'unit'=>$units,
+            'background'=>\Auth::user()->id.'/'.$id.'/'.$hashName,
             'change_default_name'=>str_contains(request('name'), 'Untitled')?0:1
              ]);
 
@@ -743,7 +754,7 @@ class InstructorController extends Controller
                                         $row[1]  != 'Last Name' and
                                         $row[2]  != 'E-mail' and
                                         $row[3]  != 'Phone Number' and
-                                        $row[4]  != 'Password' 
+                                        $row[4]  != 'Password'
                                       )
 
                                     {
@@ -834,7 +845,8 @@ class InstructorController extends Controller
                             {
                                 $students['password'] = \Hash::make($students['password']);
                                 $students['email_verified_at'] = \Carbon\Carbon::now()->toDateTimeString(); 
-                                $students['role'] = 'user';          
+                                $students['role'] = 'user';
+                                $students['grade'] = $request->grade_id ;         
                                $data = User::create($students);
                                $data->save();
 
@@ -1077,9 +1089,15 @@ class InstructorController extends Controller
     
     public function students_list()
     {
-        if (request()->has('type') and request('type')=='online') 
+        if (request()->has('class_id')) 
         {
-            $students = InstructorStudents::where('instructor_id',\Auth::user()->id)->where('type','online')->orderBy('id','DESC')->get();
+           $students = ClassesStudent::where('teacher_id',\Auth::user()->id)
+           ->where('status','1')->where('class_id',request('class_id'))
+           ->orderBy('id','DESC')->get();           
+        }
+        elseif (request()->has('type') and request('type')=='online') 
+        {
+           $students = InstructorStudents::where('instructor_id',\Auth::user()->id)->where('type','online')->orderBy('id','DESC')->get();
         }
 
         elseif (request()->has('type') and request('type')=='center') 
@@ -1091,7 +1109,6 @@ class InstructorController extends Controller
        {
             $students = InstructorStudents::where('instructor_id',\Auth::user()->id)->orderBy('id','DESC')->get();
        }
-
         $classes = DB::select("SELECT * , (SELECT count(*) FROM `classes_student` WHERE class_id = `classes`.id ) AS count_students FROM `classes` WHERE `instructor_id` = '".auth()->user()->id."' ORDER BY id DESC ");
 
          return view('instructor.add_students',compact('students','classes'));
@@ -1099,9 +1116,9 @@ class InstructorController extends Controller
 
     public function add_students()
     {
-                 $students = InstructorStudents::where('instructor_id',\Auth::user()->id)->get();
-
-        return view('instructor.register_students',compact('students'));
+     $students = InstructorStudents::where('instructor_id',\Auth::user()->id)->get();
+     $grades   = SubCategory::where('status', '1')->orderBy('id','ASC')->get();
+        return view('instructor.register_students',compact('students','grades'));
     }
 
     public function save_student()
@@ -1209,13 +1226,15 @@ class InstructorController extends Controller
             'mobile' => 'required|max:11|min:11|starts_with:01|unique:users,mobile',
             'email' => 'required|unique:users,email',
             'password' => 'required|min:6|max:20|confirmed',
+            'grade_id' => 'required',
         ]);
  
         $input = $request->all();
         $input['password'] = \Hash::make($request->password);
         $input['detail'] = $request->detail;
         $input['email_verified_at'] = \Carbon\Carbon::now()->toDateTimeString(); 
-        $input['role'] = 'user';          
+        $input['role'] = 'user';
+        $input['grade']=  $request->grade_id;          
         $data = User::create($input);
         $data->save(); 
 
@@ -1241,7 +1260,8 @@ class InstructorController extends Controller
  public function upload_students()
  {
      $this->validate(request(), [
-           'file' => 'required|file|mimes:xls,xlsx'
+           'file' => 'required|file|mimes:xls,xlsx',
+           'grade_id'=>'required'
        ]);
 
      if ( $xlsx = SimpleXLSX::parse( request('file') ) )
@@ -1343,7 +1363,8 @@ class InstructorController extends Controller
                             {
                                 $students['password'] = \Hash::make($students['password']);
                                 $students['email_verified_at'] = \Carbon\Carbon::now()->toDateTimeString(); 
-                                $students['role'] = 'user';          
+                                $students['role'] = 'user'; 
+                                $students['role'] = request('grade_id');         
                                $data = User::create($students);
                                $data->save();
 

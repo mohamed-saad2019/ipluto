@@ -31,17 +31,18 @@
 
         <br>
    
-        <div class="table-responsive" style="margin-top:-15px">
+        <div class="" style="margin-top:-15px">
             <table class="table table-hover" id='example1'>
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col" style="">id</th>
-                        <th scope="col" style="">Class Name</th>
-                        <th scope="col" style="">Class Day</th>
-                        <th scope="col" style="">Class Time</th>
+                        <th scope="col" style="">Name</th>
+                        <th scope="col" style="">Grade</th>
+                        <th scope="col" style="">Day</th>
+                        <th scope="col" style="">Time</th>
                         <th scope="col" style="">Duration</th>
-                        <th scope="col" style="">Number Of lessons</th>
-                        <th scope="col" style="">Number Of Students</th>
+                        <th scope="col" style="">lessons</th>
+                        <th scope="col" style="">Students</th>
                         <th scope="col" style="">Settings</th>
                     </tr>
                 </thead>
@@ -51,6 +52,12 @@
                     <tr class="cus_table">
                         <td scope="row" style="">{{$class->id}}</td>
                         <td style="">{{$class->name}}</td>
+                        <td style="">
+                            @if(!empty($class->grade_id))
+                             {{get_student_grade($class->grade_id)}}
+                            @endif
+                        </td>
+                         
                         <td style="">
                              
                             @foreach(getDaysClass($class->id) as $day)
@@ -75,7 +82,7 @@
                          @endif
                         </td>
                         <td style="">
-                          @if($class->count_lessons!=0)
+                          @if($class->count_students!=0)
                             <a href="{{url('instructor/students?class_id='.$class->id)}}" style="text-decoration:underline">{{$class->count_students}}</a>
                           @else
                              0

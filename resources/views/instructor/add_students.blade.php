@@ -86,6 +86,7 @@
                               <th scope="col">Name</th>
                               <th scope="col">Phone</th>
                               <th scope="col">Email</th>
+                              <th scope="col">Grade</th>
                               <th scope="col">Code</th>
                               <th scope="col">Type</th>
                               <th scope="col">Class</th>
@@ -95,20 +96,18 @@
                           <tbody style="background:#fff !important;">
 
                             @foreach($students as $st)
-
-                              <tr class="cus_table"
-                              @if(!empty(getStudentClass($st->student()->value('id')))
-                                        and request()->has('class_id') and getStudentClass($st->student()->value('id'))->id != 
-                                        request('class_id') )  style='display:none;'
-                            @elseif (empty(getStudentClass($st->student()->value('id')))) style='display:none;'
-                                        @endif
-                                    >                          
+                              <tr class="cus_table">                          
                                  <td>{{$st->student()->value('id')}}</td>
                             
                             
                             <td>{{$st->student()->value('fname')}} {{$st->student()->value('lname')}}</td>
                                  <td>{{$st->student()->value('mobile')}} </td>
                                  <td>{{$st->student()->value('email')}}</td>
+                                 <td>
+                                  @if(!empty($st->student()->value('grade')))
+                                    {{get_student_grade($st->student()->value('grade'))}}
+                                   @endif
+                                 </td>
                                  <td>{{$st->student()->value('code')}} </td>
                                  <td>{{$st->type}}</td>
                                  <td>

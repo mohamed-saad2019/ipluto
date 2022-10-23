@@ -26,29 +26,22 @@ class StudentController extends Controller
 
         if(request()->has('subject_id') and !empty(request('subject_id')))
         {
-             $instructor_sub  = ShareLessons::where('student_id',\Auth::user()->id);
+         $instructor_sub  = ShareLessons::where('student_id',\Auth::user()->id);
 
-             $teacher_lesson = InstructorGrade::where('subject_id',request('subject_id'))
-              ->whereIN('instructor_id',$instructor_sub->pluck('instructor_id')->toArray())
-              ->where('grade_id',\Auth::user()->grade);
+         $teacher_lesson = InstructorGrade::where('subject_id',request('subject_id'))
+         ->whereIN('instructor_id',$instructor_sub->pluck('instructor_id')->toArray())
+         ->where('grade_id',\Auth::user()->grade);
 
          if($teacher_lesson->pluck('instructor_id')->count() != 0)
 
           {
             
-            $folder_id  = null ; $path = 0;  
+            $folder_id  = 0 ; $path = 0;  
 
-             $my_teachers  =  $teacher_lesson->with('instructor')->get();
-            
-             if(request()->has('instructor_id') and !empty(request('instructor_id')))
-             {
-                $my_teacher =  User::where('id',request('instructor_id'))->first();
-
-             }
-             else
-             {
-               $my_teacher =  User::where('id',$teacher_lesson->pluck('instructor_id')[0])->first();
-             }
+           $my_teachers  =  $teacher_lesson->with('instructor')->get();
+           
+           $my_teacher =  User::where('id',$teacher_lesson->pluck('instructor_id')[0])->first();
+             
 
            
              if(request()->has('folder_id') and !empty(request('folder_id')))
@@ -56,12 +49,16 @@ class StudentController extends Controller
                 $folder_id   = request('folder_id') ;
              }
 
-            $myLessons       =  Lessons::where('instructor_id',$my_teacher->id)->where('saved',1)
-                             ->where('folder_id',$folder_id)->orderBy('updated_at','DESC')->get();
+            $myLessons  = Lessons::whereIn('id',$instructor_sub->pluck('lesson_id'))
+                          ->where('instructor_id',$my_teacher->id)
+                          ->where('ensure_save',1)
+                          ->where('folder_id',$folder_id)->orderBy('updated_at','DESC')
+                          ->get();
 
 
-             $myFolders      = Folders::where('instructor_id',$my_teacher->id)
-                            ->where('parent_id',request('folder_id'))->orderBy('id','ASC')->get();
+             $myFolders = Folders::where('instructor_id',$my_teacher->id)
+                         ->where('parent_id',request('folder_id'))->orderBy('id','ASC')
+                         ->get();
 
               $d = explode(',', get_parent(request('folder_id')));
 
@@ -69,8 +66,7 @@ class StudentController extends Controller
                              ->orderBy('id','ASC')->get();
 
 
-            return view('student.lessons',compact('my_teacher','folder_id','myLessons','myFolders'
-                        ,'path','my_teachers'));  
+            return view('student.lessons',compact('my_teacher','folder_id','myLessons','myFolders','path','my_teachers'));  
           }
           else
           {

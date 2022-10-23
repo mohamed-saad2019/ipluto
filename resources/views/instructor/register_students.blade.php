@@ -60,24 +60,17 @@
                     </div>
                    @endif
 
-                    <table class="table table-striped table-bordered table-hover" id="example1" style="display:none">
-                            <thead>
-                                <tr>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>E-mail</th>
-                                    <th>Phone Number</th>
-                                    <th>Password</th>
-                                    
-                                </tr>
-                            </thead>
-                    </table><br>
+                   
                   <form action="{{ route('instructor.upload_students') }}" method="POST"
                         enctype="multipart/form-data"
                   style="margin-top:5px;border:1px solid #ddd; padding:10px;"><br>
                     @csrf
+                        <label>
+                          <a href="{{asset('add_students.xlsx')}}">Download Sample</a>
+                        </label>
                          <div class="form-row">
-                            <div class="custom-file col-md-10">
+                      
+                            <div class="custom-file col-md-6">
                               <input type="file" name="file" class="custom-file-input" required 
                                 aria-describedby="inputGroupFileAddon01">
                               <label class="custom-file-label" for="inputGroupFile01">
@@ -88,7 +81,16 @@
                                     </span>
                                 @endif
                            </div>
-                            <div class="form-group col-md-2 form1">
+                          <div class="accordion col-md-6 form1" >
+                          <select class="form-control select2" name="grade_id" required >
+                                    @if($grades)
+                                        @foreach($grades as $grade)
+                                            <option value="{{$grade->id}}">{{$grade->title}}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12 form1">
                                 <button class="btn btn-success" type="submit">
                                     <i class="fas fa-file-import"></i> Upload
                                 </button>
@@ -104,8 +106,8 @@
               style="margin-top:15px;border:1px solid #ddd; padding:30px;">
         @csrf
         <div class="row">
-          <div class="col-12 col-md-6">
-            <label for="exampleInputPassword1">First name</label>
+          <div class="col-md-4">
+            <label >First Name</label>
             <input type="text" class="form-control {{ $errors->has('fname') ? ' is-invalid' : '' }}"  name="fname" value="{{ old('fname') }}" id="fname" autofocus required/>
             @if ($errors->has('fname'))
                 <span class="invalid-feedback" role="alert">
@@ -113,17 +115,36 @@
                 </span>
             @endif
           </div>
-          <div class="col-12 col-md-6">
-            <label for="exampleInputPassword1">Last name</label>
+          <div class="col-md-4">
+            <label>Last Name</label>
             <input type="text" class="form-control{{ $errors->has('lname') ? ' is-invalid' : '' }}" name="lname" value="{{ old('lname') }}" id="lname" required autocomplete="last_name" autofocus/>
             @if($errors->has('lname'))
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $errors->first('lname') }}</strong>
                 </span>
             @endif
-          </div>
+        </div>
+        <div class="col-md-4 accordion form1">
+         <label >Choose Grade</label>
+           <select class="form-control select2 {{$errors->has('lname')?'is-invalid':''}}" name="grade_id" required >
+             @if($grades)
+               @foreach($grades as $grade)
+                  <option value="{{$grade->id}}" 
+                    @if(old('grade_id') == $grade->id) selected @endif >
+                    {{$grade->title}}
+                  </option>
+              @endforeach
+           @endif
+          </select> 
+           @if($errors->has('grade_id'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('grade_id') }}</strong>
+                </span>
+            @endif            
+       </div>
+
         <div class="col-12 col-md-6">
-          <label for="exampleInputEmail1">Email address</label>
+          <label >Email address</label>
           <input
             type="email"
             class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" id="email" required
