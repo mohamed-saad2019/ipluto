@@ -229,8 +229,8 @@
              
 
                 <div class="col-md-6">
-              <select class="form-control" style="border:1px solid #ddd;color:#000;" name="grade"
-              id='four'>
+              <select class="form-control" style="border:1px solid #ddd;color:#000;"
+               name="grade" id='four'>
                 <option selected value="">Grade</option>
                 @foreach($grades as $s)
                   <option value="{{$s->id}}" @if($s->id == $grade) {{'selected'}}@endif>{{$s->title}}</option>
@@ -239,7 +239,7 @@
               </div>
                    
                <div class="col-md-6">
-               <select class="multiple-select one form-control" data-placeholder="Uint" name='units' id='three' multiple="multiple" style="padding: 0px;">
+               <select class="multiple-select one form-control" data-placeholder="Uint" name='units[]' id='three' multiple="multiple" style="padding: 0px;">
                 @foreach($all_units as $i)
                      <option value="{{ $i }}"
                      @if(!empty($units) and in_array($i,explode(',',$units)))
