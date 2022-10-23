@@ -379,6 +379,9 @@ $current_storage = str_replace("MB","",get_size_instructor());
               <p class="mt-2 lessons__Unsaved px-2 py-1">
                 Unsaved
               </p>
+             @else
+               <p class="mt-2 lessons__Unsaved px-2 py-1">
+              </p>
              @endif
               <div class="lesson_image">
                 @if(!empty($lesson->background))
