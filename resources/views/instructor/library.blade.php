@@ -381,6 +381,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
               </p>
              @else
                <p class="mt-2 lessons__Unsaved px-2 py-1">
+                 Saved
               </p>
              @endif
               <div class="lesson_image">
