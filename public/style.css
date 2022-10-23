@@ -1839,6 +1839,38 @@ textarea {
   box-shadow: 0 0 0 0rem rgb(0 123 255 / 25%) !important;
 }
 
+.notification-list{
+  padding-left: .5em !important;
+  font-size: .9em;
+}
+.notification-list .notification-item{
+  border-bottom: 1px solid #ddd;
+  padding-top: 0.3em
+}
+.notification-list .notification-item:last-of-type{
+  border-bottom: unset;
+}
+.notification-list .notification-details,.notification-list .notification-content {
+  color: var(--gray);
+
+}
+.notification-list .notification-details strong {
+  font-weight: bold;
+}
+.notification-footer a:hover{
+  cursor: pointer ;
+  color: var(--gray) !important;
+}
+.dropdown-itemLesspar:hover .dropdown-itemLessChiled {
+  display: block;
+}
+
+.dropdown-itemLess .btn.focus,
+.btn:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0rem rgb(0 123 255 / 25%) !important;
+}
+
 .student .navbarStuTop .dropTeach.show {
   left: -86px !important;
   top: 9px !important;
@@ -2376,7 +2408,7 @@ tr.cus_table:hover {
 
 .navbarStudent ul ul a {
   font-size: 0.9em !important;
-  padding-left: 30px !important;
+  /* padding-left: 30px !important; */
 }
 
 .navbarStudent ul ul a:hover {

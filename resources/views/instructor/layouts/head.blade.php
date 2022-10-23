@@ -107,8 +107,8 @@
                                                     </li>
 
                                                 </ul>
-                                                <li class="notification-footer pl-2 mt-3">
-                                                    <h4><a>View All</a></h4>
+                                                <li class="notification-footer px-2 mt-3 text-right">
+                                                    <a class="h6">View All</a></h4>
                                                 </li>
                                             </ul>
                                         </a>
