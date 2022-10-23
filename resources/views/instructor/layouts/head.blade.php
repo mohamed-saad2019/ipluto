@@ -198,7 +198,7 @@
                     <!-- Sidebar  -->
                     <nav id="sidebar">
                         <div class="breadcrumb">
-                            Welcome Mr. Waled
+                            Welcome Mr. {{\Auth::user()->fname}}
                         </div>
                         <ul class=" sidebar_links">
                             <li>

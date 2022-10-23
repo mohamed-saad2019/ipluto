@@ -312,7 +312,9 @@ class InstructorController extends Controller
 
         $grades   = SubCategory::where('status', '1')->orderBy('id','ASC')->get();
 
-        $all_units = Video::where('subject_id',$subject)->where('unit','!=','')
+        // $all_units = Video::where('subject_id',$subject)->where('unit','!=','')
+        //                     ->groupBy('unit')->pluck('unit')->toArray();
+        $all_units = Video::where('unit','!=','')
                             ->groupBy('unit')->pluck('unit')->toArray();
 
           return view('instructor.add_lesson',compact('full_name','id','subjects','grades','des','subject','grade','files','folder_id','parent_id','units',
