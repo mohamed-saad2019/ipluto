@@ -40,11 +40,7 @@
              
 
           <h3 style="margin-bottom:5px">
-             @if(request()->has('id') and !empty($background))
-                 <a href="{{url('storage/'.$background)}}">
-                    <img src="{{url('storage/'.$background)}}">
-                 </a>
-            @endif
+            
             <span id='change_name'>
              {{$full_name}}
              </span> 

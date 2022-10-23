@@ -386,7 +386,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
                   src="{{url('storage/'.$lesson->background)}}">
                 @else
                 <img class="img-fluid " width="100%" style="height: 7em;"
-                  src="{{url('image/overlayGlobale.jp')}}">
+                  src="{{url('image/overlayGlobale.jpg')}}">
                 @endif
               </div>
             </div>
