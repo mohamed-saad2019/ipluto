@@ -9,8 +9,8 @@
 
 
     <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
-
-    <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet" />
+  <link href="https://kit-pro.fontawesome.com/releases/v5.15.3/css/pro.min.css" rel="stylesheet">
+    <!-- <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="./../style.css" />
     <!-- <link rel="stylesheet" href="{{ url('css/style.css') }}" /> -->
     @include('admin.layouts.head')
@@ -61,60 +61,88 @@
 
 
 
-                                <!-- <div class="notification mx-2">
+                                 <div class="notification mx-2">
+                           
+                                <div class="icon" id="bell"> 
                                     <i class="far fa-bell fa-lg"></i>
                                     <span class="notification--num">5</span>
-                                </div> -->
-                                <ul class="list-unstyled">
+                                </div>
 
-
-                                    <li class="message-nav dropdown">
-                                        <a href="#" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="true">
-                                            <div class="notification mx-2">
-                                                <i class="far fa-bell fa-lg"></i>
-                                                <span class="notification--num">5</span>
-                                            </div>
-                                            <ul class="dropdown-menu dropdown-menu-right list-unstyled"
-                                                aria-labelledby="dropdownMenu1">
-                                                <li class="notification-title mt-2">
-                                                    <h6 class="h5 pl-2">Notification</h6>
-                                                </li>
-                                                <ul class="notification-list  list-unstyled">
-                                                    <li class="notification-item">
-                                                        <a class="notification-anchor" href="#">
-                                                            <p class="notification-details">
-                                                                <strong>Anh Nguyen</strong> |
-                                                                <span class="timestamp">15 mins ago</span>
-                                                            </p>
-                                                            <p class="notification-content">
-                                                                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                                            </p>
-                                               
-                                                        </a>
-                                                    </li>
-                                                    <li class="notification-item">
-                                                        <a class="notification-anchor" href="#">
-                                                            <p class="notification-details">
-                                                                <strong>Anh Nguyen</strong> |
-                                                                <span class="timestamp">15 mins ago</span>
-                                                            </p>
-                                                            <p class="notification-content">
-                                                                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                                            </p>
-                                               
-                                                        </a>
-                                                    </li>
-
-                                                </ul>
-                                                <li class="notification-footer px-2 mt-3 text-right">
-                                                    <a class="h6">View All</a></h4>
-                                                </li>
-                                            </ul>
-                                        </a>
-                                    </li>
-                                </ul>
-
+                                    <div class="notifications_menu" id="box">
+                                        <div class="h1 font-weight-bold d-flex justify-content-between">
+                                            <span>
+                                                Notifications 
+                                            </span>
+                                            <span>
+                                                <a href="">
+                                                    clear all
+                                                </a>
+                                            </span> 
+                                        </div>
+                                        <!-- begin notifications-item -->
+                                        <div class="notifications-item"> 
+                                            <a href="">
+                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png" alt="img">
+                                                <div class="text">
+                                                    <h4 class="text-capitalize">hatem</h4>
+                                                    <p>Lorem ipsum dolor sit amet.</p>
+                                                    <p>2 hours ago</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <!-- End notifications-item -->
+                                        <!-- begin notifications-item -->
+                                        <div class="notifications-item"> 
+                                            <a href="">
+                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png" alt="img">
+                                                <div class="text">
+                                                    <h4 class="text-capitalize">saad</h4>
+                                                    <p>Lorem ipsum dolor sit amet.</p>
+                                                    <p>2 hours ago</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <!-- End notifications-item -->
+                                        <!-- begin notifications-item -->
+                                        <div class="notifications-item"> 
+                                            <a href="">
+                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png" alt="img">
+                                                <div class="text">
+                                                    <h4 class="text-capitalize">nasr</h4>
+                                                    <p>Lorem ipsum dolor sit amet.</p>
+                                                    <p>2 hours ago</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <!-- End notifications-item -->
+                                        <!-- begin notifications-item -->
+                                        <div class="notifications-item"> 
+                                            <a href="">
+                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png" alt="img">
+                                                <div class="text">
+                                                    <h4 class="text-capitalize">elalfy</h4>
+                                                    <p>Lorem ipsum dolor sit amet.</p>
+                                                    <p>2 hours ago</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <!-- End notifications-item -->
+                                        <!-- begin notifications-item -->
+                                        <div class="notifications-item"> 
+                                            <a href="">
+                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png" alt="img">
+                                                <div class="text">
+                                                    <h4 class="text-capitalize">elalfy</h4>
+                                                    <p>Lorem ipsum dolor sit amet.</p>
+                                                    <p>2 hours ago</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <!-- End notifications-item -->
+           
+                   
+                                    </div>
+                                    </div>
 
                                 <div class="setting mr-3">
                                     <i class="fa fa-cog fa-lg"></i>
@@ -337,5 +365,29 @@
         </div>
     </div>
 
-
     @include('instructor.layouts.footer')
+
+    <script>
+    $(document).ready(function () {
+        var down = false;
+
+        $('#bell').click(function (e) {
+
+            var color = $(this).text();
+            if (down) {
+
+                $('#box').css('height', '0px');
+                $('#box').css('opacity', '0');
+                down = false;
+            } else {
+
+                $('#box').css('height', 'auto');
+                $('#box').css('opacity', '1');
+                down = true;
+
+            }
+
+        });
+
+    });
+</script>

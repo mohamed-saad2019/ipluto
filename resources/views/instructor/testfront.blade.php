@@ -133,14 +133,15 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="store__title">title</label>
-                                                <input type="text" class="form-control " id="store__title">
+                                                <input type="text" class="form-control " id="store__title"
+                                                placeholder="Video title">
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="store__title">Price</label>
                                                 <input type="text" class="form-control" id="store__title"
-                                                    placeholder="">
+                                                    placeholder="price of video">
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -197,8 +198,8 @@
                     </div>
                     <!--End tab-content -->
                     <div class="uplode__footer">
-                        <button class="btn btn-primary text-capitalize px-5"> upload</button>
-                        <button class="btn btn-light text-capitalize"> cancel</button>
+                        <button class="btn btn-primary text-capitalize px-5" > upload</button>
+                        <button class="btn btn-light text-capitalize mx-3"> cancel</button>
                     </div>
 
                 </div>

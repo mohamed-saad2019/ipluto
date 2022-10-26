@@ -1839,6 +1839,65 @@ textarea {
   box-shadow: 0 0 0 0rem rgb(0 123 255 / 25%) !important;
 }
 
+/* begin notification */
+.notification .icon:hover{
+  cursor: pointer;
+}
+.notification .notifications_menu {
+  width: 350px;
+  max-height: 25em;
+  overflow-y: scroll;
+  opacity: 0;
+  position: absolute;
+  top: 44px;
+  right: 25px;
+  border-radius: 5px 0px 5px 5px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}
+.notification .notifications_menu div:first-child{
+  border-bottom: 1px solid #eee;
+
+}
+.notification .notifications_menu span {
+  font-size: 14px;
+  padding: 10px;
+  color: #999;
+  font-weight: bold;
+}
+
+.notification .notifications-item a{
+  display: flex;
+  border-bottom: 1px solid #eee;
+  padding: 6px 9px;
+  margin-bottom: 0px;
+  cursor: pointer
+}
+
+.notification .notifications-item:hover {
+  background-color: #eee
+}
+
+.notification .notifications-item img {
+  display: block;
+  width: 50px;
+  height: 50px;
+  margin-right: 9px;
+  border-radius: 50%;
+  margin-top: 2px
+}
+
+.notification .notifications-item .text h4 {
+  color: #777;
+  font-size: 16px;
+  margin-top: 3px
+}
+
+.notification .notifications-item .text p {
+  color: #aaa;
+  font-size: 12px
+}
+
 .notification-list{
   padding-left: .5em !important;
   font-size: .9em;
@@ -1861,6 +1920,8 @@ textarea {
   cursor: pointer ;
   color: var(--gray) !important;
 }
+/* End notification */
+
 .dropdown-itemLesspar:hover .dropdown-itemLessChiled {
   display: block;
 }
@@ -2797,6 +2858,9 @@ tr.cus_table:hover {
   box-shadow: var(--box-shadow);
   background-color: #fff !important;
   opacity: .8;
+}
+.uplode__page .form-group input::placeholder,.uplode__page .form-group textarea::placeholder{
+  opacity: .5;
 }
 .uplode__page .dropdown .dropdown-toggle::before{
   content: "\f1cd";
