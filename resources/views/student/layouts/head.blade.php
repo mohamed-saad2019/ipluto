@@ -34,7 +34,102 @@
                                 <i class="fas fa-search"></i>
                                 <input type="text" class="form-control shadow-sm" placeholder="Search" />
                             </div>
+
+                            
                             <div class="d-flex justify-content-between align-items-center" >
+
+
+
+                            <div class="notification mx-2">
+
+<div class="icon" id="bell">
+    <i class="far fa-bell fa-lg"></i>
+    <span class="notification--num">5</span>
+</div>
+
+<div class="notifications_menu" id="box">
+    <div class="h1 font-weight-bold d-flex justify-content-between">
+        <span>
+            Notifications
+        </span>
+        <span>
+            <a href="">
+                clear all
+            </a>
+        </span>
+    </div>
+    <!-- begin notifications-item -->
+    <div class="notifications-item">
+        <a href="">
+            <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
+                alt="img">
+            <div class="text">
+                <h4 class="text-capitalize">hatem</h4>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <p>2 hours ago</p>
+            </div>
+        </a>
+    </div>
+    <!-- End notifications-item -->
+    <!-- begin notifications-item -->
+    <div class="notifications-item">
+        <a href="">
+            <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
+                alt="img">
+            <div class="text">
+                <h4 class="text-capitalize">saad</h4>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <p>2 hours ago</p>
+            </div>
+        </a>
+    </div>
+    <!-- End notifications-item -->
+    <!-- begin notifications-item -->
+    <div class="notifications-item">
+        <a href="">
+            <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
+                alt="img">
+            <div class="text">
+                <h4 class="text-capitalize">nasr</h4>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <p>2 hours ago</p>
+            </div>
+        </a>
+    </div>
+    <!-- End notifications-item -->
+    <!-- begin notifications-item -->
+    <div class="notifications-item">
+        <a href="">
+            <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
+                alt="img">
+            <div class="text">
+                <h4 class="text-capitalize">elalfy</h4>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <p>2 hours ago</p>
+            </div>
+        </a>
+    </div>
+    <!-- End notifications-item -->
+    <!-- begin notifications-item -->
+    <div class="notifications-item">
+        <a href="">
+            <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
+                alt="img">
+            <div class="text">
+                <h4 class="text-capitalize">elalfy</h4>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <p>2 hours ago</p>
+            </div>
+        </a>
+    </div>
+    <!-- End notifications-item -->
+
+
+</div>
+</div>
+
+
+
                             <div class="avatarNavStu">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                                     aria-expanded="false">
@@ -125,3 +220,27 @@
 
    
     @include('student.layouts.footer')
+    <script>
+        $(document).ready(function () {
+            var down = false;
+
+            $('#bell').click(function (e) {
+
+                var color = $(this).text();
+                if (down) {
+
+                    $('#box').css('height', '0px');
+                    $('#box').css('opacity', '0');
+                    down = false;
+                } else {
+
+                    $('#box').css('height', 'auto');
+                    $('#box').css('opacity', '1');
+                    down = true;
+
+                }
+
+            });
+
+        });
+    </script>
