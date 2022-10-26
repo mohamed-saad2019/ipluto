@@ -232,7 +232,7 @@
                             <li>
                                 <a href="#Dashboard" data-toggle="collapse" aria-expanded="false"
                                     class="dropdown-toggle">
-                                    <i class="fa fa-thermometer-three-quarters" aria-hidden="true"></i>
+                                    <i class="fad fa-chart-line mr-2"></i>
                                     Dashboard
                                 </a>
                                 <ul class="collapse list-unstyled" id="Dashboard">
@@ -259,7 +259,7 @@
                             <li>
                                 <a href="#Assignment" data-toggle="collapse" aria-expanded="false"
                                     class="dropdown-toggle">
-                                    <i class="fa fa-thermometer-three-quarters" aria-hidden="true"></i>
+                                    <i class="fa fa-thermometer-three-quarters mr-2"></i>
                                     Assignment
                                 </a>
                                 <ul class="collapse list-unstyled" id="Assignment">
@@ -292,13 +292,13 @@
                             </li>
                             <li>
                                 <a href="{{route('instructor.library')}}">
-                                    <i class="fa fa-users" aria-hidden="true"></i>
+                                <i class="fad fa-book-reader mr-2"></i>
                                     Lessons
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <i class="fa fa-users" aria-hidden="true"></i>
+                                    <i class="fa fa-users mr-2" aria-hidden="true"></i>
                                     Library
                                 </a>
                             </li>
@@ -306,7 +306,7 @@
                             <div class="dropdown-divider" style="border-top: 1px solid #F0B243"></div>
                             <li>
                                 <a href="#Grade" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                                    <i class="fa fa-thermometer-three-quarters" aria-hidden="true"></i>
+                                <i class="far fa-user-graduate"></i>
                                     Grade
                                 </a>
                                 <ul class="collapse list-unstyled" id="Grade">
@@ -323,7 +323,7 @@
                             </li>
                             <li>
                                 <a href="#Subject" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                                    <i class="fa fa-thermometer-three-quarters" aria-hidden="true"></i>
+                                <i class="fas fa-books mr-2"></i>
                                     Subject
                                 </a>
                                 <ul class="collapse list-unstyled" id="Subject">
