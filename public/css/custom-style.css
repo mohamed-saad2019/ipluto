@@ -1397,9 +1397,9 @@ text-align: center;
 .lessons{
   color: #696969;
   background: radial-gradient(transparent,#eee);
-  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.2);
   position: relative;
   border-radius: 5px;
+  font-weight: bolder;
   
 }
 .lessons:hover .overlay{
