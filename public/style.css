@@ -13,7 +13,7 @@
 
 body {
   font-family: "Comfortaa" !important;
-  font-weight: bold;
+
 }
 
 /* start navbar */
@@ -1685,7 +1685,8 @@ textarea {
   -o-transition: 0.4s;
   background-color: #fff;
   border-radius: 5px;
-  /* padding: 2em .5em .5em .5em; */
+  padding: 2em .5em .5em .5em;
+  overflow: hidden;
 }
 
 .contTechFolder:hover {
@@ -1850,6 +1851,22 @@ background-color: #fff;}
   box-shadow: 0 0 0 0rem rgb(0 123 255 / 25%) !important;
 }
 
+/* begin notification */
+.notification .icon:hover{
+  cursor: pointer;
+}
+.notification .notifications_menu {
+  width: 350px;
+  max-height: 25em;
+  overflow-y: scroll;
+  opacity: 0;
+  position: absolute;
+  top: 44px;
+  right: 25px;
+  border-radius: 5px 0px 5px 5px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}
 /*.notification .notifications_menu div:first-child{
   border-bottom: 1px solid #eee;
 
@@ -1890,7 +1907,8 @@ background-color: #fff;}
 
 .notification .notifications-item .text p {
   color: #aaa;
-  font-size: 12px
+  font-size: 12px;
+  margin-top: -5px;
 }
 
 .notification-list{
@@ -1916,7 +1934,6 @@ background-color: #fff;}
   color: var(--gray) !important;
 }
 /* End notification */
-
 .dropdown-itemLesspar:hover .dropdown-itemLessChiled {
   display: block;
 }

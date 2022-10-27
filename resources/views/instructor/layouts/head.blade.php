@@ -62,10 +62,12 @@
                                 <div class="notification mx-2">
 
                                     <div class="icon" id="bell">
-                                        <i class="far fa-bell fa-lg"></i>
-                                        <span class="notification--num">
-                                            {{notifications_count('instructor_id')}}
-                                        </span>
+                                      <i class="far fa-bell fa-lg"></i>
+                                       @if(notifications_count('instructor_id') != 0)
+                                            <span class="notification--num">
+                                                {{notifications_count('instructor_id')}}
+                                            </span>
+                                        @endif
                                     </div>
 
                                     <div class="notifications_menu" id="box">
@@ -74,27 +76,37 @@
                                             <span>
                                                 Notifications
                                             </span>
-                                            <span>
-                                                <a href="" style="color:#db0404">
-                                                    <i class="fas fa-trash"></i>
-                                                </a>
-                                            </span>
+                                           <span>
+                                             <a href="{{url('/delete/notifications?colum=instructor_id')}}"
+                                                style="color:#db0404">
+                                               <i class="fas fa-trash"></i>
+                                             </a>
+                                           </span>
                                         </div>
                                        
                                 @foreach(notifications('instructor_id') as $n)
                                    <!-- begin notifications-item -->
                                      <div class="notifications-item">
-                                         <a href="">
-                                          <img src="../images/logo.png">
+                                         @if($n->notifiable_type == 'zoom')
+                                           @php 
+                                           $zoom = \App\zoom::where('id',$n->notifiable_id)->first();
+                                           @endphp
+                                          <a href="{{$zoom->url}}"> 
+                                         @else
+                                           <a href="#">
+                                         @endif
+                                          @if($n->type == 'ipluto')
+                                            <img src="../images/logo.png">
+                                          @endif
                                          <div class="text row" style="margin-right:0px;">
-                                           <div class="col-md-9">
+                                           <div class="col-md-8">
                                                <h4 class="text-capitalize">
                                                 @if($n->type == 'ipluto')
                                                   Ipluto
                                                 @endif
                                                 </h4>
                                            </div>
-                                           <div class="col-md-3">
+                                           <div class="col-md-4">
                                                 <p >
                                                  {{ \Carbon\Carbon::parse($n->created_at)->shortRelativeDiffForHumans() }}
                                                  </p>

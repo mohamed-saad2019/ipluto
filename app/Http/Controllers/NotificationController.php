@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Notification;
 
 class NotificationController extends Controller
 {
@@ -14,14 +15,11 @@ class NotificationController extends Controller
 
     public function delete()
     {
+       if (request()->has('colum') and !empty(request('colum'))) {
         
-        $notifications = Auth()->User()->notifications()->get();
-
-        foreach($notifications as $notification) {
-
-            $notification->delete();
-            
-        }
+         Notification::where(request('colum'),Auth()->User()->id)->delete();
+       
+       }
 
         return back();
     }

@@ -486,8 +486,11 @@ if(!function_exists('notifications_count')){
 
 if(!function_exists('notifications')){
     function notifications($colum){
-       return \App\Notification::where($colum,\Auth::user()->id)->orderBy('created_at','DESC')->get();
+       return \App\Notification::where($colum,\Auth::user()->id)
+                                ->with('user')->orderBy('created_at','DESC')->get();
     }
 }
+
+
 
 

@@ -20,4 +20,9 @@ class Notification extends Model
         'reading',
         'created_by',
     ];
+
+     public function user()
+    {
+      return $this->hasOne('\App\User', 'id','created_by');
+    }
 }
