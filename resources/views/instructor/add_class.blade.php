@@ -129,7 +129,7 @@
                         <br>
                         <label>Students </label>
                         <select class="form-control select2"  multiple name="students[]"  >
-                            @if($grades)
+                            @if($students)
                                 @foreach($students as $student)
                                     <option value="{{$student->id}}">{{$student->fname}} {{$student->lname}}</option>
                                 @endforeach

@@ -63,85 +63,50 @@
 
                                     <div class="icon" id="bell">
                                         <i class="far fa-bell fa-lg"></i>
-                                        <span class="notification--num">5</span>
+                                        <span class="notification--num">
+                                            {{notifications_count('instructor_id')}}
+                                        </span>
                                     </div>
 
                                     <div class="notifications_menu" id="box">
-                                        <div class="h1 font-weight-bold d-flex justify-content-between">
+                                        <div class="h1 font-weight-bold d-flex justify-content-between"
+                                        style="border-bottom: 1px solid #DDD;">
                                             <span>
                                                 Notifications
                                             </span>
                                             <span>
-                                                <a href="">
-                                                    clear all
+                                                <a href="" style="color:#db0404">
+                                                    <i class="fas fa-trash"></i>
                                                 </a>
                                             </span>
                                         </div>
-                                        <!-- begin notifications-item -->
-                                        <div class="notifications-item">
-                                            <a href="">
-                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
-                                                    alt="img">
-                                                <div class="text">
-                                                    <h4 class="text-capitalize">hatem</h4>
-                                                    <p>Lorem ipsum dolor sit amet.</p>
-                                                    <p>2 hours ago</p>
-                                                </div>
-                                            </a>
+                                       
+                                @foreach(notifications('instructor_id') as $n)
+                                   <!-- begin notifications-item -->
+                                     <div class="notifications-item">
+                                         <a href="">
+                                          <img src="../images/logo.png">
+                                         <div class="text row" style="margin-right:0px;">
+                                           <div class="col-md-9">
+                                               <h4 class="text-capitalize">
+                                                @if($n->type == 'ipluto')
+                                                  Ipluto
+                                                @endif
+                                                </h4>
+                                           </div>
+                                           <div class="col-md-3">
+                                                <p >
+                                                 {{ \Carbon\Carbon::parse($n->created_at)->shortRelativeDiffForHumans() }}
+                                                 </p>
+                                           </div>
+                                           <div class="col-md-12">
+                                               <p>{{$n->data}}</p>
+                                           </div>
                                         </div>
-                                        <!-- End notifications-item -->
-                                        <!-- begin notifications-item -->
-                                        <div class="notifications-item">
-                                            <a href="">
-                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
-                                                    alt="img">
-                                                <div class="text">
-                                                    <h4 class="text-capitalize">saad</h4>
-                                                    <p>Lorem ipsum dolor sit amet.</p>
-                                                    <p>2 hours ago</p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <!-- End notifications-item -->
-                                        <!-- begin notifications-item -->
-                                        <div class="notifications-item">
-                                            <a href="">
-                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
-                                                    alt="img">
-                                                <div class="text">
-                                                    <h4 class="text-capitalize">nasr</h4>
-                                                    <p>Lorem ipsum dolor sit amet.</p>
-                                                    <p>2 hours ago</p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <!-- End notifications-item -->
-                                        <!-- begin notifications-item -->
-                                        <div class="notifications-item">
-                                            <a href="">
-                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
-                                                    alt="img">
-                                                <div class="text">
-                                                    <h4 class="text-capitalize">elalfy</h4>
-                                                    <p>Lorem ipsum dolor sit amet.</p>
-                                                    <p>2 hours ago</p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <!-- End notifications-item -->
-                                        <!-- begin notifications-item -->
-                                        <div class="notifications-item">
-                                            <a href="">
-                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
-                                                    alt="img">
-                                                <div class="text">
-                                                    <h4 class="text-capitalize">elalfy</h4>
-                                                    <p>Lorem ipsum dolor sit amet.</p>
-                                                    <p>2 hours ago</p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <!-- End notifications-item -->
+                                       </a>
+                                 </div>
+                                   <!-- End notifications-item -->
+                                @endforeach
 
 
                                     </div>

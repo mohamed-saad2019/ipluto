@@ -235,7 +235,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
         <div class="row go" id="dvSource">
           @foreach($lessons as $lesson)
           <div class="col-md-3 col-sm-6 mb-4">
-            <div class="lessons sort contTechFolder drog " id="{{$lesson->id}}">
+            <div class="lessons sort contTechFolder drog sahdow-sm" id="{{$lesson->id}}">
               <div class="overlay">
                 <div class="content">
                 <div class="overlay_btn mt-5">
@@ -360,7 +360,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
 
               </div>
               <div class="lessons__card__header d-flex mx-2">
-                <div class="w-25 d-flex align-items-center">
+                <div class="w-25 d-flex align-items-center pr-2">
                   <div class="d-flex">
                     <img class="img-fluid" src="../images/logo.png" alt="logo image not found">
                   </div>
@@ -376,11 +376,11 @@ $current_storage = str_replace("MB","",get_size_instructor());
               </div>
            
              @if($lesson->ensure_save != '1')
-              <p class="mt-2 lessons__Unsaved px-2 py-1">
+              <p class="mt-2 pl-3 lessons__Unsaved px-2 py-1">
                 Unsaved
               </p>
              @else
-               <p class="mt-2 lessons__Unsaved px-2 py-1">
+               <p class="mt-2 pl-3 lessons__Unsaved px-2 py-1">
                  Saved
               </p>
              @endif

@@ -23,6 +23,7 @@ use App\Zoom;
 use App\ZoomClasses;
 use Session;
 use Redirect ;
+use App\Notification;
 
 class ZoomController extends Controller
 {
@@ -738,11 +739,44 @@ class ZoomController extends Controller
               ]);
 
       foreach($request->classes as $_class){
+
+          $name = Classes::where('id',$_class)->first()->name;
+
+          $students  = ClassesStudent::where('class_id',$_class)
+                                     ->where('teacher_id',auth()->user()->id)
+                                     ->pluck('student_id')->toArray();
+
           ZoomClasses::create([
             "zoom_id"   => $zoom->id ,
             "class_id"  => $_class
           ]);
+
+            Notification::create([
+            'type'            => 'ipluto',
+            'notifiable_type' => 'zoom',
+            'notifiable_id'   => $zoom->id,
+            'data'           =>'Zoom Meeting Was Created For '.ucwords($name).' Class',
+            'instructor_id'   => auth()->user()->id,
+            'reading'         => '0',
+            'created_by'      => -1,
+          ]);
+
+          foreach($students as $student)
+          {
+                Notification::create([
+                'type'            => 'instructor',
+                'notifiable_type' => 'zoom',
+                'notifiable_id'   => $zoom->id,
+                'data'            => 'You Were Invited To Attend Zoom Meeting For '
+                                      .ucwords($name).'  Class',
+                'student_id'      => $student,
+                'reading'         => 0,
+                'created_by'      => auth()->user()->id,
+              ]);
+          }
       }
+
+     
 
       if($request->now == 'on')
       {
