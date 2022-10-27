@@ -10,10 +10,9 @@
                     </form>
                     <div class="drop-zone">
                         <div class="drop-zone__prompt">
-                            <i class="fa fa-cloud-upload fa-2x d-block" aria-hidden="true"></i>
-
-                            Drop file to upload or
-                            <span class="browse"> browse </span>
+                        <i class="far fa-cloud-upload-alt fa-2x d-block"></i>
+                            Drop file to upload 
+                            </br>or<span class="browse"> browse </span>
                         </div>
                         <input type="file" name="myFile" class="drop-zone__input">
                     </div>
