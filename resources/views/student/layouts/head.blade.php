@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
     <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet" />
     <link rel="stylesheet" href="./../style.css" />
-        @include('admin.layouts.head')
+    @include('admin.layouts.head')
     <link rel="stylesheet" href="{{ url('student/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url('student/css/all.css') }}">
     <link rel="stylesheet" type="text/css" media="screen" href="{{ url('student/css/style.css') }}" />
@@ -18,229 +18,240 @@
 </head>
 
 <body>
-  <div class="student__Profile">
+    <div class="student__Profile mb-5">
 
-    <!-- navbar -->
-   <div class="student">
-        <div class="NavTeacher">
-            <div class="navbarStudent">
-                <nav class="navbar navbar-expand-lg navbar-light">
-                    <div class="container-fluid">
-                        <div class="navbar-brand">
-                            <img src="../images/iPluto_Logo_Animation.gif" alt="">
-                        </div>
-                        <div class="collapse navbar-collapse d-flex justify-content-between " id="navbarSupportedContent">
-                            <div class="search ml-5">
-                                <i class="fas fa-search"></i>
-                                <input type="text" class="form-control shadow-sm" placeholder="Search" />
+        <!-- navbar -->
+        <div class="student">
+            <div class="NavTeacher">
+                <div class="navbarStudent">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <div class="container-fluid">
+                            <div class="navbar-brand">
+                                <img src="../images/iPluto_Logo_Animation.gif" alt="">
                             </div>
-
-                            
-                            <div class="d-flex justify-content-between align-items-center" >
-
-
-
-                            <div class="notification mx-2">
-
-<div class="icon" id="bell">
-    <i class="far fa-bell fa-lg"></i>
-    <span class="notification--num">5</span>
-</div>
-
-<div class="notifications_menu" id="box">
-    <div class="h1 font-weight-bold d-flex justify-content-between">
-        <span>
-            Notifications
-        </span>
-        <span>
-            <a href="">
-                clear all
-            </a>
-        </span>
-    </div>
-    <!-- begin notifications-item -->
-    <div class="notifications-item">
-        <a href="">
-            <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
-                alt="img">
-            <div class="text">
-                <h4 class="text-capitalize">hatem</h4>
-                <p>Lorem ipsum dolor sit amet.</p>
-                <p>2 hours ago</p>
-            </div>
-        </a>
-    </div>
-    <!-- End notifications-item -->
-    <!-- begin notifications-item -->
-    <div class="notifications-item">
-        <a href="">
-            <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
-                alt="img">
-            <div class="text">
-                <h4 class="text-capitalize">saad</h4>
-                <p>Lorem ipsum dolor sit amet.</p>
-                <p>2 hours ago</p>
-            </div>
-        </a>
-    </div>
-    <!-- End notifications-item -->
-    <!-- begin notifications-item -->
-    <div class="notifications-item">
-        <a href="">
-            <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
-                alt="img">
-            <div class="text">
-                <h4 class="text-capitalize">nasr</h4>
-                <p>Lorem ipsum dolor sit amet.</p>
-                <p>2 hours ago</p>
-            </div>
-        </a>
-    </div>
-    <!-- End notifications-item -->
-    <!-- begin notifications-item -->
-    <div class="notifications-item">
-        <a href="">
-            <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
-                alt="img">
-            <div class="text">
-                <h4 class="text-capitalize">elalfy</h4>
-                <p>Lorem ipsum dolor sit amet.</p>
-                <p>2 hours ago</p>
-            </div>
-        </a>
-    </div>
-    <!-- End notifications-item -->
-    <!-- begin notifications-item -->
-    <div class="notifications-item">
-        <a href="">
-            <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
-                alt="img">
-            <div class="text">
-                <h4 class="text-capitalize">elalfy</h4>
-                <p>Lorem ipsum dolor sit amet.</p>
-                <p>2 hours ago</p>
-            </div>
-        </a>
-    </div>
-    <!-- End notifications-item -->
-
-
-</div>
-</div>
-
-
-
-                            <div class="avatarNavStu">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                                    aria-expanded="false">
-                                </a>
-                                <div class="dropdown-menu">
-                                    <div class="dropdownHead ">
-
-                                        @if(Auth()->User()['user_img'] != null && Auth()->User()['user_img'] !='' && @file_get_contents('images/user_img/'.Auth::user()['user_img']))
-                                         <img src="{{ url('images/user_img/'.Auth()->User()['user_img'])}}" 
-                                         alt="profilephoto" class="rounded-circle">
-
-                                        @elseif(Auth()->User()['user_img'] != null && Auth()->User()['user_img'] !='' && @file_get_contents('images/avatar/'.Auth::user()['user_img']))
-                                         <img src="{{ url('images/avatar/'.Auth()->User()['user_img'])}}" 
-                                         alt="profilephoto" class="rounded-circle">
-
-                                        @else
-
-                                         <img @error('photo') is-invalid @enderror src="{{ Avatar::create(Auth::user()->fname)->toBase64() }}"
-                                             alt="profilephoto"  class="rounded-circle">
-                                       @endif
-                                        <div class="dropdownHeadText">
-                                             <br>
-                                            <h5>{{\Auth::user()->fname.' '.\Auth::user()->lname}}</h5>
-                                            <h6 style="margin-top:-8px !important;">{{\Auth::user()->email}}</h6>
-                                          
-                                        </div>
-
-                                    </div>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Manage ipluto account</a>
-                                    <a class="dropdown-item" href="#">Lesson Settings</a>
-                                    <a class="dropdown-item" href="#">Notification Preferences</a>
-                                    <a class="dropdown-item" href="#">Help & FAQs</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        {{ __('frontstaticword.Logout') }}
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                            class="display-none">
-                                            @csrf
-                                        </form>
-                                    </a>
+                            <div class="collapse navbar-collapse d-flex justify-content-between "
+                                id="navbarSupportedContent">
+                                <div class="search ml-5">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" class="form-control shadow-sm" placeholder="Search" />
                                 </div>
 
-                               @if(Auth()->User()['user_img'] != null && Auth()->User()['user_img'] !='' && @file_get_contents('images/user_img/'.Auth::user()['user_img']))
-                               <img src="{{ url('images/user_img/'.Auth()->User()['user_img'])}}" alt="profilephoto" width='50px' height="50px" class="rounded-circle">
 
-                              @elseif(Auth()->User()['user_img'] != null && Auth()->User()['user_img'] !='' && @file_get_contents('images/avatar/'.Auth::user()['user_img']))
-                               <img src="{{ url('images/avatar/'.Auth()->User()['user_img'])}}" alt="profilephoto" width='50px' height="50px" class="rounded-circle">
-                                           
-                                 @else
-                                  <img @error('photo') is-invalid @enderror src="{{ Avatar::create(Auth::user()->fname)->toBase64() }}" alt="profilephoto" width='50px' height="50px" class="rounded-circle">
-        
-                                @endif
-                        
-                            </div>
-                            </div>
+                                <div class="d-flex justify-content-between align-items-center">
 
+
+
+                                    <div class="notification mx-2">
+
+                                        <div class="icon" id="bell">
+                                            <i class="far fa-bell fa-lg"></i>
+                                            <span class="notification--num">5</span>
+                                        </div>
+
+                                        <div class="notifications_menu" id="box">
+                                            <div class="h1 font-weight-bold d-flex justify-content-between">
+                                                <span>
+                                                    Notifications
+                                                </span>
+                                                <span>
+                                                    <a href="">
+                                                        clear all
+                                                    </a>
+                                                </span>
+                                            </div>
+                                            <!-- begin notifications-item -->
+                                            <div class="notifications-item">
+                                                <a href="">
+                                                    <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
+                                                        alt="img">
+                                                    <div class="text">
+                                                        <h4 class="text-capitalize">hatem</h4>
+                                                        <p>Lorem ipsum dolor sit amet.</p>
+                                                        <p>2 hours ago</p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <!-- End notifications-item -->
+                                            <!-- begin notifications-item -->
+                                            <div class="notifications-item">
+                                                <a href="">
+                                                    <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
+                                                        alt="img">
+                                                    <div class="text">
+                                                        <h4 class="text-capitalize">saad</h4>
+                                                        <p>Lorem ipsum dolor sit amet.</p>
+                                                        <p>2 hours ago</p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <!-- End notifications-item -->
+                                            <!-- begin notifications-item -->
+                                            <div class="notifications-item">
+                                                <a href="">
+                                                    <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
+                                                        alt="img">
+                                                    <div class="text">
+                                                        <h4 class="text-capitalize">nasr</h4>
+                                                        <p>Lorem ipsum dolor sit amet.</p>
+                                                        <p>2 hours ago</p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <!-- End notifications-item -->
+                                            <!-- begin notifications-item -->
+                                            <div class="notifications-item">
+                                                <a href="">
+                                                    <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
+                                                        alt="img">
+                                                    <div class="text">
+                                                        <h4 class="text-capitalize">elalfy</h4>
+                                                        <p>Lorem ipsum dolor sit amet.</p>
+                                                        <p>2 hours ago</p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <!-- End notifications-item -->
+                                            <!-- begin notifications-item -->
+                                            <div class="notifications-item">
+                                                <a href="">
+                                                    <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
+                                                        alt="img">
+                                                    <div class="text">
+                                                        <h4 class="text-capitalize">elalfy</h4>
+                                                        <p>Lorem ipsum dolor sit amet.</p>
+                                                        <p>2 hours ago</p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <!-- End notifications-item -->
+
+
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="avatarNavStu">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                                            data-toggle="dropdown" aria-expanded="false">
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <div class="dropdownHead ">
+
+                                                @if(Auth()->User()['user_img'] != null && Auth()->User()['user_img']
+                                                !='' && @file_get_contents('images/user_img/'.Auth::user()['user_img']))
+                                                <img src="{{ url('images/user_img/'.Auth()->User()['user_img'])}}"
+                                                    alt="profilephoto" class="rounded-circle">
+
+                                                @elseif(Auth()->User()['user_img'] != null && Auth()->User()['user_img']
+                                                !='' && @file_get_contents('images/avatar/'.Auth::user()['user_img']))
+                                                <img src="{{ url('images/avatar/'.Auth()->User()['user_img'])}}"
+                                                    alt="profilephoto" class="rounded-circle">
+
+                                                @else
+
+                                                <img @error('photo') is-invalid @enderror
+                                                    src="{{ Avatar::create(Auth::user()->fname)->toBase64() }}"
+                                                    alt="profilephoto" class="rounded-circle">
+                                                @endif
+                                                <div class="dropdownHeadText">
+                                                    <br>
+                                                    <h5>{{\Auth::user()->fname.' '.\Auth::user()->lname}}</h5>
+                                                    <h6 style="margin-top:-8px !important;">{{\Auth::user()->email}}
+                                                    </h6>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Manage ipluto account</a>
+                                            <a class="dropdown-item" href="#">Lesson Settings</a>
+                                            <a class="dropdown-item" href="#">Notification Preferences</a>
+                                            <a class="dropdown-item" href="#">Help & FAQs</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                {{ __('frontstaticword.Logout') }}
+
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                    class="display-none">
+                                                    @csrf
+                                                </form>
+                                            </a>
+                                        </div>
+
+                                        @if(Auth()->User()['user_img'] != null && Auth()->User()['user_img'] !='' &&
+                                        @file_get_contents('images/user_img/'.Auth::user()['user_img']))
+                                        <img src="{{ url('images/user_img/'.Auth()->User()['user_img'])}}"
+                                            alt="profilephoto" width='50px' height="50px" class="rounded-circle">
+
+                                        @elseif(Auth()->User()['user_img'] != null && Auth()->User()['user_img'] !='' &&
+                                        @file_get_contents('images/avatar/'.Auth::user()['user_img']))
+                                        <img src="{{ url('images/avatar/'.Auth()->User()['user_img'])}}"
+                                            alt="profilephoto" width='50px' height="50px" class="rounded-circle">
+
+                                        @else
+                                        <img @error('photo') is-invalid @enderror
+                                            src="{{ Avatar::create(Auth::user()->fname)->toBase64() }}"
+                                            alt="profilephoto" width='50px' height="50px" class="rounded-circle">
+
+                                        @endif
+
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
-                    </div>
-                </nav>
+                    </nav>
+                </div>
             </div>
-        </div>
-    <!-- End navbar -->
-    <div class="custom-container">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb inner__breadcrumb d-flex justify-content-between">
-          <li class="breadcrumb-item active d-flex align-items-center" aria-current="page">
-            <img src="./images/Profile/breadcrumb_icon.png" class="img-fluid" alt="">
-              @yield('title')
-          </li>
-           <a href="{{url()->previous()}}" 
-            style="margin:10px;color: #fff;border: 1px solid #FFE;padding: 0px 14px;">
-           <i class="feather icon-arrow-left mr-2"></i>Back
-        </a>
-          <!-- <li class="back" aria-current="page">
+            <!-- End navbar -->
+            <div class="custom-container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb inner__breadcrumb d-flex justify-content-between">
+                        <li class="breadcrumb-item active d-flex align-items-center" aria-current="page">
+                            <img src="./images/Profile/breadcrumb_icon.png" class="img-fluid" alt="">
+                            @yield('title')
+                        </li>
+                        <a href="{{url()->previous()}}"
+                            style="margin:10px;color: #fff;border: 1px solid #FFE;padding: 0px 14px;">
+                            <i class="feather icon-arrow-left mr-2"></i>Back
+                        </a>
+                        <!-- <li class="back" aria-current="page">
             <button type="button" class="btn btn-light text-capitalize">back </button>
           </li> -->
-        </ol>
-      </nav>
-    </div>
-        @yield('select_subject')
+                    </ol>
+                </nav>
+            </div>
+            @yield('select_subject')
 
-        @yield('maincontent')
+            @yield('maincontent')
 
-  </div>
+        </div>
 
-   
-    @include('student.layouts.footer')
-    <script>
-        $(document).ready(function () {
-            var down = false;
 
-            $('#bell').click(function (e) {
+        @include('student.layouts.footer')
+        <script>
+            $(document).ready(function () {
+                var down = false;
 
-                var color = $(this).text();
-                if (down) {
+                $('#bell').click(function (e) {
 
-                    $('#box').css('height', '0px');
-                    $('#box').css('opacity', '0');
-                    down = false;
-                } else {
+                    var color = $(this).text();
+                    if (down) {
 
-                    $('#box').css('height', 'auto');
-                    $('#box').css('opacity', '1');
-                    down = true;
+                        $('#box').css('height', '0px');
+                        $('#box').css('opacity', '0');
+                        down = false;
+                    } else {
 
-                }
+                        $('#box').css('height', 'auto');
+                        $('#box').css('opacity', '1');
+                        down = true;
+
+                    }
+
+                });
 
             });
-
-        });
-    </script>
+        </script>

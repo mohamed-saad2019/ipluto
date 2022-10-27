@@ -251,7 +251,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
                 </div>
               </div>
             </div>
-              <div class="d-flex justify-content-between mx-2">
+              <div class="d-flex justify-content-between mx-2 card--header">
                 <input type="checkbox" name="select[]" value="{{$lesson->id}}" id="{{$lesson->id.'_checkbox'}}"
                   class="select_lesson">
                 <div class="dropdown cus_dropdown" id="{{$lesson->id.'_cus_dropdown'}}">

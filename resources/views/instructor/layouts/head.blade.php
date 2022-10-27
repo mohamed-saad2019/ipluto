@@ -9,7 +9,7 @@
 
 
     <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
-  <link href="https://kit-pro.fontawesome.com/releases/v5.15.3/css/pro.min.css" rel="stylesheet">
+    <link href="https://kit-pro.fontawesome.com/releases/v5.15.3/css/pro.min.css" rel="stylesheet">
     <!-- <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="./../style.css" />
     <!-- <link rel="stylesheet" href="{{ url('css/style.css') }}" /> -->
@@ -59,30 +59,29 @@
                                     </div>
                                 </div>
 
+                                <div class="notification mx-2">
 
-
-                                 <div class="notification mx-2">
-                           
-                                <div class="icon" id="bell"> 
-                                    <i class="far fa-bell fa-lg"></i>
-                                    <span class="notification--num">5</span>
-                                </div>
+                                    <div class="icon" id="bell">
+                                        <i class="far fa-bell fa-lg"></i>
+                                        <span class="notification--num">5</span>
+                                    </div>
 
                                     <div class="notifications_menu" id="box">
                                         <div class="h1 font-weight-bold d-flex justify-content-between">
                                             <span>
-                                                Notifications 
+                                                Notifications
                                             </span>
                                             <span>
                                                 <a href="">
                                                     clear all
                                                 </a>
-                                            </span> 
+                                            </span>
                                         </div>
                                         <!-- begin notifications-item -->
-                                        <div class="notifications-item"> 
+                                        <div class="notifications-item">
                                             <a href="">
-                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png" alt="img">
+                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
+                                                    alt="img">
                                                 <div class="text">
                                                     <h4 class="text-capitalize">hatem</h4>
                                                     <p>Lorem ipsum dolor sit amet.</p>
@@ -92,9 +91,10 @@
                                         </div>
                                         <!-- End notifications-item -->
                                         <!-- begin notifications-item -->
-                                        <div class="notifications-item"> 
+                                        <div class="notifications-item">
                                             <a href="">
-                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png" alt="img">
+                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
+                                                    alt="img">
                                                 <div class="text">
                                                     <h4 class="text-capitalize">saad</h4>
                                                     <p>Lorem ipsum dolor sit amet.</p>
@@ -104,9 +104,10 @@
                                         </div>
                                         <!-- End notifications-item -->
                                         <!-- begin notifications-item -->
-                                        <div class="notifications-item"> 
+                                        <div class="notifications-item">
                                             <a href="">
-                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png" alt="img">
+                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
+                                                    alt="img">
                                                 <div class="text">
                                                     <h4 class="text-capitalize">nasr</h4>
                                                     <p>Lorem ipsum dolor sit amet.</p>
@@ -116,9 +117,10 @@
                                         </div>
                                         <!-- End notifications-item -->
                                         <!-- begin notifications-item -->
-                                        <div class="notifications-item"> 
+                                        <div class="notifications-item">
                                             <a href="">
-                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png" alt="img">
+                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
+                                                    alt="img">
                                                 <div class="text">
                                                     <h4 class="text-capitalize">elalfy</h4>
                                                     <p>Lorem ipsum dolor sit amet.</p>
@@ -128,9 +130,10 @@
                                         </div>
                                         <!-- End notifications-item -->
                                         <!-- begin notifications-item -->
-                                        <div class="notifications-item"> 
+                                        <div class="notifications-item">
                                             <a href="">
-                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png" alt="img">
+                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
+                                                    alt="img">
                                                 <div class="text">
                                                     <h4 class="text-capitalize">elalfy</h4>
                                                     <p>Lorem ipsum dolor sit amet.</p>
@@ -139,10 +142,10 @@
                                             </a>
                                         </div>
                                         <!-- End notifications-item -->
-           
-                   
+
+
                                     </div>
-                                    </div>
+                                </div>
 
                                 <div class="setting mr-3">
                                     <i class="fa fa-cog fa-lg"></i>
@@ -153,19 +156,22 @@
                                     </a>
                                     <div class="dropdown-menu">
                                         <div class="dropdownHead ">
-                                         @if(Auth()->User()['user_img'] != null && Auth()->User()['user_img'] !='' && @file_get_contents('images/user_img/'.Auth::user()['user_img']))
-                                         <img src="{{ url('images/user_img/'.Auth()->User()['user_img'])}}" 
-                                         alt="profilephoto" class="rounded-circle">
+                                            @if(Auth()->User()['user_img'] != null && Auth()->User()['user_img'] !='' &&
+                                            @file_get_contents('images/user_img/'.Auth::user()['user_img']))
+                                            <img src="{{ url('images/user_img/'.Auth()->User()['user_img'])}}"
+                                                alt="profilephoto" class="rounded-circle">
 
-                                        @elseif(Auth()->User()['user_img'] != null && Auth()->User()['user_img'] !='' && @file_get_contents('images/avatar/'.Auth::user()['user_img']))
-                                         <img src="{{ url('images/avatar/'.Auth()->User()['user_img'])}}" 
-                                         alt="profilephoto" class="rounded-circle">
+                                            @elseif(Auth()->User()['user_img'] != null && Auth()->User()['user_img']
+                                            !='' && @file_get_contents('images/avatar/'.Auth::user()['user_img']))
+                                            <img src="{{ url('images/avatar/'.Auth()->User()['user_img'])}}"
+                                                alt="profilephoto" class="rounded-circle">
 
-                                        @else
+                                            @else
 
-                                         <img @error('photo') is-invalid @enderror src="{{ Avatar::create(Auth::user()->fname)->toBase64() }}"
-                                             alt="profilephoto"  class="rounded-circle">
-                                       @endif
+                                            <img @error('photo') is-invalid @enderror
+                                                src="{{ Avatar::create(Auth::user()->fname)->toBase64() }}"
+                                                alt="profilephoto" class="rounded-circle">
+                                            @endif
                                             <div class="dropdownHeadText">
                                                 <h5>{{\Auth::user()->fname.' '.\Auth::user()->lname}}</h5>
                                                 <h6 style="margin-top:-8px !important;">{{\Auth::user()->email}}</h6>
@@ -204,16 +210,22 @@
                                         </a>
                                     </div>
 
-                              @if(Auth()->User()['user_img'] != null && Auth()->User()['user_img'] !='' && @file_get_contents('images/user_img/'.Auth::user()['user_img']))
-                               <img src="{{ url('images/user_img/'.Auth()->User()['user_img'])}}" alt="profilephoto" width='50px' height="50px" class="rounded-circle">
+                                    @if(Auth()->User()['user_img'] != null && Auth()->User()['user_img'] !='' &&
+                                    @file_get_contents('images/user_img/'.Auth::user()['user_img']))
+                                    <img src="{{ url('images/user_img/'.Auth()->User()['user_img'])}}"
+                                        alt="profilephoto" width='50px' height="50px" class="rounded-circle">
 
-                              @elseif(Auth()->User()['user_img'] != null && Auth()->User()['user_img'] !='' && @file_get_contents('images/avatar/'.Auth::user()['user_img']))
-                               <img src="{{ url('images/avatar/'.Auth()->User()['user_img'])}}" alt="profilephoto" width='50px' height="50px" class="rounded-circle">
-                                           
-                                 @else
-                                  <img @error('photo') is-invalid @enderror src="{{ Avatar::create(Auth::user()->fname)->toBase64() }}" alt="profilephoto" width='50px' height="50px" class="rounded-circle">
-        
-                                @endif
+                                    @elseif(Auth()->User()['user_img'] != null && Auth()->User()['user_img'] !='' &&
+                                    @file_get_contents('images/avatar/'.Auth::user()['user_img']))
+                                    <img src="{{ url('images/avatar/'.Auth()->User()['user_img'])}}" alt="profilephoto"
+                                        width='50px' height="50px" class="rounded-circle">
+
+                                    @else
+                                    <img @error('photo') is-invalid @enderror
+                                        src="{{ Avatar::create(Auth::user()->fname)->toBase64() }}" alt="profilephoto"
+                                        width='50px' height="50px" class="rounded-circle">
+
+                                    @endif
                                 </div>
                             </div>
 
@@ -292,7 +304,7 @@
                             </li>
                             <li>
                                 <a href="{{route('instructor.library')}}">
-                                <i class="fad fa-book-reader mr-2"></i>
+                                    <i class="fad fa-book-reader mr-2"></i>
                                     Lessons
                                 </a>
                             </li>
@@ -306,7 +318,7 @@
                             <div class="dropdown-divider" style="border-top: 1px solid #F0B243"></div>
                             <li>
                                 <a href="#Grade" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                                <i class="far fa-user-graduate"></i>
+                                    <i class="far fa-user-graduate"></i>
                                     Grade
                                 </a>
                                 <ul class="collapse list-unstyled" id="Grade">
@@ -323,7 +335,7 @@
                             </li>
                             <li>
                                 <a href="#Subject" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                                <i class="fas fa-books mr-2"></i>
+                                    <i class="fas fa-books mr-2"></i>
                                     Subject
                                 </a>
                                 <ul class="collapse list-unstyled" id="Subject">
@@ -368,26 +380,26 @@
     @include('instructor.layouts.footer')
 
     <script>
-    $(document).ready(function () {
-        var down = false;
+        $(document).ready(function () {
+            var down = false;
 
-        $('#bell').click(function (e) {
+            $('#bell').click(function (e) {
 
-            var color = $(this).text();
-            if (down) {
+                var color = $(this).text();
+                if (down) {
 
-                $('#box').css('height', '0px');
-                $('#box').css('opacity', '0');
-                down = false;
-            } else {
+                    $('#box').css('height', '0px');
+                    $('#box').css('opacity', '0');
+                    down = false;
+                } else {
 
-                $('#box').css('height', 'auto');
-                $('#box').css('opacity', '1');
-                down = true;
+                    $('#box').css('height', 'auto');
+                    $('#box').css('opacity', '1');
+                    down = true;
 
-            }
+                }
+
+            });
 
         });
-
-    });
-</script>
+    </script>
