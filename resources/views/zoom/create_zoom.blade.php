@@ -61,7 +61,7 @@
                                     <div class="row">
                                         <label class="col-sm-4 col-form-label text-capitalize">Start Now </label>
                                         <div class="col-sm-8">
-                                            <input type="checkbox" name="now" id="input_now" >
+                                            <input type="checkbox" name="now" id="input_now" class="mt-3" >
                                         </div>
                                     </div>
                                 </div>

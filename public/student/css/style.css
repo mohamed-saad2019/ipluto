@@ -78,10 +78,6 @@ body{
 
 /* End .sub__breadcrumb */
 /* begin student__dashbord */
-.student__dashbord {
-/*    margin-top: 3em;
-    margin-bottom: 5em;*/
-}
 
 .student__dashbord .student_dashbord_card {
     border: 1px solid rgba(221, 221, 221, 0.329);
@@ -286,6 +282,7 @@ body{
 .student__video .student__singleVideo:hover{
     transform: scale(1.2);
     transition: ease-in-out  .3s;
+    cursor: pointer;
 }
 .student__video .student__singleVideo video{
     max-height: 10.5em;

@@ -10,7 +10,6 @@
 
     <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
     <link href="https://kit-pro.fontawesome.com/releases/v5.15.3/css/pro.min.css" rel="stylesheet">
-    <!-- <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="./../style.css" />
     <!-- <link rel="stylesheet" href="{{ url('css/style.css') }}" /> -->
     @include('admin.layouts.head')
@@ -289,7 +288,7 @@
 
                             <li>
                                 <a href="#Classes" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                                    <i class="fa fa-users" aria-hidden="true"></i>
+                                    <i class="fa fa-users mr-2" aria-hidden="true"></i>
                                     Classes
                                 </a>
                                 <ul class="collapse list-unstyled" id="Classes">
@@ -318,7 +317,7 @@
                             <div class="dropdown-divider" style="border-top: 1px solid #F0B243"></div>
                             <li>
                                 <a href="#Grade" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                                    <i class="far fa-user-graduate"></i>
+                                    <i class="far fa-user-graduate mr-2"></i>
                                     Grade
                                 </a>
                                 <ul class="collapse list-unstyled" id="Grade">
