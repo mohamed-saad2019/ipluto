@@ -12,8 +12,8 @@
 
                 },
                 success: function (data) {
-                    // alert('asa');
-                  $("#notifications").html(data);
+                   console.log(data);
+                  $("#notifications").html('<h1>fddfdf</h1>');
                 },
                 error: function () {
                   // alert('error');
