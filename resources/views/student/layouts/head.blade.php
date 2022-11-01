@@ -67,7 +67,7 @@
                                                </a>
                                             </span>
                                         </div>
-                            <div id="notifications">       
+
                                @foreach(notifications('student_id') as $n)
                                    <!-- begin notifications-item -->
                                      <div class="notifications-item">
@@ -125,7 +125,6 @@
                                  </div>
                                    <!-- End notifications-item -->
                                 @endforeach
-                            </div>
 
                                     </div>
                                 </div>
