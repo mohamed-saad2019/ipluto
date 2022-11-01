@@ -605,7 +605,6 @@ Route::middleware(['web'])->group(function () {
 
         /* start route Notifications */
     Route::get('notificationInterval','NotificationController@notificationInterval');
-    Route::get('notificationCount','NotificationController@notificationCount');
 
         /* end route Notifications */
 

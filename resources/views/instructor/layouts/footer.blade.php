@@ -35,7 +35,7 @@
                 },
                 success: function (data) {
                     // alert('asa');
-                  $("#notifications").html(data);
+                  $("#notification_interval").html(data);
                 },
                 error: function () {
                   // alert('error');
@@ -43,28 +43,8 @@
               });    
 }
 
- function getCountNotification() {
-       jQuery.ajax({
-                async: true,
-                type: "GET",
-                url: "{{url('notificationCount')}}",
-                data: {
-                  _token: "{{ csrf_token() }}",
-                   colum:'instructor_id'
-
-                },
-                success: function (data) {
-                    // alert('asa');
-                  $("#bell").html(data);
-                },
-                error: function () {
-                  // alert('error');
-                }
-              });    
-}
 
 window.setInterval(getNewNotification,5000); // 1000 indicated 1 second
-window.setInterval(getCountNotification,5000); // 1000 indicated 1 second
 
     </script>
 </body>

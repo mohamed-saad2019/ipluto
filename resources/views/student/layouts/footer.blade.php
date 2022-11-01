@@ -1,5 +1,5 @@
 
-    @include('student.layouts.scripts')notification_student.js
+    @include('student.layouts.scripts')
     <script type="text/javascript">
          function getNewNotification() {
        jQuery.ajax({
@@ -12,8 +12,8 @@
 
                 },
                 success: function (data) {
-                    alert(data);
-                  $("#notifications").html(data);
+                    // alert(data);
+                  $("#notification_interval").html(data);
                 },
                 error: function () {
                   // alert('error');
@@ -21,27 +21,8 @@
               });    
 }
 
- function getCountNotification() {
-       jQuery.ajax({
-                async: true,
-                type: "GET",
-                url: "{{url('notificationCount')}}",
-                data: {
-                  _token: "{{ csrf_token() }}",
-                   colum:'student_id'
 
-                },
-                success: function (data) {
-                 alert(data);
-                  $("#bell").html(data);
-                },
-                error: function () {
-                  // alert('error');
-                }
-              });    
-}
 window.setInterval(getNewNotification,5000); // 1000 indicated 1 second
-window.setInterval(getCountNotification,5000); // 1000 indicated 1 second
 
     </script>
 

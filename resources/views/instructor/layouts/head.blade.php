@@ -59,7 +59,8 @@
                                     </div>
                                 </div>
 
-                                <div class="notification mx-2">
+                                <div class="notification mx-2"
+                                     id="notification_interval">
 
                                     <div class="icon" id="bell">
                                       <i class="far fa-bell fa-lg"></i>
