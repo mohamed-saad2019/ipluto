@@ -90,7 +90,7 @@
                                      <div class="notifications-item">
                                          @if($n->notifiable_type == 'zoom')
                                            @php 
-                                           $zoom = \App\zoom::where('id',$n->notifiable_id)->first();
+                                           $zoom = \App\Zoom::where('id',$n->notifiable_id)->first();
                                            @endphp
                                           <a href="{{$zoom->url}}"> 
                                          @else

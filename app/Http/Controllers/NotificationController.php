@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Notification;
-
+use \App\Zoom;
 class NotificationController extends Controller
 {
     public function markAsRead($id)
@@ -37,7 +37,7 @@ class NotificationController extends Controller
                 $html.='<div class="notifications-item">';
                 if($notification->notifiable_type == 'zoom')
                  {                       
-                 $zoom = \App\zoom::where('id',$notification->notifiable_id)->first();
+                 $zoom = Zoom::where('id',$notification->notifiable_id)->first();
                    $html.=' <a href="'.$zoom->url.'"> ';
                  }
                 else
