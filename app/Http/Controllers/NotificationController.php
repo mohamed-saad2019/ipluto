@@ -82,7 +82,7 @@ class NotificationController extends Controller
                     $html.= ucwords($n->user->fname) . ucwords($n->user->lname);
                 }
 
-                 $html.= \Carbon\Carbon::parse($notification->created_at)->shortRelativeDiffForHumans() .'</p></div><div class="col-md-12"><p>'.$notification->data.'</p></div></div></a>';                                              
+                 $html.= \Carbon\Carbon::parse($notification->created_at)->shortRelativeDiffForHumans() .'</p></div><div class="col-md-12"><p>'.$notification->data.'</p></div></div></a></div>';                                              
          }
 
          return $html;
