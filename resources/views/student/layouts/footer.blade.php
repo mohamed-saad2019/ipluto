@@ -12,7 +12,7 @@
 
                 },
                 success: function (data) {
-                    // alert('asa');
+                    alert(data);
                   $("#notifications").html(data);
                 },
                 error: function () {
@@ -32,7 +32,7 @@
 
                 },
                 success: function (data) {
-                    // alert('asa');
+                 alert(data);
                   $("#bell").html(data);
                 },
                 error: function () {
