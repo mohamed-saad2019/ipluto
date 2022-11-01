@@ -12,8 +12,18 @@
 
                 },
                 success: function (data) {
-                    // alert(data);
-                  $("#notification_interval").html(data);
+                   var count = {{notifications_count('student_id')}};
+                  $("#notifications").html(data);
+
+                  if (count > 0 ) 
+                  {
+                    $('#bell').html('<i class="far fa-bell fa-lg"></i><span class="notification--num">'+count+'</span>');
+                  }
+                  else
+                  {
+                    $('#bell').html('<i class="far fa-bell fa-lg"></i>'); 
+                  }
+
                 },
                 error: function () {
                   // alert('error');
@@ -22,7 +32,7 @@
 }
 
 
-window.setInterval(getNewNotification,5000); // 1000 indicated 1 second
+window.setInterval(getNewNotification,8000); // 1000 indicated 1 second
 
     </script>
 

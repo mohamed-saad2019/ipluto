@@ -1,26 +1,4 @@
-        <div class="icon" id="bell">
-                                        <i class="far fa-bell fa-lg"></i>
-                                         @if(notifications_count($colum) != 0)
-                                            <span class="notification--num">
-                                                {{notifications_count($colum)}}
-                                            </span>
-                                         @endif
-                                    </div>
-
-                                    <div class="notifications_menu" id="box">
-                                        <div class="h1 font-weight-bold d-flex justify-content-between"
-                                        style="border-bottom: 1px solid #DDD;">
-                                            <span>
-                                                Notifications
-                                            </span>
-                                            <span>
-                                               <a href="{{url('/delete/notifications?colum='.$colum)}}"
-                                                style="color:#db0404">
-                                                <i class="fas fa-trash"></i>
-                                               </a>
-                                            </span>
-                                        </div>
-                            <div id="notifications">       
+       
                                @foreach(notifications($colum) as $n)
                                    <!-- begin notifications-item -->
                                      <div class="notifications-item">
@@ -78,6 +56,4 @@
                                  </div>
                                    <!-- End notifications-item -->
                                 @endforeach
-                            </div>
-
-                                    </div>
+                            
