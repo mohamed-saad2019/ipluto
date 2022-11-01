@@ -13,6 +13,8 @@ use DB;
 use Carbon\Carbon;
 use App\Folders;
 use App\Lessons;
+use App\Library;
+use App\LibraryFile;
 use App\ChildCategory;
 use App\SubCategory;
 use App\File;
@@ -20,6 +22,8 @@ use App\InstructorStudents;
 use App\Video;
 use App\Excel\SimpleXLSX;
 use App\ClassesStudent;
+use App\ShareLessons;
+use App\Classes;
 
 class InstructorController extends Controller
 {
@@ -1413,4 +1417,228 @@ class InstructorController extends Controller
        
         return view('instructor.test');
     }
+
+   public function upload_library(Request $request)
+    {
+       
+       $classes   = Classes::where('instructor_id',Auth::user()->id)->where('status',1)
+                    ->get();
+       $grades    = SubCategory::where('status', '1')->orderBy('id','ASC')->get();
+
+       $all_units = Video::where('unit','!=','')->groupBy('unit')->pluck('unit')
+                    ->toArray();
+     return view('instructor.upload_library',compact('classes','grades','all_units'));
+    }
+
+   public function save_library(Request $request)
+    {
+      if(request()->has('type') and request('type') == 'center')
+      {
+         $validator = \Validator::make($request->all(),[
+            'class' =>'required',
+            'lesson' =>'required',
+            'url'    =>'nullable|url',
+            'youtube'    =>'nullable|url',
+            'files'  =>'required',
+         ],[],[]);
+
+         if ($validator->fails())   
+            {
+                return back()->withInput()->withErrors($validator);
+            }
+
+         $input = Library::create(
+                 [
+                'type' => request('type'),
+                'instructor_id'=>Auth::user()->id,
+                'class_id'=>request('classs'),
+                'lesson_id'=>request('lesson'),
+                 ]);
+
+         if (request()->hasFile('files'))
+         {
+            foreach(request()->file('files') as $file)
+            
+            {
+                 $size = $file->getSize();
+                $mime_type = $file->getMimeType();
+                $name = $file->getClientOriginalName();
+                $hashName = $file->hashName();
+
+                LibraryFile::create([
+                    'file_name' =>  $name ,
+                    'size'      =>  $size ,
+                    'hash_name' =>  $hashName,
+                    'path'      =>  'library/'.\Auth::user()->id.'/'.$input->id,
+                    'mime_type' =>  $mime_type ,
+                    'file_type' =>  'Library',
+                    'instructor_id'=> \Auth::user()->id,
+                    'library_id'=>$input->id,
+                    
+                ]);
+            }
+
+         }
+         if(request()->has('url') or request()->has('youtube') )
+         {
+            if (!empty(request('url'))) 
+            {
+               
+                    LibraryFile::create([
+                    'file_name' =>  request('url') ,
+                    'size'      =>  '' ,
+                    'hash_name' =>  '',
+                    'path'      =>  '',
+                    'mime_type' =>  'url' ,
+                    'file_type' =>  'Library',
+                    'instructor_id'=> \Auth::user()->id,
+                    'library_id'=>$input->id,
+                ]);
+
+            }
+
+            if (!empty(request('youtube'))) 
+            {
+               
+                    LibraryFile::create([
+                    'file_name' =>  request('youtube') ,
+                    'size'      =>  '' ,
+                    'hash_name' =>  '',
+                    'path'      =>  '',
+                    'mime_type' =>  'youtube' ,
+                    'file_type' =>  'Library',
+                    'instructor_id'=> \Auth::user()->id,
+                    'library_id'=>$input->id,
+                ]);
+
+            }
+         }
+         \Session::flash('success','Added successfully');
+         return back();
+
+      }
+
+      elseif(request()->has('type') and request('type') == 'online')
+      {
+          $validator = \Validator::make($request->all(),[
+            'grade' =>'required',
+            'unit'  =>'required',
+            'title' =>'required|string|min:3|max:255',
+            'youtube'=>'nullable|url',
+            'url'    =>'nullable|url',
+            'files'  =>'required',
+            'price'  =>'required|numeric|min:1|max:50',
+            'info'   =>'nullable|string|max:500'
+         ],[],[]);
+
+         if ($validator->fails())   
+            {
+                return back()->withInput()->withErrors($validator);
+            }
+
+                $input = Library::create(
+                 [
+                'type' => request('type'),
+                'instructor_id'=>Auth::user()->id,
+                'grade_id'=>request('grade'),
+                'unit'=>request('unit'),
+                'title'=>request('title'),
+                'price'=>request('price'),
+                'info'=>request('info')
+                 ]);
+
+         if (request()->hasFile('files'))
+         {
+            foreach(request()->file('files') as $file)
+            
+            {
+                 $size = $file->getSize();
+                $mime_type = $file->getMimeType();
+                $name = $file->getClientOriginalName();
+                $hashName = $file->hashName();
+
+                LibraryFile::create([
+                    'file_name' =>  $name ,
+                    'size'      =>  $size ,
+                    'hash_name' =>  $hashName,
+                    'path'      =>  'library/'.\Auth::user()->id.'/'.$input->id,
+                    'mime_type' =>  $mime_type ,
+                    'file_type' =>  'Library',
+                    'instructor_id'=> \Auth::user()->id,
+                    'library_id'=>$input->id,
+                    
+                ]);
+            }
+
+         }
+         if(request()->has('url') or request()->has('youtube') )
+         {
+            if (!empty(request('url'))) 
+            {
+               
+                    LibraryFile::create([
+                    'file_name' =>  request('url') ,
+                    'size'      =>  '' ,
+                    'hash_name' =>  '',
+                    'path'      =>  '',
+                    'mime_type' =>  'url' ,
+                    'file_type' =>  'Library',
+                    'instructor_id'=> \Auth::user()->id,
+                    'library_id'=>$input->id,
+                ]);
+
+            }
+
+            if (!empty(request('youtube'))) 
+            {
+               
+                    LibraryFile::create([
+                    'file_name' =>  request('youtube') ,
+                    'size'      =>  '' ,
+                    'hash_name' =>  '',
+                    'path'      =>  '',
+                    'mime_type' =>  'youtube' ,
+                    'file_type' =>  'Library',
+                    'instructor_id'=> \Auth::user()->id,
+                    'library_id'=>$input->id,
+                ]);
+
+            }
+         }
+         \Session::flash('success','Added successfully');
+         return back();
+      }
+    }
+
+   public function getLessonInClass(Request $request)
+    {
+       
+       $lessons_count = ShareLessons::where('class_id',70)->with('lessons')->count();
+       $lessons       = ShareLessons::where('class_id',70)->with('lessons')->get();
+
+      // $lessons_count  = ShareLessons::where('class_id',request('class_id'))
+      //                         ->where('instructor_id',Auth::user()->id)->with('lessons')->count();
+      // $lessons        = ShareLessons::where('class_id',request('class_id'))
+      //                        ->where('instructor_id',Auth::user()->id)->with('lessons')->get();  
+
+       
+       if($lessons_count > 0)
+       {
+          $options = '';
+
+          foreach($lessons as $lesson)
+           {
+             $options.=' <option value="'.$lesson->lessons->id.'">'.$lesson->lessons->name.'</option>';
+           }
+
+           return $options;
+       }
+       else
+       {
+        return 500;
+       }
+      
+    }
+
+    
 }

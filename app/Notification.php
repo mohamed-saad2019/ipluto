@@ -25,4 +25,6 @@ class Notification extends Model
     {
       return $this->hasOne('\App\User', 'id','created_by');
     }
+
+    
 }

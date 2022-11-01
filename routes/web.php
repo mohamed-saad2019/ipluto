@@ -586,15 +586,28 @@ Route::middleware(['web'])->group(function () {
         Route::post('classes/saveShare', 'ClassController@saveShare')->name('saveShare');
         /* end route classes */
 
-        Route::get('/testfront', function(){
-            return view('instructor.testfront') ;
-        }) ;
+        /* start library teacher  */
+             Route::get('instructor/upload_library','InstructorController@upload_library')
+                   ->name('instructor.upload_library');
+
+            Route::get('/library/getLessonInClass','InstructorController@getLessonInClass')
+                   ->name('instructor.getLessonInClass');
+
+           Route::post('instructor/save_library','InstructorController@save_library')
+                   ->name('instructor.save_library');
+
+        /* end library teacher */
         
         /* start route lessons */
         Route::get('lessons/index', 'LessonController@index')->name('lessons.index');
         Route::post('add_lesson_to_folder', 'LessonController@add_lesson_to_folder');
         /* end route lessons */
 
+        /* start route Notifications */
+    Route::get('notificationInterval','NotificationController@notificationInterval');
+    Route::get('notificationCount','NotificationController@notificationCount');
+
+        /* end route Notifications */
 
         /* start route zoom */
         Route::get('zoom_create', 'ZoomController@startZoom')->name('create.zoom');

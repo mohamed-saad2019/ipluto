@@ -66,8 +66,8 @@
                                                </a>
                                             </span>
                                         </div>
-                                       
-                                @foreach(notifications('student_id') as $n)
+                            <div id="notifications">       
+                               @foreach(notifications('student_id') as $n)
                                    <!-- begin notifications-item -->
                                      <div class="notifications-item">
                                          @if($n->notifiable_type == 'zoom')
@@ -124,7 +124,7 @@
                                  </div>
                                    <!-- End notifications-item -->
                                 @endforeach
-
+                            </div>
 
                                     </div>
                                 </div>

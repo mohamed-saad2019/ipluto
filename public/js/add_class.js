@@ -110,7 +110,35 @@ $(document).ready(function () {
     }); 
 
 
+    $("body").on("change",".getLessonInClass", function(){
+        class_id = $(this).val();
+        if(class_id)
+        {
+           
+            $.ajax({
+                    type: "get",
+                    url: "/library/getLessonInClass",
+                    data: {'class_id': class_id },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+                    success: function(data){
+                        if(data != 500)
+                        {
+                            $('.fetch_lesson').append(data);
+                        }
+                        else
+                        {
+                            alert('There are no lessons for this class')
+                        }
 
+                    },
+                    error: function (data) {
+                    console.log(data)
+                    }
+                });
+        }
+    });
 
 
 

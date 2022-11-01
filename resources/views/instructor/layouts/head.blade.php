@@ -83,7 +83,8 @@
                                              </a>
                                            </span>
                                         </div>
-                                       
+                            
+                             <div id="notifications">
                                 @foreach(notifications('instructor_id') as $n)
                                    <!-- begin notifications-item -->
                                      <div class="notifications-item">
@@ -119,7 +120,7 @@
                                  </div>
                                    <!-- End notifications-item -->
                                 @endforeach
-
+                                 </divy>
 
                                     </div>
                                 </div>
@@ -284,13 +285,14 @@
                                     <i class="fad fa-book-reader mr-2"></i>
                                     Lessons
                                 </a>
-                            </li>
+                            </li> 
                             <li>
-                                <a href="#">
-                                    <i class="fa fa-users mr-2" aria-hidden="true"></i>
+                                <a href="{{route('instructor.upload_library')}}">
+                                    <i class="fad fa-book-reader mr-2"></i>
                                     Library
                                 </a>
                             </li>
+                              
 
                             <div class="dropdown-divider" style="border-top: 1px solid #F0B243"></div>
                             <li>
