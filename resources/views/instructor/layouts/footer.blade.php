@@ -54,6 +54,7 @@
 
                 },
                 success: function (data) {
+                  // alert(data);
                   var count = {{notifications_count('instructor_id')}};
                   $("#notifications").html(data);
 

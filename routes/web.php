@@ -551,6 +551,10 @@ Route::middleware(['web'])->group(function () {
 
             Route::get('instructor', 'InstructorController@index')->name('instructor.index');
             Route::get('instructor/library', 'InstructorController@library')->name('instructor.library');
+
+            Route::get('view_lesson', 'InstructorController@view_lesson')->name('view_lesson');
+
+
             Route::get('instructor/whiteboard', 'InstructorController@whiteboard');
 
 

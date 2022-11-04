@@ -1418,6 +1418,14 @@ class InstructorController extends Controller
         return view('instructor.test');
     }
 
+
+    public function view_lesson(Request $request)
+    {
+       
+        return view('instructor.view_lesson');
+    }
+
+
    public function upload_library(Request $request)
     {
        

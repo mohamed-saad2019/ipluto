@@ -12,6 +12,7 @@
 
                 },
                 success: function (data) {
+                    alert(data);
                    var count = {{notifications_count('student_id')}};
                   $("#notifications").html(data);
 
