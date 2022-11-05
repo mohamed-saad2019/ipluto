@@ -67,7 +67,7 @@
                     <i class="fas fa-file-image"></i>
                    @endif
                 </center>
-                <center style="font-size:16px;">{{$file->file_name}}</center>
+                <center style="font-size:16px;">{{ str_limit($file->file_name,15)}}</center>
            </div>
         @endforeach
         

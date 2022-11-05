@@ -108,8 +108,9 @@ zzz\z\z.\z\.\z.............fdfdfdffd          </li>
         @if(str_contains($file->mime_type, 'image'))
         <div class="col-12 col-md-6 col-lg-3 py-5">
           <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
-            <a href="{{url('storage/'.$file->path.'/'.$file->hash_name)}}">
-              <img src="{{url('storage/'.$file->path.'/'.$file->hash_name)}}" style="width:170px;height:100px">
+             <a href="{{url('storage/'.$file->path.'/'.$file->hash_name)}}">
+              <i class="fas fa-file-image fa-xl"></i>
+              <h6>{{ str_limit($file->file_name,15)}}</h6>
             </a>
             <div class="d-flex justify-content-between addlesson__footer ">
                 <span> {{$sum}}</span>
@@ -122,7 +123,7 @@ zzz\z\z.\z\.\z.............fdfdfdffd          </li>
           <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
             <a href="https://view.officeapps.live.com/op/view.aspx?src={{url('storage/'.$file->path.'/'.$file->hash_name)}}">
               <i class="fas fa-file-word"></i>
-              <h6>{{$file->file_name}}</h6>
+              <h6>{{ str_limit($file->file_name,15)}}</h6>
             </a>
             <div class="d-flex justify-content-between addlesson__footer ">
                 <span> {{$sum}}</span>
@@ -136,7 +137,7 @@ zzz\z\z.\z\.\z.............fdfdfdffd          </li>
           <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
             <a href="https://view.officeapps.live.com/op/view.aspx?src={{url('storage/'.$file->path.'/'.$file->hash_name)}}">
               <i class="fas fa-file-excel"></i>
-              <h6>{{$file->file_name}}</h6>
+              <h6>{{ str_limit($file->file_name,15)}}</h6>
             </a>
             <div class="d-flex justify-content-between addlesson__footer ">
                 <span> {{$sum}}</span>
@@ -144,13 +145,13 @@ zzz\z\z.\z\.\z.............fdfdfdffd          </li>
           </div>
         </div>
         @endif
-        
+
         @if(str_contains($file->mime_type, 'pdf'))
         <div class="col-12 col-md-6 col-lg-3">
           <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
             <a href="{{url('storage/'.$file->path.'/'.$file->hash_name)}}">
               <i class="fas fa-file-pdf fa-xl"></i>
-              <h6>{{$file->file_name}}</h6>
+              <h6>{{ str_limit($file->file_name,15)}}</h6>
             </a>
             <div class="d-flex justify-content-between addlesson__footer ">
                <span> {{$sum}}</span>
@@ -162,7 +163,7 @@ zzz\z\z.\z\.\z.............fdfdfdffd          </li>
             <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
               <a href="{{url('storage/'.$file->path.'/'.$file->hash_name)}}">
                 <i class="fas fa-file-audio-o"></i>
-                <h6>{{$file->file_name}}</h6>
+                <h6>{{ str_limit($file->file_name,15)}}</h6>
               </a>
               <div class="d-flex justify-content-between addlesson__footer ">
                 <span> {{$sum}}</span>
@@ -176,7 +177,7 @@ zzz\z\z.\z\.\z.............fdfdfdffd          </li>
             <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
               <a href="{{ url('storage/vedioTeachr/'.$file->path) }}">
                 <i class="far fa-file-video"></i>
-                <h6>{{$file->file_name}}</h6>
+                <h6>{{ str_limit($file->file_name,15)}}</h6>
               </a>
               <div class="d-flex justify-content-between addlesson__footer ">
                 <span> {{$sum}}</span>
@@ -190,7 +191,7 @@ zzz\z\z.\z\.\z.............fdfdfdffd          </li>
             <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
               <a href="{{url('storage/'.$file->path.'/'.$file->hash_name)}}">
                 <i class="far fa-file-video"></i>
-                <h6>{{$file->file_name}}</h6>
+                <h6>{{ str_limit($file->file_name,15)}}</h6>
               </a>
               <div class="d-flex justify-content-between addlesson__footer ">
                 <span> {{$sum}}</span>
@@ -205,7 +206,7 @@ zzz\z\z.\z\.\z.............fdfdfdffd          </li>
             <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
               <a href="https://view.officeapps.live.com/op/view.aspx?src={{url('storage/'.$file->path.'/'.$file->hash_name)}}">
                 <i class="fas fa-file-powerpoint"></i>
-                <h6>{{$file->file_name}}</h6>
+                <h6>{{ str_limit($file->file_name,15)}}</h6>
               </a>
               <div class="d-flex justify-content-between addlesson__footer ">
                 <span> {{$sum}}</span>

@@ -104,7 +104,7 @@ $(".list_item").click(function(){
 
        if(type.includes("pdf"))
        {
-        $('#lightBoxItem').html('<iframe src="https://docs.google.com/viewerng/viewer?url='+$(this).attr("data-src")+'&embedded=true" frameborder="0" height="100%" width="100%">');
+        $('#lightBoxItem').html(' <iframe src="'+$(this).attr("data-src")+'" width="100%" height="500px"></iframe>');
        }
 
         if(type.includes("url"))
