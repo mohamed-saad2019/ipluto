@@ -127,7 +127,7 @@ body
     top: 0px;
     left: 0px;
     width: 100%;
-    height: 70vh;
+    height: 100%;
 
 }
 
@@ -135,7 +135,7 @@ body
 {
     width: 50%;
     height: 100%;
-    background-image: url("../images/advisors/2.jpg");
+    background-color: #fff;
     background-size: cover;
     margin: auto;
     z-index: 999999999999999;
@@ -199,7 +199,18 @@ body
 .list_item
 {
     background-color: #fff;
-    width: 100px;
-    height: 100px;
+    width: 280px;
+    height: 160px;
     margin: 10px;
+    padding: 5px;
+}
+
+.cus_active
+{
+        border: 2px solid orangered;
+}
+
+.list_item center i 
+{
+        color: #1e6db3;
 }

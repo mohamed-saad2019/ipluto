@@ -88,9 +88,49 @@ function nextSlide(){
 
 }
 
-myPrev.addEventListener("click",prevSlide);
+$(".list_item").click(function(){
 
-myNext.addEventListener("click" , nextSlide)
+       alert($(this).attr("data-type"));
+
+       $('.list_item').removeClass('cus_active');
+       $(this).addClass('cus_active');
+
+       let type   = $(this).attr("data-type");
+       
+       if(type.includes("officedocument"))
+       {
+        $('#lightBoxItem').html('<iframe height="90%" src="https://view.officeapps.live.com/op/embed.aspx?src='+$(this).attr("data-src")+'&amp;wdAr=1.7777777777777777" width="100%" height="800px" frameborder="0">This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe>');
+       }
+
+       if(type.includes("pdf"))
+       {
+        $('#lightBoxItem').html('<iframe src="https://docs.google.com/viewerng/viewer?url='+$(this).attr("data-src")+'&embedded=true" frameborder="0" height="100%" width="100%">');
+       }
+
+        if(type.includes("url"))
+       {
+        $('#lightBoxItem').html('<a href="'+$(this).attr("data-src")+'">'+$(this).attr("data-src")+'</a>');
+       }
+
+
+       if(type.includes("image"))
+       {
+        $('#lightBoxItem').html('<img style="width:100%" src="'+$(this).attr("data-src")+'" alt="not Found"/>');
+       }
+
+       if(type.includes("video"))
+       {
+        $('#lightBoxItem').html('<video style="width:855px" controls><source src="'+$(this).attr("data-src")+'" type="video/mp4" /></video>');
+       }
+
+       if(type.includes("audio"))
+       {
+        $('#lightBoxItem').html('<audio controls><source src="'+$(this).attr("data-src")+'" type="audio/mpeg"></audio>');
+       }
+});
+// myPrev.addEventListener("click",prevSlide);
+
+// myNext.addEventListener("click" , nextSlide)
 
 document.addEventListener("keydown", function(eventInfo){
 

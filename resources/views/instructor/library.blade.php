@@ -240,8 +240,12 @@ $current_storage = str_replace("MB","",get_size_instructor());
                 <div class="content">
                 <div class="overlay_btn mt-5">
 
-                  <button class="btn live__Session d-flex align-items-center justify-content-center"> <i class="fa fa-folder mr-2"></i>Live Session</button>
+                  <a href='{{url("view_lesson?lesson_id=".$lesson->id)}}'
+                     class="btn live__Session d-flex align-items-center justify-content-center">
+                   <i class="fa fa-folder mr-2"></i>Live Session</a>
+
                   <button class="btn in__Class d-flex align-items-center justify-content-center"> <i class="fa fa-folder mr-2"></i>In Class</button>
+
                 </div>
                 <div class="">
                   <div class="overlay__footer d-flex justify-content-between mx-2">

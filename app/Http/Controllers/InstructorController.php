@@ -1421,8 +1421,18 @@ class InstructorController extends Controller
 
     public function view_lesson(Request $request)
     {
+       if (request()->has('lesson_id') and !empty(request('lesson_id')))
+        {
+            $files = File::where('lesson_id',request('lesson_id'))->get();
+            $lesson = Lessons::where('id',request('lesson_id'))->first();
+
+            return view('instructor.view_lesson',compact('files','lesson'));           
+        }
+        else
+        {
+            return back();
+        }
        
-        return view('instructor.view_lesson');
     }
 
 

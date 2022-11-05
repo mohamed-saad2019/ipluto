@@ -20,98 +20,7 @@
 <div class="section_slider">
         
 <div class="container py-5">
-    <div class="row_slide d-flex justify-content-center align-items-center">
 
-
-            <div class="item  ">
-                <div class="over_lay">
-                    <div class="overlay">
-                        <i class="fa fa-arrows-alt d-flex justify-content-center align-items-center"></i>
-                        <button class="btn btn-info">Share</button>
-                    </div>
-                </div>
-                <img src="images/portfolio/01-full.jpg" alt="" class="w-100">
-
-                <span class=" d-flex justify-content-center align-items-center">1</span>
-            </div>
-
-    
-
-
-            <div class="item ">
-                <div class="over_lay">
-                    <div class="overlay">
-                        <i class="fa fa-arrows-alt d-flex justify-content-center align-items-center"></i>
-                        <button class="btn btn-info">Share</button>
-                    </div>
-                </div>
-                <img src="images/portfolio/01-thumbnail.jpg" alt="" class="w-100">
-                <span class=" d-flex justify-content-center align-items-center">2</span>
-
-            </div>
-
-            <div class="item ">
-                <div class="over_lay">
-                    <div class="overlay ">
-                        <i class="fa fa-arrows-alt d-flex justify-content-center align-items-center"></i>
-                        <button class="btn btn-info">Share</button>
-                    </div>
-                </div>
-                <img src="images/portfolio/02-full.jpg" alt="" class="w-100">
-
-
-                <span class=" d-flex justify-content-center align-items-center">3</span>
-             </div>
-
-
-
-            <div class="item  ">
-                <div class="over_lay">
-                    <div class="overlay ">
-                        <i class="fa fa-arrows-alt d-flex justify-content-center align-items-center"></i>
-                        <button class="btn btn-info">Share</button>
-                    </div>
-                </div>
-                <img src="images/portfolio/03-full.jpg" alt="" class="w-100">
-
-                <span class=" d-flex justify-content-center align-items-center">4</span>
-            </div>
-
-
-
-
-            <div class="item  ">
-                <div class="over_lay">
-                    <div class="overlay ">
-                        <i class="fa fa-arrows-alt d-flex justify-content-center align-items-center"></i>
-                        <button class="btn btn-info">Share</button>
-                    </div>
-                </div>
-            <img src="{{ url('newslider/images/portfolio/04-full.jpg') }}"alt="" class="w-100">
-
-                <span class=" d-flex justify-content-center align-items-center">5</span>
-
-            </div>
-
-
-   
-            <div class="item  ">
-                <div class="over_lay">
-                    <div class="overlay">
-                        <i class="fa fa-arrows-alt d-flex justify-content-center align-items-center"></i>
-                        <button class="btn btn-info">Share</button>
-                    </div>
-                </div>
-                <img src="images/portfolio/05-full.jpg" alt="" class="w-100 img-flued">
-                <span class=" d-flex justify-content-center align-items-center">6</span>
-
-            </div>
-
-
-
-
-        
-    </div>
 </div>
 
 
@@ -119,16 +28,63 @@
 
 <div id="lightBoxContainer" class=" d-flex  justify-content-center align-items-center ">
     <div class="list_items">
-        <div class="list_item"></div>
-        <div class="list_item"></div>
-        <div class="list_item"></div>
-        <div class="list_item"></div>
-    </div>
-    <div class="play_arrow_prev d-flex justify-content-start align-items-center "><i id="prev" class="fa fa-solid fa-play text-white ml-3"></i></div>
-    <div id="lightBoxItem" class="lightBox position-relative d-flex  align-items-center ">
+          @php $sum = 0 ; @endphp
+        @foreach($files as $file)
+          @php $sum++; @endphp
+            <div class="list_item" data-type='{{$file->mime_type}}' 
+                                data-src=" @if(str_contains($file->mime_type, 'video') and $file->hash_name=='Video From Dashboard')
+                                {{url('storage/vedioTeachr/'.$file->path)}}
+                                @else{{url('storage/'.$file->path.'/'.$file->hash_name)}}@endif">
+
+                <span > {{$sum}} </span>
+                <small style="float:right;">{{$lesson->name}}</small>
+                <center style="font-size:40px;margin-top: 10px;">
+                   @if(str_contains($file->mime_type, 'url'))
+                    <i class="fas fa-file-link"></i>
+                   @endif
+                   @if(str_contains($file->mime_type, 'presentation'))
+                    <i class="fas fa-file-powerpoint"></i>
+                   @endif
+                   @if(str_contains($file->mime_type, 'video') and $file->hash_name !='Video From Dashboard')
+                    <i class="fas fa-file-video"></i>
+                   @endif
+                   @if(str_contains($file->mime_type, 'video') and $file->hash_name=='Video From Dashboard')
+                    <i class="fas fa-file-video"></i>
+                   @endif
+                   @if(str_contains($file->mime_type, 'audio') )
+                    <i class="fas fa-file-audio-o"></i>
+                   @endif
+                   @if(str_contains($file->mime_type, 'pdf'))
+                    <i class="fas fa-file-pdf"></i>
+                   @endif
+                   @if(str_contains($file->mime_type, 'sheet'))
+                    <i class="fas fa-file-excel"></i>
+                   @endif
+                   @if(str_contains($file->mime_type, 'word'))
+                    <i class="fas fa-file-word"></i>
+                   @endif
+                   @if(str_contains($file->mime_type, 'image'))
+                    <i class="fas fa-file-image"></i>
+                   @endif
+                </center>
+                <center style="font-size:16px;">{{$file->file_name}}</center>
+           </div>
+        @endforeach
         
     </div>
-    <div class="play_arrow_next d-flex justify-content-end align-items-center"><i id="next" class="fa fa-play text-white mr-3"></i> </div>
+    <div id="lightBoxItem" class="lightBox position-relative d-flex  align-items-center ">
+
+                            @if(!empty($lesson->background))
+                            <img class="img-fluid " width="100%" style="height:40em;"
+                              src="{{url('storage/'.$lesson->background)}}">
+                            @else
+                            <img class="img-fluid " width="100%" style="height: 40em;"
+                              src="{{url('image/overlayGlobale.jpg')}}">
+                            @endif
+
+                           
+    </div>
+    
  
 </div>
 
