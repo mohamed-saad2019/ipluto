@@ -12,7 +12,7 @@
 
                 },
                 success: function (data) {
-                    alert(data);
+                    // alert(data);
                    var count = {{notifications_count('student_id')}};
                   $("#notifications").html(data);
 
@@ -33,7 +33,7 @@
 }
 
 
-window.setInterval(getNewNotification,8000); // 1000 indicated 1 second
+// window.setInterval(getNewNotification,8000); // 1000 indicated 1 second
 
     </script>
 

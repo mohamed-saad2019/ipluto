@@ -90,7 +90,7 @@ function nextSlide(){
 
 $(".list_item").click(function(){
 
-       alert($(this).attr("data-type"));
+       // alert($(this).attr("data-type"));
 
        $('.list_item').removeClass('cus_active');
        $(this).addClass('cus_active');

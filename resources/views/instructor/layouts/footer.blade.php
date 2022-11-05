@@ -73,8 +73,8 @@
                 }
               });    
 }
-window.setInterval(getCountNotification,8000); // 1000 indicated 1 second
-window.setInterval(getNewNotification,8000); // 1000 indicated 1 second
+// window.setInterval(getCountNotification,8000); // 1000 indicated 1 second
+// window.setInterval(getNewNotification,8000); // 1000 indicated 1 second
 
     </script>
 </body>
