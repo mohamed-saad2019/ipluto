@@ -40,7 +40,7 @@
                 <small style="float:right;">{{$lesson->name}}</small>
                 <center style="font-size:40px;margin-top: 10px;">
                    @if(str_contains($file->mime_type, 'url'))
-                    <i class="fas fa-file-link"></i>
+                    <i class="fas fa-link"></i>
                    @endif
                    @if(str_contains($file->mime_type, 'presentation'))
                     <i class="fas fa-file-powerpoint"></i>
@@ -67,7 +67,13 @@
                     <i class="fas fa-file-image"></i>
                    @endif
                 </center>
-                <center style="font-size:16px;">{{ str_limit($file->file_name,15)}}</center>
+                <center style="font-size:16px;">
+                   @if(str_contains($file->mime_type, 'url'))
+                        URL
+                   @else
+                    {{ str_limit($file->file_name,15)}}
+                   @endif
+                </center>
            </div>
         @endforeach
         

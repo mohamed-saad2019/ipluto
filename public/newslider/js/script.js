@@ -109,7 +109,7 @@ $(".list_item").click(function(){
 
         if(type.includes("url"))
        {
-        $('#lightBoxItem').html('<a href="'+$(this).attr("data-src")+'">'+$(this).attr("data-src")+'</a>');
+        $('#lightBoxItem').html('<center><a href="'+$(this).attr("data-src")+'">'+$(this).attr("data-src")+'</a></center>');
        }
 
 
@@ -125,7 +125,7 @@ $(".list_item").click(function(){
 
        if(type.includes("audio"))
        {
-        $('#lightBoxItem').html('<audio controls><source src="'+$(this).attr("data-src")+'" type="audio/mpeg"></audio>');
+        $('#lightBoxItem').html('<center><audio controls><source src="'+$(this).attr("data-src")+'" type="audio/mpeg"></audio></center>');
        }
 });
 // myPrev.addEventListener("click",prevSlide);
