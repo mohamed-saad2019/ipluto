@@ -20,6 +20,13 @@ body
     box-sizing: border-box;
     cursor: pointer;
     position: relative;
+    border: 1px solid #ddd;
+}
+
+.item .cus_i
+{
+    font-size: 30px;
+    padding: 30px 38px;
 }
 
 .item span
@@ -127,18 +134,18 @@ body
     top: 0px;
     left: 0px;
     width: 100%;
-    height: 100%;
+    height: 80vh;
 
 }
 
 #lightBoxItem
 {
-    width: 50%;
+    width: 55%;
     height: 100%;
-    background-color: #fff;
     background-size: cover;
     margin: auto;
     z-index: 999999999999999;
+    overflow: hidden;
 }
 .play_arrow_prev
 {
@@ -199,18 +206,7 @@ body
 .list_item
 {
     background-color: #fff;
-    width: 280px;
-    height: 160px;
+    width: 100px;
+    height: 100px;
     margin: 10px;
-    padding: 5px;
-}
-
-.cus_active
-{
-        border: 2px solid orangered;
-}
-
-.list_item center i 
-{
-        color: #1e6db3;
 }

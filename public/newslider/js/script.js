@@ -1,5 +1,12 @@
 
-
+ function takeshot() {
+          html2canvas(document.body).then((canvas) => {
+          let a = document.createElement("a");
+          a.download = "ss.png";
+          a.href = canvas.toDataURL("image/png");
+          console.log(canvas.toDataURL("image/png"));
+        });
+     }
 
 
 var myImg =Array.from(document.querySelectorAll(".item img"));
@@ -99,12 +106,12 @@ $(".list_item").click(function(){
        
        if(type.includes("officedocument"))
        {
-        $('#lightBoxItem').html('<iframe height="90%" src="https://view.officeapps.live.com/op/embed.aspx?src='+$(this).attr("data-src")+'&amp;wdAr=1.7777777777777777" width="100%" height="800px" frameborder="0">This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe>');
+        $('#lightBoxItem').html('<iframe height="100%" src="https://view.officeapps.live.com/op/embed.aspx?src='+$(this).attr("data-src")+'&amp;wdAr=1.7777777777777777" width="100%" height="800px" frameborder="0">This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe>');
        }
 
        if(type.includes("pdf"))
        {
-        $('#lightBoxItem').html(' <iframe src="'+$(this).attr("data-src")+'" width="100%" height="500px"></iframe>');
+        $('#lightBoxItem').html(' <iframe src="'+$(this).attr("data-src")+'" width="100%" height="100%"></iframe>');
        }
 
         if(type.includes("url"))
@@ -126,6 +133,19 @@ $(".list_item").click(function(){
        if(type.includes("audio"))
        {
         $('#lightBoxItem').html('<center><audio controls><source src="'+$(this).attr("data-src")+'" type="audio/mpeg"></audio></center>');
+       }
+
+        if(type.includes("whiteboard"))
+       {
+        $('#lightBoxItem').html('<a class="btn btn-info" onclick="takeshot()">takeshot</a><div style="width:100%; height: 100%;" id="wt-container"></div><div id="output"></div>');
+        var wt = new api.WhiteboardTeam('#wt-container', {
+            clientId: 'bc4d22750d5923626dab48d169529a71',
+            boardCode: 'be296d51ed223d2b99ef59b998d81f9e'
+        });
+        // wt.fullscreen();
+
+
+
        }
 });
 // myPrev.addEventListener("click",prevSlide);
@@ -162,4 +182,5 @@ document.addEventListener("mousemove", function(eventInfo){
     myImg.style.top = eventInfo.clientY + "px";
 
 })
+
 
