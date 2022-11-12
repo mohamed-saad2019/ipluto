@@ -31,13 +31,7 @@
                  {{url('storage/vedioTeachr/'.$file->path)}}
                  @else{{url('storage/'.$file->path.'/'.$file->hash_name)}}@endif">
                 
-                <div class="over_lay">
-                    <div class="overlay">
-                        <i class="fa fa-arrows-alt d-flex justify-content-center align-items-center"></i>
-                        <button class="btn btn-info">Share</button>
-                    </div>
-                </div>
-               
+             
              @if(str_contains($file->mime_type, 'url'))
                     <i class="fas fa-link cus_i" ></i>
                    @endif
