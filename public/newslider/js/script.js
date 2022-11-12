@@ -122,7 +122,7 @@ $(".list_item").click(function(){
        {
         $('#fullscreen-button').addClass('cus_hidden');
 
-        $('#child').html('<video style="width:100%" controls><source src="'+$(this).attr("data-src")+'" type="video/mp4" /></video>');
+        $('#child').html('<video style="width:100%;height:95%" controls><source src="'+$(this).attr("data-src")+'" type="video/mp4" /></video>');
        }
 
        if(type.includes("audio"))
