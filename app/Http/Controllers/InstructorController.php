@@ -1587,6 +1587,9 @@ class InstructorController extends Controller
                     'library_id'=>$input->id,
                     
                 ]);
+
+             $file->store('public/library'.\Auth::user()->id.'/'.$input->id);
+
             }
 
          }
