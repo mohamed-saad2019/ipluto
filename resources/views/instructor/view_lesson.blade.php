@@ -45,7 +45,7 @@
                     <i class="fas fa-file-video cus_i" ></i>
                    @endif
                    @if(str_contains($file->mime_type, 'audio') )
-                    <i class="fas fa-file-audio-o cus_i" ></i>
+                    <i class="fas fa-file-audio cus_i" ></i>
                    @endif
                    @if(str_contains($file->mime_type, 'pdf'))
                     <i class="fas fa-file-pdf cus_i" ></i>
