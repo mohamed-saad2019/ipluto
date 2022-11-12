@@ -866,6 +866,8 @@ Route::middleware(['web'])->group(function () {
                 Route::get('student/livesession', 'ZoomController@liveSession')->name('student.livesession');
                 Route::post('student/join_zoom', 'ZoomController@joinZoom')->name('join.zoom');
                 
+            Route::get('student/view_lesson','StudentController@view_lesson');
+
                 //start labirary 
                 Route::get('student/show_videos', 'StudentController@videos')->name('showVideos');
                 Route::post('student/store_comment', 'CommentController@store')->name('store_comment'); 

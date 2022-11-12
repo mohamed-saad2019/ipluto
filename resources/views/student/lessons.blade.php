@@ -87,7 +87,10 @@
                 <div class="content">
                 <div class="overlay_btn mt-5">
                     <br>
-                  <button class="btn live__Session d-flex align-items-center justify-content-center"><i class="fa fa-eye" aria-hidden="true"></i>View</button>
+                  <a href="{{url('student/view_lesson?lesson_id='.$lesson->id)}}" 
+                  class="btn live__Session d-flex align-items-center justify-content-center">
+                    <i class="fa fa-eye" aria-hidden="true"></i>View
+                  </a>
                 </div>
               </div>
             </div>

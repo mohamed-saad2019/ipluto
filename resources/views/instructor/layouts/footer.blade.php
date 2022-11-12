@@ -14,7 +14,9 @@
           style="float:right !important;padding:3px 25px;margin:0px 5px;">Save & Exit
           </a>
         @endif
-        <a class='btn btn-primary' href="#" 
+        <a class='btn btn-primary' 
+           href='{{url("view_lesson?lesson_id=".request("id"))}}'
+           target="_blank"
           style="float:right !important;padding:3px 25px;margin:0px 5px;" >preview Lesson
        </a>
        <br>

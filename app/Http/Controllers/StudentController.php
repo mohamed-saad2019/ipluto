@@ -118,4 +118,15 @@ class StudentController extends Controller
 
       
     }
+    public function view_lesson()
+    {
+      if(request()->has('lesson_id') and !empty(request('lesson_id')))
+      {
+         $files = File::Where("lesson_id",request('lesson_id'))
+                        ->orderBy('id','ASC')
+                        ->get();
+        return view('student.view_lesson',compact('files'));
+      }
+      return back();
+    }
  }
