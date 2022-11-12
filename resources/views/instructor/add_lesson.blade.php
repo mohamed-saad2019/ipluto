@@ -75,19 +75,21 @@ $current_storage = str_replace("MB","",get_size_instructor());
 
       <ul>
 
-        @if($current_storage < $storage) @if(!empty($grade)) <li data-toggle="modal" data-target="#exampleModalCenter2"
-          class='tab' id='tab_add'>
-          <i class="fas fa-plus"></i>Add
-          </li>
+        @if($current_storage < $storage) 
+          @if(!empty($grade)) 
+            <li data-toggle="modal" data-target="#exampleModalCenter2"
+            class='tab' id='tab_add'>
+            <i class="fas fa-plus"></i>Add
+            </li>
           @else
-          <li data-toggle="modal" data-target="#exampleModalCenter" class='tab' id='tab_add'>
-zzz\z\z.\z\.\z.............fdfdfdffd          </li>
+          <li data-toggle="modal" data-target="#exampleModalCenter" class='tab' id='tab_add'>Add</li>
           @endif
-          @else
-          <li data-toggle="modal" data-target="#exampleModalCenter55" class='tab' id='tab_not_add'>
+      @else
+          <li data-toggle="modal" data-target="#exampleModalCenter55" class='tab' 
+          id='tab_not_add'>
             <i class="fas fa-plus"></i>Add
           </li>
-          @endif
+      @endif
 
           <li class="tab" id='tab_del'><i class="fas fa-trash"></i>Delete</li>
           <li class="tab"><i class="fas fa-copy"></i>Copy</li>
@@ -117,9 +119,9 @@ zzz\z\z.\z\.\z.............fdfdfdffd          </li>
               </div>
           </div>
         </div>
-        @endif
-        @if(str_contains($file->mime_type, 'word'))
-        <div class="col-12 col-md-6 col-lg-3">
+
+        @elseif(str_contains($file->mime_type, 'word'))
+        <div class="col-12 col-md-6 col-lg-3 py-5">
           <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
             <a href="https://view.officeapps.live.com/op/view.aspx?src={{url('storage/'.$file->path.'/'.$file->hash_name)}}">
               <i class="fas fa-file-word"></i>
@@ -130,10 +132,9 @@ zzz\z\z.\z\.\z.............fdfdfdffd          </li>
               </div>
           </div>
         </div>
-        @endif
 
-        @if(str_contains($file->mime_type, 'sheet'))
-        <div class="col-12 col-md-6 col-lg-3">
+        @elseif(str_contains($file->mime_type, 'sheet'))
+        <div class="col-12 col-md-6 col-lg-3 py-5">
           <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
             <a href="https://view.officeapps.live.com/op/view.aspx?src={{url('storage/'.$file->path.'/'.$file->hash_name)}}">
               <i class="fas fa-file-excel"></i>
@@ -144,10 +145,9 @@ zzz\z\z.\z\.\z.............fdfdfdffd          </li>
               </div>
           </div>
         </div>
-        @endif
 
-        @if(str_contains($file->mime_type, 'pdf'))
-        <div class="col-12 col-md-6 col-lg-3">
+        @elseif(str_contains($file->mime_type, 'pdf'))
+        <div class="col-12 col-md-6 col-lg-3 py-5">
           <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
             <a href="{{url('storage/'.$file->path.'/'.$file->hash_name)}}">
               <i class="fas fa-file-pdf fa-xl"></i>
@@ -157,9 +157,10 @@ zzz\z\z.\z\.\z.............fdfdfdffd          </li>
                <span> {{$sum}}</span>
               </div>
           </div>
-          @endif
-          @if(str_contains($file->mime_type, 'audio') )
-          <div class="col-12 col-md-6 col-lg-3">
+        </div>
+
+          @elseif(str_contains($file->mime_type, 'audio') )
+          <div class="col-12 col-md-6 col-lg-3 py-5">
             <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
               <a href="{{url('storage/'.$file->path.'/'.$file->hash_name)}}">
                 <i class="fas fa-file-audio-o"></i>
@@ -170,10 +171,9 @@ zzz\z\z.\z\.\z.............fdfdfdffd          </li>
               </div>
             </div>
           </div>
-          @endif
 
-          @if(str_contains($file->mime_type, 'video') and $file->hash_name=='Video From Dashboard')
-          <div class="col-12 col-md-6 col-lg-3">
+          @elseif(str_contains($file->mime_type, 'video') and $file->hash_name=='Video From Dashboard')
+          <div class="col-12 col-md-6 col-lg-3 py-5">
             <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
               <a href="{{ url('storage/vedioTeachr/'.$file->path) }}">
                 <i class="far fa-file-video"></i>
@@ -184,10 +184,9 @@ zzz\z\z.\z\.\z.............fdfdfdffd          </li>
               </div>
             </div>
           </div>
-          @endif
 
-          @if(str_contains($file->mime_type, 'video') and $file->hash_name !='Video From Dashboard')
-          <div class="col-12 col-md-6 col-lg-3">
+          @elseif(str_contains($file->mime_type, 'video') and $file->hash_name !='Video From Dashboard')
+          <div class="col-12 col-md-6 col-lg-3 py-5">
             <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
               <a href="{{url('storage/'.$file->path.'/'.$file->hash_name)}}">
                 <i class="far fa-file-video"></i>
@@ -198,11 +197,10 @@ zzz\z\z.\z\.\z.............fdfdfdffd          </li>
               </div>
             </div>
           </div>
-          @endif
 
 
-          @if(str_contains($file->mime_type, 'presentation'))
-          <div class="col-12 col-md-6 col-lg-3">
+          @elseif(str_contains($file->mime_type, 'presentation'))
+          <div class="col-12 col-md-6 col-lg-3 py-5">
             <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
               <a href="https://view.officeapps.live.com/op/view.aspx?src={{url('storage/'.$file->path.'/'.$file->hash_name)}}">
                 <i class="fas fa-file-powerpoint"></i>
@@ -213,10 +211,9 @@ zzz\z\z.\z\.\z.............fdfdfdffd          </li>
               </div>
             </div>
           </div>
-          @endif
 
-          @if(str_contains($file->mime_type, 'url'))
-          <div class="col-12 col-md-6 col-lg-3">
+          @elseif(str_contains($file->mime_type, 'url'))
+          <div class="col-12 col-md-6 col-lg-3 py-5">
             <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
               <a href="{{$file->file_name}}">
                 <i class="fas fa-link"></i>
@@ -232,10 +229,10 @@ zzz\z\z.\z\.\z.............fdfdfdffd          </li>
           @endforeach
 
         </div>
-
+       </div>
       </div>
     </div>
-  </div>
+   </div>
 
 
   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
