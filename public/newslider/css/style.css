@@ -212,12 +212,12 @@ body
 }
 .cus_hidden
 {
-  display: none !important;
+ display: none !important;
 }
 #fullscreen-button {
-  position: fixed;
-  top: 15px;
-  right: 10px;
+  position: absolute;
+  top:  15px;
+  right:  15px;
   background: cornflowerblue;
   border:  0;
   width:  40px;

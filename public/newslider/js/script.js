@@ -91,37 +91,51 @@ $(".list_item").click(function(){
        
        if(type.includes("officedocument"))
        {
+        $('#fullscreen-button').removeClass('cus_hidden');
+
         $('#child').html('<iframe height="100%" src="https://view.officeapps.live.com/op/embed.aspx?src='+$(this).attr("data-src")+'&amp;wdAr=1.7777777777777777" width="100%" height="800px" frameborder="0">This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe>');
        }
 
        if(type.includes("pdf"))
        {
+                 $('#fullscreen-button').removeClass('cus_hidden');
+
         $('#child').html(' <iframe src="'+$(this).attr("data-src")+'" width="100%" height="100%"></iframe>');
        }
 
         if(type.includes("url"))
        {
+        $('#fullscreen-button').removeClass('cus_hidden');
+
         $('#child').html('<center><a href="'+$(this).attr("data-src")+'">'+$(this).attr("data-src")+'</a></center>');
        }
 
 
        if(type.includes("image"))
        {
+         $('#fullscreen-button').removeClass('cus_hidden');
+
         $('#child').html('<img style="width:100%" src="'+$(this).attr("data-src")+'" alt="not Found"/>');
        }
 
        if(type.includes("video"))
        {
+        $('#fullscreen-button').addClass('cus_hidden');
+
         $('#child').html('<video style="width:100%" controls><source src="'+$(this).attr("data-src")+'" type="video/mp4" /></video>');
        }
 
        if(type.includes("audio"))
        {
+          $('#fullscreen-button').removeClass('cus_hidden');
+
         $('#child').html('<center><audio controls><source src="'+$(this).attr("data-src")+'" type="audio/mpeg"></audio></center>');
        }
 
         if(type.includes("whiteboard"))
        {
+        $('#fullscreen-button').removeClass('cus_hidden');
+
         $('#child').html('<div style="width:100%; height: 100%;" id="wt-container"></div><div id="output"></div>');
         var wt = new api.WhiteboardTeam('#wt-container', {
             clientId: 'bc4d22750d5923626dab48d169529a71',
