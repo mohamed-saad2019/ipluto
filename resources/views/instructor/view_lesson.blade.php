@@ -67,13 +67,7 @@
        
         @endforeach
                <div class="item list_item " data-type='whiteboard' >
-                
-                <div class="over_lay">
-                    <div class="overlay">
-                        <i class="fa fa-arrows-alt d-flex justify-content-center align-items-center"></i>
-                       
-                    </div>
-                </div>
+            
                
              
                 <i class="fas fa-chalkboard-teacher cus_i" ></i>   
