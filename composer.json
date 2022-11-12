@@ -111,6 +111,7 @@
             "app/Helpers/Tracker.php",
             "app/Helpers/TwilioMsg.php",
             "app/Helpers/Is_wishlist.php",
+            "app/Helpers/Helper.php",
             "app/Helpers/currency.php"
         ],
         "psr-4": {

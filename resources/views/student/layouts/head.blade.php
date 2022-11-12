@@ -137,19 +137,19 @@
                                         </a>
                                         <div class="dropdown-menu">
                                             <div class="dropdownHead ">
-
+        
                                                 @if(Auth()->User()['user_img'] != null && Auth()->User()['user_img']
-                                                !='' && @file_get_contents('images/user_img/'.Auth::user()['user_img']))
-                                                <img src="{{ url('images/user_img/'.Auth()->User()['user_img'])}}"
+                                                !='' && @file_get_contents('images/user_img/'.Auth::user()['user_img'].'.png'))
+                                                <img src="{{ url('images/user_img/'.Auth()->User()['user_img'].'.png')}}"
                                                     alt="profilephoto" class="rounded-circle">
 
                                                 @elseif(Auth()->User()['user_img'] != null && Auth()->User()['user_img']
-                                                !='' && @file_get_contents('images/avatar/'.Auth::user()['user_img']))
-                                                <img src="{{ url('images/avatar/'.Auth()->User()['user_img'])}}"
+                                                !='' && @file_get_contents('images/avatar/'.Auth::user()['user_img'].'.png'))
+                                                <img src="{{ url('images/avatar/'.Auth()->User()['user_img'].'.png')}}"
                                                     alt="profilephoto" class="rounded-circle">
 
                                                 @else
-
+    
                                                 <img @error('photo') is-invalid @enderror
                                                     src="{{ Avatar::create(Auth::user()->fname)->toBase64() }}"
                                                     alt="profilephoto" class="rounded-circle">
@@ -182,12 +182,12 @@
 
                                         @if(Auth()->User()['user_img'] != null && Auth()->User()['user_img'] !='' &&
                                         @file_get_contents('images/user_img/'.Auth::user()['user_img']))
-                                        <img src="{{ url('images/user_img/'.Auth()->User()['user_img'])}}"
+                                        <img src="{{ url('images/user_img/'.Auth()->User()['user_img'].'.png')}}"
                                             alt="profilephoto" width='50px' height="50px" class="rounded-circle">
 
                                         @elseif(Auth()->User()['user_img'] != null && Auth()->User()['user_img'] !='' &&
-                                        @file_get_contents('images/avatar/'.Auth::user()['user_img']))
-                                        <img src="{{ url('images/avatar/'.Auth()->User()['user_img'])}}"
+                                        @file_get_contents('images/avatar/'.Auth::user()['user_img'].'.png'))
+                                        <img src="{{ url('images/avatar/'.Auth()->User()['user_img'].'.png')}}"
                                             alt="profilephoto" width='50px' height="50px" class="rounded-circle">
 
                                         @else

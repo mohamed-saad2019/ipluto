@@ -19,4 +19,8 @@ class File extends Model
         'lesson_id',
         'instructor_id',
     ];
+
+    public function instructor(){
+        return $this->hasOne(User::class,'id','instructor_id');
+    }
 }
