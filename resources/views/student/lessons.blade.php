@@ -103,7 +103,11 @@
                 </div>
                 <div class="w-75">
                   <div class="title">
-                    <span for="{{$lesson->id.'_checkbox'}}" class="d-block text-capitalize">{{$lesson->name}}</span>
+                    <span for="{{$lesson->id.'_checkbox'}}" class="d-block text-capitalize">{{$lesson->name}}
+                      <span style="font-size:20px;float: right;color:#ffd43b">
+                          <i class="fa-solid fa-star"></i>
+                      </span>
+                    </span>
                     <span class="d-block text-capitalize">
                         {{$my_teacher->fname.' '.$my_teacher->lname}}
                     </span>
