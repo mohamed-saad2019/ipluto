@@ -66,10 +66,7 @@
             </div>
        
         @endforeach
-               <div class="item list_item " data-type='whiteboard' >
-            
-               
-             
+               <div class="item list_item " data-type='whiteboard' > 
                 <i class="fas fa-chalkboard-teacher cus_i" ></i>   
 
                 <span class=" d-flex justify-content-center align-items-center">

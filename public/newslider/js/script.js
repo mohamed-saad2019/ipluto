@@ -127,9 +127,9 @@ $(".list_item").click(function(){
 
        if(type.includes("audio"))
        {
-          $('#fullscreen-button').removeClass('cus_hidden');
+          $('#fullscreen-button').addClass('cus_hidden');
 
-        $('#child').html('<center><audio controls><source src="'+$(this).attr("data-src")+'" type="audio/mpeg"></audio></center>');
+        $('#child').html('<center><br><audio controls><source src="'+$(this).attr("data-src")+'" type="audio/mpeg"></audio></center>');
        }
 
         if(type.includes("whiteboard"))
