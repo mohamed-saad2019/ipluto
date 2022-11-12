@@ -1628,14 +1628,12 @@ class InstructorController extends Controller
 
    public function getLessonInClass(Request $request)
     {
-       
-       $lessons_count = ShareLessons::where('class_id',70)->with('lessons')->count();
-       $lessons       = ShareLessons::where('class_id',70)->with('lessons')->get();
+     
 
-      // $lessons_count  = ShareLessons::where('class_id',request('class_id'))
-      //                         ->where('instructor_id',Auth::user()->id)->with('lessons')->count();
-      // $lessons        = ShareLessons::where('class_id',request('class_id'))
-      //                        ->where('instructor_id',Auth::user()->id)->with('lessons')->get();  
+      $lessons_count  = ShareLessons::where('class_id',request('class_id'))
+                         ->where('instructor_id',Auth::user()->id)->with('lessons')->count();
+      $lessons        = ShareLessons::where('class_id',request('class_id'))
+                             ->where('instructor_id',Auth::user()->id)->with('lessons')->get();  
 
        
        if($lessons_count > 0)
