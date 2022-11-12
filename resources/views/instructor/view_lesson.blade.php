@@ -17,7 +17,7 @@
    
 
 
-<div class="section_slider">
+<div class="section_slider" id="full">
         
 <div class="container py-5">
     <div class="row_slide d-flex  align-items-center">
@@ -101,31 +101,29 @@
 
 <div id="lightBoxContainer"class=" d-flex justify-content-center align-items-center">
 
-    <div id="lightBoxItem" class="lightBox position-relative d-flex  align-items-center ">
 
+<div id="lightBoxItem" class="lightBox position-relative d-flex  align-items-center ">
+                        <button class="btn" id="fullscreen-button" data-mode="full">
+                                <i class="fas fa-expand"></i>
+                         </button> 
+                         <div id="child" style="width:100%;height:100%;">
                             @if(!empty($lesson->background))
-                            <img class="img-fluid " width="100%" style="height:40em;"
+                            <img class="img-fluid " width="100%" style=""
                               src="{{url('storage/'.$lesson->background)}}">
                             @else
-                            <img class="img-fluid " width="100%" style="height: 40em;"
+                            <img class="img-fluid " width="100%" style=""
                               src="{{url('image/overlayGlobale.jpg')}}">
                             @endif
+                         </div>
 
                            
     </div>
     
  
 </div>
-
-
-<div class="full full_screen ">
-    <i class="fa fa-arrows-alt d-flex justify-content-center align-items-center"></i>
-    <div class="d-flex justify-content-center align-items-center w-100 h-100">
-     <div class="full_screenimg "></div>
-    </div>
+  
 </div>
-</div>
-    
+ 
 
 
 

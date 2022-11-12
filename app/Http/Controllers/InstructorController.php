@@ -1482,17 +1482,16 @@ class InstructorController extends Controller
                 $mime_type = $file->getMimeType();
                 $name = $file->getClientOriginalName();
                 $hashName = $file->hashName();
-
-                LibraryFile::create([
+                File::create([
                     'file_name' =>  $name ,
                     'size'      =>  $size ,
                     'hash_name' =>  $hashName,
-                    'path'      =>  'library/'.\Auth::user()->id.'/'.$input->id,
+                    'path'      =>  \Auth::user()->id.'/'.request('lesson'),
                     'mime_type' =>  $mime_type ,
                     'file_type' =>  'Library',
                     'instructor_id'=> \Auth::user()->id,
+                    'lesson_id'=>request('lesson'),
                     'library_id'=>$input->id,
-                    
                 ]);
             }
 
@@ -1502,7 +1501,7 @@ class InstructorController extends Controller
             if (!empty(request('url'))) 
             {
                
-                    LibraryFile::create([
+                   $add = File::create([
                     'file_name' =>  request('url') ,
                     'size'      =>  '' ,
                     'hash_name' =>  '',
@@ -1510,25 +1509,24 @@ class InstructorController extends Controller
                     'mime_type' =>  'url' ,
                     'file_type' =>  'Library',
                     'instructor_id'=> \Auth::user()->id,
+                    'lesson_id'=>request('lesson'),
                     'library_id'=>$input->id,
                 ]);
-
             }
 
             if (!empty(request('youtube'))) 
             {
-               
-                    LibraryFile::create([
+                $add = File::create([
                     'file_name' =>  request('youtube') ,
                     'size'      =>  '' ,
                     'hash_name' =>  '',
                     'path'      =>  '',
-                    'mime_type' =>  'youtube' ,
+                    'mime_type' =>  'url' ,
                     'file_type' =>  'Library',
                     'instructor_id'=> \Auth::user()->id,
+                    'lesson_id'=>request('lesson'),
                     'library_id'=>$input->id,
                 ]);
-
             }
          }
          \Session::flash('success','Added successfully');
