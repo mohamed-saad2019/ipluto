@@ -19,11 +19,14 @@ use Carbon\Carbon;
 use App\Attandance;
 use App\Classes;
 use App\ClassesStudent;
+use App\Lessons;
 use App\Zoom;
 use App\ZoomClasses;
 use Session;
 use Redirect ;
 use App\Notification;
+use App\ShareLessons;
+
 
 class ZoomController extends Controller
 {
@@ -658,8 +661,19 @@ class ZoomController extends Controller
 
     public function startZoom(Request $request)
     {
-      $classes    = Classes::where([['instructor_id' , auth()->user()->id] ])->get() ;
-      return view("zoom.create_zoom",compact('classes'));
+      $lesson_id = $request->lesson_id ;
+      $chack = Lessons::where('id',$lesson_id)->where('instructor_id',auth()->user()->id)->first();
+      if($chack)
+      {
+        $classes   = Classes::where([['instructor_id' , auth()->user()->id] ])
+                            ->whereIn('id' , ShareLessons::where('lesson_id',$lesson_id)->groupBy('class_id')->pluck('class_id') )
+                            ->get() ;
+
+                            return view("zoom.create_zoom",compact('classes'));
+      }else{
+        return Redirect::back()->with('error','You do not have permission to open live session for this lesson');
+      }
+  
     }
 
     public function storeZoom(Request $request)

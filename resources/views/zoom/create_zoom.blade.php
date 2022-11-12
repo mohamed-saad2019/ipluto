@@ -31,7 +31,13 @@
                     </ol>
                 </nav>
             </div> -->
-
+            @if (Session::has('error'))
+                <div class="alert alert-danger">
+                    <ul>
+                        <li>{{ Session::get('error') }}</li>
+                    </ul>
+                </div>
+            @else
             <div class="Page__content">
                 <form method="post" action="{{route('saveZoom')}}"  enctype="multipart/form-data">
                     {{ csrf_field() }}
@@ -89,6 +95,7 @@
                     </div>
                 </form>
             </div>
+            @endif
     </div>
 </div>
 
