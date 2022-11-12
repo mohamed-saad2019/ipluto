@@ -85,7 +85,7 @@
                   <img src="./images/Profile/Ellipse.png" style="width:50px;height:50px;border-radius:50%;" alt="">
                 @endif
                   <div class="coment_contet font-weight-bold mx-3 w-100 h-50">
-                    <span>{{$comment->student->fname}} {{$comment->student->lname}}</span> <small class="ml-5">{{calcPeriodDate($comment->created_at)}}</small>
+                    <span>{{$comment->student->fname}} {{$comment->student->lname}}</span> <small class="ml-5">{{ \Carbon\Carbon::parse($comment->created_at)->shortRelativeDiffForHumans() }}</small>
                     <p class="video__comment">{{$comment->comment}}</p>
                     <div class="like_unlike">
 
@@ -165,7 +165,7 @@
                     <div class="video_next_content h-100 p-2 " >
                       <h5 class="video__listTile font-weight-bold">{{getTitle($file->file_name)}} </h5>
                       <span class="d-block">{{$file->instructor->fname}} {{$file->instructor->lname}}<i class="fa fa-check-circle"></i></span>
-                      <small>{{calcPeriodDate($file->created_at)}}</small>
+                      <small>{{ \Carbon\Carbon::parse($file->created_at)->shortRelativeDiffForHumans() }}</small>
                     </div>
                   </div>
                   </a>
