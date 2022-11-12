@@ -1493,6 +1493,9 @@ class InstructorController extends Controller
                     'lesson_id'=>request('lesson'),
                     'library_id'=>$input->id,
                 ]);
+
+              $file->store('public/'.\Auth::user()->id.'/'.request('lesson'));
+
             }
 
          }
