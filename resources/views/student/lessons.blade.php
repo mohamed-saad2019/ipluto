@@ -104,7 +104,7 @@
                 <div class="w-75">
                   <div class="title">
                     <span for="{{$lesson->id.'_checkbox'}}" class="d-block text-capitalize">{{$lesson->name}}
-                      <span style="font-size:25px;float: right;color:#ffd43b">
+                      <span style="font-size:20px;float: right;color:#ffd43b">
                           <i class="fas fa-star"></i>
                       </span>
                     </span>
