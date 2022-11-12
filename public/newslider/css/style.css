@@ -215,9 +215,9 @@ body
   display: none !important;
 }
 #fullscreen-button {
-  position: absolute;
-  top:  15px;
-  right:  15px;
+  position: fixed;
+  top: 15px;
+  right: 10px;
   background: cornflowerblue;
   border:  0;
   width:  40px;
