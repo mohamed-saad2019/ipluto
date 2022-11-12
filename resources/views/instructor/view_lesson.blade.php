@@ -111,7 +111,7 @@
                             <img class="img-fluid " width="100%" style=""
                               src="{{url('storage/'.$lesson->background)}}">
                             @else
-                            <img class="img-fluid " width="100%" style=""
+                            <img class="img-fluid " style="width:100%;height:100%;"
                               src="{{url('image/overlayGlobale.jpg')}}">
                             @endif
                          </div>

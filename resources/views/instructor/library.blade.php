@@ -255,7 +255,8 @@ $current_storage = str_replace("MB","",get_size_instructor());
                        </a>
                    </span>
                     <span>
-                      <a href='{{url("view_lesson?lesson_id=".$lesson->id)}}'>
+                      <a href='{{url("view_lesson?lesson_id=".$lesson->id)}}'
+                         target="_blank">
                        <i class="fa fa-eye" aria-hidden="true"></i>Preview
                       </a>
                      </span>
