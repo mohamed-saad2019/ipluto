@@ -322,7 +322,7 @@
                                         <a href="#">Previous Assessment</a>
                                     </li>
                                     <li>
-                                        <a href="{{route('create.zoom')}}">Live Session</a>
+                                        <a href="#">Live Session</a>
                                     </li>
                                 </ul>
                             </li>
