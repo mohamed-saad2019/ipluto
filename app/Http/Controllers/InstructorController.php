@@ -1469,7 +1469,7 @@ class InstructorController extends Controller
                  [
                 'type' => request('type'),
                 'instructor_id'=>Auth::user()->id,
-                'class_id'=>request('classs'),
+                'class_id'=>request('class'),
                 'lesson_id'=>request('lesson'),
                  ]);
 
