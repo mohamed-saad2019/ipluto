@@ -18,5 +18,6 @@ class File extends Model
         'relation_id',
         'lesson_id',
         'instructor_id',
+        'library_id',
     ];
 }

@@ -240,7 +240,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
                 <div class="content">
                 <div class="overlay_btn mt-5">
 
-                  <a href='{{url("view_lesson?lesson_id=".$lesson->id)}}'
+                  <a href='#'
                      class="btn live__Session d-flex align-items-center justify-content-center">
                    <i class="fa fa-folder mr-2"></i>Live Session</a>
 
@@ -249,8 +249,16 @@ $current_storage = str_replace("MB","",get_size_instructor());
                 </div>
                 <div class="">
                   <div class="overlay__footer d-flex justify-content-between mx-2">
-                    <span> <i class="fa fa-pencil-square-o"></i>Edit</span>
-                    <span> <i class="fa fa-eye" aria-hidden="true"></i>Preview</span>
+                   <span>
+                       <a href="{{url('instructor/add_lesson?id='.$lesson->id)}}">
+                         <i class="fa fa-pencil-square-o"></i>Edit
+                       </a>
+                   </span>
+                    <span>
+                      <a href='{{url("view_lesson?lesson_id=".$lesson->id)}}'>
+                       <i class="fa fa-eye" aria-hidden="true"></i>Preview
+                      </a>
+                     </span>
                   </div>
                 </div>
               </div>
@@ -276,9 +284,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
 
-                    <a class="dropdown-item cu_items" href="{{url('instructor/add_lesson?id='.$lesson->id)}}">
-                      View Lesson
-                    </a>
+                   
 
                     @if(empty(($lesson->ensure_save)))
                     <a class="dropdown-item cu_items" href="{{url('instructor/saved_lesson?id='.$lesson->id)}}">
@@ -297,23 +303,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
                     </a>
                     @endif
 
-                    <a class="dropdown-item cu_items" href="{{url('instructor/add_lesson?id='.$lesson->id)}}">
-
-                      <svg width="20px" height="20px" viewBox="0 0 19 20"
-                        class="library_npp_content_hover-layer-preview-btn-svg--2rgQj">
-                        <path fill="#2c5f9e"
-                          d="M13.758,12.559c0,0.427-0.356,0.773-0.795,0.773H2.54c-0.437,0-0.794-0.347-0.794-0.773V2.422 c0-0.427,0.357-0.754,0.794-0.754h9.848l2.125-1.638C14.483,0.02,14.473,0,14.452,0H1.05C0.485,0,0.028,0.427,0.028,0.973v13.034 C0.028,14.554,0.485,15,1.05,15h13.402c0.566,0,1.023-0.446,1.023-0.993V6.691l-1.718,1.33V12.559L13.758,12.559z"
-                          class="library_npp_contentcolor-change--37R-g"></path>
-                        <path fill="#2c5f9e" d="M16.202,0.155l-0.78,0.72l1.78,1.8l0.77-0.72L16.202,0.155z"
-                          class="library_npp_contentcolor-change--37R-g"></path>
-                        <path fill="#2c5f9e" d="M7.352,8.285l1.77,1.79l7.35-6.81l-1.77-1.8L7.352,8.285z"
-                          class="library_npp_contentcolor-change--37R-g"></path>
-                        <path fill="#2c5f9e"
-                          d="M5.751,11.436l1.81,0.04h0.02l0.64-0.591l-1.77-1.799l0,0l-0.65,0.6L5.751,11.436z"
-                          class="library_npp_content_color-change--37R-g"></path>
-                      </svg>
-                      Edit
-                    </a>
+                   
 
                     <a class="dropdown-item cu_items" href="{{url('instructor/duplicate_lesson?id='.$lesson->id)}}">
 
@@ -355,7 +345,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
                       Delete
 
                     </a>
-                    <a class="cu_items" href="{{route('lesson.share',$lesson->id)}}">
+                    <a class="dropdown-item cu_items" href="{{route('lesson.share',$lesson->id)}}">
                       <i class="fa fa-share-alt" style="font-size: 18px;" aria-hidden="true"> Share </i>
                     </a>
 

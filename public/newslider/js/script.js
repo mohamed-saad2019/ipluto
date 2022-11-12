@@ -1,5 +1,4 @@
-
- function takeshot() {
+function takeshot() {
           html2canvas(document.body).then((canvas) => {
           let a = document.createElement("a");
           a.download = "ss.png";
@@ -7,59 +6,45 @@
           console.log(canvas.toDataURL("image/png"));
         });
      }
+child
 
-
-var myImg =Array.from(document.querySelectorAll(".item img"));
-var lightBoxContainer = document.getElementById("lightBoxContainer");
-var lightBoxItem = document.getElementById("lightBoxItem");
-var myClose = document.getElementById("close");
-var myPrev = document.getElementById("prev");
-var myNext = document.getElementById("next");
-
-var currentIndex = 0;
-
-
-for(var i = 0 ; i<myImg.length ; i++)
-{
-    myImg[i].addEventListener("click" , function(eventInfo)
+$("#fullscreen-button").click(function(){
+    $mode = this.getAttribute("data-mode")
+    if($mode=='full')
     {
-
-        currentIndex =myImg.indexOf(eventInfo.target);
-        console.log(currentIndex) ;
-
-        lightBoxContainer.style.display = "flex";
-        
-        var imgSrc =  eventInfo.target.getAttribute("src");
-
-        lightBoxItem.style.backgroundImage =" url("+imgSrc+")";
-
-
-    })
-}
-
-// $(".item img").click(function(){
-//     let imtemImg = $(this).attr("src");
-//     $(".lightBox").css({
-//         backgroundImage:" url("+imtemImg+")"
-//     })
-// })
-$(".full_screen").hide();
-$(".fa-arrows-alt ").click(function(){
-    $(".full_screen").fadeToggle();
-
- 
-
-
-        var url= $(this).parent().parent().next('img').attr('src');
-        $(".full_screen .full_screenimg").css({
-            backgroundImage:" url("+url+")"
-       
+        // $(".full_screen").fadeToggle();
+        $mode = this.setAttribute("data-mode", "cancel");
+        $("#fullscreen-button").html('<i class="fa fa-times" style="color:#fff"></i>');
+        $('.row_slide').addClass('cus_hidden');
+        $('#lightBoxItem').css('width','100%');
+        $('#lightBoxContainer').css('height','100%');
+        var element = document.querySelector("#full");
+        element.requestFullscreen()
+        .then(function() {
+            // element has entered fullscreen mode successfully
         })
+        .catch(function(error) {
+            // element could not enter fullscreen mode
+        });
+    }
+    else if($mode == 'cancel')
+    {
+        $mode = this.setAttribute("data-mode", "full");
+        $("#fullscreen-button").html('<i class="fas fa-expand"></i>');
+        $('.row_slide').removeClass('cus_hidden');
+        $('#lightBoxItem').css('width','55%');
+        $('#lightBoxContainer').css('height','80vh');
+        var element = document.querySelector("#full");
+       document.exitFullscreen()
+        .then(function() {
+            // element has exited fullscreen mode
+        })
+        .catch(function(error) {
+            // element has not exited fullscreen mode
+        });
+    }
+ })
 
-    
- 
-
-})
 $(".item .over_lay").click(function(){
    let imgSr = $(this).next().attr("src");
    $(".lightBox").css({
@@ -106,38 +91,38 @@ $(".list_item").click(function(){
        
        if(type.includes("officedocument"))
        {
-        $('#lightBoxItem').html('<iframe height="100%" src="https://view.officeapps.live.com/op/embed.aspx?src='+$(this).attr("data-src")+'&amp;wdAr=1.7777777777777777" width="100%" height="800px" frameborder="0">This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe>');
+        $('#child').html('<iframe height="100%" src="https://view.officeapps.live.com/op/embed.aspx?src='+$(this).attr("data-src")+'&amp;wdAr=1.7777777777777777" width="100%" height="800px" frameborder="0">This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe>');
        }
 
        if(type.includes("pdf"))
        {
-        $('#lightBoxItem').html(' <iframe src="'+$(this).attr("data-src")+'" width="100%" height="100%"></iframe>');
+        $('#child').html(' <iframe src="'+$(this).attr("data-src")+'" width="100%" height="100%"></iframe>');
        }
 
         if(type.includes("url"))
        {
-        $('#lightBoxItem').html('<center><a href="'+$(this).attr("data-src")+'">'+$(this).attr("data-src")+'</a></center>');
+        $('#child').html('<center><a href="'+$(this).attr("data-src")+'">'+$(this).attr("data-src")+'</a></center>');
        }
 
 
        if(type.includes("image"))
        {
-        $('#lightBoxItem').html('<img style="width:100%" src="'+$(this).attr("data-src")+'" alt="not Found"/>');
+        $('#child').html('<img style="width:100%" src="'+$(this).attr("data-src")+'" alt="not Found"/>');
        }
 
        if(type.includes("video"))
        {
-        $('#lightBoxItem').html('<video style="width:855px" controls><source src="'+$(this).attr("data-src")+'" type="video/mp4" /></video>');
+        $('#child').html('<video style="width:100%" controls><source src="'+$(this).attr("data-src")+'" type="video/mp4" /></video>');
        }
 
        if(type.includes("audio"))
        {
-        $('#lightBoxItem').html('<center><audio controls><source src="'+$(this).attr("data-src")+'" type="audio/mpeg"></audio></center>');
+        $('#child').html('<center><audio controls><source src="'+$(this).attr("data-src")+'" type="audio/mpeg"></audio></center>');
        }
 
         if(type.includes("whiteboard"))
        {
-        $('#lightBoxItem').html('<a class="btn btn-info" onclick="takeshot()">takeshot</a><div style="width:100%; height: 100%;" id="wt-container"></div><div id="output"></div>');
+        $('#child').html('<div style="width:100%; height: 100%;" id="wt-container"></div><div id="output"></div>');
         var wt = new api.WhiteboardTeam('#wt-container', {
             clientId: 'bc4d22750d5923626dab48d169529a71',
             boardCode: 'be296d51ed223d2b99ef59b998d81f9e'
@@ -152,35 +137,12 @@ $(".list_item").click(function(){
 
 // myNext.addEventListener("click" , nextSlide)
 
-document.addEventListener("keydown", function(eventInfo){
-
-        if(eventInfo.code == "ArrowRight")
-        {
-            prevSlide();
-        }
-        else if(eventInfo.code == "ArrowLeft")
-        {
-            nextSlide();
-        }
-        else if(eventInfo.code == "Escape")
-        {
-            $(".full_screen").hide()
-
-        }
-        
-
-})
 
 
 
 
 
 
-document.addEventListener("mousemove", function(eventInfo){
 
-    myImg.style.left = eventInfo.clientX + "px";
-    myImg.style.top = eventInfo.clientY + "px";
-
-})
 
 

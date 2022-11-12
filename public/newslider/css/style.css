@@ -210,3 +210,33 @@ body
     height: 100px;
     margin: 10px;
 }
+.cus_hidden
+{
+  display: none !important;
+}
+#fullscreen-button {
+  position: absolute;
+  top:  15px;
+  right:  15px;
+  background: cornflowerblue;
+  border:  0;
+  width:  40px;
+  height:  40px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  transition:  transform .3s;
+  font-size: 0;
+  opacity: 1;
+  pointer-events: auto;
+  cursor:  pointer;
+}   
+#fullscreen-button:hover {
+  transform: scale(1.125);
+}
+#fullscreen-button i
+    {
+      font-size: 25px;
+      margin: -3px;
+      cursor: pointer;
+      color: #fff;        
+    }
