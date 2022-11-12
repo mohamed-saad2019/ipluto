@@ -43,8 +43,7 @@ class VideoController extends Controller
         ]);
 
     
-          $check = Video::where('unit',$request->unit)->where('subject_id',$request->subject_id)
-                    ->where('grade_id',$request->grade_id)->count();
+          $check = Video::where('title',$request->title)->where('unit',$request->unit)->where('subject_id',$request->subject_id)->where('grade_id',$request->grade_id)->count();
 
          if($check != 0 )
          {

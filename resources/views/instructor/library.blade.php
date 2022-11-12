@@ -235,7 +235,8 @@ $current_storage = str_replace("MB","",get_size_instructor());
         <div class="row go" id="dvSource">
           @foreach($lessons as $lesson)
           <div class="col-md-3 col-sm-6 mb-4">
-            <div class="lessons sort contTechFolder drog sahdow-sm" id="{{$lesson->id}}">
+            <div class="lessons sort contTechFolder drog sahdow-sm" id="{{$lesson->id}}"
+                 style='overflow: unset;'>
               <div class="overlay">
                 <div class="content">
                 <div class="overlay_btn mt-5">
