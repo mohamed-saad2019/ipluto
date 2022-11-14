@@ -284,10 +284,30 @@
                                 </a>
                             </li> 
                             <li>
-                                <a href="{{route('instructor.upload_library')}}">
-                                    <i class="fad fa-book-reader mr-2"></i>
+                                 <a href="#Library" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                                    <i class="fad fa-book-reader mr-2" aria-hidden="true"></i>
                                     Library
                                 </a>
+                                <ul class="collapse list-unstyled" id="Library">
+
+                                    <li>
+                                        <a 
+                                        href="{{url('instructor/library_list?type=center')}}">     Library List (Center Students )
+                                         </a>
+                                    </li>
+
+                                    <li>
+                                        <a 
+                                        href="{{url('instructor/library_list?type=online')}}">     Library List (Online Students )
+                                         </a>
+                                    </li>
+
+                                    <li>
+                                         <a href="{{route('instructor.upload_library')}}">     Upload New Files / Videos
+                                         </a>
+                                    </li>
+                                </ul>
+                                
                             </li>
                               
 

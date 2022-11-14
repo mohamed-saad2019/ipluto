@@ -594,6 +594,9 @@ Route::middleware(['web'])->group(function () {
              Route::get('instructor/upload_library','InstructorController@upload_library')
                    ->name('instructor.upload_library');
 
+            Route::get('instructor/library_list','InstructorController@library_list')
+                   ->name('instructor.library_list');
+                   
             Route::get('/library/getLessonInClass','InstructorController@getLessonInClass')
                    ->name('instructor.getLessonInClass');
 

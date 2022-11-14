@@ -1456,7 +1456,8 @@ class InstructorController extends Controller
             'class' =>'required',
             'lesson' =>'required',
             'url'    =>'nullable|url',
-            'youtube'    =>'nullable|url',
+            'youtube'=>'nullable|url',
+            'info'   =>'nullable|string|max:500',
             'files'  =>'required',
          ],[],[]);
 
@@ -1658,6 +1659,38 @@ class InstructorController extends Controller
         return 500;
        }
       
+    }
+
+
+   public function library_list(Request $request)
+    {
+       
+      if(request()->has('type') and !empty(request('type')))
+      {
+         if (request('type') == 'center')
+          {
+             $type      = 'Center'; $sum = 0 ;
+             $library   = Library::where('instructor_id',Auth::user()->id)
+                         ->where('type','center')->orderBy('id','DESC')->get();
+
+            return view('instructor.library_list',compact('library','type','sum'));
+
+          }
+         elseif(request('type') == 'Online')
+          {
+             $type      = 'online';  $sum = 0 ;
+             $library   = Library::where('instructor_id',Auth::user()->id)
+                         ->where('type','online')->orderBy('id','DESC')->get();
+
+            return view('instructor.library_list',compact('library','type','sum'));
+          }
+          else
+          {
+            return back();
+          }
+      }
+
+        return back();
     }
 
     

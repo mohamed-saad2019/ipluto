@@ -78,6 +78,18 @@
                                 </div>
                             </div>
 
+                              <div class="form-group row class__dropdown">
+                                <label for="youtube" class="col-sm-2 col-form-label">
+                                    info
+                                </label>
+                                <div class="col-sm-8 dropdown" id="youtube">
+                                    <textarea class="form-control" id="info" rows="3"
+                                     placeholder="the purpose of the videos / Files"
+                                     name="info"></textarea>
+                                </div>
+                                </div>
+                                
+
                             <div class="form-group row class__dropdown">
                                 <label for="url" class="col-sm-2 col-form-label">
                                     URL
@@ -112,8 +124,11 @@
                                    </div>
                                 </div>
                             </div>
-                            <br>                                          
-                             <input type="submit" class="btn btn-primary text-capitalize px-5" value="Upload">
+
+                              <div class="col-sm-10 dropdown">
+                                <input type="submit" class="btn btn-primary text-capitalize px-5" value="Upload" style="float:right;">
+                            </div>
+
                           </form>
                         </div>
                         <!-- End file tab content -->
@@ -189,7 +204,7 @@
                                 </label>
                                 <div class="col-sm-8 dropdown" id="youtube">
                                     <textarea class="form-control" id="info" rows="3"
-                                     placeholder="the purpose of the video / File"
+                                     placeholder="the purpose of the videos / Files"
                                      name="info"></textarea>
                                 </div>
                                 </div>
@@ -228,8 +243,11 @@
                                    </div>
                                 </div>
                             </div>
-                            <br>                                          
-                             <input type="submit" class="btn btn-primary text-capitalize px-5" value="Upload">
+
+                            <div class="col-sm-10 dropdown">
+                              <input type="submit"  class="btn btn-primary text-capitalize px-5" value="Upload" style="float:right;">
+                            </div>
+
                           </form>
                               
                               </div>

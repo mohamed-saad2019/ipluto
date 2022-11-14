@@ -21,5 +21,16 @@ class Library extends Model
     ];
 
 
+    public function lesson()
+    {
+        return $this->belongsTo('App\Lessons','lesson_id','id');
+    }
+
+     public function class()
+    {
+        return $this->belongsTo('App\Classes','class_id','id');
+    }
+
+
     
 }
