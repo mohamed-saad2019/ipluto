@@ -664,7 +664,7 @@ class InstructorController extends Controller
                 File::create([
                     'file_name' =>  $file->file_name ,
                     'size'      =>  $file->size ,
-                    'hash_name' =>  $file->hashName,
+                    'hash_name' =>  $file->hash_name,
                     'path'      =>  $file->path,
                     'mime_type' =>  $file->mime_type ,
                     'file_type' =>  'Lessons',
@@ -1441,6 +1441,7 @@ class InstructorController extends Controller
        
        $classes   = Classes::where('instructor_id',Auth::user()->id)->where('status',1)
                     ->get();
+
        $grades    = SubCategory::where('status', '1')->orderBy('id','ASC')->get();
 
        $all_units = Video::where('unit','!=','')->groupBy('unit')->pluck('unit')
@@ -1453,7 +1454,6 @@ class InstructorController extends Controller
       if(request()->has('type') and request('type') == 'center')
       {
          $validator = \Validator::make($request->all(),[
-            'class' =>'required',
             'lesson' =>'required',
             'url'    =>'nullable|url',
             'youtube'=>'nullable|url',
@@ -1470,8 +1470,9 @@ class InstructorController extends Controller
                  [
                 'type' => request('type'),
                 'instructor_id'=>Auth::user()->id,
-                'class_id'=>request('class'),
+                'grade_id'=>request('grade'),
                 'lesson_id'=>request('lesson'),
+                'info'=>request('info')
                  ]);
 
          if (request()->hasFile('files'))
@@ -1637,19 +1638,25 @@ class InstructorController extends Controller
     {
      
 
-      $lessons_count  = ShareLessons::where('class_id',request('class_id'))
-                         ->where('instructor_id',Auth::user()->id)->with('lessons')->count();
-      $lessons        = ShareLessons::where('class_id',request('class_id'))
-                             ->where('instructor_id',Auth::user()->id)->with('lessons')->get();  
+      // $lessons_count  = ShareLessons::where('class_id',request('class_id'))
+      //                    ->where('instructor_id',Auth::user()->id)->with('lessons')->count();
+      //                          $lessons = Lessons::where('instructor_id','=',\Auth::user()->id)->orderBy('id','DESC')->get();
 
-       
+      // $lessons        = ShareLessons::where('class_id',request('class_id'))
+      //                        ->where('instructor_id',Auth::user()->id)->with('lessons')->get();  
+
+      $lessons_count  =  Lessons::where('instructor_id','=',\Auth::user()->id)
+                              ->where('grade',request('grade_id'))->orderBy('id','DESC')->count();
+
+      $lessons        = Lessons::where('instructor_id','=',\Auth::user()->id)
+                                ->where('grade',request('grade_id'))->orderBy('id','DESC')->get();       
        if($lessons_count > 0)
        {
           $options = '';
 
           foreach($lessons as $lesson)
            {
-             $options.=' <option value="'.$lesson->lessons->id.'">'.$lesson->lessons->name.'</option>';
+             $options.=' <option value="'.$lesson->id.'">'.$lesson->name.'</option>';
            }
 
            return $options;
@@ -1667,13 +1674,16 @@ class InstructorController extends Controller
        
       if(request()->has('type') and !empty(request('type')))
       {
+
+         $grades    = SubCategory::where('status', '1')->orderBy('id','ASC')->get();
+
          if (request('type') == 'center')
           {
              $type      = 'Center'; $sum = 0 ;
              $library   = Library::where('instructor_id',Auth::user()->id)
-                         ->where('type','center')->orderBy('id','DESC')->get();
+                         ->where('type','center')->withCount('files')->orderBy('id','DESC')->get();
 
-            return view('instructor.library_list',compact('library','type','sum'));
+            return view('instructor.library_list',compact('library','type','sum','grades'));
 
           }
          elseif(request('type') == 'Online')
@@ -1682,7 +1692,7 @@ class InstructorController extends Controller
              $library   = Library::where('instructor_id',Auth::user()->id)
                          ->where('type','online')->orderBy('id','DESC')->get();
 
-            return view('instructor.library_list',compact('library','type','sum'));
+            return view('instructor.library_list',compact('library','type','sum','grades'));
           }
           else
           {
@@ -1693,5 +1703,89 @@ class InstructorController extends Controller
         return back();
     }
 
+
+    public function delete_library()
+    {
+    
+        if (request('id') and !empty(request('id')) and request('type') and !empty(request('type')))
+         {    
+             Library::where('id','=',request('id'))->delete();
+             File::where('library_id',request('id'))->delete();
+        }
+
+        return back();
+    }
+
+   
+    public function copy_library()
+    {
+    
+        if (request('library_id') and !empty(request('library_id'))) {
+
+            $Library = Library::where('id','=',request('library_id'))->first();
+
+            $input = Library::create(
+                 [
+                'type' => $Library->type,
+                'instructor_id'=>Auth::user()->id,
+                'grade_id'=>request('grade'),
+                'lesson_id'=>request('lesson'),
+                'info'=>$Library->info,
+                 ]);
+
+           $id = $input->id;
+
+           $files = File::where('instructor_id',\Auth::user()->id)
+                    ->where('library_id',request('library_id'))->get();
+
+         foreach ($files as $file) {
+
+                File::create([
+                    'file_name' =>  $file->file_name ,
+                    'size'      =>  $file->size ,
+                    'hash_name' =>  $file->hash_name,
+                    'path'      =>  $file->path,
+                    'mime_type' =>  $file->mime_type ,
+                    'file_type' =>  'Library',
+                    'instructor_id'=> \Auth::user()->id,
+                    'library_id'=>$id,
+                    'lesson_id' =>request('lesson') 
+                    ]);
+         }
+
+            \Session::flash('success',trans('Library duplicated'));
+             return back();
+        }
+
+        return back();
+
+    }
+
+    public function edit_library()
+    {
+
+       if (request('library_id') and !empty(request('library_id')))
+       {
+         $input = Library::where('id',request('library_id'))->update(
+             [
+            'info' => request('info'),
+            'grade_id'=>request('grade'),
+            'lesson_id'=>request('lesson'),
+             ]);
+
+          $files = File::where('instructor_id',\Auth::user()->id)
+                    ->where('library_id',request('library_id'))->get();
+
+          foreach ($files as $file)
+          {
+
+           File::where('id',$file->id)->update(
+             [
+                'lesson_id' =>request('lesson') 
+             ]);
+          }
+       }
+       return back();
+    }
     
 }

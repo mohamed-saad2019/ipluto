@@ -26,11 +26,20 @@ class Library extends Model
         return $this->belongsTo('App\Lessons','lesson_id','id');
     }
 
+     public function grade()
+    {
+      return $this->hasOne('\App\SubCategory', 'id','grade_id');
+    }
+
      public function class()
     {
         return $this->belongsTo('App\Classes','class_id','id');
     }
 
+    public function files()
+    {
+        return $this->hasMany('App\File','library_id','id');
+    }
 
-    
+
 }

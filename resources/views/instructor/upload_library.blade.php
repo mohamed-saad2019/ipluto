@@ -49,7 +49,7 @@
                         enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <input type="hidden" name="type" value="center">
-                            <div class="form-group row class__dropdown">
+                         {{--   <div class="form-group row class__dropdown">
                                 <label for="class__dropdown" class="col-sm-2 col-form-label">
                                      Class
                                 </label>
@@ -62,18 +62,33 @@
                                          @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div>--}}
+
+                              <div class="form-group row class__dropdown">
+                                  <label for="store__title" class="col-sm-2 col-form-label">Grade</label>
+                                <div class="col-sm-8 dropdown" id="youtube">
+                                 <select class="form-control select2 getLessonInGrade" required 
+                                 style="border:1px solid #ddd;color:#000;" name="grade">
+                                     <option  value="">Select Grade</option>
+                                       @foreach($grades as $s)
+                                           <option value="{{$s->id}}">
+                                            {{$s->title}}
+                                           </option>
+                                        @endforeach
+                                   </select>
+                                </div>
+                                </div> 
+
                             <!-- End class dropdown  -->
                             <div class="form-group row class__dropdown">
                                 <label for="lesson__dropdown" class="col-sm-2 col-form-label">
                                     Lesson
                                 </label>
                                 <div class="col-sm-8 dropdown" id="lesson__dropdown">
-                                   <select class="form-control fetch_lesson" required 
+                                   <select class="form-control select2 fetch_lesson" required 
                                       style="border:1px solid #ddd;color:#000;" 
                                            name="lesson" > 
                                           <option selected value="">Select Lesson</option>
-                                          
                                   </select>
                                 </div>
                             </div>
@@ -151,7 +166,7 @@
                                   <label for="store__title" class="col-sm-2 col-form-label">Grade</label>
 
                                 <div class="col-sm-8 dropdown" id="youtube">
-                                 <select class="form-control " required 
+                                 <select class="form-control select2" required 
                                  style="border:1px solid #ddd;color:#000;" name="grade">
                                      <option  value="">Select Grade</option>
                                        @foreach($grades as $s)
@@ -167,7 +182,7 @@
                                   <label for="store__title" class="col-sm-2 col-form-label">Unit</label>
 
                                 <div class="col-sm-8 dropdown" id="youtube">
-                                    <select class="form-control" required 
+                                    <select class="form-control select2" required 
                                   style="border:1px solid #ddd;color:#000;"name="unit">
                                       <option  value="">Select Unit</option>
                                       @foreach($all_units as $s)

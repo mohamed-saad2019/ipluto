@@ -110,15 +110,18 @@ $(document).ready(function () {
     }); 
 
 
-    $("body").on("change",".getLessonInClass", function(){
-        class_id = $(this).val();
-        if(class_id)
+    $("body").on("change",".getLessonInGrade", function(){
+        grade_id = $(this).val();
+        
+
+        if(grade_id)
         {
-           
+            $('.fetch_lesson').html('');
+
             $.ajax({
                     type: "get",
                     url: "/library/getLessonInClass",
-                    data: {'class_id': class_id },
+                    data: {'grade_id': grade_id },
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                     },

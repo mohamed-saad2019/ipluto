@@ -116,6 +116,11 @@ $current_storage = str_replace("MB","",get_size_instructor());
             </a>
             <div class="d-flex justify-content-between addlesson__footer ">
                 <span> {{$sum}}</span>
+                
+                @if($file->file_type=='Library')
+                   <span style="float: right;"> Library </span>
+                @endif
+
               </div>
           </div>
         </div>
@@ -129,6 +134,11 @@ $current_storage = str_replace("MB","",get_size_instructor());
             </a>
             <div class="d-flex justify-content-between addlesson__footer ">
                 <span> {{$sum}}</span>
+                
+                @if($file->file_type=='Library')
+                   <span style="float: right;"> Library </span>
+                @endif
+                
               </div>
           </div>
         </div>
@@ -141,7 +151,12 @@ $current_storage = str_replace("MB","",get_size_instructor());
               <h6>{{ str_limit($file->file_name,15)}}</h6>
             </a>
             <div class="d-flex justify-content-between addlesson__footer ">
-                <span> {{$sum}}</span>
+                 <span> {{$sum}}</span>
+                
+                @if($file->file_type=='Library')
+                   <span style="float: right;">Library </span>
+                @endif
+                
               </div>
           </div>
         </div>
@@ -155,6 +170,11 @@ $current_storage = str_replace("MB","",get_size_instructor());
             </a>
             <div class="d-flex justify-content-between addlesson__footer ">
                <span> {{$sum}}</span>
+                
+                @if($file->file_type=='Library')
+                   <span style="float: right;"> Library </span>
+                @endif
+                
               </div>
           </div>
         </div>
@@ -167,7 +187,12 @@ $current_storage = str_replace("MB","",get_size_instructor());
                 <h6>{{ str_limit($file->file_name,15)}}</h6>
               </a>
               <div class="d-flex justify-content-between addlesson__footer ">
-                <span> {{$sum}}</span>
+               <span> {{$sum}}</span>
+                
+                @if($file->file_type=='Library')
+                   <span style="float: right;"> Library </span>
+                @endif
+                
               </div>
             </div>
           </div>
@@ -181,6 +206,11 @@ $current_storage = str_replace("MB","",get_size_instructor());
               </a>
               <div class="d-flex justify-content-between addlesson__footer ">
                 <span> {{$sum}}</span>
+                
+                @if($file->file_type=='Library')
+                   <span style="float: right;"> Library </span>
+                @endif
+                
               </div>
             </div>
           </div>
@@ -194,6 +224,11 @@ $current_storage = str_replace("MB","",get_size_instructor());
               </a>
               <div class="d-flex justify-content-between addlesson__footer ">
                 <span> {{$sum}}</span>
+                
+                @if($file->file_type=='Library')
+                   <span style="float: right;"> Library </span>
+                @endif
+                
               </div>
             </div>
           </div>
@@ -208,6 +243,11 @@ $current_storage = str_replace("MB","",get_size_instructor());
               </a>
               <div class="d-flex justify-content-between addlesson__footer ">
                 <span> {{$sum}}</span>
+                
+                @if($file->file_type=='Library')
+                   <span style="float: right;"> Library </span>
+                @endif
+                
               </div>
             </div>
           </div>
@@ -221,6 +261,11 @@ $current_storage = str_replace("MB","",get_size_instructor());
               </a>
               <div class="d-flex justify-content-between addlesson__footer ">
                 <span> {{$sum}}</span>
+                
+                @if($file->file_type=='Library')
+                   <span style="float: right;"> Library </span>
+                @endif
+                
               </div>
             </div>
           </div>

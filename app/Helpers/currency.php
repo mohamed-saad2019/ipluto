@@ -492,5 +492,9 @@ if(!function_exists('notifications')){
 }
 
 
-
+if(!function_exists('get_lessons_in_grade')){
+    function get_lessons_in_grade($grade_id){
+       return \App\Lessons::where('instructor_id',\Auth::user()->id)->where('grade',$grade_id)->get();
+    }
+}
 
