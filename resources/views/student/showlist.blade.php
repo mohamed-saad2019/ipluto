@@ -22,8 +22,8 @@
                 </div>
                 <div class="div  ">
                   <div class="like bg-light p-1">
-                    <!-- <i class="fa fa-thumbs-o-up mx-2 mr-2"> <small style="font-size: 10px">345</small></i>/
-                    <i class="fa fa-thumbs-o-down mx-2 ml-3"> <small style="font-size: 10px">45</small></i> -->
+                    <i class="fa fa-thumbs-o-up mx-2 mr-2"> <small style="font-size: 10px">345</small></i>/
+                    <i class="fa fa-thumbs-o-down mx-2 ml-3"> <small style="font-size: 10px">45</small></i>
                   </div>
                 </div>
               </div>
@@ -89,14 +89,14 @@
                     <p class="video__comment">{{$comment->comment}}</p>
                     <div class="like_unlike">
 
-                      <!-- <i class="fa fa-thumbs-o-up mx-2 mr-2"> <small style="font-size: 10px"></small></i>
-                      <i class="fa fa-thumbs-o-down mx-2 ml-3"></i> <small class="font-weight-bold comment__replay">Replay</small> -->
+                      <i class="fa fa-thumbs-o-up mx-2 mr-2"> <small style="font-size: 10px"></small></i>
+                      <i class="fa fa-thumbs-o-down mx-2 ml-3"></i> <small class="font-weight-bold comment__replay">Replay</small>
                     </div>
                   </div>
                 </div>
                 @endforeach
                 @endif
-                <!--<div class="d-flex">
+                <div class="d-flex">
                   <img src="./images/Profile/Ellipse.png" style="width:50px;height:50px;border-radius:50%;" alt="">
                   <div class="coment_contet font-weight-bold mx-3 w-100 h-50">
                     <span>2Gehad Adel</span> <small class="ml-5">1 hour ago</small>
@@ -134,7 +134,7 @@
                                 <p class="video__comment">Its Amazing idea</p>
                                 <div style="width: 150px;">
                                   <i class="fa fa-thumbs-o-up mx-2 mr-2"> <small style="font-size: 10px">45</small></i>
-                                  <i class="fa fa-thumbs-o-down mx-2 ml-3"></i> 
+                                  <i class="fa fa-thumbs-o-down mx-2 ml-3"><small style="font-size: 10px">2</small></i> 
                                   <small class="font-weight-bold"> Replay </small>
                                 </div>
                               </div>
@@ -144,7 +144,7 @@
                       </div>
                     </div>
                   </div>
-                </div>-->
+                </div>
               </div>
             </div>
  
