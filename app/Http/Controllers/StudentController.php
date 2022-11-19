@@ -8,9 +8,12 @@ use App\Lessons;
 use App\Folders;
 use App\ShareLessons;
 use App\ChildCategory;
+use App\Comment;
 use Illuminate\Http\Request;
 use Auth;
 use App\InstructorGrade;
+use App\LibraryFile;
+use App\File;
 use App\User;
 class StudentController extends Controller
 {
@@ -84,4 +87,46 @@ class StudentController extends Controller
            
     }
         
+
+    public function videos(Request $request)
+    {
+      $lesson_id = $request->lesson_id ;
+      $file_id   = $request->file_id ;
+
+      $files = File::with("instructor:id,fname,lname,user_img")
+            ->Where("lesson_id",$lesson_id)
+            ->Where("hash_name",'!=','Video From Dashboard')
+            ->Where('mime_type', 'like', '%video%')
+            ->select("id","file_name","path","hash_name","lesson_id","instructor_id","created_at")
+            ->orderBy('id','ASC')
+            ->get();
+
+      $mainVideo  = File::with("instructor:id,fname,lname,user_img")
+            ->Where("lesson_id",$lesson_id)
+            ->Where("hash_name",'!=','Video From Dashboard')
+            ->Where('mime_type', 'like', '%video%')
+            ->select("id","file_name","path","hash_name","lesson_id","instructor_id","created_at")
+            ->find($file_id);
+
+      $comments = Comment::with('student:id,user_img,fname,lname')
+                          ->Where("lesson_id",$lesson_id)
+                          ->Where("video_id",$file_id)
+                          ->orderBy('id','DESC')
+                          ->get();
+
+      return view("student.showlist" , compact("files","mainVideo","lesson_id","comments"));
+
+      
+    }
+    public function view_lesson()
+    {
+      if(request()->has('lesson_id') and !empty(request('lesson_id')))
+      {
+         $files = File::Where("lesson_id",request('lesson_id'))
+                        ->orderBy('id','ASC')
+                        ->get();
+        return view('student.view_lesson',compact('files'));
+      }
+      return back();
+    }
  }

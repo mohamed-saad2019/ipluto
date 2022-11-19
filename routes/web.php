@@ -551,6 +551,10 @@ Route::middleware(['web'])->group(function () {
 
             Route::get('instructor', 'InstructorController@index')->name('instructor.index');
             Route::get('instructor/library', 'InstructorController@library')->name('instructor.library');
+
+            Route::get('view_lesson', 'InstructorController@view_lesson')->name('view_lesson');
+
+
             Route::get('instructor/whiteboard', 'InstructorController@whiteboard');
 
 
@@ -586,15 +590,39 @@ Route::middleware(['web'])->group(function () {
         Route::post('classes/saveShare', 'ClassController@saveShare')->name('saveShare');
         /* end route classes */
 
-        Route::get('/testfront', function(){
-            return view('instructor.testfront') ;
-        }) ;
+        /* start library teacher  */
+             Route::get('instructor/upload_library','InstructorController@upload_library')
+                   ->name('instructor.upload_library');
+
+            Route::get('instructor/library_list','InstructorController@library_list')
+                   ->name('instructor.library_list');
+
+            Route::get('instructor/delete_library','InstructorController@delete_library')
+                   ->name('instructor.delete_library');
+
+           Route::post('instructor/copy_library','InstructorController@copy_library')
+                   ->name('instructor.copy_library');
+
+            Route::post('instructor/edit_library','InstructorController@edit_library')
+                   ->name('instructor.edit_library');
+
+            Route::get('/library/getLessonInClass','InstructorController@getLessonInClass')
+                   ->name('instructor.getLessonInClass');
+
+           Route::post('instructor/save_library','InstructorController@save_library')
+                   ->name('instructor.save_library');
+
+        /* end library teacher */
         
         /* start route lessons */
         Route::get('lessons/index', 'LessonController@index')->name('lessons.index');
         Route::post('add_lesson_to_folder', 'LessonController@add_lesson_to_folder');
         /* end route lessons */
 
+        /* start route Notifications */
+    Route::get('notificationInterval','NotificationController@notificationInterval');
+
+        /* end route Notifications */
 
         /* start route zoom */
         Route::get('zoom_create', 'ZoomController@startZoom')->name('create.zoom');
@@ -850,7 +878,12 @@ Route::middleware(['web'])->group(function () {
                 Route::get('student/livesession', 'ZoomController@liveSession')->name('student.livesession');
                 Route::post('student/join_zoom', 'ZoomController@joinZoom')->name('join.zoom');
                 
-                //start labirary
+            Route::get('student/view_lesson','StudentController@view_lesson');
+
+                //start labirary 
+                Route::get('student/show_videos', 'StudentController@videos')->name('showVideos');
+                Route::post('student/store_comment', 'CommentController@store')->name('store_comment'); 
+
                 Route::get('student/show_library', function(){
                     return view('student.show_library');
                 })->name('show_library');

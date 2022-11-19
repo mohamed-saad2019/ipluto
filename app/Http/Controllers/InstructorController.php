@@ -13,6 +13,8 @@ use DB;
 use Carbon\Carbon;
 use App\Folders;
 use App\Lessons;
+use App\Library;
+use App\LibraryFile;
 use App\ChildCategory;
 use App\SubCategory;
 use App\File;
@@ -20,6 +22,8 @@ use App\InstructorStudents;
 use App\Video;
 use App\Excel\SimpleXLSX;
 use App\ClassesStudent;
+use App\ShareLessons;
+use App\Classes;
 
 class InstructorController extends Controller
 {
@@ -660,7 +664,7 @@ class InstructorController extends Controller
                 File::create([
                     'file_name' =>  $file->file_name ,
                     'size'      =>  $file->size ,
-                    'hash_name' =>  $file->hashName,
+                    'hash_name' =>  $file->hash_name,
                     'path'      =>  $file->path,
                     'mime_type' =>  $file->mime_type ,
                     'file_type' =>  'Lessons',
@@ -1413,4 +1417,375 @@ class InstructorController extends Controller
        
         return view('instructor.test');
     }
+
+
+    public function view_lesson(Request $request)
+    {
+       if (request()->has('lesson_id') and !empty(request('lesson_id')))
+        {
+            $files = File::where('lesson_id',request('lesson_id'))->get();
+            $lesson = Lessons::where('id',request('lesson_id'))->first();
+
+            return view('instructor.view_lesson',compact('files','lesson'));           
+        }
+        else
+        {
+            return back();
+        }
+       
+    }
+
+
+   public function upload_library(Request $request)
+    {
+       
+       $classes   = Classes::where('instructor_id',Auth::user()->id)->where('status',1)
+                    ->get();
+
+       $grades    = SubCategory::where('status', '1')->orderBy('id','ASC')->get();
+
+       $all_units = Video::where('unit','!=','')->groupBy('unit')->pluck('unit')
+                    ->toArray();
+     return view('instructor.upload_library',compact('classes','grades','all_units'));
+    }
+
+   public function save_library(Request $request)
+    {
+      if(request()->has('type') and request('type') == 'center')
+      {
+         $validator = \Validator::make($request->all(),[
+            'lesson' =>'required',
+            'url'    =>'nullable|url',
+            'youtube'=>'nullable|url',
+            'info'   =>'nullable|string|max:500',
+            'files'  =>'required',
+         ],[],[]);
+
+         if ($validator->fails())   
+            {
+                return back()->withInput()->withErrors($validator);
+            }
+
+         $input = Library::create(
+                 [
+                'type' => request('type'),
+                'instructor_id'=>Auth::user()->id,
+                'grade_id'=>request('grade'),
+                'lesson_id'=>request('lesson'),
+                'info'=>request('info')
+                 ]);
+
+         if (request()->hasFile('files'))
+         {
+            foreach(request()->file('files') as $file)
+            
+            {
+                 $size = $file->getSize();
+                $mime_type = $file->getMimeType();
+                $name = $file->getClientOriginalName();
+                $hashName = $file->hashName();
+                File::create([
+                    'file_name' =>  $name ,
+                    'size'      =>  $size ,
+                    'hash_name' =>  $hashName,
+                    'path'      =>  \Auth::user()->id.'/'.request('lesson'),
+                    'mime_type' =>  $mime_type ,
+                    'file_type' =>  'Library',
+                    'instructor_id'=> \Auth::user()->id,
+                    'lesson_id'=>request('lesson'),
+                    'library_id'=>$input->id,
+                ]);
+
+              $file->store('public/'.\Auth::user()->id.'/'.request('lesson'));
+
+            }
+
+         }
+         if(request()->has('url') or request()->has('youtube') )
+         {
+            if (!empty(request('url'))) 
+            {
+               
+                   $add = File::create([
+                    'file_name' =>  request('url') ,
+                    'size'      =>  '' ,
+                    'hash_name' =>  '',
+                    'path'      =>  '',
+                    'mime_type' =>  'url' ,
+                    'file_type' =>  'Library',
+                    'instructor_id'=> \Auth::user()->id,
+                    'lesson_id'=>request('lesson'),
+                    'library_id'=>$input->id,
+                ]);
+            }
+
+            if (!empty(request('youtube'))) 
+            {
+                $add = File::create([
+                    'file_name' =>  request('youtube') ,
+                    'size'      =>  '' ,
+                    'hash_name' =>  '',
+                    'path'      =>  '',
+                    'mime_type' =>  'url' ,
+                    'file_type' =>  'Library',
+                    'instructor_id'=> \Auth::user()->id,
+                    'lesson_id'=>request('lesson'),
+                    'library_id'=>$input->id,
+                ]);
+            }
+         }
+         \Session::flash('success','Added successfully');
+         return back();
+
+      }
+
+      elseif(request()->has('type') and request('type') == 'online')
+      {
+          $validator = \Validator::make($request->all(),[
+            'grade' =>'required',
+            'unit'  =>'required',
+            'title' =>'required|string|min:3|max:255',
+            'youtube'=>'nullable|url',
+            'url'    =>'nullable|url',
+            'files'  =>'required',
+            'price'  =>'required|numeric|min:1|max:50',
+            'info'   =>'nullable|string|max:500'
+         ],[],[]);
+
+         if ($validator->fails())   
+            {
+                return back()->withInput()->withErrors($validator);
+            }
+
+                $input = Library::create(
+                 [
+                'type' => request('type'),
+                'instructor_id'=>Auth::user()->id,
+                'grade_id'=>request('grade'),
+                'unit'=>request('unit'),
+                'title'=>request('title'),
+                'price'=>request('price'),
+                'info'=>request('info')
+                 ]);
+
+         if (request()->hasFile('files'))
+         {
+            foreach(request()->file('files') as $file)
+            
+            {
+                 $size = $file->getSize();
+                $mime_type = $file->getMimeType();
+                $name = $file->getClientOriginalName();
+                $hashName = $file->hashName();
+
+                LibraryFile::create([
+                    'file_name' =>  $name ,
+                    'size'      =>  $size ,
+                    'hash_name' =>  $hashName,
+                    'path'      =>  'library/'.\Auth::user()->id.'/'.$input->id,
+                    'mime_type' =>  $mime_type ,
+                    'file_type' =>  'Library',
+                    'instructor_id'=> \Auth::user()->id,
+                    'library_id'=>$input->id,
+                    
+                ]);
+
+             $file->store('public/library'.\Auth::user()->id.'/'.$input->id);
+
+            }
+
+         }
+         if(request()->has('url') or request()->has('youtube') )
+         {
+            if (!empty(request('url'))) 
+            {
+               
+                    LibraryFile::create([
+                    'file_name' =>  request('url') ,
+                    'size'      =>  '' ,
+                    'hash_name' =>  '',
+                    'path'      =>  '',
+                    'mime_type' =>  'url' ,
+                    'file_type' =>  'Library',
+                    'instructor_id'=> \Auth::user()->id,
+                    'library_id'=>$input->id,
+                ]);
+
+            }
+
+            if (!empty(request('youtube'))) 
+            {
+               
+                    LibraryFile::create([
+                    'file_name' =>  request('youtube') ,
+                    'size'      =>  '' ,
+                    'hash_name' =>  '',
+                    'path'      =>  '',
+                    'mime_type' =>  'youtube' ,
+                    'file_type' =>  'Library',
+                    'instructor_id'=> \Auth::user()->id,
+                    'library_id'=>$input->id,
+                ]);
+
+            }
+         }
+         \Session::flash('success','Added successfully');
+         return back();
+      }
+    }
+
+   public function getLessonInClass(Request $request)
+    {
+     
+
+      // $lessons_count  = ShareLessons::where('class_id',request('class_id'))
+      //                    ->where('instructor_id',Auth::user()->id)->with('lessons')->count();
+      //                          $lessons = Lessons::where('instructor_id','=',\Auth::user()->id)->orderBy('id','DESC')->get();
+
+      // $lessons        = ShareLessons::where('class_id',request('class_id'))
+      //                        ->where('instructor_id',Auth::user()->id)->with('lessons')->get();  
+
+      $lessons_count  =  Lessons::where('instructor_id','=',\Auth::user()->id)
+                              ->where('grade',request('grade_id'))->orderBy('id','DESC')->count();
+
+      $lessons        = Lessons::where('instructor_id','=',\Auth::user()->id)
+                                ->where('grade',request('grade_id'))->orderBy('id','DESC')->get();       
+       if($lessons_count > 0)
+       {
+          $options = '';
+
+          foreach($lessons as $lesson)
+           {
+             $options.=' <option value="'.$lesson->id.'">'.$lesson->name.'</option>';
+           }
+
+           return $options;
+       }
+       else
+       {
+        return 500;
+       }
+      
+    }
+
+
+   public function library_list(Request $request)
+    {
+       
+      if(request()->has('type') and !empty(request('type')))
+      {
+
+         $grades    = SubCategory::where('status', '1')->orderBy('id','ASC')->get();
+
+         if (request('type') == 'center')
+          {
+             $type      = 'Center'; $sum = 0 ;
+             $library   = Library::where('instructor_id',Auth::user()->id)
+                         ->where('type','center')->withCount('files')->orderBy('id','DESC')->get();
+
+            return view('instructor.library_list',compact('library','type','sum','grades'));
+
+          }
+         elseif(request('type') == 'Online')
+          {
+             $type      = 'online';  $sum = 0 ;
+             $library   = Library::where('instructor_id',Auth::user()->id)
+                         ->where('type','online')->orderBy('id','DESC')->get();
+
+            return view('instructor.library_list',compact('library','type','sum','grades'));
+          }
+          else
+          {
+            return back();
+          }
+      }
+
+        return back();
+    }
+
+
+    public function delete_library()
+    {
+    
+        if (request('id') and !empty(request('id')) and request('type') and !empty(request('type')))
+         {    
+             Library::where('id','=',request('id'))->delete();
+             File::where('library_id',request('id'))->delete();
+        }
+
+        return back();
+    }
+
+   
+    public function copy_library()
+    {
+    
+        if (request('library_id') and !empty(request('library_id'))) {
+
+            $Library = Library::where('id','=',request('library_id'))->first();
+
+            $input = Library::create(
+                 [
+                'type' => $Library->type,
+                'instructor_id'=>Auth::user()->id,
+                'grade_id'=>request('grade'),
+                'lesson_id'=>request('lesson'),
+                'info'=>$Library->info,
+                 ]);
+
+           $id = $input->id;
+
+           $files = File::where('instructor_id',\Auth::user()->id)
+                    ->where('library_id',request('library_id'))->get();
+
+         foreach ($files as $file) {
+
+                File::create([
+                    'file_name' =>  $file->file_name ,
+                    'size'      =>  $file->size ,
+                    'hash_name' =>  $file->hash_name,
+                    'path'      =>  $file->path,
+                    'mime_type' =>  $file->mime_type ,
+                    'file_type' =>  'Library',
+                    'instructor_id'=> \Auth::user()->id,
+                    'library_id'=>$id,
+                    'lesson_id' =>request('lesson') 
+                    ]);
+         }
+
+            \Session::flash('success',trans('Library duplicated'));
+             return back();
+        }
+
+        return back();
+
+    }
+
+    public function edit_library()
+    {
+
+       if (request('library_id') and !empty(request('library_id')))
+       {
+         $input = Library::where('id',request('library_id'))->update(
+             [
+            'info' => request('info'),
+            'grade_id'=>request('grade'),
+            'lesson_id'=>request('lesson'),
+             ]);
+
+          $files = File::where('instructor_id',\Auth::user()->id)
+                    ->where('library_id',request('library_id'))->get();
+
+          foreach ($files as $file)
+          {
+
+           File::where('id',$file->id)->update(
+             [
+                'lesson_id' =>request('lesson') 
+             ]);
+          }
+       }
+       return back();
+    }
+    
 }

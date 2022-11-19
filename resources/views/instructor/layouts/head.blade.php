@@ -58,91 +58,66 @@
                                     </div>
                                 </div>
 
-                                <div class="notification mx-2">
+                                <div class="notification mx-2"
+                                     id="notification_interval">
 
                                     <div class="icon" id="bell">
-                                        <i class="far fa-bell fa-lg"></i>
-                                        <span class="notification--num">5</span>
+                                      <i class="far fa-bell fa-lg"></i>
+                                       @if(notifications_count('instructor_id') != 0)
+                                            <span class="notification--num">
+                                                {{notifications_count('instructor_id')}}
+                                            </span>
+                                        @endif
                                     </div>
 
                                     <div class="notifications_menu" id="box">
-                                        <div class="h1 font-weight-bold d-flex justify-content-between">
+                                        <div class="h1 font-weight-bold d-flex justify-content-between"
+                                        style="border-bottom: 1px solid #DDD;">
                                             <span>
                                                 Notifications
                                             </span>
-                                            <span>
-                                                <a href="">
-                                                    clear all
-                                                </a>
-                                            </span>
+                                           <span>
+                                             <a href="{{url('/delete/notifications?colum=instructor_id')}}"
+                                                style="color:#db0404">
+                                               <i class="fas fa-trash"></i>
+                                             </a>
+                                           </span>
                                         </div>
-                                        <!-- begin notifications-item -->
-                                        <div class="notifications-item">
-                                            <a href="">
-                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
-                                                    alt="img">
-                                                <div class="text">
-                                                    <h4 class="text-capitalize">hatem</h4>
-                                                    <p>Lorem ipsum dolor sit amet.</p>
-                                                    <p>2 hours ago</p>
-                                                </div>
-                                            </a>
+                                <div id="notifications">
+                                @foreach(notifications('instructor_id') as $n)
+                                   <!-- begin notifications-item -->
+                                     <div class="notifications-item">
+                                         @if($n->notifiable_type == 'zoom')
+                                           @php 
+                                           $zoom = \App\Zoom::where('id',$n->notifiable_id)->first();
+                                           @endphp
+                                          <a href="{{$zoom->url}}"> 
+                                          @if($n->type == 'ipluto')
+                                            <img src="../images/logo.png">
+                                          @endif
+                                         <div class="text row" style="margin-right:0px;">
+                                           <div class="col-md-8">
+                                               <h4 class="text-capitalize">
+                                                @if($n->type == 'ipluto')
+                                                  Ipluto
+                                                @endif
+                                                </h4>
+                                           </div>
+                                           <div class="col-md-4">
+                                                <p >
+                                                 {{ \Carbon\Carbon::parse($n->created_at)->shortRelativeDiffForHumans() }}
+                                                 </p>
+                                           </div>
+                                           <div class="col-md-12">
+                                               <p>{{$n->data}}</p>
+                                           </div>
                                         </div>
-                                        <!-- End notifications-item -->
-                                        <!-- begin notifications-item -->
-                                        <div class="notifications-item">
-                                            <a href="">
-                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
-                                                    alt="img">
-                                                <div class="text">
-                                                    <h4 class="text-capitalize">saad</h4>
-                                                    <p>Lorem ipsum dolor sit amet.</p>
-                                                    <p>2 hours ago</p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <!-- End notifications-item -->
-                                        <!-- begin notifications-item -->
-                                        <div class="notifications-item">
-                                            <a href="">
-                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
-                                                    alt="img">
-                                                <div class="text">
-                                                    <h4 class="text-capitalize">nasr</h4>
-                                                    <p>Lorem ipsum dolor sit amet.</p>
-                                                    <p>2 hours ago</p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <!-- End notifications-item -->
-                                        <!-- begin notifications-item -->
-                                        <div class="notifications-item">
-                                            <a href="">
-                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
-                                                    alt="img">
-                                                <div class="text">
-                                                    <h4 class="text-capitalize">elalfy</h4>
-                                                    <p>Lorem ipsum dolor sit amet.</p>
-                                                    <p>2 hours ago</p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <!-- End notifications-item -->
-                                        <!-- begin notifications-item -->
-                                        <div class="notifications-item">
-                                            <a href="">
-                                                <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
-                                                    alt="img">
-                                                <div class="text">
-                                                    <h4 class="text-capitalize">elalfy</h4>
-                                                    <p>Lorem ipsum dolor sit amet.</p>
-                                                    <p>2 hours ago</p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <!-- End notifications-item -->
-
-
+                                       </a>
+                                    @endif
+                                 </div>
+                                   <!-- End notifications-item -->
+                                @endforeach
+                                </div>
                                     </div>
                                 </div>
 
@@ -306,13 +281,34 @@
                                     <i class="fad fa-book-reader mr-2"></i>
                                     Lessons
                                 </a>
-                            </li>
+                            </li> 
                             <li>
-                                <a href="#">
-                                    <i class="fa fa-users mr-2" aria-hidden="true"></i>
+                                 <a href="#Library" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                                    <i class="fad fa-book-reader mr-2" aria-hidden="true"></i>
                                     Library
                                 </a>
+                                <ul class="collapse list-unstyled" id="Library">
+
+                                    <li>
+                                        <a 
+                                        href="{{url('instructor/library_list?type=center')}}">     Library List (Center Students )
+                                         </a>
+                                    </li>
+
+                                    <li>
+                                        <a 
+                                        href="{{url('instructor/library_list?type=online')}}">     Library List (Online Students )
+                                         </a>
+                                    </li>
+
+                                    <li>
+                                         <a href="{{route('instructor.upload_library')}}">     Upload New Files / Videos
+                                         </a>
+                                    </li>
+                                </ul>
+                                
                             </li>
+                              
 
                             <div class="dropdown-divider" style="border-top: 1px solid #F0B243"></div>
                             <li>
@@ -345,7 +341,7 @@
                                         <a href="#">Previous Assessment</a>
                                     </li>
                                     <li>
-                                        <a href="{{route('create.zoom')}}">Live Session</a>
+                                        <a href="#">Live Session</a>
                                     </li>
                                 </ul>
                             </li>

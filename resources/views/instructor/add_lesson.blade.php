@@ -75,20 +75,21 @@ $current_storage = str_replace("MB","",get_size_instructor());
 
       <ul>
 
-        @if($current_storage < $storage) @if(!empty($grade)) <li data-toggle="modal" data-target="#exampleModalCenter2"
-          class='tab' id='tab_add'>
-          <i class="fas fa-plus"></i>Add
-          </li>
+        @if($current_storage < $storage) 
+          @if(!empty($grade)) 
+            <li data-toggle="modal" data-target="#exampleModalCenter2"
+            class='tab' id='tab_add'>
+            <i class="fas fa-plus"></i>Add
+            </li>
           @else
-          <li data-toggle="modal" data-target="#exampleModalCenter" class='tab' id='tab_add'>
+          <li data-toggle="modal" data-target="#exampleModalCenter" class='tab' id='tab_add'>Add</li>
+          @endif
+      @else
+          <li data-toggle="modal" data-target="#exampleModalCenter55" class='tab' 
+          id='tab_not_add'>
             <i class="fas fa-plus"></i>Add
           </li>
-          @endif
-          @else
-          <li data-toggle="modal" data-target="#exampleModalCenter55" class='tab' id='tab_not_add'>
-            <i class="fas fa-plus"></i>Add
-          </li>
-          @endif
+      @endif
 
           <li class="tab" id='tab_del'><i class="fas fa-trash"></i>Delete</li>
           <li class="tab"><i class="fas fa-copy"></i>Copy</li>
@@ -100,118 +101,171 @@ $current_storage = str_replace("MB","",get_size_instructor());
   <div class="contTeach">
     <div class="container">
       <div class="row go">
+        @php $sum=0; @endphp
+
         @foreach($files as $file)
+        
+         @php $sum++; @endphp
+        
         @if(str_contains($file->mime_type, 'image'))
         <div class="col-12 col-md-6 col-lg-3 py-5">
           <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
-            <a href="{{url('storage/'.$file->path.'/'.$file->hash_name)}}">
-              <img src="{{url('storage/'.$file->path.'/'.$file->hash_name)}}" style="width:170px;height:100px">
+             <a href="{{url('storage/'.$file->path.'/'.$file->hash_name)}}">
+              <i class="fas fa-file-image fa-xl"></i>
+              <h6>{{ str_limit($file->file_name,15)}}</h6>
             </a>
             <div class="d-flex justify-content-between addlesson__footer ">
-                <span> 1</span>
-                <span> Lorem ipsum.</span>
+                <span> {{$sum}}</span>
+                
+                @if($file->file_type=='Library')
+                   <span style="float: right;"> Library </span>
+                @endif
+
               </div>
           </div>
         </div>
-        @endif
-        @if(str_contains($file->mime_type, 'word'))
-        <div class="col-12 col-md-6 col-lg-3">
+
+        @elseif(str_contains($file->mime_type, 'word'))
+        <div class="col-12 col-md-6 col-lg-3 py-5">
           <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
-            <a href="{{url('storage/'.$file->path.'/'.$file->hash_name)}}">
+            <a href="https://view.officeapps.live.com/op/view.aspx?src={{url('storage/'.$file->path.'/'.$file->hash_name)}}">
               <i class="fas fa-file-word"></i>
-              <h6>{{$file->file_name}}</h6>
+              <h6>{{ str_limit($file->file_name,15)}}</h6>
             </a>
             <div class="d-flex justify-content-between addlesson__footer ">
-                <span> 1</span>
-                <span> Lorem ipsum.</span>
+                <span> {{$sum}}</span>
+                
+                @if($file->file_type=='Library')
+                   <span style="float: right;"> Library </span>
+                @endif
+                
               </div>
           </div>
         </div>
-        @endif
-        @if(str_contains($file->mime_type, 'pdf'))
-        <div class="col-12 col-md-6 col-lg-3">
+
+        @elseif(str_contains($file->mime_type, 'sheet'))
+        <div class="col-12 col-md-6 col-lg-3 py-5">
+          <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
+            <a href="https://view.officeapps.live.com/op/view.aspx?src={{url('storage/'.$file->path.'/'.$file->hash_name)}}">
+              <i class="fas fa-file-excel"></i>
+              <h6>{{ str_limit($file->file_name,15)}}</h6>
+            </a>
+            <div class="d-flex justify-content-between addlesson__footer ">
+                 <span> {{$sum}}</span>
+                
+                @if($file->file_type=='Library')
+                   <span style="float: right;">Library </span>
+                @endif
+                
+              </div>
+          </div>
+        </div>
+
+        @elseif(str_contains($file->mime_type, 'pdf'))
+        <div class="col-12 col-md-6 col-lg-3 py-5">
           <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
             <a href="{{url('storage/'.$file->path.'/'.$file->hash_name)}}">
               <i class="fas fa-file-pdf fa-xl"></i>
-              <h6>{{$file->file_name}}</h6>
+              <h6>{{ str_limit($file->file_name,15)}}</h6>
             </a>
             <div class="d-flex justify-content-between addlesson__footer ">
-                <span> 1</span>
-                <span> Lorem ipsum.</span>
+               <span> {{$sum}}</span>
+                
+                @if($file->file_type=='Library')
+                   <span style="float: right;"> Library </span>
+                @endif
+                
               </div>
           </div>
-          @endif
-          @if(str_contains($file->mime_type, 'audio') )
-          <div class="col-12 col-md-6 col-lg-3">
+        </div>
+
+          @elseif(str_contains($file->mime_type, 'audio') )
+          <div class="col-12 col-md-6 col-lg-3 py-5">
             <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
               <a href="{{url('storage/'.$file->path.'/'.$file->hash_name)}}">
                 <i class="fas fa-file-audio-o"></i>
-                <h6>{{$file->file_name}}</h6>
+                <h6>{{ str_limit($file->file_name,15)}}</h6>
               </a>
               <div class="d-flex justify-content-between addlesson__footer ">
-                <span> 1</span>
-                <span> Lorem ipsum.</span>
+               <span> {{$sum}}</span>
+                
+                @if($file->file_type=='Library')
+                   <span style="float: right;"> Library </span>
+                @endif
+                
               </div>
             </div>
           </div>
-          @endif
 
-          @if(str_contains($file->mime_type, 'video') and $file->hash_name=='Video From Dashboard')
-          <div class="col-12 col-md-6 col-lg-3">
+          @elseif(str_contains($file->mime_type, 'video') and $file->hash_name=='Video From Dashboard')
+          <div class="col-12 col-md-6 col-lg-3 py-5">
             <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
               <a href="{{ url('storage/vedioTeachr/'.$file->path) }}">
                 <i class="far fa-file-video"></i>
-                <h6>{{$file->file_name}}</h6>
+                <h6>{{ str_limit($file->file_name,15)}}</h6>
               </a>
               <div class="d-flex justify-content-between addlesson__footer ">
-                <span> 1</span>
-                <span> Lorem ipsum.</span>
+                <span> {{$sum}}</span>
+                
+                @if($file->file_type=='Library')
+                   <span style="float: right;"> Library </span>
+                @endif
+                
               </div>
             </div>
           </div>
-          @endif
 
-          @if(str_contains($file->mime_type, 'video') and $file->hash_name !='Video From Dashboard')
-          <div class="col-12 col-md-6 col-lg-3">
+          @elseif(str_contains($file->mime_type, 'video') and $file->hash_name !='Video From Dashboard')
+          <div class="col-12 col-md-6 col-lg-3 py-5">
             <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
               <a href="{{url('storage/'.$file->path.'/'.$file->hash_name)}}">
                 <i class="far fa-file-video"></i>
-                <h6>{{$file->file_name}}</h6>
+                <h6>{{ str_limit($file->file_name,15)}}</h6>
               </a>
               <div class="d-flex justify-content-between addlesson__footer ">
-                <span> 1</span>
-                <span> Lorem ipsum.</span>
+                <span> {{$sum}}</span>
+                
+                @if($file->file_type=='Library')
+                   <span style="float: right;"> Library </span>
+                @endif
+                
               </div>
             </div>
           </div>
-          @endif
 
 
-          @if(str_contains($file->mime_type, 'presentation'))
-          <div class="col-12 col-md-6 col-lg-3">
+          @elseif(str_contains($file->mime_type, 'presentation'))
+          <div class="col-12 col-md-6 col-lg-3 py-5">
             <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
-              <a href="{{url('storage/'.$file->path.'/'.$file->hash_name)}}">
+              <a href="https://view.officeapps.live.com/op/view.aspx?src={{url('storage/'.$file->path.'/'.$file->hash_name)}}">
                 <i class="fas fa-file-powerpoint"></i>
-                <h6>{{$file->file_name}}</h6>
+                <h6>{{ str_limit($file->file_name,15)}}</h6>
               </a>
               <div class="d-flex justify-content-between addlesson__footer ">
-                <span> 1</span>
-                <span> Lorem ipsum.</span>
+                <span> {{$sum}}</span>
+                
+                @if($file->file_type=='Library')
+                   <span style="float: right;"> Library </span>
+                @endif
+                
               </div>
             </div>
           </div>
-          @endif
 
-          @if(str_contains($file->mime_type, 'url'))
-          <div class="col-12 col-md-6 col-lg-3">
+          @elseif(str_contains($file->mime_type, 'url'))
+          <div class="col-12 col-md-6 col-lg-3 py-5">
             <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
               <a href="{{$file->file_name}}">
                 <i class="fas fa-link"></i>
                 <h6>URL</h6>
               </a>
               <div class="d-flex justify-content-between addlesson__footer ">
-                <span> 1</span>
-                <span> Lorem ipsum.</span>
+                <span> {{$sum}}</span>
+                
+                @if($file->file_type=='Library')
+                   <span style="float: right;"> Library </span>
+                @endif
+                
               </div>
             </div>
           </div>
@@ -220,10 +274,10 @@ $current_storage = str_replace("MB","",get_size_instructor());
           @endforeach
 
         </div>
-
+       </div>
       </div>
     </div>
-  </div>
+   </div>
 
 
   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

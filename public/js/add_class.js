@@ -110,7 +110,38 @@ $(document).ready(function () {
     }); 
 
 
+    $("body").on("change",".getLessonInGrade", function(){
+        grade_id = $(this).val();
+        
 
+        if(grade_id)
+        {
+            $('.fetch_lesson').html('');
+
+            $.ajax({
+                    type: "get",
+                    url: "/library/getLessonInClass",
+                    data: {'grade_id': grade_id },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+                    success: function(data){
+                        if(data != 500)
+                        {
+                            $('.fetch_lesson').append(data);
+                        }
+                        else
+                        {
+                            alert('There are no lessons for this class')
+                        }
+
+                    },
+                    error: function (data) {
+                    console.log(data)
+                    }
+                });
+        }
+    });
 
 
 

@@ -52,7 +52,7 @@
         "orangehill/iseed": "^2.6",
         "paragonie/random_compat": "9.99.99",
         "paypal/rest-api-sdk-php": "^1.14",
-        "phpoffice/phpspreadsheet": "^1.24",
+        "phpoffice/phpspreadsheet": "*",
         "pragmarx/google2fa-laravel": "^1.4",
         "qoraiche/laravel-mail-editor": "^3.2",
         "rap2hpoutre/fast-excel": "^2.3",
@@ -111,6 +111,7 @@
             "app/Helpers/Tracker.php",
             "app/Helpers/TwilioMsg.php",
             "app/Helpers/Is_wishlist.php",
+            "app/Helpers/Helper.php",
             "app/Helpers/currency.php"
         ],
         "psr-4": {

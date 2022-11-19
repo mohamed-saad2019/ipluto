@@ -19,10 +19,14 @@ use Carbon\Carbon;
 use App\Attandance;
 use App\Classes;
 use App\ClassesStudent;
+use App\Lessons;
 use App\Zoom;
 use App\ZoomClasses;
 use Session;
 use Redirect ;
+use App\Notification;
+use App\ShareLessons;
+
 
 class ZoomController extends Controller
 {
@@ -657,8 +661,19 @@ class ZoomController extends Controller
 
     public function startZoom(Request $request)
     {
-      $classes    = Classes::where([['instructor_id' , auth()->user()->id] ])->get() ;
-      return view("zoom.create_zoom",compact('classes'));
+      $lesson_id = $request->lesson_id ;
+      $chack = Lessons::where('id',$lesson_id)->where('instructor_id',auth()->user()->id)->first();
+      if($chack)
+      {
+        $classes   = Classes::where([['instructor_id' , auth()->user()->id] ])
+                            ->whereIn('id' , ShareLessons::where('lesson_id',$lesson_id)->groupBy('class_id')->pluck('class_id') )
+                            ->get() ;
+
+                            return view("zoom.create_zoom",compact('classes'));
+      }else{
+        return Redirect::back()->with('error','You do not have permission to open live session for this lesson');
+      }
+  
     }
 
     public function storeZoom(Request $request)
@@ -738,11 +753,44 @@ class ZoomController extends Controller
               ]);
 
       foreach($request->classes as $_class){
+
+          $name = Classes::where('id',$_class)->first()->name;
+
+          $students  = ClassesStudent::where('class_id',$_class)
+                                     ->where('teacher_id',auth()->user()->id)
+                                     ->pluck('student_id')->toArray();
+
           ZoomClasses::create([
             "zoom_id"   => $zoom->id ,
             "class_id"  => $_class
           ]);
+
+            Notification::create([
+            'type'            => 'ipluto',
+            'notifiable_type' => 'zoom',
+            'notifiable_id'   => $zoom->id,
+            'data'           =>'Zoom Meeting Was Created For '.ucwords($name).' Class',
+            'instructor_id'   => auth()->user()->id,
+            'reading'         => '0',
+            'created_by'      => -1,
+          ]);
+
+          foreach($students as $student)
+          {
+                Notification::create([
+                'type'            => 'instructor',
+                'notifiable_type' => 'zoom',
+                'notifiable_id'   => $zoom->id,
+                'data'            => 'You Were Invited To Attend Zoom Meeting For '
+                                      .ucwords($name).'  Class',
+                'student_id'      => $student,
+                'reading'         => 0,
+                'created_by'      => auth()->user()->id,
+              ]);
+          }
       }
+
+     
 
       if($request->now == 'on')
       {

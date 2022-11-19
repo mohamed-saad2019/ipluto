@@ -344,7 +344,10 @@ if(!function_exists('get_student_subjects')){
 
 if(!function_exists('get_student_grade')){
     function get_student_grade($id){
-       return $grade = \App\SubCategory::where('id',$id)->first()->title;
+
+      $grade = \App\SubCategory::where('id',$id)->first();
+      
+      return empty($grade)? null : $grade->title;
     }
 }
 
@@ -475,6 +478,23 @@ if(!function_exists('get_size_folder'))
      }
     }
 
+if(!function_exists('notifications_count')){
+    function notifications_count($colum){
+       return \App\Notification::where($colum,\Auth::user()->id)->count();
+    }
+}
+
+if(!function_exists('notifications')){
+    function notifications($colum){
+       return \App\Notification::where($colum,\Auth::user()->id)
+                                ->with('user')->orderBy('created_at','DESC')->get();
+    }
+}
 
 
+if(!function_exists('get_lessons_in_grade')){
+    function get_lessons_in_grade($grade_id){
+       return \App\Lessons::where('instructor_id',\Auth::user()->id)->where('grade',$grade_id)->get();
+    }
+}
 

@@ -87,7 +87,10 @@
                 <div class="content">
                 <div class="overlay_btn mt-5">
                     <br>
-                  <button class="btn live__Session d-flex align-items-center justify-content-center"><i class="fa fa-eye" aria-hidden="true"></i>View</button>
+                  <a href="{{url('student/view_lesson?lesson_id='.$lesson->id)}}" 
+                  class="btn live__Session d-flex align-items-center justify-content-center">
+                    <i class="fa fa-eye" aria-hidden="true"></i>View
+                  </a>
                 </div>
               </div>
             </div>
@@ -100,7 +103,11 @@
                 </div>
                 <div class="w-75">
                   <div class="title">
-                    <span for="{{$lesson->id.'_checkbox'}}" class="d-block text-capitalize">{{$lesson->name}}</span>
+                    <span for="{{$lesson->id.'_checkbox'}}" class="d-block text-capitalize">{{$lesson->name}}
+                      <span style="font-size:20px;float: right;color:#ffd43b">
+                          <i class="fas fa-star"></i>
+                      </span>
+                    </span>
                     <span class="d-block text-capitalize">
                         {{$my_teacher->fname.' '.$my_teacher->lname}}
                     </span>

@@ -1446,13 +1446,17 @@ text-align: center;
   margin: 0;
 }
 .lessons .overlay  .overlay__footer{
-  font-size: .7em;
-margin-top: 4.5em;
+  font-size: 0.7em;
+margin-top: 8.5em;
 }
 .lessons .overlay  .overlay__footer i{
   color: #fff;
   font-size: 1.5em;
   margin-right: 0.2em;
+}
+.lessons .overlay  .overlay__footer a
+{
+  color: #fff;
 }
 .lessons__card__header .title{
   font-size: 12px;

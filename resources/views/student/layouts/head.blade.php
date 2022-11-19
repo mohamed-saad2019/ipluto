@@ -41,94 +41,94 @@
 
 
 
-                                    <div class="notification mx-2">
+                                   
+                                <div class="notification mx-2"
+                                 id="notification_interval" >
 
-                                        <div class="icon" id="bell">
-                                            <i class="far fa-bell fa-lg"></i>
-                                            <span class="notification--num">5</span>
-                                        </div>
-
-                                        <div class="notifications_menu" id="box">
-                                            <div class="h1 font-weight-bold d-flex justify-content-between">
-                                                <span>
-                                                    Notifications
-                                                </span>
-                                                <span>
-                                                    <a href="">
-                                                        clear all
-                                                    </a>
-                                                </span>
-                                            </div>
-                                            <!-- begin notifications-item -->
-                                            <div class="notifications-item">
-                                                <a href="">
-                                                    <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
-                                                        alt="img">
-                                                    <div class="text">
-                                                        <h4 class="text-capitalize">hatem</h4>
-                                                        <p>Lorem ipsum dolor sit amet.</p>
-                                                        <p>2 hours ago</p>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <!-- End notifications-item -->
-                                            <!-- begin notifications-item -->
-                                            <div class="notifications-item">
-                                                <a href="">
-                                                    <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
-                                                        alt="img">
-                                                    <div class="text">
-                                                        <h4 class="text-capitalize">saad</h4>
-                                                        <p>Lorem ipsum dolor sit amet.</p>
-                                                        <p>2 hours ago</p>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <!-- End notifications-item -->
-                                            <!-- begin notifications-item -->
-                                            <div class="notifications-item">
-                                                <a href="">
-                                                    <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
-                                                        alt="img">
-                                                    <div class="text">
-                                                        <h4 class="text-capitalize">nasr</h4>
-                                                        <p>Lorem ipsum dolor sit amet.</p>
-                                                        <p>2 hours ago</p>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <!-- End notifications-item -->
-                                            <!-- begin notifications-item -->
-                                            <div class="notifications-item">
-                                                <a href="">
-                                                    <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
-                                                        alt="img">
-                                                    <div class="text">
-                                                        <h4 class="text-capitalize">elalfy</h4>
-                                                        <p>Lorem ipsum dolor sit amet.</p>
-                                                        <p>2 hours ago</p>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <!-- End notifications-item -->
-                                            <!-- begin notifications-item -->
-                                            <div class="notifications-item">
-                                                <a href="">
-                                                    <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
-                                                        alt="img">
-                                                    <div class="text">
-                                                        <h4 class="text-capitalize">elalfy</h4>
-                                                        <p>Lorem ipsum dolor sit amet.</p>
-                                                        <p>2 hours ago</p>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <!-- End notifications-item -->
-
-
-                                        </div>
+                                    <div class="icon" id="bell">
+                                        <i class="far fa-bell fa-lg"></i>
+                                         @if(notifications_count('student_id') != 0)
+                                            <span class="notification--num">
+                                                {{notifications_count('student_id')}}
+                                            </span>
+                                         @endif
                                     </div>
 
+                                    <div class="notifications_menu" id="box">
+                                        <div class="h1 font-weight-bold d-flex justify-content-between"
+                                        style="border-bottom: 1px solid #DDD;">
+                                            <span>
+                                                Notifications
+                                            </span>
+                                            <span>
+                                               <a href="{{url('/delete/notifications?colum=student_id')}}"
+                                                style="color:#db0404">
+                                                <i class="fas fa-trash"></i>
+                                               </a>
+                                            </span>
+                                        </div>
+
+                            <div id="notifications">
+                               @foreach(notifications('student_id') as $n)
+                                   <!-- begin notifications-item -->
+                                     <div class="notifications-item">
+                                         @if($n->notifiable_type == 'zoom')
+                                           @php 
+                                           $zoom = \App\Zoom::where('id',$n->notifiable_id)->first();
+                                           @endphp
+                                           <a href="{{$zoom->url}}"> 
+                                          @else
+                                           <a href="#">
+                                          @endif
+                                         
+                                          @if($n->type == 'ipluto')
+                                            <img src="../images/logo.png">
+                                          @elseif($n->type == 'instructor')
+                                            @if($n->user->user_img != null && $n->user->user_img && @file_get_contents('images/user_img/'.$n->user->user_img))
+                                                <img src="{{ url('images/user_img/'.$n->user->user_img)}}"
+                                                    alt="profilephoto" class="rounded-circle">
+
+                                                @elseif($n->user->user_img != null && $n->user->user_img
+                                                !='' && @file_get_contents('images/avatar/'. $n->user->user_img))
+                                                <img src="{{ url('images/avatar/'.$n->user->user_img)}}"
+                                                    alt="profilephoto" class="rounded-circle">
+
+                                                @else
+
+                                                <img @error('photo') is-invalid @enderror
+                                                    src="{{ Avatar::create($n->user->fname)->toBase64() }}"
+                                                    alt="profilephoto" class="rounded-circle">
+                                                @endif
+
+                                          @endif
+                                         <div class="text row" style="margin-right:0px;">
+                                           <div class="col-md-8">
+                                               <h4 class="text-capitalize">
+                                                @if($n->type == 'ipluto')
+                                                  Ipluto
+
+                                                 @elseif($n->type == 'instructor')
+                                                   {{ucwords($n->user->fname)}} 
+                                                   {{ucwords($n->user->lname)}} 
+                                                @endif
+                                                </h4>
+                                           </div>
+                                           <div class="col-md-4">
+                                                <p >
+                                                 {{ \Carbon\Carbon::parse($n->created_at)->shortRelativeDiffForHumans() }}
+                                                 </p>
+                                           </div>
+                                           <div class="col-md-12">
+                                               <p>{{$n->data}}</p>
+                                           </div>
+                                        </div>
+                                       </a>
+                                 </div>
+                                   <!-- End notifications-item -->
+                                @endforeach
+                              </div>
+                                    </div>
+                                </div>
 
 
                                     <div class="avatarNavStu">
@@ -137,19 +137,19 @@
                                         </a>
                                         <div class="dropdown-menu">
                                             <div class="dropdownHead ">
-
+        
                                                 @if(Auth()->User()['user_img'] != null && Auth()->User()['user_img']
-                                                !='' && @file_get_contents('images/user_img/'.Auth::user()['user_img']))
-                                                <img src="{{ url('images/user_img/'.Auth()->User()['user_img'])}}"
+                                                !='' && @file_get_contents('images/user_img/'.Auth::user()['user_img'].'.png'))
+                                                <img src="{{ url('images/user_img/'.Auth()->User()['user_img'].'.png')}}"
                                                     alt="profilephoto" class="rounded-circle">
 
                                                 @elseif(Auth()->User()['user_img'] != null && Auth()->User()['user_img']
-                                                !='' && @file_get_contents('images/avatar/'.Auth::user()['user_img']))
-                                                <img src="{{ url('images/avatar/'.Auth()->User()['user_img'])}}"
+                                                !='' && @file_get_contents('images/avatar/'.Auth::user()['user_img'].'.png'))
+                                                <img src="{{ url('images/avatar/'.Auth()->User()['user_img'].'.png')}}"
                                                     alt="profilephoto" class="rounded-circle">
 
                                                 @else
-
+    
                                                 <img @error('photo') is-invalid @enderror
                                                     src="{{ Avatar::create(Auth::user()->fname)->toBase64() }}"
                                                     alt="profilephoto" class="rounded-circle">
@@ -182,12 +182,12 @@
 
                                         @if(Auth()->User()['user_img'] != null && Auth()->User()['user_img'] !='' &&
                                         @file_get_contents('images/user_img/'.Auth::user()['user_img']))
-                                        <img src="{{ url('images/user_img/'.Auth()->User()['user_img'])}}"
+                                        <img src="{{ url('images/user_img/'.Auth()->User()['user_img'].'.png')}}"
                                             alt="profilephoto" width='50px' height="50px" class="rounded-circle">
 
                                         @elseif(Auth()->User()['user_img'] != null && Auth()->User()['user_img'] !='' &&
-                                        @file_get_contents('images/avatar/'.Auth::user()['user_img']))
-                                        <img src="{{ url('images/avatar/'.Auth()->User()['user_img'])}}"
+                                        @file_get_contents('images/avatar/'.Auth::user()['user_img'].'.png'))
+                                        <img src="{{ url('images/avatar/'.Auth()->User()['user_img'].'.png')}}"
                                             alt="profilephoto" width='50px' height="50px" class="rounded-circle">
 
                                         @else

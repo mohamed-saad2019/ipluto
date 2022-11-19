@@ -21,6 +21,6 @@ class ShareLessons extends Model
 
     public function lessons()
     {
-        return $this->belongsTo('App\Lesson','lesson_id','id');
+        return $this->belongsTo('App\Lessons','lesson_id','id');
     }
 }
