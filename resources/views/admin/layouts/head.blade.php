@@ -17,7 +17,7 @@ $rtl = array('ar','he','ur', 'arc', 'az', 'dv', 'ku', 'fa'); //make a list of rt
 <link href="{{ url('admin_assets_rtl/assets/plugins/slick/slick-theme.css') }}" rel="stylesheet">
 <link href="{{ url('admin_assets_rtl/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
 <!-- Fontawesome 4 css -->
-<link rel="stylesheet" href="{{ url("admin_assets/assets/icons/font-awesome/css/font-awesome.min.css") }}">
+<link rel="stylesheet" href="{{ url('admin_assets/assets/icons/font-awesome/css/font-awesome.min.css') }}">
 <link href="{{ url('admin_assets_rtl/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css') }}" rel="stylesheet" type="text/css">
 <link href="{{ url('admin_assets_rtl/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput-typeahead.css') }}" rel="stylesheet" type="text/css">
 <link href="{{ url('admin_assets_rtl/assets/plugins/pnotify/css/pnotify.custom.min.css') }}" rel="stylesheet" type="text/css">

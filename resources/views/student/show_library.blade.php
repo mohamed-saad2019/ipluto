@@ -33,7 +33,7 @@
                   </button>
                 </div>
   
-                <video width="100%" height="100%" controls poster="./images/Profile/logo.png">
+                <video width="100%" height="100%" controls controlsList="nodownload" poster="./images/Profile/logo.png">
                   <source src="./images/video.mp4" type="video/mp4">
                   <source src="./images/video.mp4" type="video/ogg">
                   Your browser does not support the video tag.
@@ -81,7 +81,7 @@
                   </button>
                 </div>
   
-                <video width="100%" height="100%" controls poster="./images/Profile/logo.png">
+                <video width="100%" height="100%" controls controlsList="nodownload" poster="./images/Profile/logo.png">
                   <source src="./images/video.mp4" type="video/mp4">
                   <source src="./images/video.mp4" type="video/ogg">
                   Your browser does not support the video tag.
@@ -129,7 +129,7 @@
                   </button>
                 </div>
   
-                <video width="100%" height="100%" controls poster="./images/Profile/logo.png">
+                <video width="100%" height="100%" controls controlsList="nodownload" poster="./images/Profile/logo.png">
                   <source src="./images/video.mp4" type="video/mp4">
                   <source src="./images/video.mp4" type="video/ogg">
                   Your browser does not support the video tag.
@@ -177,7 +177,7 @@
                   </button>
                 </div>
   
-                <video width="100%" height="100%" controls poster="./images/Profile/logo.png">
+                <video width="100%" height="100%" controls controlsList="nodownload"  poster="./images/Profile/logo.png">
                   <source src="./images/video.mp4" type="video/mp4">
                   <source src="./images/video.mp4" type="video/ogg">
                   Your browser does not support the video tag.
@@ -225,7 +225,7 @@
                   </button>
                 </div>
   
-                <video width="100%" height="100%" controls poster="./images/Profile/logo.png">
+                <video width="100%" height="100%" controls controlsList="nodownload" poster="./images/Profile/logo.png">
                   <source src="./images/video.mp4" type="video/mp4">
                   <source src="./images/video.mp4" type="video/ogg">
                   Your browser does not support the video tag.

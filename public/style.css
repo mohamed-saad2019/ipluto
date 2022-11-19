@@ -1,9 +1,9 @@
 /* ########################### Start Home ################################ */
 @font-face {
   font-family: Comfortaa;
-  src: url(./admin_assets/assets/fonts/Comfortaa/Comfortaa-Bold.ttf);
-  src: url(../fonts/Comfortaa/Comfortaa-Regular.ttf);
-  src: url(../fonts/Comfortaa/Comfortaa-Light.ttf);
+  src: url(./fonts/Comfortaa-Bold.ttf);
+  src: url(./fonts/Comfortaa-Regular.ttf);
+  src: url(./fonts/Comfortaa-Light.ttf);
 }
 :root {
   --blue: #3166AD;
@@ -13,7 +13,7 @@
 
 body {
   font-family: "Comfortaa" !important;
-
+  overflow-x: hidden;
 }
 
 /* start navbar */
@@ -1685,7 +1685,7 @@ textarea {
   -o-transition: 0.4s;
   background-color: #fff;
   border-radius: 5px;
-  padding: 2em .5em .5em .5em;
+  padding: 1em .5em .5em .5em;
   overflow: hidden;
 }
 
@@ -2426,7 +2426,6 @@ tr.cus_table:hover {
   height: 0.2em;
   padding: 0.2em 0 0;
   background: #98A5B7;
-  /* background: #EFAC42; */
 }
 
 .navbarStudent #sidebar ul li.active>a::before {

@@ -1379,13 +1379,7 @@ text-align: center;
   margin:  4px 10px 6px;
   font-size: 2em;
 }
-.paste .folders .single__paste span{
-/*  color: #98A5B7;*/
- }
-.paste .folders .single__paste:hover i,
-.paste .folders .single__paste:hover .description{
-/*  color: #58C0F9;
-*/}
+
 .paste .folders .single__paste .sizing{
   font-size: 10px;
 }
@@ -1447,7 +1441,12 @@ text-align: center;
 }
 .lessons .overlay  .overlay__footer{
   font-size: 0.7em;
-margin-top: 8.5em;
+  position: absolute;
+  width: 90%;
+  bottom: 10px;
+}
+.lessons .overlay  .overlay__footer span:last-child{
+  right: 0;
 }
 .lessons .overlay  .overlay__footer i{
   color: #fff;
