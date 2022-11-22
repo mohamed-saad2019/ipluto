@@ -109,17 +109,6 @@
 
 @section('scripts')
 <script>
-      //   $(document).ready(function() {
-      // $(function() {
-      //     $("table tr td").find("div").hide();
-      //     $(".detailstoggle").click(function(event) {
-      //         event.stopPropagation();
-      //         var $target = $(event.target);
-      //             $target.closest("tr").next().find("div").slideToggle();
-      //     });
-      // });
-      // });
-
   $('.info__btn').click(function() {
     $(this).parent().prev().toggleClass("toggleClass");
   })
