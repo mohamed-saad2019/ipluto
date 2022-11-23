@@ -19,6 +19,9 @@ class File extends Model
         'lesson_id',
         'instructor_id',
         'library_id',
+        'likes',
+        'dislikes',
+        
     ];
 
     public function instructor(){

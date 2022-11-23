@@ -883,6 +883,8 @@ Route::middleware(['web'])->group(function () {
                 //start labirary 
                 Route::get('student/show_videos', 'StudentController@videos')->name('showVideos');
                 Route::post('student/store_comment', 'CommentController@store')->name('store_comment'); 
+                Route::post('student/store_reply', 'ReplyController@store')->name('store_reply'); 
+                Route::post('student/savelikeOrDislike', 'CommentController@savelikeOrDislike')->name('store_reply'); 
 
                 Route::get('student/show_library', function(){
                     return view('student.show_library');

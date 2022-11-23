@@ -108,12 +108,12 @@ class StudentController extends Controller
             ->select("id","file_name","path","hash_name","lesson_id","instructor_id","created_at")
             ->find($file_id);
 
-      $comments = Comment::with('student:id,user_img,fname,lname')
+      $comments = Comment::with('student:id,user_img,fname,lname','replys.student:id,user_img,fname,lname','replys.instructor:id,user_img,fname,lname')
                           ->Where("lesson_id",$lesson_id)
                           ->Where("video_id",$file_id)
                           ->orderBy('id','DESC')
                           ->get();
-
+      // return $comments ;
       return view("student.showlist" , compact("files","mainVideo","lesson_id","comments"));
 
       

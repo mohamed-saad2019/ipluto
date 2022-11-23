@@ -5,6 +5,12 @@
     <div class="live__session">
         <div class="container">
           @if(isset($mainVideo) && !empty($mainVideo))
+            @if(Auth::User()['role'] == 'user')
+              {{$userType = "student"}}
+            @else
+              {{$userType = "instructor"}}
+            @endif
+          <meta name="_token" content="{{ csrf_token() }}" />
           <div class="row">
             <div class="col-md-8">
               <div class="video_playnow w-100 bg-light">
@@ -22,8 +28,8 @@
                 </div>
                 <div class="div  ">
                   <div class="like bg-light p-1">
-                    <i class="fa fa-thumbs-o-up mx-2 mr-2"> <small style="font-size: 10px">345</small></i>/
-                    <i class="fa fa-thumbs-o-down mx-2 ml-3"> <small style="font-size: 10px">45</small></i>
+                    <i class="fa fa-thumbs-up mx-2 mr-2"  typeUser="{{$userType}}" typeUserId="{{Auth::User()['id']}}" type="video" type_id="{{$mainVideo->id}}"> <small id="like_video_{{$mainVideo->id}}" style="font-size: 10px" >{{$mainVideo->likes}}</small></i> / 
+                    <i class="fa fa-thumbs-down mx-2 mr-2"  typeUser="{{$userType}}" typeUserId="{{Auth::User()['id']}}" type="video" type_id="{{$mainVideo->id}}"> <small id="dislike_video_{{$mainVideo->id}}" style="font-size: 10px">{{$mainVideo->dislikes}}</small></i>
                   </div>
                 </div>
               </div>
@@ -52,10 +58,10 @@
                       {{ csrf_field() }}
                       {{ method_field('post') }}
                       
-                      <input type="hidden" name="lesson_id" value="{{$lesson_id}}">
-                      <input type="hidden" name="instructor_id" value="{{$mainVideo->instructor->id}}">
-                      <input type="hidden" name="student_id" value="{{Auth::User()['id']}}">
-                      <input type="hidden" name="video_id" value="{{$mainVideo->id}}">
+                      <input type="hidden" id="lesson_id" name="lesson_id" value="{{$lesson_id}}">
+                      <input type="hidden" id="instructor_id" name="instructor_id" value="{{$mainVideo->instructor->id}}">
+                      <input type="hidden" id="student_id" name="student_id" value="{{Auth::User()['id']}}">
+                      <input type="hidden" id="video_id" name="video_id" value="{{$mainVideo->id}}">
                       <input class="pt-3" placeholder="Add Comment" name="comment" required="required">
                     </form>
                   </div>
@@ -78,6 +84,8 @@
               <div class="comment_user">
                 @if(isset($comments) && count($comments) > 0)
                 @foreach($comments as $comment)
+                <input type="hidden" id="comment_id" value="{{$comment->id}}">
+                <meta name="csrf-token" id="csrf_{{$comment->id}}" content="{{ csrf_token() }}">
                 <div class="d-flex my-4">
                 @if($comment->student->user_img != null && $comment->student->user_img && @file_get_contents('images/avatar/'.$comment->student->user_img.'.png'))
                   <img src="{{ url('images/avatar/'.$comment->student->user_img).'.png'}}" style="width: 38px;max-height:38px" class="img-fluid" alt="">
@@ -87,64 +95,56 @@
                   <div class="coment_contet font-weight-bold mx-3 w-100 h-50">
                     <span>{{$comment->student->fname}} {{$comment->student->lname}}</span> <small class="ml-5">{{ \Carbon\Carbon::parse($comment->created_at)->shortRelativeDiffForHumans() }}</small>
                     <p class="video__comment">{{$comment->comment}}</p>
-                    <div class="like_unlike">
+                    <div class="like_unlike" id = "like_unlike_{{$comment->id}}">
 
-                      <i class="fa fa-thumbs-o-up mx-2 mr-2"> <small style="font-size: 10px"></small></i>
-                      <i class="fa fa-thumbs-o-down mx-2 ml-3"></i> <small class="font-weight-bold comment__replay">Replay</small>
+                      <i class="fa fa-thumbs-up mx-2 mr-2" typeUser="{{$userType}}" typeUserId="{{Auth::User()['id']}}" type="comment" type_id="{{$comment->id}}"> <small id="like_comment_{{$comment->id}}" style="font-size: 10px">{{$comment->likes}}</small></i>
+                      <i class="fa fa-thumbs-down mx-2 mr-2" typeUser="{{$userType}}" typeUserId="{{Auth::User()['id']}}" type="comment" type_id="{{$comment->id}}"><small id="dislike_comment_{{$comment->id}}" style="font-size: 10px"> {{$comment->dislikes}}</small></i> 
+                      <small class="font-weight-bold comment__replay add_input" style="cursor: pointer;">Replay</small>
+                      
+                      @if(isset($comment->replys) && count($comment->replys) > 0)
+                      <div class="repay text-left">
+                        <a class="my-2 mx-3 d-block text-warning btn_replay comment__replay" style="cursor: pointer;">{{count($comment->replys)}} Replay <i
+                            class="fa fa-chevron-down mx-2 pt-2"></i></a>
+                        <div class="replay_ather">
+                          @foreach($comment->replys as $reply)
+                          <div class="d-flex">
+                              @if($reply->student_id > 0 )
+                                @if($reply->student->user_img != null && $reply->student->user_img && @file_get_contents('images/avatar/'.$reply->student->user_img.'.png'))
+                                  <img src="{{ url('images/avatar/'.$reply->student->user_img).'.png'}}" style="width: 38px;max-height:38px" class="img-fluid" alt="">
+                                  @else
+                                  <img src="./images/Profile/Ellipse.png" style="width:50px;height:50px;border-radius:50%;" alt="">
+                                @endif
+                              @else
+                                @if($reply->instructor->user_img != null && $reply->instructor->user_img && @file_get_contents('images/user_img/'.$reply->instructor->user_img))
+                                  <img src="{{ url('images/user_img/'.$reply->instructor->user_img)}}" style="width: 38px;max-height:38px" class="img-fluid" alt="">
+                                  @else
+                                  <img src="./images/Profile/Ellipse.png" style="width:50px;height:50px;border-radius:50%;" alt="">
+                                @endif
+                              @endif
+                            <div class=" mx-3">
+                              @if($reply->student_id > 0 )
+                              <span>{{$reply->student->fname}} {{$reply->student->lname}}</span> 
+                              @else
+                              <span>{{$reply->instructor->fname}} {{$reply->instructor->lname}}</span> 
+                              @endif
+                              <small class="ml-5">{{ \Carbon\Carbon::parse($reply->created_at)->shortRelativeDiffForHumans() }}</small>
+                              <p class="video__comment">{{$reply->reply}}</p>
+                              <div style="width: 150px;">
+                                <i class="fa fa-thumbs-up mx-2 mr-2" typeUser="{{$userType}}" typeUserId="{{Auth::User()['id']}}" type="reply" type_id="{{$reply->id}}"> <small id="like_reply_{{$reply->id}}" style="font-size: 10px;"> {{$reply->likes}}</small></i>
+                                <i class="fa fa-thumbs-down mx-2 mr-2" typeUser="{{$userType}}" typeUserId="{{Auth::User()['id']}}" type="reply" type_id="{{$reply->id}}"><small id="dislike_reply_{{$reply->id}}" style="font-size: 10px"> {{$reply->dislikes}}</small></i> 
+                              </div>
+                            </div>
+                          </div>
+                          @endforeach
+                        </div>
+                      </div>
+                      @endif
                     </div>
                   </div>
                 </div>
                 @endforeach
                 @endif
-                <div class="d-flex">
-                  <img src="./images/Profile/Ellipse.png" style="width:50px;height:50px;border-radius:50%;" alt="">
-                  <div class="coment_contet font-weight-bold mx-3 w-100 h-50">
-                    <span>2Gehad Adel</span> <small class="ml-5">1 hour ago</small>
-                    <p class="video__comment">Its Amazing idea</p>
-                    <div class="like_unlike">
-
-                      <i class="fa fa-thumbs-o-up mx-2 mr-2"> <small style="font-size: 10px"></small></i>
-                      <i class="fa fa-thumbs-o-down mx-2 ml-3"></i> <small class="font-weight-bold comment__replay">Replay</small>
-
-                      <div class="repay text-left">
-                        <a class="my-2 mx-3 d-block text-warning btn_replay comment__replay">2 Replay <i
-                            class="fa fa-chevron-down mx-2 pt-2"></i></a>
-                        <div class="replay_ather">
-                          <div class="d-flex">
-                            <img class="mt-2" src="./images/Profile/Ellipse.png"
-                              style="width:30px;height:30px;border-radius:50%;" alt="">
-                            <div class=" mx-3">
-                              <span>3Gehad Adel</span> <small class="ml-5">1 hour ago</small>
-                              <p class="video__comment">Its Amazing idea</p>
-                              <div style="width: 150px;">
-                                <i class="fa fa-thumbs-o-up mx-2 mr-2"> <small style="font-size: 10px">45</small></i>
-                                <i class="fa fa-thumbs-o-down mx-2 ml-3"></i> <small
-                                  class="font-weight-bold">Replay</small>
-                              </div>
-                              <a class="my-2 mx-3 btn_rep text-warning d-block comment__replay">3 Replay <i
-                                  class="fa fa-chevron-down mx-2 pt-2"></i></a>
-                            </div>
-                          </div>
-                          <div class="rep_ather">
-                            <div class="d-flex my-2 ">
-                              <img class="mt-2" src="./images/Profile/Ellipse.png"
-                                style="width:30px;height:30px;border-radius:50%;" alt="">
-                              <div class=" mx-3">
-                                <span>4Gehad Adel</span> <small class="ml-5">1 hour ago</small>
-                                <p class="video__comment">Its Amazing idea</p>
-                                <div style="width: 150px;">
-                                  <i class="fa fa-thumbs-o-up mx-2 mr-2"> <small style="font-size: 10px">45</small></i>
-                                  <i class="fa fa-thumbs-o-down mx-2 ml-3"><small style="font-size: 10px">2</small></i> 
-                                  <small class="font-weight-bold"> Replay </small>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                
               </div>
             </div>
  
