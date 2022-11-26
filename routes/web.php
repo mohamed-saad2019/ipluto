@@ -627,6 +627,7 @@ Route::middleware(['web'])->group(function () {
         /* start route zoom */
         Route::get('zoom_create', 'ZoomController@startZoom')->name('create.zoom');
         Route::post('store_zoom', 'ZoomController@storeZoom')->name('saveZoom');
+        Route::get('instructor/zoom_list', 'ZoomController@zoom_list')->name('zoom_list');
         /* end route zoom */
 
        Route::get('instructor/del_sildes', 'InstructorController@del_sildes')->name('instructor.del_sildes');

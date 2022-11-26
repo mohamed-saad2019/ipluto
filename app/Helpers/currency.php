@@ -14,6 +14,7 @@ if(!function_exists('get_subject_instructor')){
     }
 }
 
+
 if(!function_exists('get_grade_instructor')){
     function get_grade_instructor($instructor_id){
        return \App\InstructorGrade::where('instructor_id',$instructor_id)->first()->grade_id;
