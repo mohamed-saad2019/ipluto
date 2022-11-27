@@ -148,6 +148,18 @@ if(!function_exists('get_size_lesson'))
     }
         
 
+if(!function_exists('get_size_file'))
+    {
+       function get_size_file($size)
+        {
+          $base = log($size) / log(1024);
+          $suffix = array("", "KB", "MB", "GB", "TB")[floor($base)];
+          return  number_format(pow(1024, $base - floor($base)),0).$suffix;
+     }
+        
+    }
+        
+
 if(!function_exists('get_size_instructor'))
     {
        function get_size_instructor()
@@ -499,3 +511,11 @@ if(!function_exists('get_lessons_in_grade')){
     }
 }
 
+if( !function_exists('getTitle'))
+{
+    function getTitle($name)
+    {
+        $exName = explode(".",$name);
+        return $exName[0] ;
+    }
+}

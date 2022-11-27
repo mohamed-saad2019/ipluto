@@ -152,7 +152,11 @@
               @if(isset($files) &&  count($files) > 0)
                 @foreach($files as $file)
                 @if($file->id != $mainVideo->id)
-                <a href="{{route('showVideos')}}?lesson_id={{$lesson_id}}&file_id={{$file->id}}">
+                  @if($subject_id !== 0 )
+                   <a href="{{ url('student/show_videos?subject_id='.$subject_id.'&lesson_id='.$lesson_id.'&file_id='.$file->id) }}">
+                  @else
+                     <a href="{{route('showVideos')}}?lesson_id={{$lesson_id}}&file_id={{$file->id}}">
+                  @endif
                 <div class="list_video d-flex">
                   <div class="video_next w-75 h-100">
 

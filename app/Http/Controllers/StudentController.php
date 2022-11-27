@@ -90,16 +90,32 @@ class StudentController extends Controller
 
     public function videos(Request $request)
     {
-      $lesson_id = $request->lesson_id ;
-      $file_id   = $request->file_id ;
-
-      $files = File::with("instructor:id,fname,lname,user_img")
+      $lesson_id   =  $request->lesson_id ;
+      $file_id     =  $request->file_id ;
+      $subject_id  =  0 ;
+      if(request()->has('subject_id') and !empty(request('subject_id')))
+      {
+        $subject_id = $request->subject_id ;
+        $lessons    = Lessons::where('subject',$subject_id)->pluck('id')->toArray();
+       
+        $files = File::with("instructor:id,fname,lname,user_img")
+            ->WhereIn("lesson_id",$lessons)
+            ->Where("hash_name",'!=','Video From Dashboard')
+            ->Where('mime_type', 'like', '%video%')
+            ->select("id","file_name","path","hash_name","lesson_id","instructor_id","created_at")
+            ->orderBy('id','ASC')
+            ->get();
+      }
+      else
+     {
+        $files = File::with("instructor:id,fname,lname,user_img")
             ->Where("lesson_id",$lesson_id)
             ->Where("hash_name",'!=','Video From Dashboard')
             ->Where('mime_type', 'like', '%video%')
             ->select("id","file_name","path","hash_name","lesson_id","instructor_id","created_at")
             ->orderBy('id','ASC')
             ->get();
+     }
 
       $mainVideo  = File::with("instructor:id,fname,lname,user_img")
             ->Where("lesson_id",$lesson_id)
@@ -114,7 +130,7 @@ class StudentController extends Controller
                           ->orderBy('id','DESC')
                           ->get();
       // return $comments ;
-      return view("student.showlist" , compact("files","mainVideo","lesson_id","comments"));
+      return view("student.showlist" , compact("files","mainVideo","lesson_id","comments","subject_id"));
 
       
     }
@@ -128,5 +144,20 @@ class StudentController extends Controller
         return view('student.view_lesson',compact('files'));
       }
       return back();
+    }
+
+    public function subject_videos(Request $request)
+    {
+      $subject_id = $request->subject_id ;
+      
+      $lessons    = Lessons::where('subject',$subject_id)->pluck('id')->toArray();
+      
+      $videos  = File::with("instructor:id,fname,lname,user_img")
+            ->WhereIn("lesson_id",$lessons)
+            ->Where("hash_name",'!=','Video From Dashboard')
+            ->Where('mime_type', 'like', '%video%')
+            ->orderBy('created_at','DESC')->get();
+
+      return view("student.show_library" , compact("videos"));      
     }
  }

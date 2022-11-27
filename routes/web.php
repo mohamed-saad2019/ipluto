@@ -887,9 +887,8 @@ Route::middleware(['web'])->group(function () {
                 Route::post('student/store_reply', 'ReplyController@store')->name('store_reply'); 
                 Route::post('student/savelikeOrDislike', 'CommentController@savelikeOrDislike')->name('store_reply'); 
 
-                Route::get('student/show_library', function(){
-                    return view('student.show_library');
-                })->name('show_library');
+                Route::get('student/show_subject_videos', 'StudentController@subject_videos')->name('show_subject_videos');
+               
                 Route::get('student/showlist', function(){
                     return view('student.showlist');
                 })->name('showlist');
