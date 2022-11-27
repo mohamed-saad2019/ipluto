@@ -19,9 +19,7 @@
                               <th scope="col">Zomm Link</th>
                               <th scope="col">Code</th>
                               <th scope="col">Start Time</th>
-                              <th scope="col">End Time</th>
                               <th scope="col">Created At</th>
-                              <th scope="col">Settings</th>
                             </tr>
                           </thead>
                           <tbody style="background:#fff !important;">
@@ -34,9 +32,7 @@
                               <td>{{$z->url}}</td>
                               <td>{{$z->code}}</td>
                               <td>{{$z->start_time}}</td>
-                              <td>{{$z->code}}</td>
                               <td>{{$z->created_at}}</td>
-                              <td></td>
                              </tr>
                             @endforeach
                            

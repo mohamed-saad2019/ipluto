@@ -210,6 +210,10 @@ body
     height: 100px;
     margin: 10px;
 }
+.list_item:hover
+{
+    background-color: #ddd;
+}
 .cus_hidden
 {
  display: none !important;

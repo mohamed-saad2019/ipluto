@@ -873,6 +873,9 @@ Route::middleware(['web'])->group(function () {
             })->name('help.show');
 
             /* start routes center student dashboard */
+
+           Route::get('student/show_videos', 'StudentController@videos')->name('showVideos');
+           
            Route::group(['middleware' => ['center_student']], function () {
                 Route::get('student/lessons', 'StudentController@lessons')->name('student.lessons');
                 Route::get('student/profile', 'StudentController@profile')->name('student.profile');
@@ -882,12 +885,12 @@ Route::middleware(['web'])->group(function () {
             Route::get('student/view_lesson','StudentController@view_lesson');
 
                 //start labirary 
-                Route::get('student/show_videos', 'StudentController@videos')->name('showVideos');
+               
                 Route::post('student/store_comment', 'CommentController@store')->name('store_comment'); 
                 Route::post('student/store_reply', 'ReplyController@store')->name('store_reply'); 
                 Route::post('student/savelikeOrDislike', 'CommentController@savelikeOrDislike')->name('store_reply'); 
 
-                Route::get('student/show_subject_videos', 'StudentController@subject_videos')->name('show_subject_videos');
+            Route::get('student/show_subject_videos', 'StudentController@subject_videos')->name('show_subject_videos');
                
                 Route::get('student/showlist', function(){
                     return view('student.showlist');

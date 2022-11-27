@@ -218,7 +218,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
           @elseif(str_contains($file->mime_type, 'video') and $file->hash_name !='Video From Dashboard')
           <div class="col-12 col-md-6 col-lg-3 py-5">
             <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
-              <a href="{{url('student/showlist')}}">
+              <a href="{{ url('student/show_videos?lesson_id='.request('id').'&file_id='.$file->id) }}">
                 <i class="far fa-file-video"></i>
                 <h6>{{ str_limit($file->file_name,15)}}</h6>
               </a>

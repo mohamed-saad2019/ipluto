@@ -226,6 +226,9 @@
                                         <a href="{{url('instructor/students')}}"> Students</a>
                                     </li>
                                     <li>
+                                        <a href="{{url('instructor/zoom_list')}}"> Zoom List </a>
+                                    </li>
+                                    <li>
                                         <a href="#"> Videos </a>
                                     </li>
                                     <li>

@@ -26,7 +26,8 @@
           @php $sum++; @endphp
 
 
-            <div class="item list_item " data-type='{{$file->mime_type}}' 
+            <div class="item list_item " title="{{$file->file_name}}"
+                 data-type='{{$file->mime_type}}' 
                  data-src=" @if(str_contains($file->mime_type, 'video') and $file->hash_name=='Video From Dashboard')
                  {{url('storage/vedioTeachr/'.$file->path)}}
                  @else{{url('storage/'.$file->path.'/'.$file->hash_name)}}@endif">
