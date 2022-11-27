@@ -3,9 +3,6 @@
 @section('maincontent') 
     <div class="Page__content">
     <div class="student__video mt-5">
-      @section('select_subject') 
-        @include('student.partial.select_subject_and_teacher')
-      @endsection
         <div class="container">
           <div class="row">
           @if(empty($videos))
