@@ -21,6 +21,7 @@ class File extends Model
         'library_id',
         'likes',
         'dislikes',
+        'viewers',
         
     ];
 

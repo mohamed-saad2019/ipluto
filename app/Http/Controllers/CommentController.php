@@ -9,18 +9,26 @@ use App\Like;
 use App\File;
 use App\Reply;
 use Illuminate\Support\Facades\Redirect;
+use Auth ;
 
 class CommentController extends Controller
 {
     public function store(Request $request)
     {
+        if(Auth::User()['role'] == "user")
+        {
+            $columnName  = "student_id" ;
+            $columnValue = $request->student_id ;
+        }else{
+            $columnName  = "instructor_id" ;
+            $columnValue = $request->instructor_id ;
+        }
 
-        if($request->comment != "" && $request->video_id  && $request->student_id && $request->instructor_id && $request->lesson_id)
+        if($request->comment != "" && $request->video_id  && $columnValue && $request->instructor_id && $request->lesson_id)
         {
             Comment::create([
                 "video_id"      => $request->video_id ,
-                "student_id"    => $request->student_id ,
-                // "instructor_id" => $request->instructor_id ,
+                $columnName     => $columnValue ,
                 "lesson_id"     => $request->lesson_id ,
                 "comment"       => $request->comment
             ]);
@@ -70,12 +78,12 @@ class CommentController extends Controller
         }
 
         $data['likes']  =   Like::where($colum_name , $type_id)
-                                    ->where($colum_user_name   ,  $typeUserId)
+                                    // ->where($colum_user_name   ,  $typeUserId)
                                     ->where('like' ,1)
                                     ->count();
 
         $data['dislikes'] =  Like::where($colum_name , $type_id)
-                                    ->where($colum_user_name   ,  $typeUserId)
+                                    // ->where($colum_user_name   ,  $typeUserId)
                                     ->where('like' ,0)
                                     ->count();
 

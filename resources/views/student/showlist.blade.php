@@ -15,7 +15,7 @@
             <div class="col-md-8">
               <div class="video_playnow w-100 bg-light">
                 <!-- <video width="100%" height="100%" controls poster="./images/Profile/Layer 32.png"> -->
-                <video width="100%" height="100%" controls poster="./images/Profile/Layer 32.png">
+                <video width="100%" height="100%" controls controlsList="nodownload" poster="./images/Profile/Layer 32.png">
                   <source src="{{url('storage/'.$mainVideo->path.'/'.$mainVideo->hash_name)}}" type="video/mp4">
                   <source src="{{url('storage/'.$mainVideo->path.'/'.$mainVideo->hash_name)}}" type="video/ogg">
                   Your browser does not support the video tag.
@@ -24,12 +24,12 @@
               <div class="footer_video d-flex justify-content-between pt-3 m-2">
                 <div class="font-weight-bold">
                   <span>{{getTitle($mainVideo->file_name)}} </span>
-                  <p>{{$mainVideo->created_at}}</p>
+                  <p>{{$mainVideo->viewers}} views -  {{ date('d F Y', strtotime($mainVideo->created_at)) }} </p>
                 </div>
-                <div class="div  ">
+                <div class="div">
                   <div class="like bg-light p-1">
-                    <i class="fa fa-thumbs-up mx-2 mr-2"  typeUser="{{$userType}}" typeUserId="{{Auth::User()['id']}}" type="video" type_id="{{$mainVideo->id}}"> <small id="like_video_{{$mainVideo->id}}" style="font-size: 10px" >{{$mainVideo->likes}}</small></i> / 
-                    <i class="fa fa-thumbs-down mx-2 mr-2"  typeUser="{{$userType}}" typeUserId="{{Auth::User()['id']}}" type="video" type_id="{{$mainVideo->id}}"> <small id="dislike_video_{{$mainVideo->id}}" style="font-size: 10px">{{$mainVideo->dislikes}}</small></i>
+                    <i class="fa fa-thumbs-up mx-2 mr-2" id="up_video_{{$mainVideo->id}}" style="cursor: pointer" typeUser="{{$userType}}" typeUserId="{{Auth::User()['id']}}" type="video" type_id="{{$mainVideo->id}}"> <small id="like_video_{{$mainVideo->id}}" style="font-size: 10px" >{{$mainVideo->likes}}</small></i> / 
+                    <i class="fa fa-thumbs-down mx-2 mr-2" id="down_video_{{$mainVideo->id}}" style="cursor: pointer"  typeUser="{{$userType}}" typeUserId="{{Auth::User()['id']}}" type="video" type_id="{{$mainVideo->id}}"> <small id="dislike_video_{{$mainVideo->id}}" style="font-size: 10px">{{$mainVideo->dislikes}}</small></i>
                   </div>
                 </div>
               </div>
@@ -37,7 +37,7 @@
                 <div class="d-flex">
                 @if($mainVideo->instructor->user_img != null && $mainVideo->instructor->user_img && @file_get_contents('images/user_img/'.$mainVideo->instructor->user_img))
                   <img src="{{ url('images/user_img/'.$mainVideo->instructor->user_img)}}" height="3em" class="img-fluid" alt="">
-                  @else
+                @else
                   <img src="./images/Profile/logo.png" height="3em" class="img-fluid" alt="">
                 @endif
                   <div class="vedio__subject mx-3 ">
@@ -48,11 +48,20 @@
               </div>
               <div class="add_comment p-2">
                 <div class="d-flex">
-                  @if(Auth::User()['user_img'] != null && Auth::User()['user_img'] && @file_get_contents('images/avatar/'. Auth::User()['user_img'].'.png' ))
-                    <img src="{{ url('images/avatar/'. Auth::User()['user_img'].'.png')}}" style="width: 38px" class="img-fluid" alt="">
-                    @else
-                    <img src="./images/Profile/Ellipse.png" style="width:50px;height:50px;border-radius:50%;" alt="">
+                  @if(Auth::User()['role'] == 'user')
+                    @if(Auth::User()['user_img'] != null && Auth::User()['user_img'] && @file_get_contents('images/avatar/'. Auth::User()['user_img'].'.png' ))
+                      <img src="{{ url('images/avatar/'. Auth::User()['user_img'].'.png')}}" style="width: 38px" class="img-fluid" alt="">
+                      @else
+                      <img src="./images/Profile/Ellipse.png" style="width:50px;height:50px;border-radius:50%;" alt="">
+                    @endif
+                  @else
+                    @if(Auth::User()['user_img'] != null && Auth::User()['user_img'] && @file_get_contents('images/user_img/'. Auth::User()['user_img'] ))
+                      <img src="{{ url('images/user_img/'. Auth::User()['user_img'])}}" style="width: 38px" class="img-fluid" alt="">
+                      @else
+                      <img src="./images/Profile/Ellipse.png" style="width:50px;height:50px;border-radius:50%;" alt="">
+                    @endif
                   @endif
+              
                   <div class="coment font-weight-bold mx-3 w-100 h-50">
                     <form method="post" action="{{route('store_comment')}}">
                       {{ csrf_field() }}
@@ -87,19 +96,32 @@
                 <input type="hidden" id="comment_id" value="{{$comment->id}}">
                 <meta name="csrf-token" id="csrf_{{$comment->id}}" content="{{ csrf_token() }}">
                 <div class="d-flex my-4">
-                @if($comment->student->user_img != null && $comment->student->user_img && @file_get_contents('images/avatar/'.$comment->student->user_img.'.png'))
-                  <img src="{{ url('images/avatar/'.$comment->student->user_img).'.png'}}" style="width: 38px;max-height:38px" class="img-fluid" alt="">
+                  @if($comment->student_id > 0 && $comment->instructor_id == 0)
+                    @if($comment->student->user_img != null && $comment->student->user_img && @file_get_contents('images/avatar/'.$comment->student->user_img.'.png'))
+                      <img src="{{ url('images/avatar/'.$comment->student->user_img).'.png'}}" style="width: 38px;max-height:38px" class="img-fluid" alt="">
+                      @else
+                      <img src="./images/Profile/Ellipse.png" style="width:50px;height:50px;border-radius:50%;" alt="">
+                    @endif
                   @else
-                  <img src="./images/Profile/Ellipse.png" style="width:50px;height:50px;border-radius:50%;" alt="">
-                @endif
+                    @if($comment->instructor->user_img != null && $comment->instructor->user_img && @file_get_contents('images/user_img/'.$comment->instructor->user_img))
+                      <img src="{{ url('images/user_img/'.$comment->instructor->user_img)}}" style="width: 38px;max-height:38px" class="img-fluid" alt="">
+                      @else
+                      <img src="./images/Profile/Ellipse.png" style="width:50px;height:50px;border-radius:50%;" alt="">
+                    @endif
+                  @endif
+                
                   <div class="coment_contet font-weight-bold mx-3 w-100 h-50">
-                    <span>{{$comment->student->fname}} {{$comment->student->lname}}</span> <small class="ml-5">{{ \Carbon\Carbon::parse($comment->created_at)->shortRelativeDiffForHumans() }}</small>
+                    @if($comment->student_id > 0 && $comment->instructor_id == 0)
+                      <span>{{$comment->student->fname}} {{$comment->student->lname}}</span> <small class="ml-5">{{ \Carbon\Carbon::parse($comment->created_at)->shortRelativeDiffForHumans() }}</small>
+                      @else
+                      <span>{{$comment->instructor->fname}} {{$comment->instructor->lname}}</span> <small class="ml-5">{{ \Carbon\Carbon::parse($comment->created_at)->shortRelativeDiffForHumans() }}</small>
+                    @endif
                     <p class="video__comment">{{$comment->comment}}</p>
                     <div class="like_unlike" id = "like_unlike_{{$comment->id}}">
 
-                      <i class="fa fa-thumbs-up mx-2 mr-2" typeUser="{{$userType}}" typeUserId="{{Auth::User()['id']}}" type="comment" type_id="{{$comment->id}}"> <small id="like_comment_{{$comment->id}}" style="font-size: 10px">{{$comment->likes}}</small></i>
-                      <i class="fa fa-thumbs-down mx-2 mr-2" typeUser="{{$userType}}" typeUserId="{{Auth::User()['id']}}" type="comment" type_id="{{$comment->id}}"><small id="dislike_comment_{{$comment->id}}" style="font-size: 10px"> {{$comment->dislikes}}</small></i> 
-                      <small class="font-weight-bold comment__replay add_input" style="cursor: pointer;">Replay</small>
+                      <i class="fa fa-thumbs-up mx-2 mr-2" id="up_comment_{{$comment->id}}"   style="cursor: pointer" typeUser="{{$userType}}" typeUserId="{{Auth::User()['id']}}" type="comment" type_id="{{$comment->id}}"> <small id="like_comment_{{$comment->id}}" style="font-size: 10px">{{$comment->likes}}</small></i>
+                      <i class="fa fa-thumbs-down mx-2 mr-2" id="down_comment_{{$comment->id}}"  style="cursor: pointer" typeUser="{{$userType}}" typeUserId="{{Auth::User()['id']}}" type="comment" type_id="{{$comment->id}}"><small id="dislike_comment_{{$comment->id}}" style="font-size: 10px"> {{$comment->dislikes}}</small></i> 
+                      <small class="font-weight-bold comment__replay add_input" commant_id="{{$comment->id}}" style="cursor: pointer;">Replay</small>
                       
                       @if(isset($comment->replys) && count($comment->replys) > 0)
                       <div class="repay text-left">
@@ -120,7 +142,7 @@
                                   @else
                                   <img src="./images/Profile/Ellipse.png" style="width:50px;height:50px;border-radius:50%;" alt="">
                                 @endif
-                              @endif
+                              @endif 
                             <div class=" mx-3">
                               @if($reply->student_id > 0 )
                               <span>{{$reply->student->fname}} {{$reply->student->lname}}</span> 
@@ -130,8 +152,8 @@
                               <small class="ml-5">{{ \Carbon\Carbon::parse($reply->created_at)->shortRelativeDiffForHumans() }}</small>
                               <p class="video__comment">{{$reply->reply}}</p>
                               <div style="width: 150px;">
-                                <i class="fa fa-thumbs-up mx-2 mr-2" typeUser="{{$userType}}" typeUserId="{{Auth::User()['id']}}" type="reply" type_id="{{$reply->id}}"> <small id="like_reply_{{$reply->id}}" style="font-size: 10px;"> {{$reply->likes}}</small></i>
-                                <i class="fa fa-thumbs-down mx-2 mr-2" typeUser="{{$userType}}" typeUserId="{{Auth::User()['id']}}" type="reply" type_id="{{$reply->id}}"><small id="dislike_reply_{{$reply->id}}" style="font-size: 10px"> {{$reply->dislikes}}</small></i> 
+                                <i class="fa fa-thumbs-up mx-2 mr-2" id="up_reply_{{$reply->id}}" style="cursor: pointer" typeUser="{{$userType}}" typeUserId="{{Auth::User()['id']}}" type="reply" type_id="{{$reply->id}}" > <small id="like_reply_{{$reply->id}}" style="font-size: 10px;"> {{$reply->likes}}</small></i>
+                                <i class="fa fa-thumbs-down mx-2 mr-2" id="down_reply_{{$reply->id}}" style="cursor: pointer" typeUser="{{$userType}}" typeUserId="{{Auth::User()['id']}}" type="reply" type_id="{{$reply->id}}"><small id="dislike_reply_{{$reply->id}}" style="font-size: 10px"> {{$reply->dislikes}}</small></i> 
                               </div>
                             </div>
                           </div>
@@ -160,7 +182,7 @@
                 <div class="list_video d-flex">
                   <div class="video_next w-75 h-100">
 
-                      <video width="100%" height="100%" poster="./images/Profile/Layer 32.png">
+                      <video width="100%" height="100%" controls controlsList="nodownload" poster="./images/Profile/Layer 32.png">
                         <source src="{{url('storage/'.$file->path.'/'.$file->hash_name)}}" type="video/mp4">
                         <source src="{{url('storage/'.$file->path.'/'.$file->hash_name)}}" type="video/ogg">
                         Your browser does not support the video tag.

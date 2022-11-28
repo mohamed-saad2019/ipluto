@@ -875,6 +875,10 @@ Route::middleware(['web'])->group(function () {
             /* start routes center student dashboard */
 
            Route::get('student/show_videos', 'StudentController@videos')->name('showVideos');
+           Route::post('student/store_comment', 'CommentController@store')->name('store_comment'); 
+           Route::post('student/store_reply', 'ReplyController@store')->name('store_reply'); 
+           Route::post('student/savelikeOrDislike', 'CommentController@savelikeOrDislike')->name('store_reply'); 
+
            
            Route::group(['middleware' => ['center_student']], function () {
                 Route::get('student/lessons', 'StudentController@lessons')->name('student.lessons');
@@ -886,10 +890,7 @@ Route::middleware(['web'])->group(function () {
 
                 //start labirary 
                
-                Route::post('student/store_comment', 'CommentController@store')->name('store_comment'); 
-                Route::post('student/store_reply', 'ReplyController@store')->name('store_reply'); 
-                Route::post('student/savelikeOrDislike', 'CommentController@savelikeOrDislike')->name('store_reply'); 
-
+                
             Route::get('student/show_subject_videos', 'StudentController@subject_videos')->name('show_subject_videos');
                
                 Route::get('student/showlist', function(){
