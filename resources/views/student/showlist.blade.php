@@ -15,7 +15,7 @@
             <div class="col-md-8">
               <div class="video_playnow w-100 bg-light">
                 <!-- <video width="100%" height="100%" controls poster="./images/Profile/Layer 32.png"> -->
-                <video width="100%" height="100%" controls poster="./images/Profile/Layer 32.png">
+                <video width="100%" height="100%" controls >
                   <source src="{{url('storage/'.$mainVideo->path.'/'.$mainVideo->hash_name)}}" type="video/mp4">
                   <source src="{{url('storage/'.$mainVideo->path.'/'.$mainVideo->hash_name)}}" type="video/ogg">
                   Your browser does not support the video tag.
@@ -160,7 +160,7 @@
                 <div class="list_video d-flex">
                   <div class="video_next w-75 h-100">
 
-                      <video width="100%" height="100%" poster="./images/Profile/Layer 32.png">
+                      <video width="100%" height="100%" >
                         <source src="{{url('storage/'.$file->path.'/'.$file->hash_name)}}" type="video/mp4">
                         <source src="{{url('storage/'.$file->path.'/'.$file->hash_name)}}" type="video/ogg">
                         Your browser does not support the video tag.

@@ -1694,11 +1694,17 @@ textarea {
   cursor: move;
 }
 .contTechFolder .addlesson__footer{
-  margin-top: 1.5em;
+  margin-top: 1em;
 }
 .contTechFolder a i{
   font-size: 5em;
   margin-bottom: .2em;
+  color: #2c5f9e;
+
+}
+.contTechFolder a i.fa-eye{
+  font-size: 16px;
+  margin: 5px 0px;
   color: #2c5f9e;
 
 }
@@ -2905,3 +2911,6 @@ tr.cus_table:hover {
   text-align: center;
 }
 /************************ uplode ************************/
+
+
+
