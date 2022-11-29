@@ -6,19 +6,28 @@ use Illuminate\Http\Request;
 use App\Comment;
 use App\Reply;
 use Illuminate\Support\Facades\Redirect;
+use Auth ;
 
 class ReplyController extends Controller
 {
     public function store(Request $request)
     {
-        if($request->comment_id != "" && $request->reply != "" && $request->video_id  && $request->student_id && $request->instructor_id && $request->lesson_id)
+        if(Auth::User()['role'] == "user")
+        {
+            $columnName  = "student_id" ;
+            $columnValue = $request->student_id ;
+        }else{
+            $columnName  = "instructor_id" ;
+            $columnValue = $request->instructor_id ;
+        }
+
+        if($request->comment_id != "" && $request->reply != "" && $request->video_id  && $columnValue && $request->instructor_id && $request->lesson_id)
         {
             Reply::create([
-                "comment_id"       => $request->comment_id ,
-                "reply"       => $request->reply ,
-                "video_id"      => $request->video_id ,
-                "student_id"    => $request->student_id ,
-                // "instructor_id" => $request->instructor_id ,
+                "comment_id"   => $request->comment_id ,
+                "reply"        => $request->reply ,
+                "video_id"     => $request->video_id ,
+                $columnName    => $columnValue ,
                 "lesson_id"     => $request->lesson_id 
             ]);
 
