@@ -597,6 +597,12 @@ Route::middleware(['web'])->group(function () {
             Route::get('instructor/library_list','InstructorController@library_list')
                    ->name('instructor.library_list');
 
+            Route::get('instructor/view_library','InstructorController@view_library')
+                   ->name('instructor.view_library');
+                   
+            Route::get('instructor/library_list_online','InstructorController@library_list_online')
+                   ->name('instructor.library_list_online');
+
             Route::get('instructor/delete_library','InstructorController@delete_library')
                    ->name('instructor.delete_library');
 

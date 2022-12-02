@@ -16,7 +16,7 @@
                             <thead class="thead-dark">
                               <th scope="col">#</th>
                               <th scope="col">Class</th>
-                              <th scope="col">Zomm Link</th>
+                              <th scope="col">Zoom Link</th>
                               <th scope="col">Code</th>
                               <th scope="col">Start Time</th>
                               <th scope="col">Created At</th>

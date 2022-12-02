@@ -1548,7 +1548,7 @@ class InstructorController extends Controller
             'youtube'=>'nullable|url',
             'url'    =>'nullable|url',
             'files'  =>'required',
-            'price'  =>'required|numeric|min:1|max:50',
+            'price'  =>'required|numeric',
             'info'   =>'nullable|string|max:500'
          ],[],[]);
 
@@ -1582,7 +1582,7 @@ class InstructorController extends Controller
                     'file_name' =>  $name ,
                     'size'      =>  $size ,
                     'hash_name' =>  $hashName,
-                    'path'      =>  'library/'.\Auth::user()->id.'/'.$input->id,
+                    'path'      =>  'library'.'/'.\Auth::user()->id.'/'.$input->id,
                     'mime_type' =>  $mime_type ,
                     'file_type' =>  'Library',
                     'instructor_id'=> \Auth::user()->id,
@@ -1590,7 +1590,7 @@ class InstructorController extends Controller
                     
                 ]);
 
-             $file->store('public/library'.\Auth::user()->id.'/'.$input->id);
+             $file->store('public/library/'.\Auth::user()->id.'/'.$input->id);
 
             }
 
@@ -1679,20 +1679,21 @@ class InstructorController extends Controller
 
          if (request('type') == 'center')
           {
-             $type      = 'Center'; $sum = 0 ;
+             $type      = 'center'; $sum = 0 ;
              $library   = Library::where('instructor_id',Auth::user()->id)
                          ->where('type','center')->withCount('files')->orderBy('id','DESC')->get();
 
             return view('instructor.library_list',compact('library','type','sum','grades'));
 
           }
-         elseif(request('type') == 'Online')
+         elseif(request('type') == 'online')
           {
              $type      = 'online';  $sum = 0 ;
              $library   = Library::where('instructor_id',Auth::user()->id)
                          ->where('type','online')->orderBy('id','DESC')->get();
-
-            return view('instructor.library_list',compact('library','type','sum','grades'));
+            $all_units = Video::where('unit','!=','')
+                            ->groupBy('unit')->pluck('unit')->toArray();
+            return view('instructor.library_list',compact('library','type','sum','grades','all_units'));
           }
           else
           {
@@ -1730,16 +1731,20 @@ class InstructorController extends Controller
                 'instructor_id'=>Auth::user()->id,
                 'grade_id'=>request('grade'),
                 'lesson_id'=>request('lesson'),
+                'unit'=>request('unit'),
+                'price'=>$Library->price,
+                'title'=>$Library->title,
                 'info'=>$Library->info,
                  ]);
 
            $id = $input->id;
 
-           $files = File::where('instructor_id',\Auth::user()->id)
+           if($Library->type == 'center')
+           {
+                $files = File::where('instructor_id',\Auth::user()->id)
                     ->where('library_id',request('library_id'))->get();
 
-         foreach ($files as $file) {
-
+             foreach ($files as $file) {
                 File::create([
                     'file_name' =>  $file->file_name ,
                     'size'      =>  $file->size ,
@@ -1751,7 +1756,27 @@ class InstructorController extends Controller
                     'library_id'=>$id,
                     'lesson_id' =>request('lesson') 
                     ]);
-         }
+                }
+           }
+           elseif($Library->type == 'online')
+           {
+                $files = LibraryFile::where('library_id',request('library_id'))->get();
+
+                 foreach ($files as $file) {
+                    LibraryFile::create([
+                        'file_name' =>  $file->file_name ,
+                        'size'      =>  $file->size ,
+                        'hash_name' =>  $file->hash_name,
+                        'path'      =>  $file->path,
+                        'mime_type' =>  $file->mime_type ,
+                        'file_type' =>  'Library',
+                        'instructor_id'=> \Auth::user()->id,
+                        'library_id'=>$id,
+                        'lesson_id' =>request('lesson') 
+                        ]);
+                    }
+           }
+            
 
             \Session::flash('success',trans('Library duplicated'));
              return back();
@@ -1788,4 +1813,15 @@ class InstructorController extends Controller
        return back();
     }
     
+
+     public function view_library()
+    {
+        if (request()->has('id'))
+         {
+           $files = LibraryFile::where('library_id',request('id'))->get();
+          return view('instructor.view_library',compact('files'));
+         }
+
+         return back();
+    }
 }
