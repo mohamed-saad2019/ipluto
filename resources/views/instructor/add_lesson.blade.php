@@ -137,7 +137,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
                    <span> (Library) </span>
                   @endif
                 </small>
-              <embed src="https://view.officeapps.live.com/op/embed.aspx?src=https://crm.za3bot.com/orders.doc"
+              <embed src="https://view.officeapps.live.com/op/view.aspx?src={{url('storage/'.$file->path.'/'.$file->hash_name)}}"
                style="border: 1px solid white;width:266px;height:150px;" />
             <div class="d-flex justify-content-between addlesson__footer ">
                  <small> #{{$sum}}</small>
@@ -158,7 +158,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
                    <span> (Library) </span>
                   @endif
                 </small>
-              <embed src="https://view.officeapps.live.com/op/embed.aspx?src=https://crm.za3bot.com/orders.doc"
+              <embed src="https://view.officeapps.live.com/op/view.aspx?src={{url('storage/'.$file->path.'/'.$file->hash_name)}"
                style="border: 1px solid white;width:266px;height:150px;" />
             <div class="d-flex justify-content-between addlesson__footer ">
                 <small> #{{$sum}}</small>
@@ -216,17 +216,24 @@ $current_storage = str_replace("MB","",get_size_instructor());
           @elseif(str_contains($file->mime_type, 'video') and $file->hash_name=='Video From Dashboard')
           <div class="col-12 col-md-6 col-lg-3 py-5">
             <div class="contTechFolder" id='{{$file->id}}' style="cursor:pointer;">
-              <a href="{{ url('storage/vedioTeachr/'.$file->path) }}">
-                <i class="far fa-file-video"></i>
-                <h6>{{ str_limit($file->file_name,15)}}</h6>
-              </a>
+               <small>
+                 <i class="fas fa-file-video"></i>  {{ str_limit($file->file_name,15)}}
+                  @if($file->file_type=='Library')
+                   <span> (Library) </span>
+                  @endif
+                </small>
+                <video style="width:240px;height:150px">
+                        <source src="{{ url('storage/vedioTeachr/'.$file->path) }}" type="video/mp4">
+                        <source src="{{ url('storage/vedioTeachr/'.$file->path) }}" type="video/ogg">
+                        Your browser does not support the video tag.
+                      </video>
               <div class="d-flex justify-content-between addlesson__footer ">
-                <span> {{$sum}}</span>
-                
-                @if($file->file_type=='Library')
-                   <span style="float: right;"> Library </span>
-                @endif
-                
+               <small> #{{$sum}}</small>
+                <small style="float: right;">
+                  <a href="{{ url('storage/vedioTeachr/'.$file->path) }}">
+                    <i class="fa fa-eye"></i><span style="margin-top:-5px"> show</span>
+                  </a>
+                </small>
               </div>
             </div>
           </div>
@@ -266,7 +273,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
                    <span> (Library) </span>
                   @endif
                 </small>
-              <embed src="https://view.officeapps.live.com/op/embed.aspx?src=https://crm.za3bot.com/orders.doc"
+              <embed src="https://view.officeapps.live.com/op/view.aspx?src={{url('storage/'.$file->path.'/'.$file->hash_name)}}"
                style="border: 1px solid white;width:266px;height:150px;" />
             <div class="d-flex justify-content-between addlesson__footer ">
                  <small> #{{$sum}}</small>
@@ -286,8 +293,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
                    <span> (Library) </span>
                   @endif
                 </small>
-              <embed src="{{$file->file_name}}"
-               style="border: 1px solid white;width:266px;height:150px;" />
+             <center>{{str_limit($file->file_name,15file_name)}}</center>
             <div class="d-flex justify-content-between addlesson__footer ">
                  <small> #{{$sum}}</small>
                 <small style="float: right;">
