@@ -293,7 +293,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
                    <span> (Library) </span>
                   @endif
                 </small>
-             <center>{{str_limit($file->file_name,15file_name)}}</center>
+             <center>{{str_limit($file->file_name,15)}}</center>
             <div class="d-flex justify-content-between addlesson__footer ">
                  <small> #{{$sum}}</small>
                 <small style="float: right;">
