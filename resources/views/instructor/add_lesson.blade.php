@@ -158,7 +158,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
                    <span> (Library) </span>
                   @endif
                 </small>
-              <embed src="https://view.officeapps.live.com/op/view.aspx?src={{url('storage/'.$file->path.'/'.$file->hash_name)}"
+              <embed src="https://view.officeapps.live.com/op/view.aspx?src={{url('storage/'.$file->path.'/'.$file->hash_name)}}"
                style="border: 1px solid white;width:266px;height:150px;" />
             <div class="d-flex justify-content-between addlesson__footer ">
                 <small> #{{$sum}}</small>
