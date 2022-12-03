@@ -27,12 +27,13 @@
                            
                             @foreach($zoom as $z)
                              <tr>
-                              <td>{{++$sum}}</td>
-                              <td>{{$z->name}}</td>
-                              <td>{{$z->url}}</td>
-                              <td>{{$z->code}}</td>
-                              <td>{{$z->start_time}}</td>
-                              <td>{{$z->created_at}}</td>
+                                  
+                                      <td>{{++$sum}}</td>
+                                      <td>{{$z->name}}</td>
+                                      <td><a href="{{$z->url}}">{{$z->url}}</a></td>
+                                      <td>{{$z->code}}</td>
+                                      <td>{{$z->start_time}}</td>
+                                      <td>{{$z->created_at}}</td>
                              </tr>
                             @endforeach
                            

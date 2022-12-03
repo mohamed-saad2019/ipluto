@@ -6,9 +6,9 @@
         <div class="container">
           @if(isset($mainVideo) && !empty($mainVideo))
             @if(Auth::User()['role'] == 'user')
-              {{$userType = "student"}}
+              @php $userType = "student" @endphp
             @else
-              {{$userType = "instructor"}}
+              @php $userType = "instructor" @endphp
             @endif
           <meta name="_token" content="{{ csrf_token() }}" />
           <div class="row">
@@ -62,7 +62,7 @@
                   @endif
               
                   <div class="coment font-weight-bold mx-3 w-100 h-50">
-                    <form method="post" action="{{route('store_comment')}}">
+                    <form method="post" action="{{route('store_comment')}}" id="form_comm">
                       {{ csrf_field() }}
                       {{ method_field('post') }}
                       
@@ -70,7 +70,7 @@
                       <input type="hidden" id="instructor_id" name="instructor_id" value="{{$mainVideo->instructor->id}}">
                       <input type="hidden" id="student_id" name="student_id" value="{{Auth::User()['id']}}">
                       <input type="hidden" id="video_id" name="video_id" value="{{$mainVideo->id}}">
-                      <input class="pt-3" placeholder="Add Comment" name="comment" required="required">
+                      <input class="pt-3 disabled_loading" placeholder="Add Comment" name="comment" required="required">
                     </form>
                   </div>
                 </div>
@@ -190,7 +190,7 @@
                     </div>
                     <div class="video_next_content h-100 p-2 " >
                       <h5 class="video__listTile font-weight-bold">{{getTitle($file->file_name)}} </h5>
-                      <span class="d-block">{{$file->instructor->fname}} {{$file->instructor->lname}}<i class="fa fa-check-circle"></i></span>
+                      <span class="">{{$file->instructor->fname}} {{$file->instructor->lname}} <i class="fa fa-check-circle"></i></span>
                       <small>{{ \Carbon\Carbon::parse($file->created_at)->shortRelativeDiffForHumans() }}</small>
                     </div>
                   </div>
