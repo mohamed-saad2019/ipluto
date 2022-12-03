@@ -69,17 +69,24 @@
                     <img  style="width:100px;height:100%" src="{{url('storage/'.$file->path.'/'.$file->hash_name)}}" alt="not Found"/>
                    @endif
 
-                <span class=" d-flex justify-content-center align-items-center">
+                <span class=" d-flex justify-content-center align-items-center eye">
                     {{$sum}}
                 </span>
+                <span class=" d-flex justify-content-center align-items-center sum">
+                     <i class="fa fa-eye"></i> 
+                </span>
+
             </div>
        
         @endforeach
                <div class="item list_item " data-type='whiteboard' > 
                 <i class="fas fa-chalkboard-teacher cus_i" ></i>   
 
-                <span class=" d-flex justify-content-center align-items-center">
+                <span class=" d-flex justify-content-center align-items-center eye">
                     {{$sum+1}}
+                </span>
+                <span class=" d-flex justify-content-center align-items-center sum">
+                     <i class="fa fa-eye"></i> 
                 </span>
             </div>
 
