@@ -125,21 +125,6 @@ $('.btn_replay').click(function(){
 
 });
 
-  $(".notifications-item").click(function(){
-         $.ajax({
-        type: "get",
-        url: "read/notifications",
-        data: {'id': this.id },
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        },
-        success: function(){
-            alert(22);
-        },
-        error: function (data) {
-        console.log(data)
-        }
-    });
-    });
+ 
 
  

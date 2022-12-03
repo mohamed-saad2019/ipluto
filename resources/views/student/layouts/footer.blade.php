@@ -36,6 +36,24 @@ $(".disabled_loading").keydown(function(){
     if (event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)){document.getElementById('form_comm').submit();this.disabled = true;}};
 });
 
+
+ $("#bell").click(function(){
+         $.ajax({
+        type: "get",
+        url: "{{route('read_notifications_student')}}",
+        data: {'colum': 'student_id' },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        },
+        success: function(data){
+            $('.notification--num').html(data);
+        },
+        error: function () {
+        console.log('error');
+        }
+    });
+    });
+
 // window.setInterval(getNewNotification,8000); // 1000 indicated 1 second
 
     </script>

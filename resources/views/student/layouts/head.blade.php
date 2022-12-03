@@ -69,13 +69,9 @@
                                         </div>
 
                             <div id="notifications">
-                                 <div class="notifications-item" id="1">
-                                        saasaassaasa
-                                 </div>
                                @foreach(notifications('student_id') as $n)
-
                                    <!-- begin notifications-item -->
-                                  <div class="notifications-item" id="{{$n->notifiable_id}}">
+                                     <div class="notifications-item">
                                          @if($n->notifiable_type == 'zoom')
                                            @php 
                                            $zoom = \App\Zoom::where('id',$n->notifiable_id)->first();

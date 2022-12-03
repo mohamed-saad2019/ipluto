@@ -627,7 +627,7 @@ Route::middleware(['web'])->group(function () {
 
         /* start route Notifications */
     Route::get('notificationInterval','NotificationController@notificationInterval');
-    Route::get('read/notifications','NotificationController@read_notifications');
+    Route::get('read_notifications','NotificationController@read_notifications')->name('read_notifications');
 
         /* end route Notifications */
 
@@ -904,6 +904,8 @@ Route::middleware(['web'])->group(function () {
                     return view('student.showlist');
                 })->name('showlist');
                 // end library
+
+          Route::get('read_notifications_student','NotificationController@read_notifications')->name('read_notifications_student');
             });
            /* end routes route center student dashboard */
 

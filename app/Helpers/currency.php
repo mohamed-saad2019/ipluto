@@ -493,7 +493,7 @@ if(!function_exists('get_size_folder'))
 
 if(!function_exists('notifications_count')){
     function notifications_count($colum){
-       return \App\Notification::where($colum,\Auth::user()->id)->count();
+    return \App\Notification::where($colum,\Auth::user()->id)->where('reading','0')->count();
     }
 }
 

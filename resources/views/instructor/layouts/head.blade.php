@@ -62,7 +62,7 @@
                                      id="notification_interval">
 
                                     <div class="icon" id="bell">
-                                      <i class="far fa-bell fa-lg"></i>
+                                      <i class="far fa-bell fa-lg num_notif"></i>
                                        @if(notifications_count('instructor_id') != 0)
                                             <span class="notification--num">
                                                 {{notifications_count('instructor_id')}}
@@ -86,7 +86,7 @@
                                 <div id="notifications">
                                 @foreach(notifications('instructor_id') as $n)
                                    <!-- begin notifications-item -->
-                                <div class="notifications-item" id="{{$n->notifiable_id}}">
+                                     <div class="notifications-item">
                                          @if($n->notifiable_type == 'zoom')
                                            @php 
                                            $zoom = \App\Zoom::where('id',$n->notifiable_id)->first();
