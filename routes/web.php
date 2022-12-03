@@ -599,7 +599,7 @@ Route::middleware(['web'])->group(function () {
 
             Route::get('instructor/view_library','InstructorController@view_library')
                    ->name('instructor.view_library');
-                   
+
             Route::get('instructor/library_list_online','InstructorController@library_list_online')
                    ->name('instructor.library_list_online');
 
@@ -627,6 +627,7 @@ Route::middleware(['web'])->group(function () {
 
         /* start route Notifications */
     Route::get('notificationInterval','NotificationController@notificationInterval');
+    Route::get('read/notifications','NotificationController@read_notifications');
 
         /* end route Notifications */
 

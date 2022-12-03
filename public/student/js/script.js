@@ -125,6 +125,21 @@ $('.btn_replay').click(function(){
 
 });
 
- $(".disabled_loading").keydown(function(){
-    if (event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)){document.getElementById('form_comm').submit();this.disabled = true;}};
-});
+  $(".notifications-item").click(function(){
+         $.ajax({
+        type: "get",
+        url: "read/notifications",
+        data: {'id': this.id },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        },
+        success: function(){
+            alert(22);
+        },
+        error: function (data) {
+        console.log(data)
+        }
+    });
+    });
+
+ 

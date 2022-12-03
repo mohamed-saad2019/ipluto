@@ -31,5 +31,16 @@ class NotificationController extends Controller
 
     } 
 
-  
+
+  public function read_notifications()
+    {
+      if (request()->has('id') and !empty(request('id'))) {
+        
+         Notification::where('id',request('id'))->update(['reading'=>'1','read_at'=>now()]);
+
+         return true;
+       
+       }
+
+    } 
 }

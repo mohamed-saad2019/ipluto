@@ -32,6 +32,9 @@
               });    
 }
 
+$(".disabled_loading").keydown(function(){
+    if (event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)){document.getElementById('form_comm').submit();this.disabled = true;}};
+});
 
 // window.setInterval(getNewNotification,8000); // 1000 indicated 1 second
 
