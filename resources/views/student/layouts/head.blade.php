@@ -42,8 +42,7 @@
 
 
                                    
-                                <div class="notification mx-2"
-                                 id="notification_interval" >
+                                <div class="notification mx-2" id="notification_interval" >
 
                                     <div class="icon" id="bell">
                                         <i class="far fa-bell fa-lg"></i>
@@ -61,10 +60,9 @@
                                                 Notifications
                                             </span>
                                             <span>
-                                               <a href="{{url('/delete/notifications?colum=student_id')}}"
-                                                style="color:#db0404">
+                                               <!-- <a href="{{url('/delete/notifications?colum=student_id')}}" style="color:#db0404">
                                                 <i class="fas fa-trash"></i>
-                                               </a>
+                                               </a> -->
                                             </span>
                                         </div>
 
