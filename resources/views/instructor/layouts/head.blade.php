@@ -82,7 +82,7 @@
                                              </a> -->
                                            </span>
                                         </div>
-                                <div id="notifications">
+                                <div id="notifications" syle="display:block">
                                 @foreach(notifications('instructor_id') as $n)
                                    <!-- begin notifications-item -->
                                      <div class="notifications-item">
@@ -90,28 +90,28 @@
                                            @php 
                                            $zoom = \App\Zoom::where('id',$n->notifiable_id)->first();
                                            @endphp
-                                          <!-- <a href="{{$zoom->url}}">  -->
-                                            @if($n->type == 'ipluto')
-                                                <img src="../images/logo.png">
-                                            @endif
-                                            <div class="text row" style="margin-right:0px;">
-                                            <div class="col-md-8">
-                                                <h4 class="text-capitalize">
-                                                    @if($n->type == 'ipluto')
-                                                    Ipluto
-                                                    @endif
-                                                    </h4>
-                                            </div>
-                                            <div class="col-md-4">
-                                                    <p >
-                                                    {{ \Carbon\Carbon::parse($n->created_at)->shortRelativeDiffForHumans() }}
-                                                    </p>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <p>{{$n->data}}</p>
-                                            </div>
-                                            </div>
-                                        <!-- </a> -->
+                                          <a href="{{$zoom->url}}"> 
+                                          @if($n->type == 'ipluto')
+                                            <img src="../images/logo.png">
+                                          @endif
+                                         <div class="text row" style="margin-right:0px;">
+                                           <div class="col-md-8">
+                                               <h4 class="text-capitalize">
+                                                @if($n->type == 'ipluto')
+                                                  Ipluto
+                                                @endif
+                                                </h4>
+                                           </div>
+                                           <div class="col-md-4">
+                                                <p >
+                                                 {{ \Carbon\Carbon::parse($n->created_at)->shortRelativeDiffForHumans() }}
+                                                 </p>
+                                           </div>
+                                           <div class="col-md-12">
+                                               <p>{{$n->data}}</p>
+                                           </div>
+                                        </div>
+                                       </a>
                                     @endif
                                  </div>
                                    <!-- End notifications-item -->
