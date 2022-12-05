@@ -85,7 +85,7 @@
                                 <div id="notifications" >
                                 @foreach(notifications('instructor_id') as $n)
                                    <!-- begin notifications-item -->
-                                     <div class="notifications-item" syle="display:flex !important">
+                                     <div class="notifications-item" syle="display:inline-flex !important">
                                          @if($n->notifiable_type == 'zoom')
                                            @php 
                                            $zoom = \App\Zoom::where('id',$n->notifiable_id)->first();
