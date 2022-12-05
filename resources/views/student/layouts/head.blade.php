@@ -66,7 +66,7 @@
                                             </span>
                                         </div>
 
-                            <div id="notifications" style="display: flex;">
+                            <div id="notifications" >
                                @foreach(notifications('student_id') as $n)
                                    <!-- begin notifications-item -->
                                      <div class="notifications-item">
@@ -117,7 +117,7 @@
                                                  </p>
                                            </div>
                                            <div class="col-md-12">
-                                            <a href="{{$zoom->url}}"><p>{{$n->data}}</p></a>
+                                               <p>{{$n->data}}</p>
                                            </div>
                                         </div>
                                        <!-- </a> -->

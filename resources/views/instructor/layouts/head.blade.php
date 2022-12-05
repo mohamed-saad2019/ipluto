@@ -85,7 +85,7 @@
                                 <div id="notifications">
                                 @foreach(notifications('instructor_id') as $n)
                                    <!-- begin notifications-item -->
-                                     <div class="notifications-item" style="display: flex;">
+                                     <div class="notifications-item">
                                          @if($n->notifiable_type == 'zoom')
                                            @php 
                                            $zoom = \App\Zoom::where('id',$n->notifiable_id)->first();
@@ -94,23 +94,23 @@
                                             @if($n->type == 'ipluto')
                                                 <img src="../images/logo.png">
                                             @endif
-                                                <div class="text row" style="margin-right:0px;">
-                                                    <div class="col-md-8">
-                                                        <h4 class="text-capitalize">
-                                                            @if($n->type == 'ipluto')
-                                                            Ipluto
-                                                            @endif
-                                                            </h4>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <p >
-                                                        {{ \Carbon\Carbon::parse($n->created_at)->shortRelativeDiffForHumans() }}
-                                                        </p>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <a href="{{$zoom->url}}"> <p>{{$n->data}}</p></a>
-                                                    </div>
-                                                </div>
+                                            <div class="text row" style="margin-right:0px;">
+                                            <div class="col-md-8">
+                                                <h4 class="text-capitalize">
+                                                    @if($n->type == 'ipluto')
+                                                    Ipluto
+                                                    @endif
+                                                    </h4>
+                                            </div>
+                                            <div class="col-md-4">
+                                                    <p >
+                                                    {{ \Carbon\Carbon::parse($n->created_at)->shortRelativeDiffForHumans() }}
+                                                    </p>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <p>{{$n->data}}</p>
+                                            </div>
+                                            </div>
                                         <!-- </a> -->
                                     @endif
                                  </div>
