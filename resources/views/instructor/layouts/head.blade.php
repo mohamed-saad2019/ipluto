@@ -90,7 +90,7 @@
                                            @php 
                                            $zoom = \App\Zoom::where('id',$n->notifiable_id)->first();
                                            @endphp
-                                          <a href="{{$zoom->url}}"> 
+                                          <!-- <a href="{{$zoom->url}}">  -->
                                           @if($n->type == 'ipluto')
                                             <img src="../images/logo.png">
                                           @endif
@@ -111,7 +111,7 @@
                                                <p>{{$n->data}}</p>
                                            </div>
                                         </div>
-                                       </a>
+                                       <!-- </a> -->
                                     @endif
                                  </div>
                                    <!-- End notifications-item -->
