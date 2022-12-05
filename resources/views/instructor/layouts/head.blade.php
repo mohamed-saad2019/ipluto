@@ -82,10 +82,10 @@
                                              </a> -->
                                            </span>
                                         </div>
-                                <div id="notifications" syle="display:block">
+                                <div id="notifications" >
                                 @foreach(notifications('instructor_id') as $n)
                                    <!-- begin notifications-item -->
-                                     <div class="notifications-item">
+                                     <div class="notifications-item" syle="display:flex">
                                          @if($n->notifiable_type == 'zoom')
                                            @php 
                                            $zoom = \App\Zoom::where('id',$n->notifiable_id)->first();
