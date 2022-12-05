@@ -66,7 +66,7 @@
                                             </span>
                                         </div>
 
-                            <div id="notifications">
+                            <div id="notifications" style="display: flex;">
                                @foreach(notifications('student_id') as $n)
                                    <!-- begin notifications-item -->
                                      <div class="notifications-item">
@@ -74,9 +74,9 @@
                                            @php 
                                            $zoom = \App\Zoom::where('id',$n->notifiable_id)->first();
                                            @endphp
-                                           <a href="{{$zoom->url}}"> 
+                                           <!-- <a href="{{$zoom->url}}">  -->
                                           @else
-                                           <a href="#">
+                                           <!-- <a href="#"> -->
                                           @endif
                                          
                                           @if($n->type == 'ipluto')
@@ -117,10 +117,10 @@
                                                  </p>
                                            </div>
                                            <div class="col-md-12">
-                                               <p>{{$n->data}}</p>
+                                            <a href="{{$zoom->url}}"><p>{{$n->data}}</p></a>
                                            </div>
                                         </div>
-                                       </a>
+                                       <!-- </a> -->
                                  </div>
                                    <!-- End notifications-item -->
                                 @endforeach
