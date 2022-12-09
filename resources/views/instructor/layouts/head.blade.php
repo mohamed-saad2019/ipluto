@@ -76,10 +76,10 @@
                                                 Notifications
                                             </span>
                                            <span>
-                                             <!-- <a href="{{url('/delete/notifications?colum=instructor_id')}}"
+                                           {{--  <!-- <a href="{{url('/delete/notifications?colum=instructor_id')}}"
                                                 style="color:#db0404">
                                                <i class="fas fa-trash"></i>
-                                             </a> -->
+                                             </a> --> --}}
                                            </span>
                                         </div>
                                 <div id="notifications" >
@@ -90,11 +90,11 @@
                                            @php 
                                            $zoom = \App\Zoom::where('id',$n->notifiable_id)->first();
                                            @endphp
-                                          <!-- <a href="{{$zoom->url}}">  -->
+                                       {{--   <!-- <a href="{{$zoom->url}}">  -->
                                           @if($n->type == 'ipluto')
-                                            <img src="../images/logo.png">
+                                            <img src="../images/logo.png"/>
                                           @endif
-                                         <div class="text row" style="margin-right:0px;">
+                                        <div class="text row" style="margin-right:0px;">
                                            <div class="col-md-8">
                                                <h4 class="text-capitalize">
                                                 @if($n->type == 'ipluto')
@@ -111,7 +111,7 @@
                                                <p>{{$n->data}}</p>
                                            </div>
                                         </div>
-                                       <!-- </a> -->
+                                       <!-- </a> -->--}}
                                     @endif
                                  </div>
                                    <!-- End notifications-item -->
