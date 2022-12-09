@@ -367,7 +367,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
               </div>
 
               <div class="custom-file col-md-11" style="border: 1px solid #ddd;margin: 0px 13px;border-radius:5px;">
-                <input type="file" name="img" class="custom-file-input form-control" required
+                <input type="file" name="img" class="custom-file-input form-control" 
                   aria-describedby="inputGroupFileAddon01" id='five'>
                 <label class="custom-file-label" for="inputGroupFile01">
                   Choose Lesson Background
