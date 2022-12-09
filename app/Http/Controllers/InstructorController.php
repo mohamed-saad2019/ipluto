@@ -385,7 +385,7 @@ class InstructorController extends Controller
         $full_name = request('name');
 
         
-         if(request()->hasfile('img'))
+         if(request()->hasfile('img') and !empty(request(file)))
          {
               
                 $file = request()->file('img');
@@ -394,7 +394,10 @@ class InstructorController extends Controller
                 $file->store('public/'.\Auth::user()->id.'/'.$id);
 
          }
-
+        else
+        {
+            $hashName = null;
+        }
         $input = Lessons::where('id',$id)->update(
              ['name' => request('name'),
             'instructor_id'=>\Auth::user()->id,
