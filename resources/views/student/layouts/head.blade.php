@@ -60,9 +60,9 @@
                                                 Notifications
                                             </span>
                                             <span>
-                                               <!-- <a href="{{url('/delete/notifications?colum=student_id')}}" style="color:#db0404">
+                                            {{--<!-- <a href="{{url('/delete/notifications?colum=student_id')}}" style="color:#db0404">
                                                 <i class="fas fa-trash"></i>
-                                               </a> -->
+                                               </a> -->--}}
                                             </span>
                                         </div>
 
@@ -74,7 +74,7 @@
                                            @php 
                                            $zoom = \App\Zoom::where('id',$n->notifiable_id)->first();
                                            @endphp
-                                           <!-- <a href="{{$zoom->url}}">  -->
+                                          {{-- <!-- <a href="{{$zoom->url}}">  -->--}}
                                           @else
                                            <!-- <a href="#"> -->
                                           @endif
@@ -120,7 +120,7 @@
                                                <p>{{$n->data}}</p>
                                            </div>
                                         </div>
-                                       <!-- </a> -->
+                                      {{-- <!-- </a> -->--}}
                                  </div>
                                    <!-- End notifications-item -->
                                 @endforeach
