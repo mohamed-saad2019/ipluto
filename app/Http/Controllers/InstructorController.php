@@ -392,11 +392,12 @@ class InstructorController extends Controller
                 $f_name = $file->getClientOriginalName();
                 $hashName = $file->hashName();
                 $file->store('public/'.\Auth::user()->id.'/'.$id);
+                $img_lesson = \Auth::user()->id.'/'.$id.'/'.$hashName;
 
          }
         else
         {
-            $hashName = null;
+            $img_lesson = null;
         }
         $input = Lessons::where('id',$id)->update(
              ['name' => request('name'),
@@ -407,7 +408,7 @@ class InstructorController extends Controller
             'subject'=>get_subject_instructor(\Auth::user()->id),
             'grade'=>request('grade'),
             'unit'=>$units,
-            'background'=>\Auth::user()->id.'/'.$id.'/'.$hashName,
+            'background'=>$img_lesson,
             'change_default_name'=>str_contains(request('name'), 'Untitled')?0:1
              ]);
 
