@@ -353,7 +353,7 @@ class InstructorController extends Controller
             'des' => 'nullable|string|max:500|min:3', 
             'img' =>  'nullable |image|mimes:jpeg,png,jpg',
             'grade' => 'required',
-            'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'units'=>'required'
             ]); // create the validations
           

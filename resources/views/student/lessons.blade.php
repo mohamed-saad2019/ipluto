@@ -98,7 +98,13 @@
               <div class="lessons__card__header d-flex mx-2">
                 <div class="w-25 d-flex align-items-center">
                   <div class="d-flex"><br>
-                    <img class="img-fluid" src="../images/logo.png" alt="logo image not found">
+                      @if(!empty($lesson->background))
+                        <img class="img-fluid " width="100%" style="height: 7em;"
+                          src="{{url('storage/'.$lesson->background)}}">
+                        @else
+                        <img class="img-fluid " width="100%" style="height: 7em;"
+                          src="../images/logo.png">
+                      @endif
                   </div>
                 </div>
                 <div class="w-75">
