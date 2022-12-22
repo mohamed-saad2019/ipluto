@@ -9,7 +9,7 @@
             <div class="col-md-8">
               <div class="video_playnow w-100 bg-light">
                 <!-- <video width="100%" height="100%" controls poster="./images/Profile/Layer 32.png"> -->
-                <video width="100%" height="100%" controls poster="./images/Profile/Layer 32.png">
+                <video width="100%" height="100%" controls poster="./images/Profile/Layer 32.png" >
                   <source src="{{url('storage/'.$mainVideo->path.'/'.$mainVideo->hash_name)}}" type="video/mp4">
                   <source src="{{url('storage/'.$mainVideo->path.'/'.$mainVideo->hash_name)}}" type="video/ogg">
                   Your browser does not support the video tag.
@@ -22,8 +22,8 @@
                 </div>
                 <div class="div  ">
                   <div class="like bg-light p-1">
-                    <i class="fa fa-thumbs-o-up mx-2 mr-2"> <small style="font-size: 10px">345</small></i>/
-                    <i class="fa fa-thumbs-o-down mx-2 ml-3"> <small style="font-size: 10px">45</small></i>
+                    <i class="far fa-thumbs-up mx-2 mr-2"> <small style="font-size: 10px">345</small></i>/
+                    <i class="far fa-thumbs-down mx-2 ml-3"> <small style="font-size: 10px">45</small></i>
                   </div>
                 </div>
               </div>
@@ -56,7 +56,7 @@
                       <input type="hidden" name="instructor_id" value="{{$mainVideo->instructor->id}}">
                       <input type="hidden" name="student_id" value="{{Auth::User()['id']}}">
                       <input type="hidden" name="video_id" value="{{$mainVideo->id}}">
-                      <input class="pt-3" placeholder="Add Comment" name="comment" required="required">
+                      <input type="text" class="pt-3" placeholder="Add Comment" name="comment" required="required">
                     </form>
                   </div>
                 </div>
@@ -89,57 +89,82 @@
                     <p class="video__comment">{{$comment->comment}}</p>
                     <div class="like_unlike">
 
-                      <i class="fa fa-thumbs-o-up mx-2 mr-2"> <small style="font-size: 10px"></small></i>
-                      <i class="fa fa-thumbs-o-down mx-2 ml-3"></i> <small class="font-weight-bold comment__replay">Replay</small>
+                      <i class="far fa-thumbs-up mx-2 mr-2"> <small style="font-size: 10px"></small></i>
+                      <i class="far fa-thumbs-down mx-2 ml-3"></i> <small class="font-weight-bold comment__replay">Replay</small>
                     </div>
                   </div>
                 </div>
                 @endforeach
                 @endif
-                <div class="d-flex">
+                <div class="d-flex mb-5">
                   <img src="./images/Profile/Ellipse.png" style="width:50px;height:50px;border-radius:50%;" alt="">
                   <div class="coment_contet font-weight-bold mx-3 w-100 h-50">
-                    <span>2Gehad Adel</span> <small class="ml-5">1 hour ago</small>
+                    <span>Gehad Adel</span> <small class="ml-5">1 hour ago</small>
                     <p class="video__comment">Its Amazing idea</p>
                     <div class="like_unlike">
 
-                      <i class="fa fa-thumbs-o-up mx-2 mr-2"> <small style="font-size: 10px"></small></i>
-                      <i class="fa fa-thumbs-o-down mx-2 ml-3"></i> <small class="font-weight-bold comment__replay">Replay</small>
-
+                      <i class="far fa-thumbs-up mx-2 mr-2"> <small style="font-size: 10px"></small></i>
+                      <i class="far fa-thumbs-down mx-2 ml-3"></i> 
+                      <button class="font-weight-bold btn comment__replay">Replay</button>
+                        <div class="comment_input">
+                          <input  type="text" class="form-control replay" style="border:0; border-bottom: 1px solid #ddd;" >
+                        </div>
                       <div class="repay text-left">
-                        <a class="my-2 mx-3 d-block text-warning btn_replay comment__replay">2 Replay <i
-                            class="fa fa-chevron-down mx-2 pt-2"></i></a>
+                        <a class="my-2 mx-3 d-block text-warning btn_replay">
+                          2 Replay 
+                          <i class="fa fa-chevron-down mx-2 pt-2"></i>
+                        </a>
                         <div class="replay_ather">
                           <div class="d-flex">
                             <img class="mt-2" src="./images/Profile/Ellipse.png"
                               style="width:30px;height:30px;border-radius:50%;" alt="">
                             <div class=" mx-3">
-                              <span>3Gehad Adel</span> <small class="ml-5">1 hour ago</small>
+                              <span>Gehad Adel</span> <small class="ml-5">1 hour ago</small>
                               <p class="video__comment">Its Amazing idea</p>
                               <div style="width: 150px;">
-                                <i class="fa fa-thumbs-o-up mx-2 mr-2"> <small style="font-size: 10px">45</small></i>
-                                <i class="fa fa-thumbs-o-down mx-2 ml-3"></i> <small
-                                  class="font-weight-bold">Replay</small>
-                              </div>
-                              <a class="my-2 mx-3 btn_rep text-warning d-block comment__replay">3 Replay <i
-                                  class="fa fa-chevron-down mx-2 pt-2"></i></a>
-                            </div>
-                          </div>
-                          <div class="rep_ather">
-                            <div class="d-flex my-2 ">
-                              <img class="mt-2" src="./images/Profile/Ellipse.png"
-                                style="width:30px;height:30px;border-radius:50%;" alt="">
-                              <div class=" mx-3">
-                                <span>4Gehad Adel</span> <small class="ml-5">1 hour ago</small>
-                                <p class="video__comment">Its Amazing idea</p>
-                                <div style="width: 150px;">
-                                  <i class="fa fa-thumbs-o-up mx-2 mr-2"> <small style="font-size: 10px">45</small></i>
-                                  <i class="fa fa-thumbs-o-down mx-2 ml-3"><small style="font-size: 10px">2</small></i> 
-                                  <small class="font-weight-bold"> Replay </small>
-                                </div>
+                                <i class="far fa-thumbs-up mx-2 mr-2"> <small style="font-size: 10px">45</small></i>
+                                <i class="far fa-thumbs-down mx-2 ml-3"></i>  <small class="font-weight-bold">20</small>
                               </div>
                             </div>
                           </div>
+              
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex mb-5">
+                  <img src="./images/Profile/Ellipse.png" style="width:50px;height:50px;border-radius:50%;" alt="">
+                  <div class="coment_contet font-weight-bold mx-3 w-100 h-50">
+                    <span>Gehad Adel</span> <small class="ml-5">1 hour ago</small>
+                    <p class="video__comment">Its Amazing idea</p>
+                    <div class="like_unlike">
+
+                      <i class="far fa-thumbs-up mx-2 mr-2"> <small style="font-size: 10px"></small></i>
+                      <i class="far fa-thumbs-down mx-2 ml-3"></i> 
+                      <button class="font-weight-bold btn comment__replay">Replay</button>
+                        <div class="comment_input">
+                          <input  type="text" class="form-control replay" style="border:0; border-bottom: 1px solid #ddd;" >
+                        </div>
+                      <div class="repay text-left">
+                        <a class="my-2 mx-3 d-block text-warning btn_replay">
+                          2 Replay 
+                          <i class="fa fa-chevron-down mx-2 pt-2"></i>
+                        </a>
+                        <div class="replay_ather">
+                          <div class="d-flex">
+                            <img class="mt-2" src="./images/Profile/Ellipse.png"
+                              style="width:30px;height:30px;border-radius:50%;" alt="">
+                            <div class=" mx-3">
+                              <span>Gehad Adel</span> <small class="ml-5">1 hour ago</small>
+                              <p class="video__comment">Its Amazing idea</p>
+                              <div style="width: 150px;">
+                                <i class="far fa-thumbs-up mx-2 mr-2"> <small style="font-size: 10px">45</small></i>
+                                <i class="far fa-thumbs-down mx-2 ml-3"></i>  <small class="font-weight-bold">20</small>
+                              </div>
+                            </div>
+                          </div>
+              
                         </div>
                       </div>
                     </div>
@@ -156,7 +181,7 @@
                 <div class="list_video d-flex">
                   <div class="video_next w-75 h-100">
 
-                      <video width="100%" height="100%" poster="./images/Profile/Layer 32.png">
+                      <video width="100%" height="100%" poster="./images/Profile/Layer 32.png" controlsList="nodownload">
                         <source src="{{url('storage/'.$file->path.'/'.$file->hash_name)}}" type="video/mp4">
                         <source src="{{url('storage/'.$file->path.'/'.$file->hash_name)}}" type="video/ogg">
                         Your browser does not support the video tag.

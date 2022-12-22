@@ -183,8 +183,7 @@ body{
     margin-right: 10px;
 }
 .add_comment .coment input:focus-visible{
-    outline: unset
-    ;
+    outline: unset ;
 }
 .add_comment input
 {
@@ -217,8 +216,7 @@ body{
     width: 50%;
 }
 .video_next_content{
-    font-size: .9em;
-    
+    font-size: .9em;  
 }
 .vedio__subject{
     color: #595959;
