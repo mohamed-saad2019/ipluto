@@ -1,3 +1,51 @@
+<style>
+    
+.file-placeholder {
+  position: relative;
+  cursor: pointer;
+
+}
+
+.file-placeholder input[type=file] {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 400px;
+  height: 40px;
+  opacity: 0;
+}
+.file-placeholder .file-browse {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #ccc;
+}
+.file-placeholder .file-browse .file-browse-txt {
+  display: block;
+  float: left;
+  line-height: 40px;
+  width: 85%;
+  padding-left: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.file-placeholder .file-browse .file-browse-txt.hasValue {
+  background-color: #ededed;
+}
+.file-placeholder .file-browse .browse {
+  display: block;
+  float: left;
+  width: 15%;
+  background-color: #2668a7;
+  color: #fff;
+  height: 100%;
+  line-height: 35px;
+  padding: 0 10px;
+  text-align: center
+}
+</style>
 @extends('theme.master')
 @section('title', 'Online Courses')
 @section('content')
@@ -115,7 +163,10 @@
                         </div>
                     </div>
                     <!-- End grade -->
-                    
+                    <div class="col-md-2">
+                        <button class="btn btn-primary"> Add</button>
+                        <button class="btn btn-danger"> Del</button>
+                    </div>
                     <div class="form-group col-md-12 form4">
                         <input type="number" class="form-control {{ $errors->has('mobile') ? ' is-invalid' : '' }}"
                             name="mobile" value="{{ old('mobile') }}" id="inputAddress" placeholder="mobile">
@@ -163,15 +214,22 @@
                         @endif
                     </div>
                     <div class="form-group col-md-12">
-                        <input type="file" class="{{ $errors->has('image') ? ' is-invalid' : '' }}" name="image"
-                            value="{{ old('image') }}" name="image">
-                        @if($errors->has('image'))
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('image') }}</strong>
-                        </span>
-                        @endif
-                    </div>
+                        <div class="file-placeholder">
+                            <!-- <label></label> -->
+                            <input type="file" class="{{ $errors->has('image') ? ' is-invalid' : '' }}" name="image"
+                                value="{{ old('image') }}" name="image">
+                            @if($errors->has('image'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('image') }}</strong>
+                            </span>
+                            @endif
+                            <div class="file-browse">
+                                <span class="file-browse-txt">Select files </span>
+                                <span class="browse">Browse</span>
 
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group col-md-12">
                         <textarea class="form-control" rows="5" name="detail"
                             placeholder="massage">{{old('detail')}}</textarea>
@@ -183,4 +241,11 @@
             </form>
         </div>
     </div>
+    @endsection
+    @section('scripts')
+        <script>
+        $('.info__btn').click(function() {
+            $(this).parent().prev().remove();
+        })
+        </script>
     @endsection
