@@ -58,6 +58,34 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <link href="{{ url('admin_assets/assets/plugins/select2/select2.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url('admin_assets/assets/plugins/select2/select2.min.css') }}" rel="stylesheet" type="text/css">
+    <script src="{{ url('admin_assets/assets/plugins/select2/select2.min.js') }}"></script>    
+    <script src="{{ url('admin_assets/assets/js/custom/custom-form-select.js') }}"></script>   
+    <script src="{{ url('admin_assets/assets/plugins/select2/select2.min.js') }}"></script>
+    <script>
+         $('.select2').select2();
+
+       $("#govern").change(function(){
+              jQuery.ajax({
+                    type: "GET",
+                    url: "/admin/select2/city",
+                    data: {
+                      _token: "{{ csrf_token() }}",
+                       govern:$("#govern").val()
+                    },
+                    success: function (data) {
+                      $("#city").html(data);
+                       // alert('error');
+                    },
+                    error: function()
+                    {
+                        // alert('error');
+                    }
+                }); 
+         });  
+    </script>
     <script src="{{url('js/custom-js.js')}}" ></script>
+    
 </body>
 </html>

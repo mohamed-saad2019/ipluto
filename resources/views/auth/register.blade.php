@@ -1,6 +1,7 @@
 @extends('theme.master')
 @section('title', 'Online Courses')
 @section('content')
+
 <div class="reg">
       <form class="signup-form" method="POST" action="{{ route('register') }}">
         @csrf
@@ -27,7 +28,8 @@
             @endif
           </div>
         </div>
-        <div class="form-group">
+       <div class="row">
+        <div class="col-12 col-md-6">
           <label for="exampleInputEmail1">Email address</label>
           <input
             type="email"
@@ -43,7 +45,7 @@
             >We'll never share your email with anyone else.</small
           >
         </div>
-        <div class="form-group">
+        <div class="col-12 col-md-6">
           <label for="exampleInputEmail1">Mobile</label>
           <input type="number"class="form-control{{ $errors->has('mobile') ? ' is-invalid' : '' }}" name="mobile" value="{{ old('mobile') }}" id="mobile" required autofocus/>
           @if($errors->has('mobile'))
@@ -52,14 +54,14 @@
               </span>
           @endif
         </div>
-
-      @php
+      </div>
+        @php
         $grades = \App\SubCategory::where('status', '1')->orderBy('id','ASC')->get(); 
       @endphp
         <div class="form-group">
           <label for="exampleInputEmail1">Grade</label>
           <select name='grade' 
-                 class="form-control{{ $errors->has('grade') ? ' is-invalid' : '' }}" required>
+                 class="form-control{{ $errors->has('grade') ? ' is-invalid' : '' }} select2" required>
             <option value="">Choose Your Grade</option>
              @if($grades)
                @foreach($grades as $grade)
@@ -73,7 +75,47 @@
               </span>
           @endif
         </div>
+      <input type="hidden" name="country" value="64">
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <label for="govern">Governorate</label>
+          <select class="form-control select2" name="govern" id="govern" required>
+              <option>Choose Governorate</option>
+            @foreach(getGovern(64) as $govern)
+              <option value="{{$govern->id}}">{{$govern->name}}</option>
+            @endforeach
+          </select>
+          @if($errors->has('govern'))
+              <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('govern') }}</strong>
+              </span>
+          @endif
+        </div>
 
+       <div class="col-12 col-md-6">
+          <label for="city">City</label>
+          <select class="form-control select2" name="city" id="city">
+             <option>Choose City</option>
+          </select>
+          @if($errors->has('city'))
+              <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('city') }}</strong>
+              </span>
+          @endif
+        </div>
+      </div>
+
+       <div class="row">
+         <div class="col-md-12">
+          <label for="address">Address</label>
+          <input class="form-control" type="text" name="address">
+          @if($errors->has('address'))
+              <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('address') }}</strong>
+              </span>
+          @endif
+        </div>
+       </div>
         <!--################################### start Choose A Photo ################################### -->
         <label for="exampleInputEmail1">Choose A Photo</label>
         <div
@@ -383,7 +425,7 @@
         <div class="form-group form-check">
           <input type="checkbox" class="form-check-input" id="exampleCheck1" />
           <label class="form-check-label" for="exampleCheck1"
-            >Check me out</label
+            >Remember Me?</label
           >
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
