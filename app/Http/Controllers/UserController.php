@@ -44,7 +44,7 @@ class UserController extends Controller
 
     public function viewAllUser()
     {
-        $users = User::all();
+        $users = User::orderBy('created_at','DESC')->get();
         return view('admin.user.index', compact('users'));
     }
 
@@ -78,7 +78,8 @@ class UserController extends Controller
             'email' => 'required|unique:users,email',
             'password' => 'required|min:6|max:20',
             'role' => 'required',
-            'user_img' => 'mimes:jpg,jpeg,png,bmp,tiff'
+            'user_img' => 'mimes:jpg,jpeg,png,bmp,tiff',
+            'state_id' => 'required'
         ]);
 
 
@@ -103,6 +104,7 @@ class UserController extends Controller
             $input['status'] = '0';
         }
 
+        $input['country_id'] = '64';
         $input['password'] = Hash::make($request->password);
         $input['detail'] = $request->detail;
         $input['email_verified_at'] = \Carbon\Carbon::now()->toDateTimeString();           

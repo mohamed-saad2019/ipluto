@@ -43,10 +43,14 @@
                                         value="all" />
                                     <label for="checkboxAll" class="material-checkbox"></label>   # 
                                     </th>
-                                    <th>{{ __('adminstaticword.Image') }}</th>
-                                    <th>{{ __('adminstaticword.Users') }}</th>
-                                    <th>{{ __('adminstaticword.Role') }}</th>
-                                    <th>{{ __('adminstaticword.Country') }}</th>
+                                    {{--<th>{{ __('adminstaticword.Image') }}</th>--}}
+                                    <th>Full Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Code</th>
+                                    <th>Grade</th>
+                                   {{-- <th>{{ __('adminstaticword.Role') }}</th>--}}
+                                   {{-- <th>{{ __('adminstaticword.Country') }}</th>--}}
                                     <th>{{ __('adminstaticword.Status') }}</th>
                                     <th>{{ __('adminstaticword.Action') }}</th>
                                 </tr>
@@ -90,25 +94,26 @@
                                                         </div>
                                                     </div>
                                                 </div></td>
-                                                @if($image = @file_get_contents('../public/images/user_img/'.$user->user_img))
+                                               {{-- @if($image = @file_get_contents('../public/images/user_img/'.$user->user_img))
                                                 <td><img   @error('photo') is-invalid @enderror src="{{ url('images/user_img/'.$user->user_img) }}" alt="profilephoto" class="img-responsive img-circle" ></td>
                                                 @else
                                                 <td><img   @error('photo') is-invalid @enderror src="{{ Avatar::create($user->fname)->toBase64() }}" alt="profilephoto" class="img-responsive img-circle"></td>
-                                                @endif  
-                                                <td>
-                                                <p><b>{{ __('Name') }}</b>: {{ $user['fname'] }} {{ $user['lname'] }}</p>
-                                                <p><b>{{ __('Email') }}</b>: {{ $user['email'] }}</p>
-                
-                                                <p><b>{{ __('Mobile') }}</b>: @if(isset($user->mobile))
-                                                {{ $user->mobile }}
-                                                @endif</p>
-                                                </td>
-                                                <td>{{ $user->role }}</td>
-                                                <td>
+                                                @endif --}} 
+                                                 <td>{{ $user['fname'] }} {{ $user['lname'] }}</td>
+                                                 <td>{{ $user['email'] }}</td>
+                                                 <td>{{ $user->mobile }}</td>
+                                                 <td>{{ $user->code }}</td>
+                                                 <td> 
+                                                    @if(isset($user->grade))
+                                                        {{  $user->studentGrade()->value('title')  }}
+                                                     @endif
+                                                 </td>
+                                              {{--  <td>{{ $user->role }}</td>--}}
+                                              {{--<td>
                                                 @if(isset($user->country))
                                                 {{  $user->country->nicename  }}
                                                 @endif
-                                                </td>
+                                                </td>--}}
                                                 <td>
                                                 <form action="{{ route('user.quick',$user->id) }}" method="POST">
                                                     {{ csrf_field() }}

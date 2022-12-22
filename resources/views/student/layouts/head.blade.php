@@ -42,8 +42,7 @@
 
 
                                    
-                                <div class="notification mx-2"
-                                 id="notification_interval" >
+                                <div class="notification mx-2" id="notification_interval" >
 
                                     <div class="icon" id="bell">
                                         <i class="far fa-bell fa-lg"></i>
@@ -61,24 +60,23 @@
                                                 Notifications
                                             </span>
                                             <span>
-                                               <a href="{{url('/delete/notifications?colum=student_id')}}"
-                                                style="color:#db0404">
+                                            {{--<!-- <a href="{{url('/delete/notifications?colum=student_id')}}" style="color:#db0404">
                                                 <i class="fas fa-trash"></i>
-                                               </a>
+                                               </a> -->--}}
                                             </span>
                                         </div>
 
-                            <div id="notifications">
+                            <div id="notifications" >
                                @foreach(notifications('student_id') as $n)
                                    <!-- begin notifications-item -->
-                                     <div class="notifications-item">
+                                     <div class="notifications-item"  syle="display:flex !important">
                                          @if($n->notifiable_type == 'zoom')
                                            @php 
                                            $zoom = \App\Zoom::where('id',$n->notifiable_id)->first();
                                            @endphp
-                                           <a href="{{$zoom->url}}"> 
+                                          {{-- <!-- <a href="{{$zoom->url}}">  -->--}}
                                           @else
-                                           <a href="#">
+                                           <!-- <a href="#"> -->
                                           @endif
                                          
                                           @if($n->type == 'ipluto')
@@ -122,7 +120,7 @@
                                                <p>{{$n->data}}</p>
                                            </div>
                                         </div>
-                                       </a>
+                                      {{-- <!-- </a> -->--}}
                                  </div>
                                    <!-- End notifications-item -->
                                 @endforeach

@@ -26,51 +26,67 @@
           @php $sum++; @endphp
 
 
-            <div class="item list_item " data-type='{{$file->mime_type}}' 
+            <div class="item list_item " title="{{$file->file_name}}"
+                 data-type='{{$file->mime_type}}' 
                  data-src=" @if(str_contains($file->mime_type, 'video') and $file->hash_name=='Video From Dashboard')
                  {{url('storage/vedioTeachr/'.$file->path)}}
                  @else{{url('storage/'.$file->path.'/'.$file->hash_name)}}@endif">
                 
              
              @if(str_contains($file->mime_type, 'url'))
-                    <i class="fas fa-link cus_i" ></i>
+                    <i class="fas fa-link cus_i" style="width:100%;height:80px"></i>
                    @endif
                    @if(str_contains($file->mime_type, 'presentation'))
-                    <i class="fas fa-file-powerpoint cus_i" ></i>
+                    <embed src="https://view.officeapps.live.com/op/embed.aspx?src={{url('storage/'.$file->path.'/'.$file->hash_name)}}&amp;wdAr=1.7777777777777777"style="width:120px;height:100%;;" />
                    @endif
                    @if(str_contains($file->mime_type, 'video') and $file->hash_name !='Video From Dashboard')
-                    <i class="fas fa-file-video cus_i" ></i>
+                     <video style="width:100px;height:100%">
+                        <source src="{{url('storage/'.$file->path.'/'.$file->hash_name)}}" type="video/mp4">
+                        <source src="{{url('storage/'.$file->path.'/'.$file->hash_name)}}" type="video/ogg">
+                        Your browser does not support the video tag.
+                      </video>
                    @endif
                    @if(str_contains($file->mime_type, 'video') and $file->hash_name=='Video From Dashboard')
-                    <i class="fas fa-file-video cus_i" ></i>
+                     <video style="width:100px;height:100%">
+                        <source src="{{ url('storage/vedioTeachr/'.$file->path) }}" type="video/mp4">
+                        <source src="{{ url('storage/vedioTeachr/'.$file->path) }}" type="video/ogg">
+                        Your browser does not support the video tag.
+                      </video>
                    @endif
                    @if(str_contains($file->mime_type, 'audio') )
-                    <i class="fas fa-file-audio cus_i" ></i>
+                  <i class="fas fa-file-audio cus_i"style="width:100%;height:80px"></i>
                    @endif
                    @if(str_contains($file->mime_type, 'pdf'))
-                    <i class="fas fa-file-pdf cus_i" ></i>
+                   <embed src="{{url('storage/'.$file->path.'/'.$file->hash_name)}}"style="width:110px;height:90%;" />
                    @endif
                    @if(str_contains($file->mime_type, 'sheet'))
-                    <i class="fas fa-file-excel cus_i" ></i>
+                    <embed src="https://view.officeapps.live.com/op/embed.aspx?src={{url('storage/'.$file->path.'/'.$file->hash_name)}}&amp;wdAr=1.7777777777777777"style="width:122px;height:100%;" />
                    @endif
                    @if(str_contains($file->mime_type, 'word'))
-                    <i class="fas fa-file-word cus_i" ></i>
+                    <embed src="https://view.officeapps.live.com/op/embed.aspx?src={{url('storage/'.$file->path.'/'.$file->hash_name)}}&amp;wdAr=1.7777777777777777"style="width:122px;height:100%;" />
                    @endif
                    @if(str_contains($file->mime_type, 'image'))
-                    <i class="fas fa-file-image cus_i" ></i>
+                    <img  style="width:100px;height:100%" src="{{url('storage/'.$file->path.'/'.$file->hash_name)}}" alt="not Found"/>
                    @endif
 
-                <span class=" d-flex justify-content-center align-items-center">
+                <span class=" d-flex justify-content-center align-items-center eye">
                     {{$sum}}
                 </span>
+                <span class=" d-flex justify-content-center align-items-center sum">
+                     <i class="fa fa-eye"></i> 
+                </span>
+
             </div>
        
         @endforeach
                <div class="item list_item " data-type='whiteboard' > 
                 <i class="fas fa-chalkboard-teacher cus_i" ></i>   
 
-                <span class=" d-flex justify-content-center align-items-center">
+                <span class=" d-flex justify-content-center align-items-center eye">
                     {{$sum+1}}
+                </span>
+                <span class=" d-flex justify-content-center align-items-center sum">
+                     <i class="fa fa-eye"></i> 
                 </span>
             </div>
 

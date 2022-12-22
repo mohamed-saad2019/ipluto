@@ -41,5 +41,10 @@ class Library extends Model
         return $this->hasMany('App\File','library_id','id');
     }
 
+     public function files_library()
+    {
+        return $this->hasMany('App\LibraryFile','library_id','id');
+    }
+
 
 }

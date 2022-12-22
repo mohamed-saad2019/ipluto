@@ -171,4 +171,25 @@ class CityController extends Controller
         
         return redirect('admin/city');
     }
+
+     public function getCityInGovern(Request $request)
+    {
+
+        $this->validate($request, array(
+
+            'govern' => 'required',
+
+        ));
+        
+        $areas = \DB::select("SELECT * FROM `allcities` WHERE  `state_id` = '".request('govern')."'");
+        $html  = "<option value=''>Select an Option</option>";
+
+        foreach($areas as $area)
+        {
+            $html.='<option value="'.$area->id.'">'.$area->name.'</option>';
+        }
+
+       return $html;
+    }
+
 }

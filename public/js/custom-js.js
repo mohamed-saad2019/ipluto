@@ -14,11 +14,8 @@ function createValueInputSubject(valueInput,idInput) {
   hiddenSubjectBut.innerHTML = valueInput;
 }
 function createValueInputGrade(valueInput,idInput) {
-  if (multipleGrade.length != 3) {
-    multipleGrade = [...multipleGrade, valueInput];
-    hiddenGrade.value = multipleGrade;
-    hiddenGradetBut.innerHTML = hiddenGrade.value;
-  }
+    hiddenGrade.value = idInput;
+    hiddenGradetBut.innerHTML = valueInput;
 }
 
 // end become a teacher
@@ -82,17 +79,17 @@ var multipleStudent = []
 const hiddenStudent = document.getElementById("hiddenStudent");
 const hiddenStudenttBut = document.getElementById('hiddenStudenttBut');
 
-function createValueInputGrade(valueInput) {
-  if (multipleStudent.includes(valueInput)) {
-    multipleStudent = multipleStudent.filter((item) => item != valueInput);
-    hiddenStudent.value = multipleStudent;
-    hiddenStudenttBut.innerHTML = hiddenStudent.value;
-  } else {
-    multipleStudent = [...multipleStudent, valueInput];
-    hiddenStudent.value = multipleStudent;
-    hiddenStudenttBut.innerHTML = multipleStudent;
-  }
-}
+// function createValueInputGrade(valueInput) {
+//   if (multipleStudent.includes(valueInput)) {
+//     multipleStudent = multipleStudent.filter((item) => item != valueInput);
+//     hiddenStudent.value = multipleStudent;
+//     hiddenStudenttBut.innerHTML = hiddenStudent.value;
+//   } else {
+//     multipleStudent = [...multipleStudent, valueInput];
+//     hiddenStudent.value = multipleStudent;
+//     hiddenStudenttBut.innerHTML = multipleStudent;
+//   }
+// }
 
 const plus = document.getElementById('plus')
 const inputPlus = document.querySelectorAll('#inputPlus')

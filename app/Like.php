@@ -4,19 +4,20 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model
+class Like extends Model
 {
-    protected $table = 'comments';
+    protected $table = 'likes';
 
     protected $fillable = [ 
         'id',
+        'like',
         'video_id',
-        'student_id',
+        'comment_id',
+        'reply_id',
         'instructor_id',
-        'lesson_id',
-        'comment',
+        'student_id',
         'created_at',
-        'updated_at',
+        'updated_at'
     ];
 
     public function student(){
@@ -27,8 +28,5 @@ class Comment extends Model
         return $this->hasOne(User::class,'id','instructor_id');
     }
 
-    public function replys(){
-        return $this->hasMany(Reply::class,'comment_id');
-    }
     
 }

@@ -29,7 +29,7 @@
               </a>
             </div>
             <div class="col-md-4">
-               <a class='' href="{{route('show_library')}}">
+               <a class='grids' href="{{url('student/show_subject_videos?subject_id='.request('subject_id'))}}">
                   <div class="student_dashbord_card text-center">
                   <h3 class="h4 card__header text-capitalize">Videos</h3>
                   <div class="card-content">

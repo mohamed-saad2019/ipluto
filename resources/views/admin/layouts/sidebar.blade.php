@@ -42,18 +42,18 @@
 
                                     <li>
                                         <a class="{{ Nav::isResource('user') }}"
-                                            href="{{route('user.index')}}">{{ __('All Users') }}</a>
+                                            href="{{route('user.index')}}">Admins</a>
+                                    </li>
+
+                                    <li>
+                                        <a class="{{ Nav::isResource('allinstructor') }}"
+                                            href="{{route('allinstructor.index')}}">Instructors</a>
                                     </li>
 
                                     <li>
                                         <a class="{{ Nav::isResource('allusers') }}"
-                                            href="{{route('allusers.index')}}">{{ __('All Students') }}</a>
+                                            href="{{route('allusers.index')}}">Students</a>
                                     </li>
-                                    <li>
-                                        <a class="{{ Nav::isResource('allinstructor') }}"
-                                            href="{{route('allinstructor.index')}}">{{ __('All Instructors') }}</a>
-                                    </li>
-
                                 </ul>
                             </li>
                         {{--     <li class="{{ Nav::isRoute('admin.index') }}">

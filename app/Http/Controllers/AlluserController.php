@@ -45,7 +45,7 @@ class AlluserController extends Controller
     public function viewAllUser()
     {
   
-        $users = User::where('role', 'user')->get();
+        $users = User::where('role', 'user')->orderBy('created_at','DESC')->get();
         return view('admin.alluser.index', compact('users'));
     }
     
@@ -80,8 +80,9 @@ class AlluserController extends Controller
             'mobile' => 'required|regex:/[0-9]{9}/',
             'email' => 'required|unique:users,email',
             'password' => 'required|min:6|max:20',
-            'role' => 'required',
-            'user_img' => 'mimes:jpg,jpeg,png,bmp,tiff'
+            'user_img' => 'mimes:jpg,jpeg,png,bmp,tiff',
+            'state_id' => 'required'
+
         ]);
 
 
@@ -96,6 +97,7 @@ class AlluserController extends Controller
             
         }
 
+        $input['country_id'] = '64';
         $input['password'] = Hash::make($request->password);
         $input['detail'] = $request->detail;
         $input['email_verified_at'] = \Carbon\Carbon::now()->toDateTimeString();           
@@ -171,7 +173,12 @@ class AlluserController extends Controller
         }
 
         $request->validate([
-              'email' => 'required|email|unique:users,email,'.$user->id,
+            'email' => 'required|email|unique:users,email,'.$user->id,
+            'fname' => 'required',
+            'lname' => 'required',
+            'mobile' => 'required|regex:/[0-9]{9}/,mobile,'.$user->id,
+            'grade' =>  'required',
+            'state_id' => 'required'
           ]);
 
 
@@ -240,7 +247,7 @@ class AlluserController extends Controller
           return back()->with('delete', trans('flash.DemoCannotupdate'));
         }
 
-        return redirect()->route('userall.index');
+          return view('admin.alluser.index');
 
     }
 

@@ -12,13 +12,24 @@
               <div class="formTe">
                <div class="table-responsive">
                       
-                      @if($type == 'Center')
+                      @if(request()->has('type'))
                          <table class="table table-hover" id='example1'>
                             <thead class="thead-dark">
                               <th scope="col">#</th>
+                              @if(request('type')=='online')
+                               <th>Title</th>
+                              @endif
                               <th scope="col">Conclusion</th>
                               <th scope="col">Grade</th>
-                              <th scope="col">Lesson</th>
+                              @if(request('type')=='online')
+                               <th>Unit</th>
+                              @endif
+                              @if(request('type')=='center')
+                               <th scope="col">Lesson</th>
+                              @endif
+                              @if(request('type')=='online')
+                               <th>Price</th>
+                              @endif
                               <th scope="col">Files / Videos </th>
                               <th scope="col">Settings</th>
                             </tr>
@@ -28,20 +39,38 @@
                             @foreach($library as $l)
                               <tr>
                                  <td>{{++$sum}}</td>
-
+                                  @if(request('type')=='online')
+                                   <td>{{str_limit($l->title,30)}}</td>
+                                  @endif
                                  <td>
                                     {{str_limit($l->info,30)}}
                                  </td>
                                  <td>
                                     {{$l->grade()->value('title')}} 
                                  </td>
+                                 @if(request('type')=='online')
+                                   <td>{{$l->unit}}</td>
+                                  @endif
+                                @if(request('type')=='center')
                                  <td>
                                     {{$l->lesson()->value('name')}}
                                  </td>
+                                @endif
+
+                                @if(request('type')=='online')
+                                   <td>{{$l->price}}</td>
+                                @endif
                                  <td>
+                                   @if(request('type')=='center')
                                     <a href="{{url('/instructor/add_lesson?id='.$l->lesson()->value('id'))}}">
                                       {{ count($l->files)}}
                                     </a>
+                                   @endif
+                                   @if(request('type')=='online')
+                                     <a href="{{url('/instructor/view_library?id='.$l->id)}}">
+                                      {{ count($l->files_library)}}
+                                    </a>
+                                   @endif
                                  </td>
                              <td style="">
 
@@ -189,7 +218,8 @@
                <div class="row">
                 <div class="col-md-11" style="margin:10px auto">
                   <label>Grade:<span class="redstar">*</span></label>
-                    <select class="form-control select2 getLessonInGrade" required 
+                    <select class="form-control select2 
+                            @if($type=='center') getLessonInGrade @endif" required 
                             style="border:1px solid #ddd;color:#000;" name="grade">
                             <option  value="">Select Grade</option>
                             @foreach($grades as $s)
@@ -199,7 +229,7 @@
                            @endforeach
                    </select>
                 </div>
-
+               @if($type=='center')
                 <div class="col-md-11" style="margin:10px auto">
                   <label>Lesson:<span class="redstar">*</span></label>
                     <select class="form-control select2 fetch_lesson" required 
@@ -207,6 +237,21 @@
                         <option selected value="">Select Lesson</option>
                     </select>
                 </div>
+              @endif
+
+               @if($type=='online')
+                <div class="col-md-11" style="margin:10px auto">
+                  <label>Unit:<span class="redstar">*</span></label>
+                    <select class="form-control select2" required 
+                      style="border:1px solid #ddd;color:#000;"name="unit">
+                        <option  value="">Select Unit</option>
+                          @foreach($all_units as $s)
+                          <option value="{{$s}}">{{$s}}@endforeach
+                          </select>
+                </div>
+              @endif
+
+                
 
         <div class="modal-footer" style="margin:auto;margin-top: 30px;">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

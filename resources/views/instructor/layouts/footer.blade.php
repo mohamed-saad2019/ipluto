@@ -77,7 +77,22 @@
 }
 // window.setInterval(getCountNotification,8000); // 1000 indicated 1 second
 // window.setInterval(getNewNotification,8000); // 1000 indicated 1 second
-
+ $("#bell").click(function(){
+         $.ajax({
+        type: "get",
+        url: "{{route('read_notifications')}}",
+        data: {'colum': 'instructor_id' },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        },
+        success: function(data){
+            $('.notification--num').html(data);
+        },
+        error: function () {
+        console.log('error');
+        }
+    });
+    });
     </script>
 </body>
 </html>

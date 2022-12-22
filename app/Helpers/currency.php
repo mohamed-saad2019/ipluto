@@ -14,6 +14,7 @@ if(!function_exists('get_subject_instructor')){
     }
 }
 
+
 if(!function_exists('get_grade_instructor')){
     function get_grade_instructor($instructor_id){
        return \App\InstructorGrade::where('instructor_id',$instructor_id)->first()->grade_id;
@@ -142,6 +143,18 @@ if(!function_exists('get_size_lesson'))
         }
           
 
+     }
+        
+    }
+        
+
+if(!function_exists('get_size_file'))
+    {
+       function get_size_file($size)
+        {
+          $base = log($size) / log(1024);
+          $suffix = array("", "KB", "MB", "GB", "TB")[floor($base)];
+          return  number_format(pow(1024, $base - floor($base)),0).$suffix;
      }
         
     }
@@ -480,7 +493,7 @@ if(!function_exists('get_size_folder'))
 
 if(!function_exists('notifications_count')){
     function notifications_count($colum){
-       return \App\Notification::where($colum,\Auth::user()->id)->count();
+    return \App\Notification::where($colum,\Auth::user()->id)->where('reading','0')->count();
     }
 }
 
@@ -498,3 +511,19 @@ if(!function_exists('get_lessons_in_grade')){
     }
 }
 
+if( !function_exists('getTitle'))
+{
+    function getTitle($name)
+    {
+        $exName = explode(".",$name);
+        return $exName[0] ;
+    }
+}
+
+if( !function_exists('getGovern'))
+{
+    function getGovern($country_id)
+    {
+       return \DB::select("SELECT * FROM `allstates` WHERE  `country_id` = '".$country_id."'");
+    }
+}

@@ -597,6 +597,12 @@ Route::middleware(['web'])->group(function () {
             Route::get('instructor/library_list','InstructorController@library_list')
                    ->name('instructor.library_list');
 
+            Route::get('instructor/view_library','InstructorController@view_library')
+                   ->name('instructor.view_library');
+
+            Route::get('instructor/library_list_online','InstructorController@library_list_online')
+                   ->name('instructor.library_list_online');
+
             Route::get('instructor/delete_library','InstructorController@delete_library')
                    ->name('instructor.delete_library');
 
@@ -621,12 +627,14 @@ Route::middleware(['web'])->group(function () {
 
         /* start route Notifications */
     Route::get('notificationInterval','NotificationController@notificationInterval');
+    Route::get('read_notifications','NotificationController@read_notifications')->name('read_notifications');
 
         /* end route Notifications */
 
         /* start route zoom */
         Route::get('zoom_create', 'ZoomController@startZoom')->name('create.zoom');
         Route::post('store_zoom', 'ZoomController@storeZoom')->name('saveZoom');
+        Route::get('instructor/zoom_list', 'ZoomController@zoom_list')->name('zoom_list');
         /* end route zoom */
 
        Route::get('instructor/del_sildes', 'InstructorController@del_sildes')->name('instructor.del_sildes');
@@ -872,6 +880,13 @@ Route::middleware(['web'])->group(function () {
             })->name('help.show');
 
             /* start routes center student dashboard */
+
+           Route::get('student/show_videos', 'StudentController@videos')->name('showVideos');
+           Route::post('student/store_comment', 'CommentController@store')->name('store_comment'); 
+           Route::post('student/store_reply', 'ReplyController@store')->name('store_reply'); 
+           Route::post('student/savelikeOrDislike', 'CommentController@savelikeOrDislike')->name('store_reply'); 
+
+           
            Route::group(['middleware' => ['center_student']], function () {
                 Route::get('student/lessons', 'StudentController@lessons')->name('student.lessons');
                 Route::get('student/profile', 'StudentController@profile')->name('student.profile');
@@ -881,16 +896,16 @@ Route::middleware(['web'])->group(function () {
             Route::get('student/view_lesson','StudentController@view_lesson');
 
                 //start labirary 
-                Route::get('student/show_videos', 'StudentController@videos')->name('showVideos');
-                Route::post('student/store_comment', 'CommentController@store')->name('store_comment'); 
-
-                Route::get('student/show_library', function(){
-                    return view('student.show_library');
-                })->name('show_library');
+               
+                
+            Route::get('student/show_subject_videos', 'StudentController@subject_videos')->name('show_subject_videos');
+               
                 Route::get('student/showlist', function(){
                     return view('student.showlist');
                 })->name('showlist');
                 // end library
+
+          Route::get('read_notifications_student','NotificationController@read_notifications')->name('read_notifications_student');
             });
            /* end routes route center student dashboard */
 
@@ -1236,3 +1251,4 @@ Route::prefix('manage')->group(function() {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get("admin/select2/city","CityController@getCityInGovern")->name('select2.city');

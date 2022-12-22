@@ -58,11 +58,10 @@
                                     </div>
                                 </div>
 
-                                <div class="notification mx-2"
-                                     id="notification_interval">
+                                <div class="notification mx-2" id="notification_interval">
 
                                     <div class="icon" id="bell">
-                                      <i class="far fa-bell fa-lg"></i>
+                                      <i class="far fa-bell fa-lg num_notif"></i>
                                        @if(notifications_count('instructor_id') != 0)
                                             <span class="notification--num">
                                                 {{notifications_count('instructor_id')}}
@@ -77,25 +76,25 @@
                                                 Notifications
                                             </span>
                                            <span>
-                                             <a href="{{url('/delete/notifications?colum=instructor_id')}}"
+                                           {{--  <!-- <a href="{{url('/delete/notifications?colum=instructor_id')}}"
                                                 style="color:#db0404">
                                                <i class="fas fa-trash"></i>
-                                             </a>
+                                             </a> --> --}}
                                            </span>
                                         </div>
-                                <div id="notifications">
+                                <div id="notifications" >
                                 @foreach(notifications('instructor_id') as $n)
                                    <!-- begin notifications-item -->
-                                     <div class="notifications-item">
+                                     <div class="notifications-item" syle="display:inline-flex !important">
                                          @if($n->notifiable_type == 'zoom')
                                            @php 
                                            $zoom = \App\Zoom::where('id',$n->notifiable_id)->first();
                                            @endphp
-                                          <a href="{{$zoom->url}}"> 
+                                       {{--   <!-- <a href="{{$zoom->url}}">  -->
                                           @if($n->type == 'ipluto')
-                                            <img src="../images/logo.png">
+                                            <img src="../images/logo.png"/>
                                           @endif
-                                         <div class="text row" style="margin-right:0px;">
+                                        <div class="text row" style="margin-right:0px;">
                                            <div class="col-md-8">
                                                <h4 class="text-capitalize">
                                                 @if($n->type == 'ipluto')
@@ -112,7 +111,7 @@
                                                <p>{{$n->data}}</p>
                                            </div>
                                         </div>
-                                       </a>
+                                       <!-- </a> -->--}}
                                     @endif
                                  </div>
                                    <!-- End notifications-item -->
@@ -224,6 +223,9 @@
                                 <ul class="collapse list-unstyled" id="Dashboard">
                                     <li class="active">
                                         <a href="{{url('instructor/students')}}"> Students</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{url('instructor/zoom_list')}}"> Zoom List </a>
                                     </li>
                                     <li>
                                         <a href="#"> Videos </a>

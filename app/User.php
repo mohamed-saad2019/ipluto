@@ -163,6 +163,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Wallet::class, 'user_id', 'id');
     }
 
+    public function studentGrade()
+    {
+        return $this->hasOne(SubCategory::class, 'id', 'grade');
+    }
+
     public function grades()
     {
         return $this->belongsToMany('App\SubCategory','instructors_grade', 'instructor_id', 'grade_id');
