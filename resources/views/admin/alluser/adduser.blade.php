@@ -36,7 +36,7 @@
     <div class="col-lg-12">
       <div class="card m-b-30">
         <div class="card-header">
-          <h5 class="box-tittle">{{ __('adminstaticword.Add') }} {{ __('adminstaticword.User') }}</h5>
+          <h5 class="box-tittle">Add Student</h5>
         </div>
         <div class="card-body">
           <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">

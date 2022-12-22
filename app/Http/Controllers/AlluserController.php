@@ -173,7 +173,12 @@ class AlluserController extends Controller
         }
 
         $request->validate([
-              'email' => 'required|email|unique:users,email,'.$user->id,
+            'email' => 'required|email|unique:users,email,'.$user->id,
+            'fname' => 'required',
+            'lname' => 'required',
+            'mobile' => 'required|regex:/[0-9]{9}/,mobile,'.$user->id,
+            'grade' =>  'required',
+            'state_id' => 'required'
           ]);
 
 
@@ -242,7 +247,7 @@ class AlluserController extends Controller
           return back()->with('delete', trans('flash.DemoCannotupdate'));
         }
 
-        return redirect()->route('userall.index');
+          return view('admin.alluser.index');
 
     }
 
