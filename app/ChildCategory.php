@@ -38,8 +38,10 @@ class ChildCategory extends Model
     	return $this->belongsTo('App\SubCategory','subcategory_id','id');
     }
 
- 	  public function courses()
+ 	public function courses()
     {   
         return $this->hasMany('App\Course','childcategory_id');
     }
+
+   
 }

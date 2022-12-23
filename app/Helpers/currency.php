@@ -10,10 +10,17 @@ if(!function_exists('get_release')){
 
 if(!function_exists('get_subject_instructor')){
     function get_subject_instructor($instructor_id){
-       return \App\InstructorGrade::where('instructor_id',$instructor_id)->first()->subject_id;
+       return \App\User::where('id',$instructor_id)->first()->subject_id;
+    //    return \App\InstructorGrade::where('instructor_id',$instructor_id)->first()->subject_id;
     }
 }
 
+if(!function_exists('get_subject_name_instructor')){
+    function get_subject_name_instructor($instructor_id){
+        $subject_id = \App\User::where('id',$instructor_id)->first()->subject_id ; 
+        return \App\ChildCategory::where('id',$subject_id)->where('status', '1')->GroupBy('slug')->orderBy('id','ASC')->pluck('title')->first() ;
+     }
+}
 
 if(!function_exists('get_grade_instructor')){
     function get_grade_instructor($instructor_id){
