@@ -48,7 +48,7 @@
                         @endif
                     </div>
                     <!-- begin subject -->
-                    <div class="accordion col-md-12" id="accordionExample">
+                    <div class="accordion col-md-5" id="accordionExample">
                         <div class="card">
                             <div class="card-header" id="headingOne1">
                                 <h2 class="mb-0">
@@ -81,9 +81,8 @@
                         </div>
                     </div>
                     <!-- end subject -->
-        
                     <!-- begin grade -->
-                    <div class="accordion col-md-12" id="gradeAccordion">
+                    <div class="accordion col-md-5" id="gradeAccordion">
                         <div class="card">
                             <div class="card-header" id="gradeheading">
                                 <h2 class="mb-0">
@@ -116,7 +115,7 @@
                         </div>
                     </div>
                     <!-- End grade -->
-
+                    
                     <div class="form-group col-md-12 form4">
                         <input type="number" class="form-control {{ $errors->has('mobile') ? ' is-invalid' : '' }}"
                             name="mobile" value="{{ old('mobile') }}" id="inputAddress" placeholder="mobile">

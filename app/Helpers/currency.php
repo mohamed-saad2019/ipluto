@@ -526,3 +526,11 @@ if( !function_exists('getTitle'))
         return $exName[0] ;
     }
 }
+
+if( !function_exists('getGovern'))
+{
+    function getGovern($country_id)
+    {
+       return \DB::select("SELECT * FROM `allstates` WHERE  `country_id` = '".$country_id."'");
+    }
+}

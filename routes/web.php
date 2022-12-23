@@ -1251,3 +1251,4 @@ Route::prefix('manage')->group(function() {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get("admin/select2/city","CityController@getCityInGovern")->name('select2.city');

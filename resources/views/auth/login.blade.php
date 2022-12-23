@@ -5,7 +5,7 @@
       <form method="POST" action="{{ route('login') }}">
         @csrf
         <div class="logoLogin">
-          <img src="{{url('/images/logo.jpeg')}}" alt="" />
+          <img src="{{url('/images/logo2.png')}}" alt="" />
         </div>
         <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>

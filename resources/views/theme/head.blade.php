@@ -25,7 +25,6 @@
 <link rel="stylesheet" href="{{ url('vendor/navigation/menumaker.css') }}" /> <!-- navigation css -->
 <link rel="stylesheet" href="{{ url('vendor/owl/css/owl.carousel.min.css') }}" /> <!-- owl carousel css -->
 <link rel="stylesheet" href="{{ url('vendor/protip/protip.css') }}" /> <!-- menu css -->
-
 <?php
 $language = Session::get('changed_language'); //or 'english' //set the system language
 $rtl = array('ar','he','ur', 'arc', 'az', 'dv', 'ku', 'fa'); //make a list of rtl languages

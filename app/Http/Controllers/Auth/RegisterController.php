@@ -68,8 +68,8 @@ class RegisterController extends Controller
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => ['required', 'string', 'min:6', 'confirmed'],
                 'g-recaptcha-response' => 'required|captcha',
-                'mobile' => ['regex:/^([0-9\s\-\+\(\)]*)$/', 'max:17'],
-                'grade' => 'required'
+                'mobile'=> ['regex:/^([0-9\s\-\+\(\)]*)$/', 'max:17'],
+                
             ]);
         }
         else{
@@ -80,7 +80,11 @@ class RegisterController extends Controller
                 'password' => ['required', 'string', 'min:6', 'confirmed'],
                 'mobile' => ['regex:/^([0-9\s\-\+\(\)]*)$/', 'max:17'],
                 'image'    => 'required',
-                'grade' => 'required'
+                'grade' => 'required',
+                'country'=>'required',
+                'govern'=> 'required',
+                'city'  => 'nullable',
+                'address'=>'nullable|min:3|max:255' 
             ]);
 
         }
@@ -169,6 +173,10 @@ class RegisterController extends Controller
                 'affiliate_id' => $refercode,
                 'user_img' => $data['image'].".png",
                 'grade'=>$data['grade'],
+                'state_id'=>$data['govern'],
+                'city_id'=>$data['city'],
+                'address'=>$data['address'],
+                'country_id'=>$data['country'],
 
 
             ]);
@@ -185,6 +193,11 @@ class RegisterController extends Controller
                 'password' => Hash::make($data['password']),
                 'user_img' => $data['image'].".png",
                 'grade'=>$data['grade'],
+                'state_id'=>$data['govern'],
+                'city_id'=>$data['city'],
+                'address'=>$data['address'],
+                'country_id'=>$data['country'],
+
             ]);
 
         }
