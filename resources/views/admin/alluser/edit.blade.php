@@ -40,7 +40,7 @@
           <h5 class="box-title">Edit Student</h5>
         </div>
         <div class="card-body ml-2">
-          <form action="{{ route('user.update',$user->id) }}" method="POST" enctype="multipart/form-data">
+          <form action="{{ route('alluser.update',$user->id) }}" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
             <div class="row">

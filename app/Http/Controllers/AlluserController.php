@@ -110,7 +110,7 @@ class AlluserController extends Controller
          User::where('id',$data->id)->update(['code'=>$code]);
 
         Session::flash('success', trans('flash.AddedSuccessfully'));
-        return redirect('user');
+        return redirect('/alluser');
 
     }
 
@@ -160,9 +160,7 @@ class AlluserController extends Controller
     public function update(Request $request,$id)
     {
 
-        $this->validate($request,[
-            'user_img' => 'mimes:jpg,jpeg,png,bmp,tiff'
-        ]);
+
 
         if(Auth::User()->role == 'admin')
         {
@@ -172,16 +170,15 @@ class AlluserController extends Controller
           $user = User::where('id', Auth::User()->id)->first();
         }
 
-        $request->validate([
+        $this->validate($request,[
+            'user_img' => 'mimes:jpg,jpeg,png,bmp,tiff',
             'email' => 'required|email|unique:users,email,'.$user->id,
             'fname' => 'required',
             'lname' => 'required',
-            'mobile' => 'required|regex:/[0-9]{9}/,mobile,'.$user->id,
+            'mobile' => 'required',
             'grade' =>  'required',
             'state_id' => 'required'
-          ]);
-
-
+        ]);
         if(config('app.demolock') == 0){
 
           $input = $request->all();
@@ -240,14 +237,14 @@ class AlluserController extends Controller
 
           Session::flash('success', trans('flash.UpdatedSuccessfully'));
 
-
         }
         else
         {
+
           return back()->with('delete', trans('flash.DemoCannotupdate'));
         }
 
-          return view('admin.alluser.index');
+          return redirect(url('/alluser'));
 
     }
 

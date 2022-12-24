@@ -1,3 +1,9 @@
+
+function createCustomValueInputSubject(hiddenSubject,hiddenSubjectBut,valueInput,idInput) {
+  $('#'+hiddenSubject).val(idInput);
+  $('#'+hiddenSubjectBut).text(valueInput);
+}
+
 const hiddenSubject = document.getElementById("hiddenSubject");
 const hiddenGrade = document.getElementById("hiddenGrade");
 const hiddenSubjectBut = document.getElementById("hiddenSubjectBut");
@@ -8,6 +14,7 @@ const hiddenAvatarBut = document.getElementById("hiddenAvatarBut");
 const fix = document.querySelector(".fix");
 // start become a teacher
 var multipleGrade = [];
+
 
 function createValueInputSubject(valueInput,idInput) {
   hiddenSubject.value = idInput;
