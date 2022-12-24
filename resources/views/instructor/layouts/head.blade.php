@@ -45,6 +45,15 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="Create">
                                     <div class="dropdown">
+                                        <select class="form-control btn dropdown-toggle togCreate" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                                            @foreach( \App\ChildCategory::with()->where('status', '1')->GroupBy('slug')->orderBy('id','ASC')->get() as $_subject)
+                                            <option>{{$_subject->title}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="Create">
+                                    <div class="dropdown">
                                         <button class="btn dropdown-toggle togCreate" type="button"
                                             id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">Create
