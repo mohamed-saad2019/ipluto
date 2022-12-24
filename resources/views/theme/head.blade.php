@@ -25,6 +25,7 @@
 <link rel="stylesheet" href="{{ url('vendor/navigation/menumaker.css') }}" /> <!-- navigation css -->
 <link rel="stylesheet" href="{{ url('vendor/owl/css/owl.carousel.min.css') }}" /> <!-- owl carousel css -->
 <link rel="stylesheet" href="{{ url('vendor/protip/protip.css') }}" /> <!-- menu css -->
+
 <?php
 $language = Session::get('changed_language'); //or 'english' //set the system language
 $rtl = array('ar','he','ur', 'arc', 'az', 'dv', 'ku', 'fa'); //make a list of rtl languages
@@ -115,4 +116,6 @@ if(Schema::hasTable('color_options')){
 
 
 @yield('custom-head')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 </head>
