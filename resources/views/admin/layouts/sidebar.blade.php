@@ -40,20 +40,21 @@
                                 </a>
                                 <ul class="vertical-submenu">
 
-                                    <li>
+                                    {{--<li>
                                         <a class="{{ Nav::isResource('user') }}"
                                             href="{{route('user.index')}}">Admins</a>
-                                    </li>
-
-                                    <li>
-                                        <a class="{{ Nav::isResource('allinstructor') }}"
-                                            href="{{route('allinstructor.index')}}">Instructors</a>
-                                    </li>
+                                    </li>--}}
 
                                     <li>
                                         <a class="{{ Nav::isResource('allusers') }}"
                                             href="{{route('allusers.index')}}">Students</a>
                                     </li>
+
+                                     <li>
+                                        <a class="{{ Nav::isResource('allinstructor') }}"
+                                            href="{{route('allinstructor.index')}}">Instructors</a>
+                                    </li>
+                                    
                                 </ul>
                             </li>
                         {{--     <li class="{{ Nav::isRoute('admin.index') }}">
