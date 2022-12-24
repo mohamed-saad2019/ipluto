@@ -718,7 +718,7 @@
 .Become .card-header {
   padding: 0 !important;
   background-color: transparent !important;
-  margin-bottom: 30px !important;
+  /* margin-bottom: 30px !important; */
   border-bottom: 1px solid transparent !important;
 }
 .Become .card-header:focus {

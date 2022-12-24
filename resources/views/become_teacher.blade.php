@@ -45,6 +45,9 @@
   padding: 0 10px;
   text-align: center
 }
+.select2-container--default .select2-selection--multiple .select2-selection__rendered{
+    padding: 7px 5px !important
+}
 </style>
 @extends('theme.master')
 @section('title', 'Online Courses')
@@ -95,8 +98,7 @@
                         </span>
                         @endif
                     </div>
-                    <!-- begin subject -->
-                    <div class="accordion col-md-5 " id="accordionExample">
+                    <!-- <div class="accordion col-md-5 " id="accordionExample">
                         <div class="card">
                             <div class="card-header" id="headingOne1">
                                 <h2 class="mb-0">
@@ -128,8 +130,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- end subject -->
-                    <!-- begin grade -->
+         
                     <div class="accordion col-md-5" id="gradeAccordion">
                         <div class="card">
                             <div class="card-header" id="gradeheading">
@@ -162,16 +163,20 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End grade -->
                     <div class="col-md-2">
                         <button type="button" class="btn btn-primary"> Add</button>
                         <button type="button" class="btn btn-danger"> Del</button>
-                    </div>
+                    </div> -->
                     <div class="col-md-12">
-
+                    <div class="col-md-12">
+                                <div class="text-right mb-3">
+                                    <button type="button" class="btn btn-primary add_more"> <i class="fa fa-plus"></i></button>
+                                    <button type="button" class="btn btn-danger del_buttonEn"> <i class="fa fa-trash"></i></button>
+                                </div>
+                            </div>
                         <div class="row" id="becomeTeacher__wrapper">
-                                                <!-- begin subject -->
-                            <div class="accordion col-md-5 " id="accordionExample">
+                            <!-- begin subject -->
+                            <div class="accordion col-md-6 " id="accordionExample">
                                 <div class="card">
                                     <div class="card-header" id="headingOne1">
                                         <h2 class="mb-0">
@@ -205,7 +210,7 @@
                             </div>
                             <!-- end subject -->
                             <!-- begin grade -->
-                            <div class="accordion col-md-5" id="gradeAccordion">
+                            <div class="accordion col-md-6" id="gradeAccordion">
                             <select class="form-control select2 " multiple="multiple">
                                 <option selected="selected">orange</option>
                                 <option>white</option>
@@ -213,17 +218,13 @@
                             </select>
                             </div>
                             <!-- End grade -->
-                            <div class="col-md-2 p-0">
-                                <button type="button" class="btn btn-primary add_more"> Add</button>
-                                <button type="button" class="btn btn-danger"> Del</button>
-                            </div>
 
                         </div>
                     </div>
 
 
 
-<!-- 
+                    <!-- 
                     <div class="col-md-5 mb-3">
                         <select class="form-control">
                         <option>Default select</option>
@@ -312,96 +313,6 @@
             </form>
         </div>
     </div>
-        <script>
-            console.log(index);
-            var add_buttonEn = $(".add_more");
-            var wrapperEn = $("#becomeTeacher__wrapper");
 
-            let index = 0;
-             $(add_buttonEn).click(function(e) {
-                index++
-                e.preventDefault();
-                    $(wrapperEn).append(`
-                    <div class="col-md-12">
-                        <div class="row">
-                            <!-- begin subject -->
-                            <div class="accordion col-md-5 " id="accordionExample'+ index +'">
-                                <div class="card">
-                                    <div class="card-header" id="headingOne1">
-                                        <h2 class="mb-0">
-                                            <button id="hiddenSubjectBut"
-                                                class="btn btn-link btn-block text-left {{ $errors->has('lname') ? ' is-invalid' : '' }}"
-                                                type="button" data-toggle="collapse" data-target="#collapseOne1"
-                                                aria-expanded="true" aria-controls="collapseOne1">
-                                                subject
-                                            </button>
-                                            <input type="hidden" value="{{ old('subject') }}" name="subject" id="hiddenSubject">
-                                            @if ($errors->has('subject'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('subject') }}</strong>
-                                            </span>
-                                            @endif
-                                        </h2>
-                                    </div>
-                                    <div id="collapseOne1" class="collapse" aria-labelledby="headingOne1"
-                                        data-parent="#accordionExample">
-                                        <span class="arow10"></span>
-                                        @if($subjects)
-                                        @foreach($subjects as $subject)
-                                        <div class="card-body"
-                                            onclick="createValueInputSubject('{{$subject->title}}','{{$subject->id}}')">
-                                            <span></span>{{$subject->title}}
-                                        </div>
-                                        @endforeach
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end subject -->
-                            <!-- begin grade -->
-                            <div class="accordion col-md-5" id="gradeAccordion '+ index +'">
-                                <div class="card">
-                                    <div class="card-header" id="gradeheading">
-                                        <h2 class="mb-0">
-                                            <button id="hiddenGradetBut"
-                                                class="btn btn-link btn-block text-left  {{ $errors->has('grade') ? ' is-invalid' : '' }}"
-                                                type="button" data-toggle="collapse" data-target="#gradeCollapse"
-                                                aria-expanded="true" aria-controls="gradeCollapse">
-                                                grade
-                                            </button>
-                                            <input type="hidden" value="{{ old('grade')}}" name="grade" id="hiddenGrade">
-                                            @if ($errors->has('grade'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('grade') }}</strong>
-                                            </span>
-                                            @endif
-                                        </h2>
-                                    </div>
-                                    <div id="gradeCollapse" class="collapse" aria-labelledby="gradeheading"
-                                        data-parent="#gradeAccordion">
-                                        <span class="arow10"></span>
-                                        @if($grades)
-                                        @foreach($grades as $grade)
-                                        <div class="card-body"
-                                            onclick="createValueInputGrade('{{$grade->title}}','{{$grade->id}}')">
-                                            <span></span>{{$grade->title}}
-                                        </div>
-                                        @endforeach
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End grade -->
-                            <div class="col-md-2 p-0">
-                                <button type="button" class="btn btn-primary add_more"> Add</button>
-                                <button type="button" class="btn btn-danger"> Del</button>
-                            </div>
 
-                        </div>
-                    </div>
-                    `); //add input box
-                } 
-            );
-
-        </script>
     @endsection

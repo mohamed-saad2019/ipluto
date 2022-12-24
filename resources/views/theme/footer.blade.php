@@ -94,6 +94,107 @@
                 }); 
          });  
     </script>
+            <script>
+            var del_buttonEn = $(".del_buttonEn");
+                    $(del_buttonEn).click(function(e) {
+                        var p = document.getElementById('becomeTeacher__wrapper');
+                        console.log(p);
+                        for (var i=0; i<p.childNodes.length; i++) {
+                        if (p.childNodes[i].tagName=='LI') {
+                            alert("hello")
+
+                            p.removeChild(p.childNodes[i]);
+                            break;
+                        }
+                        }
+            })
+            
+            var add_buttonEn = $(".add_more");
+            var wrapperEn = $("#becomeTeacher__wrapper");
+
+            let index = 0;
+             $(add_buttonEn).click(function(e) {
+                index++
+                e.preventDefault();
+                    $(wrapperEn).append(`
+                    <div class="col-md-12 mb-3">
+                        <div class="row">
+                            <!-- begin subject -->
+                            <div class="accordion col-md-6 " id="accordionExample'+ index +'">
+                                <div class="card">
+                                    <div class="card-header" id="headingOne1">
+                                        <h2 class="mb-0">
+                                            <button id="hiddenSubjectBut"
+                                                class="btn btn-link btn-block text-left {{ $errors->has('lname') ? ' is-invalid' : '' }}"
+                                                type="button" data-toggle="collapse" data-target="#collapseOne1"
+                                                aria-expanded="true" aria-controls="collapseOne1">
+                                                subject
+                                            </button>
+                                            <input type="hidden" value="{{ old('subject') }}" name="subject" id="hiddenSubject">
+                                            @if ($errors->has('subject'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('subject') }}</strong>
+                                            </span>
+                                            @endif
+                                        </h2>
+                                    </div>
+                                    <div id="collapseOne1" class="collapse" aria-labelledby="headingOne1"
+                                        data-parent="#accordionExample'+ index +'">
+                                        <span class="arow10"></span>
+                                        @if($subjects)
+                                        @foreach($subjects as $subject)
+                                        <div class="card-body"
+                                            onclick="createValueInputSubject('{{$subject->title}}','{{$subject->id}}')">
+                                            <span></span>{{$subject->title}}
+                                        </div>
+                                        @endforeach
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end subject -->
+
+                            <!-- begin grade -->
+                            <div class="accordion col-md-6" id="gradeAccordion '+ index +'">
+                                <div class="card">
+                                    <div class="card-header" id="gradeheading">
+                                        <h2 class="mb-0">
+                                            <button id="hiddenGradetBut"
+                                                class="btn btn-link btn-block text-left  {{ $errors->has('grade') ? ' is-invalid' : '' }}"
+                                                type="button" data-toggle="collapse" data-target="#gradeCollapse '+ index +'"
+                                                aria-expanded="true" aria-controls="gradeCollapse '+ index +'">
+                                                grade
+                                            </button>
+                                            <input type="hidden" value="{{ old('grade')}}" name="grade" id="hiddenGrade">
+                                            @if ($errors->has('grade'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('grade') }}</strong>
+                                            </span>
+                                            @endif
+                                        </h2>
+                                    </div>
+                                    <div id="gradeCollapse '+ index +'" class="collapse" aria-labelledby="gradeheading"
+                                        data-parent="#gradeAccordion">
+                                        <span class="arow10"></span>
+                                        @if($grades)
+                                        @foreach($grades as $grade)
+                                        <div class="card-body"
+                                            onclick="createValueInputGrade('{{$grade->title}}','{{$grade->id}}')">
+                                            <span></span>{{$grade->title}}
+                                        </div>
+                                        @endforeach
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End grade -->
+                        </div>
+                    </div>
+                    `); //add input box
+                } 
+            );
+
+        </script>
     <script src="{{url('js/custom-js.js')}}" ></script>
     
 </body>
