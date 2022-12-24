@@ -1828,4 +1828,17 @@ class InstructorController extends Controller
 
          return back();
     }
+
+    public function changeSubject()
+    {
+        if (request()->has('sub_id'))
+        {
+           $subject_id     = request('sub_id'); 
+           $instrcture_id  = Auth::user()->id ;
+           User::where('id',$instrcture_id)->where("role","instructor")->update(['subject_id' => $subject_id]);
+           echo 200 ;
+           exit ;
+        }
+
+    }
 }

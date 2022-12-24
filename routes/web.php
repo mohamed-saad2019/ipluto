@@ -551,6 +551,7 @@ Route::middleware(['web'])->group(function () {
 
             Route::get('instructor', 'InstructorController@index')->name('instructor.index');
             Route::get('instructor/library', 'InstructorController@library')->name('instructor.library');
+            Route::post('instructor/changeSubject', 'InstructorController@changeSubject')->name('instructor.changeSubject');
 
             Route::get('view_lesson', 'InstructorController@view_lesson')->name('view_lesson');
 
