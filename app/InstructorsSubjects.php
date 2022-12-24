@@ -10,7 +10,7 @@ class InstructorsSubjects extends Model
 	
     public function subject()
     {
-    	return $this->belongsTo('App\SubCategory','subcategory_id','id');
+    	return $this->belongsTo('App\ChildCategory','subject_id','id');
     }
     
 

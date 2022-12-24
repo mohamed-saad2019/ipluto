@@ -45,11 +45,15 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="Create">
                                     <div class="dropdown">
-                                        <select class="form-control btn dropdown-toggle togCreate" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                                            @foreach( \App\ChildCategory::with()->where('status', '1')->GroupBy('slug')->orderBy('id','ASC')->get() as $_subject)
-                                            <option>{{$_subject->title}}</option>
-                                            @endforeach
-                                        </select>
+                                        <form>
+                                            {{ method_field('post') }}
+                                            <meta name="csrf-token" content="{{ csrf_token() }}" />
+                                            <select class="form-control btn dropdown-toggle togCreate changeSubject" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                                                @foreach( \App\InstructorsSubjects::with('subject')->where('instructor_id',auth()->user()->id)->where('status', '1')->get() as $_subject)
+                                                <option value="{{$_subject->subject_id}}" @if($_subject->subject_id == auth()->user()->subject_id) selected="selected" @endif>{{$_subject->subject->title}}</option>
+                                                @endforeach
+                                            </select>
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="Create">
@@ -405,6 +409,30 @@
 
                 }
 
+            });
+
+            $('.changeSubject').change(function (e) {
+
+                var sub_id = $(this).val();
+                if (sub_id) {
+                    $.ajax({
+                        type: "post",
+                        url: "changeSubject",
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {'sub_id': sub_id },
+                        success: function(data){
+                            if(data == 200 )
+                            {
+                                window.location.reload();
+                            }
+                        },
+                        error: function (data) {
+                        console.log(data)
+                        }
+                    });
+                }
             });
 
         });
