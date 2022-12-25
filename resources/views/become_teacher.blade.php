@@ -103,44 +103,28 @@
                         <div class="row" id="becomeTeacher__wrapper">
                             <!-- begin subject -->
                             <div class="accordion col-md-6 " id="accordionExample">
-                                <div class="card">
-                                    <div class="card-header" id="headingOne1">
-                                        <h2 class="mb-0">
-                                            <button id="hiddenSubjectBut"
-                                                class="btn btn-link btn-block text-left {{ $errors->has('lname') ? ' is-invalid' : '' }}"
-                                                type="button" data-toggle="collapse" data-target="#collapseOne1"
-                                                aria-expanded="true" aria-controls="collapseOne1">
-                                                subject
-                                            </button>
-                                            <input type="hidden" value="{{ old('subject') }}" name="subject[]" id="hiddenSubject">
-                                            @if ($errors->has('subject'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('subject') }}</strong>
-                                            </span>
-                                            @endif
-                                        </h2>
-                                    </div>
-                                    <div id="collapseOne1" class="collapse" aria-labelledby="headingOne1"
-                                        data-parent="#accordionExample">
-                                        <span class="arow10"></span>
-                                        @if($subjects)
+                                <select class="form-control selectSubjects" name="subject[]">
+                                    @if($subjects)
                                         @foreach($subjects as $subject)
-                                        <div class="card-body"
-                                            onclick="createValueInputSubject('{{$subject->title}}','{{$subject->id}}')">
-                                            <span></span>{{$subject->title}}
-                                        </div>
+                                        <option value="{{$subject->id}}">{{$subject->title}}</option>
                                         @endforeach
-                                        @endif
-                                    </div>
-                                </div>
+                                    @endif
+                                </select>
+                                @if ($errors->has('subject'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('subject') }}</strong>
+                                </span>
+                                @endif
                             </div>
                             <!-- end subject -->
                             <!-- begin grade -->
                             <div class="accordion col-md-6" id="gradeAccordion">
-                            <select class="form-control select2 " multiple="multiple" name="grade[]">
-                                <option selected="selected">orange</option>
-                                <option>white</option>
-                                <option>purple</option>
+                            <select class="form-control select2 selectGrades" multiple="multiple" name="grade_0[]">
+                                @if($subjects)
+                                    @foreach($grades as $grade)
+                                        <option value="{{$grade->id}}">{{$grade->title}}</option>
+                                    @endforeach
+                                @endif
                             </select>
                             </div>
                             <!-- End grade -->

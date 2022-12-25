@@ -26,6 +26,7 @@ use App\Advertisement;
 use App\ChildCategory;
 use App\SubCategory;
 use App\Googlemeet;
+use App\InstructorsSubjects;
 use App\JitsiMeeting;
 use Illuminate\Support\Facades\Cookie;
 use Response;
@@ -178,7 +179,6 @@ class HomeController extends Controller
 
     public function saveTeacher(Request $request)
     {
-
         $data = $this->validate($request, [
             'fname'         => 'required',
             'lname'         => 'required',
@@ -188,9 +188,10 @@ class HomeController extends Controller
             'governorate'   => 'required|string',
             'city'          => 'required|string',
             'subject'       => 'required',
-            'grade'         => 'required',
+            // 'grade'         => 'required',
             'image'         => 'required|mimes:jpg,jpeg,png,bmp,tiff'
         ]);
+
 
         if ($file = $request->file('image')) 
         {            
@@ -217,21 +218,29 @@ class HomeController extends Controller
             'status'    => 0 ,
             'storage'   => 100
         ]);
-
-        $request->grade = explode(',',$request->grade) ;
-
-        foreach($request->grade as $_grade)
-        {
-            $_g = '{"en":"'.$_grade.'"}' ;
-            $getGrade = SubCategory::where('title', $_g)->first();
-
-            InstructorGrade::create([
-                'instructor_id' =>  $user->id ,
-                'subject_id'    =>  $request->subject ,
-                'grade_id'      =>  $getGrade->id
-            ]);
-        }
         
+        $k = 0 ;
+        // print_r($request->subject ); exit;
+        foreach($request->subject as $subject)
+        {
+
+            InstructorsSubjects::create([
+                'instructor_id' => $user->id ,
+                'subject_id'    => $subject ,
+                'status'        => 1 
+            ]);
+            $_grades = "grade_".$k ;
+            foreach(request($_grades) as $_grade)
+            {
+
+                InstructorGrade::create([
+                    'instructor_id' =>  $user->id ,
+                    'subject_id'    =>  $subject ,
+                    'grade_id'      =>  $_grade
+                ]);
+            }
+            $k += 1 ;
+        }        
 
         Session::flash('success', trans('flash.successfully_registered'));
         return redirect('become_teacher');

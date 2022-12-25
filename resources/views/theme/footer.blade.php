@@ -99,6 +99,16 @@
 
             let index = 0;
              $(add_buttonEn).click(function(e) {
+                // console.log($(".selectGrades option").contents() ) ;
+                var optionsGrade = new Array();
+                $('.selectGrades option').each(function(){
+                    optionsGrade.push("<option value="+$(this).val()+">"+$(this).text()+"</option>");
+                });
+                var selectSubjects = new Array();
+                $('.selectSubjects option').each(function(){
+                    selectSubjects.push("<option value="+$(this).val()+">"+$(this).text()+"</option>");
+                });
+
                 index++
                 e.preventDefault();
                     $(wrapperEn).append(`
@@ -107,49 +117,23 @@
                              <!-- begin subject -->
                             <div class="accordion col-md-6 " id="accordionExample`+index+`">
                                 <div class="card">
-                                    <div class="card-header" id="headingOne1">
-                                        <h2 class="mb-0">
-                                            <button id="hiddenSubjectBut`+index+`"
-                                                class="btn btn-link btn-block text-left {{ $errors->has('lname') ? ' is-invalid' : '' }}"
-                                                type="button" data-toggle="collapse" data-target="#collapseOne1`+index+`"
-                                                aria-expanded="true" aria-controls="collapseOne1`+index+`">
-                                                subject
-                                            </button>
-                                         <input type="hidden" value="{{ old('subject') }}" name="subject[]" id="hiddenSubject`+index+`">
-                                            @if ($errors->has('subject'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('subject') }}</strong>
-                                            </span>
-                                            @endif
-                                        </h2>
-                                    </div>
-                                    <div id="collapseOne1`+index+`" class="collapse" aria-labelledby="headingOne1"
-                                        data-parent="#accordionExample`+index+`">
-                                        <span class="arow10"></span>
-                                        @if($subjects)
-                                        @foreach($subjects as $subject)
-                                        <div class="card-body" onclick="createCustomValueInputSubject('hiddenSubject`+index+`','hiddenSubjectBut`+index+`','{{$subject->title}}','{{$subject->id}}')">
-                                            <span></span>{{$subject->title}}
-                                        </div>
-                                        @endforeach
-                                        @endif
-                                    </div>
+                                    <select class="form-control" name="subject[]">
+                                        "`+selectSubjects+`"
+                                    </select>
                                 </div>
                             </div>
                             <!-- end subject -->
                             <!-- begin grade -->
                             <div class="accordion col-md-6" id="gradeAccordion">
-                            <select class="form-control select22" multiple="multiple" id="`+index+`select2" name="grade[]">
-                                <option selected="selected">orange</option>
-                                <option>white</option>
-                                <option>purple</option>
+                            <select class="form-control select2" multiple="multiple" id="`+index+`select2" name="grade_`+index+`[]">
+                                "`+ optionsGrade +`"
                             </select>
                             </div>
                             <!-- End grade -->
                         </div>
                     </div>
                     `); //add input box
-                                     $('#'+index+'select2').select2({allowClear: true});
+                    $('#'+index+'select2').select2({allowClear: true});
                 } 
             );
 
