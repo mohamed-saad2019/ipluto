@@ -26,7 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'fname', 'email', 'password', 'lname', 'dob', 'doa', 'mobile', 'address', 'city_id',
         'state_id', 'country_id', 'gender', 'pin_code', 'status', 'verified', 'role', 'married_status','user_img', 'detail', 'braintree_id', 'fb_url', 'twitter_url', 'youtube_url', 'linkedin_url', 'email_verified_at', 'code', 'google_id', 'facebook_id', 'amazon_id', 'gitlab_id', 'linkedin_id', 'twitter_id', 'jwt_token', 'zoom_email', 'referred_by', 'affiliate_id', 'google2fa_secret', 'google2fa_enable', 'remember_token', 'vacation_start', 'vacation_end', 'age','storage'
-            ,'grade'
+            ,'grade','last_seen'
     ];
 
     

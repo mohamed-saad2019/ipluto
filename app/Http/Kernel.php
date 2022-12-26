@@ -37,7 +37,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\CheckReferral::class,
-            \App\Http\Middleware\LastSeen::class,
+            \App\Http\Middleware\LastSeen::class
 
         ],
 
@@ -75,6 +75,7 @@ class Kernel extends HttpKernel
         'ip_block' => \App\Http\Middleware\IpBlock::class,
         'maintanance_mode' => \App\Http\Middleware\MaintananceMode::class,
         '2fa' => \App\Http\Middleware\Google2FAAuthenticator::class,
+        // 'lastSeen'=>\App\Http\Middleware\LastSeen::class,
     ];
 
     /**
@@ -91,5 +92,6 @@ class Kernel extends HttpKernel
         \Illuminate\Session\Middleware\AuthenticateSession::class,
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
         \Illuminate\Auth\Middleware\Authorize::class,
+        \App\Http\Middleware\LastSeen::class
     ];
 }

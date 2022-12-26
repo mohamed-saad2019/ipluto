@@ -49,7 +49,7 @@
                                     <th>Phone</th>
                                     <th>Code</th>
                                     <th>Grade</th>
-                                   {{-- <th>{{ __('adminstaticword.Role') }}</th>--}}
+                                    <th>Last Seen</th>
                                    {{-- <th>{{ __('adminstaticword.Country') }}</th>--}}
                                     <th>{{ __('adminstaticword.Status') }}</th>
                                     <th>{{ __('adminstaticword.Action') }}</th>
@@ -108,7 +108,11 @@
                                                         {{  $user->studentGrade()->value('title')  }}
                                                      @endif
                                                  </td>
-                                              {{--  <td>{{ $user->role }}</td>--}}
+                                                <td>
+                                                @if(!empty($user->last_seen))
+                                                 {{ \Carbon\Carbon::parse($user->last_seen)->shortRelativeDiffForHumans() }}
+                                                @endif
+                                               </td>
                                               {{--<td>
                                                 @if(isset($user->country))
                                                 {{  $user->country->nicename  }}

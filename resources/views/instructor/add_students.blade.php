@@ -89,6 +89,7 @@
                               <th scope="col">Grade</th>
                               <th scope="col">Code</th>
                               <th scope="col">Type</th>
+                              <th scope="col">Last Seen</th>
                               <th scope="col">Class</th>
                               <th scope="col">Settings</th>
                             </tr>
@@ -110,6 +111,11 @@
                                  </td>
                                  <td>{{$st->student()->value('code')}} </td>
                                  <td>{{$st->type}}</td>
+                                 <td>
+                                      @if(!empty($st->student()->value('last_seen')))
+                                        {{ \Carbon\Carbon::parse($st->student()->value('last_seen'))->shortRelativeDiffForHumans() }}
+                                      @endif
+                                 </td>
                                  <td>
                                     <div class="dropdown" style="color:#2c5f9e;font-size:15px;">
                                   @if(!empty(getStudentClass($st->student()->value('id'))))

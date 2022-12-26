@@ -3,7 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\User;
 use Auth;
+use Cache;
+use Carbon\Carbon;
 
 class LastSeen
 {
@@ -15,7 +18,12 @@ class LastSeen
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {       
-        return 1;
+    {
+        if (Auth::check()) {
+            //Last Seen
+            User::where('id', Auth::user()->id)->update(['last_seen' => Carbon::now()]);
+        }
+        return $next($request);
     }
 }
+?>
