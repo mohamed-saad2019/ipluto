@@ -167,7 +167,7 @@ class AllinstructorController extends Controller
           $user = User::where('id', Auth::User()->id)->first();
         }
         
-
+// 
         return view('admin.allinstructor.edit'
             ,compact('cities','states','countries','user','childcategory','subcategory','instructor_grade','instructor_subject'));
 
@@ -182,7 +182,7 @@ class AllinstructorController extends Controller
      */
     public function update(Request $request,$id)
     {
-       
+       // 
 
         $this->validate($request,[
             'user_img' => 'mimes:jpg,jpeg,png,bmp,tiff',

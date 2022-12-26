@@ -23,7 +23,7 @@
 
 @endslot
 @endcomponent
-           
+           <!--  -->
 <div class="contentbar"> 
         <div class="row">
             

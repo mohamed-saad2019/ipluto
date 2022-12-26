@@ -210,11 +210,11 @@
                         @endif
                     </select>
                   </div>
-            <div class="form-group">
+           {{-- <div class="form-group">
               <label class="text-dark" for="exampleInputDetails">{{ __('adminstaticword.Detail') }}:</label>
               <textarea id="detail" name="detail" rows="3" class="form-control"
                 placeholder="{{ __('adminstaticword.Please') }} {{ __('adminstaticword.Enter') }} {{ __('adminstaticword.Detail') }}"></textarea>
-            </div>
+            </div>--}}
             <div class="form-group">
 
 

@@ -290,12 +290,12 @@
                         @endif
                     </select>
                   </div>
-               <div class="form-group">
+            {{--   <div class="form-group">
                   <label for="detail">{{ __('adminstaticword.Detail') }}:<sup class="text-danger">*</sup></label>
                   <textarea id="detail" name="detail" class="form-control" rows="5"
                     placeholder="{{ __('adminstaticword.Please') }} {{ __('adminstaticword.Enter') }} {{ __('adminstaticword.Detail') }}"
                     value="">{{ $user->detail }}</textarea>
-                </div>
+                </div>--}}
             </div>
             
             <div class="col-md-6">
