@@ -51,11 +51,7 @@
                     placeholder="{{ __('adminstaticword.Please') }} {{ __('adminstaticword.Enter') }} {{ __('adminstaticword.FirstName') }}" />
                 </div>
 
-                <div class="form-group">
-                  <label class="text-dark" for="exampleInputDetails">{{ __('adminstaticword.Address') }}:</label>
-                  <textarea name="address" rows="2" class="form-control"
-                    placeholder="{{ __('adminstaticword.Please') }} {{ __('adminstaticword.Enter') }} address"></textarea>
-                </div>
+              {{--  
                 <div class="form-group">
                   <label class="text-dark" for="city_id">{{ __('adminstaticword.Country') }}: </label>
                   <select id="country_id" class="form-control select2" name="country_id">
@@ -66,23 +62,35 @@
                     <option value="{{ $coun->country_id }}">{{ $coun->nicename }}</option>
                     @endforeach
                   </select>
-                </div>
+                </div>--}}
+
+                  <input type="hidden" name="country_id" value="64">
 
                 <div class="form-group">
-                  <label class="text-dark" for="state_id">{{ __('adminstaticword.State') }}: </label>
-                  <select id="upload_id" class="form-control select2" name="state_id">
-                    <option value="
-                   ">{{ __('adminstaticword.Please') }} Select an Option</option>
+                  <label class="text-dark" for="govern">{{ __('adminstaticword.State') }}: </label>
+                  <select id="govern" class="form-control select2" name="state_id">
+                     <option value="">Select an Option</option>
+                      @foreach(getGovern(64) as $govern)
+                        <option value="{{$govern->id}}">{{$govern->name}}</option>
+                      @endforeach
                   </select>
                 </div>
 
                 <div class="form-group">
                   <label class="text-dark" for="city_id">{{ __('adminstaticword.City') }}: </label>
-                  <select id="grand" class="form-control select2" name="city_id">
+                  <select id="city" class="form-control select2" name="city_id">
                     <option value="
                     ">{{ __('adminstaticword.Please') }} Select an Option</option>
                   </select>
                 </div>
+
+
+                <div class="form-group">
+                  <label class="text-dark" for="exampleInputDetails">{{ __('adminstaticword.Address') }}:</label>
+                  <textarea name="address" rows="2" class="form-control"
+                    placeholder="{{ __('adminstaticword.Please') }} {{ __('adminstaticword.Enter') }} address"></textarea>
+                </div>
+
                {{-- <div class="form-group">
                   <label class="text-dark" for="pin_code">{{ __('adminstaticword.Pincode') }}:</sup></label>
                   <input value="{{ old('pin_code')}}" placeholder="{{ __('adminstaticword.Please') }} {{ __('adminstaticword.Enter') }} pincode"
@@ -136,7 +144,7 @@
                     placeholder="{{ __('adminstaticword.Please') }} {{ __('adminstaticword.Enter') }} {{ __('adminstaticword.Password') }}"
                     class="form-control">
                 </div>
-                <div class="form-group">
+               {{-- <div class="form-group">
                   <label class="text-dark" for="role">{{ __('adminstaticword.SelectRole') }}: <sup
                       class="text-danger">*</sup></label>
                   <select class="form-control select2" name="role" required>
@@ -145,7 +153,7 @@
                     </option>
                     <option value="instructor">{{ __('adminstaticword.Instructor') }}</option>
                   </select>
-                </div>
+                </div>--}}
                 <div class="form-group">
                   <label class="text-dark" for="exampleInputSlug">{{ __('adminstaticword.Image') }}: </label>
 
@@ -182,24 +190,27 @@
             </div>
                 <div class="form-group col-md-6">
                     <label class="text-dark" for="course">
-                      {{ __('adminstaticword.Course') }}:
+                     Subject :
                     </label>
-                    <select autofocus name="course" type="text" class="form-control select2">
-                       <option value=""> 
-                       {{ __('adminstaticword.PleaseSelect') }}  {{ __('adminstaticword.Course') }}
-                     </option>
-                        @if(!empty($childcategory))
-                           @foreach($childcategory as $child)
-                            <option value="{{$child->id}}">{{$child->title}}</option>
-                           @endforeach
-                        @endif
-                     </select>
+                    <div id="subjects">
+                        <select autofocus name="course[]" type="text" class="form-control selectSubjects">
+                         <option value=""> 
+                         {{ __('adminstaticword.PleaseSelect') }}  {{ __('adminstaticword.Course') }}
+                       </option>
+                          @if(!empty($childcategory))
+                             @foreach($childcategory as $child)
+                              <option value="{{$child->id}}">{{$child->title}}</option>
+                             @endforeach
+                          @endif
+                       </select>
+                    </div>
                   </div>
                   <div class="form-group col-md-6">
                     <label class="text-dark" for="grade">
                       {{ __('adminstaticword.SubCategory') }}:
                     </label>
-                    <select autofocus name="grade[]" type="text" class="form-control select2" multiple>
+                    <div id="grades">
+                       <select autofocus name="grade_0[]" type="text" class="form-control select2 selectGrades" multiple id="grade">
                         <option value="">
                          {{ __('adminstaticword.PleaseSelect') }}  {{ __('adminstaticword.grade') }}
                         </option>
@@ -208,28 +219,35 @@
                             <option value="{{$sub->id}}">{{$sub->title}}</option>
                            @endforeach
                         @endif
-                    </select>
+                      </select>
+                    </div>
+                     <div class="col-sm-12" style="margin-top:10px;">
+                         <div class="text-right mb-3">
+                           <button type="button" class="btn btn-primary add_more"> <i class="fa fa-plus"></i></button>
+                           <button type="button" class="btn btn-danger del_buttonEn"> <i class="fa fa-trash"></i></button>
+                         </div>
+                     </div>
                   </div>
            {{-- <div class="form-group">
               <label class="text-dark" for="exampleInputDetails">{{ __('adminstaticword.Detail') }}:</label>
               <textarea id="detail" name="detail" rows="3" class="form-control"
                 placeholder="{{ __('adminstaticword.Please') }} {{ __('adminstaticword.Enter') }} {{ __('adminstaticword.Detail') }}"></textarea>
-            </div>--}}
+            </div>
             <div class="form-group">
-
-
               <label for="exampleInputDetails">{{ __('adminstaticword.Status') }}</label><br>
               <input id="status_toggle" type="checkbox" class="custom_toggle" name="status" checked />
               <input type="hidden" name="status" value="0" for="jeet120" id="jeet120">
-
             </div>
+        --}}
+           <div class="clear-both"></div>
+          
+            <input type="hidden" value="0" id="index">
+
             <div class="form-group">
-              <button type="reset" class="btn btn-danger-rgba"><i class="fa fa-ban"></i> Reset</button>
+              {{-- <button type="reset" class="btn btn-danger-rgba"><i class="fa fa-ban"></i> Reset</button>--}}
               <button type="submit" class="btn btn-primary-rgba"><i class="fa fa-check-circle"></i>
                 Create</button>
             </div>
-
-            <div class="clear-both"></div>
         </div>
 
       </div>
@@ -275,14 +293,7 @@
               catId: cat_id
             },
             success: function (data) {
-              console.log(data);
-              up.append('<option value="0">Please Choose</option>');
-              $.each(data, function (id, title) {
-                up.append($('<option>', {
-                  value: id,
-                  text: title
-                }));
-              });
+              alert(1);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
               console.log(XMLHttpRequest);

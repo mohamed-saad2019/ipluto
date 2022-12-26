@@ -33,6 +33,7 @@ use App\ChildCategory;
 use App\SubCategory;
 use App\Categories;
 use App\InstructorGrade;
+use App\InstructorsSubjects;
 class AllinstructorController extends Controller
 {
     public function __construct()
@@ -48,7 +49,7 @@ class AllinstructorController extends Controller
     public function viewAllUser()
     {
   
-        $users = User::where('role', 'instructor')->get();
+        $users = User::where('role', 'instructor')->orderBy('id','DESC')->get();
         return view('admin.allinstructor.index', compact('users'));
     }
     
@@ -64,10 +65,10 @@ class AllinstructorController extends Controller
        
         $cities = Allcity::all();
         $states = Allstate::all();
-        $countries = Country::all();
+        $countries = Country::where('id','64')->get();
         $category      = Categories::all();
-        $childcategory = ChildCategory::all();
-        $subcategory = SubCategory::all();
+        $childcategory = ChildCategory::where('status', '1')->GroupBy('slug')->orderBy('id','ASC')->get();
+        $subcategory =  SubCategory::where('status', '1')->orderBy('id','ASC')->get();
 
         return view('admin.allinstructor.adduser')->with(['cities' => $cities, 'states' => $states, 'countries' => $countries,'childcategory'=>$childcategory,'subcategory'=>$subcategory]);
     }
@@ -88,10 +89,9 @@ class AllinstructorController extends Controller
             'mobile' => 'required|regex:/[0-9]{9}/',
             'email' => 'required|unique:users,email',
             'password' => 'required|min:6|max:20',
-            'role' => 'required',
             'user_img' => 'mimes:jpg,jpeg,png,bmp,tiff',
-            'course'=>'required',
-            'grade'=>'required|array',
+            'course'=>'required|array',
+            // 'grade'=>'required|array',
         ]);
 
 
@@ -105,7 +105,7 @@ class AllinstructorController extends Controller
             $input['user_img'] = $image;
             
         }
-
+        $input['role']     = 'instructor';
         $input['password'] = Hash::make($request->password);
         $input['detail'] = $request->detail;
         $input['email_verified_at'] = \Carbon\Carbon::now()->toDateTimeString();
@@ -113,15 +113,28 @@ class AllinstructorController extends Controller
         $data = User::create($input);
         $data->save(); 
 
-        foreach(request('grade') as $g)
+           $k = 0 ;
+        // print_r($request->subject ); exit;
+        foreach($request->course as $subject)
         {
-           InstructorGrade::create([
-            'instructor_id'=>$data->id,
-            'subject_id'=>request('course'),
-            'grade_id'=>$g,
-            'status'=>1
+
+            InstructorsSubjects::create([
+                'instructor_id' => $data->id ,
+                'subject_id'    => $subject ,
+                'status'        => 1 
             ]);
-        }
+            $_grade = "grade_".$k ;
+            foreach(request($_grade) as $_grade)
+            {
+
+                InstructorGrade::create([
+                    'instructor_id' =>  $data->id ,
+                    'subject_id'    =>  $subject ,
+                    'grade_id'      =>  $_grade
+                ]);
+            }
+            $k += 1 ;
+        }      
 
         Session::flash('success', trans('flash.AddedSuccessfully'));
         return redirect('allinstructor');
@@ -153,10 +166,10 @@ class AllinstructorController extends Controller
         $countries = Country::all();
         $user = User::findorfail($id);
         $category      = Categories::all();
-        $childcategory = ChildCategory::all();
-        $subcategory = SubCategory::all();
-        $instructor_subject = InstructorGrade::where('instructor_id',$id)->pluck('subject_id')
-                                                ->toArray();
+        $childcategory = ChildCategory::where('status', '1')->GroupBy('slug')->orderBy('id','ASC')->get();
+        $subcategory =  SubCategory::where('status', '1')->orderBy('id','ASC')->get();
+        $instructor_subject = InstructorsSubjects::where('instructor_id',$id)->where('status','1')
+                                ->pluck('subject_id')->toArray();
         $instructor_grade   = InstructorGrade::where('instructor_id',$id)->pluck('grade_id')
                                                 ->toArray();
         if(Auth::User()->role == 'admin')
@@ -186,8 +199,8 @@ class AllinstructorController extends Controller
 
         $this->validate($request,[
             'user_img' => 'mimes:jpg,jpeg,png,bmp,tiff',
-            'course'=>'required',
-            'grade'=>'required|array',
+            'course'=>'required|array',
+            // 'grade'=>'required|array',
         ]);
 
         if(Auth::User()->role == 'admin')
@@ -261,17 +274,35 @@ class AllinstructorController extends Controller
           $data = $user->update($input);
 
           InstructorGrade::where('instructor_id',$id)->delete();
+          InstructorsSubjects::where('instructor_id',$id)->delete();
 
-      foreach(request('grade') as $g)
-        {
-           InstructorGrade::create([
-            'instructor_id'=>$id,
-            'subject_id'=>request('course'),
-            'grade_id'=>$g,
-            'status'=>1
-            ]);
-        }
+            $k = 0 ;
 
+            foreach($request->course as $subject)
+            {
+              if($subject != NULL)
+              {
+                InstructorsSubjects::create([
+                    'instructor_id' => $user->id ,
+                    'subject_id'    => $subject ,
+                    'status'        => 1 
+                ]);
+
+                $_grade = "grade_".$k ;
+                
+                foreach(request($_grade) as $_grade)
+                {
+
+                    InstructorGrade::create([
+                        'instructor_id' =>  $user->id ,
+                        'subject_id'    =>  $subject ,
+                        'grade_id'      =>  $_grade
+                    ]);
+                }
+
+                $k += 1 ;
+              }
+            }      
 
           Session::flash('success', trans('flash.UpdatedSuccessfully'));
 

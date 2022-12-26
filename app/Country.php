@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Country extends Model
 {
+	protected $table = 'allcountry';
+
     protected $fillable=[
 	
 		'iso', 'name', 'nicename', 'iso3', 'numcode'

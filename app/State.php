@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class State extends Model
 {
-    protected $table = 'states';
+    protected $table = 'allstates';
 
     public function country()
     {

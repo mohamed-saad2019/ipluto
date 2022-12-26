@@ -161,7 +161,7 @@
                   @endif
                 </div>
                
-                <div class="form-group">
+              {{--  <div class="form-group">
                   <label for="city_id">{{ __('adminstaticword.Country') }}:</label>
                   <select id="country_id" class="form-control select2" name="country_id">
                     <option value="none" selected disabled hidden>
@@ -175,31 +175,27 @@
                     </option>
                     @endforeach
                   </select>
-                </div>
-                <div class="form-group">
-                  <label for="city_id">{{ __('adminstaticword.State') }}:</label>
-                  <select id="upload_id" class="form-control select2" name="state_id">
-                    <option value="none" selected disabled hidden>
-                      {{ __('adminstaticword.Please') }} {{ __('adminstaticword.SelectanOption') }}
-                    </option>
-                    @foreach ($states as $s)
-                    <option value="{{ $s->state_id}}" {{ $user->state_id==$s->state_id ? 'selected' : '' }}>
-                      {{ $s->name}}
-                    </option>
-                    @endforeach
+                </div>--}}
 
+                            <input type="hidden" name="country_id" value="64">
+
+                <div class="form-group">
+                  <label for="govern">{{ __('adminstaticword.State') }}:</label>
+                  <select id="govern" class="form-control select2" name="state_id">
+                    <option value="">Select an Option</option>
+                      @foreach(getGovern(64) as $govern)
+                        <option value="{{$govern->id}}" @if($user->state_id==$govern->id) selected @endif>{{$govern->name}}</option>
+                      @endforeach
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="city_id">{{ __('adminstaticword.City') }}:</label>
-                  <select id="grand" class="form-control select2" name="city_id">
-                    <option value="none" selected disabled hidden>
-                      {{ __('adminstaticword.Please') }}  {{ __('adminstaticword.SelectanOption') }}
-                    </option>
-                    @foreach ($cities as $c)
-                    <option value="{{ $c->id }}" {{ $user->city_id == $c->id ? 'selected' : ''}}>{{ $c->name }}
-                    </option>
-                    @endforeach
+                  <label for="city">{{ __('adminstaticword.City') }}:</label>
+                  <select id="city" class="form-control select2" name="city_id">
+                       @if(!empty($user->city_id))
+                       <option value="{{$user->city_id}}">{{$user->city()->value('name')}}</option>
+                      @else
+                        <option value="">Select an Option</option>
+                      @endif
                   </select>
                 </div>
                {{-- <div class="form-group">
@@ -259,36 +255,66 @@
                     <label class="text-dark" for="course">
                       {{ __('adminstaticword.Course') }}:
                     </label>
-                    <select autofocus name="course" type="text" class="form-control select2">
-                       <option value=""> 
-                       {{ __('adminstaticword.PleaseSelect') }}  {{ __('adminstaticword.Course') }}
-                     </option>
-                        @if(!empty($childcategory))
-                           @foreach($childcategory as $child)
-                            <option value="{{$child->id}}"
-                             @if(in_array($child->id,$instructor_subject)){{'selected'}}@endif>{{$child->title}}
-                            </option>
-                           @endforeach
-                        @endif
-                     </select>
+                    <div id="subjects">
+                     @php $c = 0; @endphp
+                     @foreach($instructor_subject as $sub)
+                         <div style="margin-top:10px;">
+                            <select autofocus name="course[]" type="text" class="form-control @if($c == 0) selectSubjects  @endif" >
+                            <option value=""> 
+                             {{ __('adminstaticword.PleaseSelect') }}  {{ __('adminstaticword.Course') }}
+                             </option>
+                              @if(!empty($childcategory))
+                                 @foreach($childcategory as $child)
+                                  <option value="{{$child->id}}"
+                                   @if($child->id == $sub){{'selected'}}@endif>{{$child->title}}
+                                  </option>
+                                 @endforeach
+                              @endif
+                           </select>
+                         </div>
+                      @php $c += 1; @endphp
+                     @endforeach
                   </div>
+                </div>
+
                   <div class="form-group col-md-6">
                     <label class="text-dark" for="grade">
                       {{ __('adminstaticword.SubCategory') }}:
                     </label>
-                    <select autofocus name="grade[]" type="text" class="form-control select2" multiple>
-                        <option value="">
-                         {{ __('adminstaticword.PleaseSelect') }}  {{ __('adminstaticword.grade') }}
-                        </option>
-                         @if(!empty($subcategory))
-                           @foreach($subcategory as $sub)
-                            <option value="{{$sub->id}}"
-                             @if(in_array($sub->id,$instructor_grade)){{'selected'}}@endif>
-                             {{$sub->title}}
-                           </option>
-                           @endforeach
-                        @endif
-                    </select>
+                   
+                    <div  id="grades">
+                      @php $k = 0; @endphp
+                       @foreach($instructor_subject as  $v)
+                        <div style="margin-top:10px;">
+                           <select autofocus name="grade_{{$k}}[]" type="text" 
+                              class="form-control select2 @if($k == 0) selectGrades @endif" multiple>
+                            <option value="">
+                             {{ __('adminstaticword.PleaseSelect') }}  {{ __('adminstaticword.grade') }}
+                            </option>
+                             @if(!empty($subcategory))
+                               @foreach($subcategory as $sub)
+                                @php
+                                  $gradesInsub = App\InstructorGrade::where('instructor_id',$user->id)->where('subject_id',$v)->pluck('grade_id')->toArray(); 
+                                @endphp
+                                <option value="{{$sub->id}}"
+                                   @if(in_array($sub->id,$gradesInsub)){{'selected'}}@endif>
+                                 {{$sub->title}}
+                               </option>
+                               @endforeach
+                            @endif
+                        </select>
+                      </div>
+                      @php $k += 1; @endphp
+                    @endforeach
+                     </div>
+                     
+                      <div class="col-sm-12" style="margin-top:10px;">
+                         <div class="text-right mb-3">
+                           <button type="button" class="btn btn-primary add_more"> <i class="fa fa-plus"></i></button>
+                           <button type="button" class="btn btn-danger del_buttonEn"> <i class="fa fa-trash"></i></button>
+                         </div>
+                      </div>
+                 
                   </div>
             {{--   <div class="form-group">
                   <label for="detail">{{ __('adminstaticword.Detail') }}:<sup class="text-danger">*</sup></label>
@@ -317,9 +343,10 @@
                 </div>
             </div>
             <div class="col-md-6">
- <div class="form-group">
-                  <button type="reset" class="btn btn-danger-rgba"><i class="fa fa-ban"></i>
-                    Reset</button>
+
+               <div class="form-group">
+                 {{-- <button type="reset" class="btn btn-danger-rgba"><i class="fa fa-ban"></i>
+                    Reset</button>--}}
                   <button type="submit" class="btn btn-primary-rgba"><i class="fa fa-check-circle"></i>
                     Update</button>
                 </div>
