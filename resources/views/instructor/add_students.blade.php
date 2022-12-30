@@ -78,7 +78,18 @@
                 </div>
 
             </h4>
-            <br>
+                   <br>
+
+             @if ($errors->any())
+                    <div class="alert alert-danger">
+                      <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                      </ul>
+                    </div>
+            @endif
+
                     <div class="table-responsive" style="margin-top: 30px;">
                         <table class="table table-hover" id='example1'>
                             <thead class="thead-dark">

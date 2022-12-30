@@ -39,7 +39,6 @@
                         <th scope="col" style="">Name</th>
                         <th scope="col" style="">Grade</th>
                         <th scope="col" style="">Day</th>
-                        <th scope="col" style="">Time</th>
                         <th scope="col" style="">Duration</th>
                         <th scope="col" style="">lessons</th>
                         <th scope="col" style="">Students</th>
@@ -57,22 +56,11 @@
                              {{get_student_grade($class->grade_id)}}
                             @endif
                         </td>
-                         
                         <td style="">
-                             
                             @foreach(getDaysClass($class->id) as $day)
-                                <p>{{$day->day}}</p>
+                                <p>{{$day->day}}</p> <p>{{$day->time}}</p>
                             @endforeach
-
-                        </td>
-                        <td style="">
-
-                            @foreach(getDaysClass($class->id) as $day)
-                                <p>{{$day->time}}</p>
-                            @endforeach
-
-                        </td>
-                        
+                        </td>                        
                         <td style="">{{$class->duration}}</td>
                         <td style="">
                           @if($class->count_lessons!=0)

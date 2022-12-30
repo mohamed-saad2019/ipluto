@@ -708,6 +708,7 @@ class InstructorController extends Controller
 
     public function add_class(Request $request)
     {
+
         $grades   = SubCategory::where('status', '1')->orderBy('id','ASC')->get();
 
         $student_instructor = InstructorStudents::where('instructor_id',\Auth::user()->id)->orderBy('id','DESC')->where('status','1')->pluck('student_id');
@@ -736,7 +737,8 @@ class InstructorController extends Controller
         $validator = \Validator::make($request->all(),[
             'name'=>'required|string',
             'file' => $ch_file,
-         ],[],['name'=>'Class Name','file'=>'Class Students']);
+            'num_of_student'=>'required|numeric'
+         ],[],['name'=>'Class Name','file'=>'Class Students','num_of_student'=>'Number Of Students']);
 
          if ($validator->fails())   //check all validations are fine, if not then redirect and show error messages
             {
@@ -750,9 +752,30 @@ class InstructorController extends Controller
                 $validator = 'The Class Name has already been taken.';
                 return back()->withInput()->withErrors($validator);
             }
+           
+             $count_students = 0;
 
- if ( $xlsx = SimpleXLSX::parse( request('file') ) )
+            if(request()->has('students'))
+            {
+                $count_students+= count(request('students')); 
+
+                if($count_students > request('num_of_student'))
+                {
+                    return back()->withInput()->withErrors('The number of students must not be more than '.request('num_of_student')); 
+                } 
+            }
+           
+           
+
+            if ( $xlsx = SimpleXLSX::parse( request('file') ) )
                         {
+                            $count_students+= count($xlsx->rows())-1;
+                           
+                            if($count_students > request('num_of_student'))
+                            {
+                              return back()->withInput()->withErrors('The number of students must not be more than '.request('num_of_student')); 
+                            }
+
                            $errors = [];$c=1;$total_adding=0;$total_not_adding=0;$st_ids=[];
 
                             foreach ( $xlsx->rows() as $r => $row )
@@ -890,7 +913,8 @@ class InstructorController extends Controller
                     }
 
     
-        DB::insert("INSERT INTO `classes`(`id`, `name`, `instructor_id`, `grade_id`, `duration`, `status`, `created_at`) VALUES (NULL,'".$request->name."','".auth()->user()->id."','".$request->grade_id."','".$request->duration."','1',NOW())");
+        DB::insert("INSERT INTO `classes`(`id`, `name`, `instructor_id`, `grade_id`,`num_of_student`,`class_key`,`duration`, `status`, `created_at`) VALUES (NULL,'".$request->name."','".auth()->user()->id."','".$request->grade_id."','".$request->num_of_student."','".generate_class_key()."','".$request->duration."','1',NOW())");
+
         $last_id = DB::getPdo()->lastInsertId();
 
          foreach($request->day as $k=>$_day)
@@ -996,7 +1020,9 @@ class InstructorController extends Controller
         $validator = \Validator::make($request->all(),[
             'name'=>'required|string',
             'students' => 'required|array',
-         ],[],['name'=>'Class Name','file'=>'Class Students']);
+            'num_of_student'=>'required|numeric'
+
+         ],[],['name'=>'Class Name','file'=>'Class Students','num_of_student'=>'Number Of Students']);
 
          if ($validator->fails())   //check all validations are fine, if not then redirect and show error messages
             {
@@ -1011,12 +1037,18 @@ class InstructorController extends Controller
                 return back()->withInput()->withErrors($validator);
             }
 
+           if(count(request('students')) > request('num_of_student'))
+           {
+             return back()->withInput()->withErrors('The number of students must not be more than '.request('num_of_student')); 
+           } 
+            
  
         DB::table('classes')
             ->where('id', $id)
             ->update(['name' =>request('name'),
                       'instructor_id'=>auth()->user()->id,
-                      'grade_id'=>request('grade_id')]);
+                      'grade_id'=>request('grade_id'),
+                      'num_of_student'=>request('num_of_student')]);
 
         DB::table('class_days')->where('class_id', request('id'))->delete();
 
@@ -1074,23 +1106,38 @@ class InstructorController extends Controller
     {
        if(request()->has('student_id') and request()->has('new_class_id'))
         {
-          $update =  DB::table('classes_student')
+         
+         ////check number of student first/////
+         $num_of_student         = \DB::table('classes_student')->where('class_id',request('new_class_id'))->count();
+         $total_student_in_class = \DB::table('classes')->where('id', request('new_class_id'))->first()->num_of_student;
+
+         if($num_of_student < $total_student_in_class)
+         {
+                $update =  DB::table('classes_student')
               ->where('student_id', request('student_id'))
               ->where('teacher_id',auth()->user()->id)
               ->update(['class_id' => request('new_class_id')]); 
 
-          if ($update==0)
-           {
-             DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".request('new_class_id')."','".auth()->user()->id."','".request('student_id')."',1,NOW())") ;
+                  if ($update==0)
+                   {
+                     DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".request('new_class_id')."','".auth()->user()->id."','".request('student_id')."',1,NOW())") ;
 
-                  \Session::flash('success','The Class has been successfully Added'); 
+                          \Session::flash('success','The Class has been successfully Added'); 
 
-           }
+                   }
+                 else
+                  {
+                          \Session::flash('success','The Class has been successfully Updated'); 
+
+                  }
+         }
+
          else
-          {
-                  \Session::flash('success','The Class has been successfully Updated'); 
-
-          }
+        {
+          return back()->withInput()->withErrors('The class is complete. You cannot add this student to the class'); 
+        }
+          
+          
         }
 
       return back();

@@ -226,12 +226,10 @@ $current_storage = str_replace("MB","",get_size_instructor());
       </div>
       @endforeach
     </div>
-    <br>
-
     <div class="container">
-
       <!-- begin  -->
       <div class="container">
+          <center>Lessons without folders</center><br>
         <div class="row go" id="dvSource">
           @foreach($lessons as $lesson)
           <div class="col-md-3 col-sm-6 mb-4">

@@ -534,3 +534,36 @@ if( !function_exists('getGovern'))
        return \DB::select("SELECT * FROM `allstates` WHERE  `country_id` = '".$country_id."'");
     }
 }
+
+if(!function_exists('generate_class_key'))
+    {
+       function generate_class_key()
+        {
+          
+            $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $numbers    = '0123456789';
+            $key = '';
+ 
+            for ($i = 0; $i < 2; $i++) {
+                $index = rand(0, strlen($characters) - 1);
+                $key .= $characters[$index];
+            }
+
+            for ($i = 0; $i < 3; $i++) {
+                $index = rand(0, strlen($numbers) - 1);
+                $key .= $numbers[$index];
+            }
+
+           $count =  \DB::table('classes')->where('class_key', $key)->count();
+          
+           if($count==0)
+            {
+                return $key;
+            }
+            else
+            {
+                return generate_class_key();
+            }
+
+        }
+    }

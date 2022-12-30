@@ -86,18 +86,16 @@
                        
                     </div>
 
-                    <div class="accordion col-md-12" id="accordionExampleHours">
-                        <div class="card">
-                            <div class="card-header" id="headingOneHours">
-                                <h2 class="mb-0">
-                                  
-                            <input type="number" value="{{$class->duration}}" class="form-control" 
+                    <div class="col-md-6" id="">
+                         <input type="number" value="{{$class->duration}}" class="form-control" 
                                    step="any" name="duration" required placeholder="Duration">
-                                </h2>
-                            </div>
-                            
-                        </div>
                     </div>
+
+                     <div class="col-md-6" id="">
+                         <input type="number" value="{{$class->num_of_student}}" class="form-control" 
+                                   step="any" name="num_of_student" required placeholder="Number Of Students" required>
+                    </div>
+
 
                     <div class="accordion col-md-12" >
                         <br>

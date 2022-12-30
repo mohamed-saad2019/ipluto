@@ -19,6 +19,7 @@
         "consoletvs/charts": "6.*",
         "deviny/bbb-php-api": "^1.4",
         "devmarketer/easynav": "^1.0",
+        "dirape/token": "^2.3",
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
