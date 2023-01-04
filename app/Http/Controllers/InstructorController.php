@@ -944,7 +944,7 @@ class InstructorController extends Controller
 
            if(empty($checkStudentInClass))
             {
-                DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".$last_id."','".auth()->user()->id."','".$_s."',1,NOW())") ;
+                DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".$last_id."','".auth()->user()->id."','".$_s."',0,NOW())") ;
             }
 
               else
@@ -1067,7 +1067,7 @@ class InstructorController extends Controller
 
            if(empty($checkStudentInClass))
             {
-                DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".$id."','".auth()->user()->id."','".$_s."',1,NOW())") ;
+                DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".$id."','".auth()->user()->id."','".$_s."',0,NOW())") ;
             }
 
               else
@@ -1120,7 +1120,7 @@ class InstructorController extends Controller
 
                   if ($update==0)
                    {
-                     DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".request('new_class_id')."','".auth()->user()->id."','".request('student_id')."',1,NOW())") ;
+                     DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".request('new_class_id')."','".auth()->user()->id."','".request('student_id')."',0,NOW())") ;
 
                           \Session::flash('success','The Class has been successfully Added'); 
 
@@ -1149,7 +1149,7 @@ class InstructorController extends Controller
         if (request()->has('class_id')) 
         {
            $students = ClassesStudent::where('teacher_id',\Auth::user()->id)
-           ->where('status','1')->where('class_id',request('class_id'))
+           ->where('class_id',request('class_id'))
            ->orderBy('id','DESC')->get();           
         }
         elseif (request()->has('type') and request('type')=='online') 
@@ -1242,9 +1242,7 @@ class InstructorController extends Controller
     public function del_student()
     {
          if (request('id') and !empty(request('id'))) {
-    
-             InstructorStudents::where('id',request('id'))->delete();
-            
+         DB::table('classes_student')->where('id',request('id'))->delete();
         }
 
          \Session::flash('success','Student has been successfully deleted'); 
@@ -1257,19 +1255,17 @@ class InstructorController extends Controller
     {
          if (request('id') and !empty(request('id'))) {
     
-             $st = InstructorStudents::where('id',request('id'))->first();
+           $st =  DB::table('classes_student')->where('id',request('id'))->first();
 
-             if ($st->status==0) {
-                 
-              InstructorStudents::where('id',request('id'))->update(['status'=>'1']);
 
+             if ($st->status == '0') {
+             DB::table('classes_student')->where('id',request('id'))->update(['status'=>'1']);
              }
 
-             else if ($st->status==1)
-              {
-                   InstructorStudents::where('id',request('id'))->update(['status'=>'0']);
-
-                } 
+            else
+            {
+              DB::table('classes_student')->where('id',request('id'))->update(['status'=>'0']);
+            } 
         }
 
         return true;
@@ -1311,7 +1307,7 @@ class InstructorController extends Controller
                 );
 
         \Session::flash('success', trans('Student Added Successfully'));
-        return redirect('instructor/add_students?type=center');
+        return redirect('instructor/students');
  }
 
  public function upload_students()
