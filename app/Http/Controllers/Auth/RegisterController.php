@@ -288,7 +288,7 @@ class RegisterController extends Controller
                     if($getTotalStudentInClass < $class->num_of_student )
                     {
                       DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".$class->id."','".$class->instructor_id."','".$user->id."',0,NOW())") ;
-                      User::where('id',$user->id)->update(['class_key'=>$data['class_key']]);
+                      User::where('id',$user->id)->update(['subject_id'=>$class->subject_id,'class_key'=>$data['class_key']]);
                                       \Session::put('typeLogin', '-1'); 
                     }
                   else

@@ -894,6 +894,7 @@ Route::middleware(['web'])->group(function () {
            Route::group(['middleware' => ['center_student']], function () {
                 Route::get('student/lessons', 'StudentController@lessons')->name('student.lessons');
                 Route::get('student/profile', 'StudentController@profile')->name('student.profile');
+                Route::get('student/joinClass', 'StudentController@joinClass');
                 Route::get('student/livesession', 'ZoomController@liveSession')->name('student.livesession');
                 Route::post('student/join_zoom', 'ZoomController@joinZoom')->name('join.zoom');
                 
@@ -902,7 +903,7 @@ Route::middleware(['web'])->group(function () {
                 //start labirary 
                
                 
-            Route::get('student/show_subject_videos', 'StudentController@subject_videos')->name('show_subject_videos');
+         Route::get('student/show_subject_videos', 'StudentController@subject_videos')->name('show_subject_videos');
                
                 Route::get('student/showlist', function(){
                     return view('student.showlist');
