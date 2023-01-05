@@ -58,7 +58,8 @@
         @php
         $grades = \App\SubCategory::where('status', '1')->orderBy('id','ASC')->get(); 
       @endphp
-        <div class="form-group">
+      <div class="row">
+          <div class="col-12 col-md-6">
           <label for="exampleInputEmail1">Grade</label>
           <select name='grade' 
                  class="form-control{{ $errors->has('grade') ? ' is-invalid' : '' }} select2" required>
@@ -75,6 +76,16 @@
               </span>
           @endif
         </div>
+          <div class="col-12 col-md-6">
+           <label for="class_key">Class Code</label>
+           <input type="text" id="class_key" name="class_key" value="{{old('class_key')}}" minlength ="5" maxlength="5" class="form-control{{ $errors->has('class_key') ? ' is-invalid' : '' }}">
+            @if($errors->has('class_key'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('class_key') }}</strong>
+                </span>
+            @endif
+        </div>
+      </div>
       <input type="hidden" name="country" value="64">
       <div class="row">
         <div class="col-12 col-md-6">

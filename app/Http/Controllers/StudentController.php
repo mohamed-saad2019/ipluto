@@ -20,12 +20,47 @@ class StudentController extends Controller
   
    public function profile()
     {
+        if(request()->has('class_key') and !empty(request('class_key')))
+        {
+          $class = getClassByKey(request('class_key'));
+          
+          if(!empty($class))
+            {
+               $class_student = ClassesStudent::where('class_id',$class->id)->where('student_id',auth()->user()->id)->first(); 
+              if($class_student->status=='1')
+                {
+                  User::where('id',auth()->user()->id)->update(['class_key'=>request('class_key')]);
+                }
+              else
+               {
+                   \Session::flash('info','You cannot join this class...waiting for approval from the administrator');
+               }
+            }
+          else
+           {
+              \Session::flash('info','An error in the class code');
+           }
+        }
         return view('student.profile');
     }
 
 
     public function lessons()
     {
+
+        if(request()->has('class_key') and !empty(request('class_key')))
+        {
+            $class = getClassByKey(request('class_key'));
+
+          if(!empty($class))
+            {
+
+            }
+          else
+           {
+              \Session::flash('info','An error in the class code');
+           }
+        }
 
         if(request()->has('subject_id') and !empty(request('subject_id')))
         {

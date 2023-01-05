@@ -566,4 +566,29 @@ if(!function_exists('generate_class_key'))
             }
 
         }
-    }
+   }
+   
+     if( !function_exists('getClassByKey'))
+        {
+            function getClassByKey($key)
+            {
+               $class =  \DB::table('classes')->where('class_key', $key)->first();
+               if(!empty($class))
+               {
+                return $class;
+               }
+               else
+               { 
+                 return false;
+               }
+             }
+        }
+    
+     if( !function_exists('getTotalStudentInClass'))
+        {
+            function getTotalStudentInClass($class_id)
+            {
+               return \DB::table('classes_student')->where('class_id', $class_id)->count();
+            }
+        }
+    

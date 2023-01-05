@@ -1111,30 +1111,22 @@ class InstructorController extends Controller
          $num_of_student         = \DB::table('classes_student')->where('class_id',request('new_class_id'))->count();
          $total_student_in_class = \DB::table('classes')->where('id', request('new_class_id'))->first()->num_of_student;
 
-         if($num_of_student < $total_student_in_class)
-         {
-                $update =  DB::table('classes_student')
+          DB::table('classes_student')
               ->where('student_id', request('student_id'))
               ->where('teacher_id',auth()->user()->id)
-              ->update(['class_id' => request('new_class_id')]); 
+              ->delete(); 
 
-                  if ($update==0)
-                   {
-                     DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".request('new_class_id')."','".auth()->user()->id."','".request('student_id')."',0,NOW())") ;
-
-                          \Session::flash('success','The Class has been successfully Added'); 
-
-                   }
-                 else
-                  {
-                          \Session::flash('success','The Class has been successfully Updated'); 
-
-                  }
+         if($num_of_student < $total_student_in_class)
+         {
+              DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".request('new_class_id')."','".auth()->user()->id."','".request('student_id')."',1,NOW())") ;
+             \Session::flash('success','The Class has been successfully Added'); 
          }
 
          else
         {
-          return back()->withInput()->withErrors('The class is complete. You cannot add this student to the class'); 
+            DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".request('new_class_id')."','".auth()->user()->id."','".request('student_id')."','-1',NOW())") ;
+
+          return back()->withInput()->withErrors('class is complete.This student has been added to the waiting list'); 
         }
           
           
@@ -1149,7 +1141,7 @@ class InstructorController extends Controller
         if (request()->has('class_id')) 
         {
            $students = ClassesStudent::where('teacher_id',\Auth::user()->id)
-           ->where('class_id',request('class_id'))
+           ->where('class_id',request('class_id'))->where('status','!=','-1')
            ->orderBy('id','DESC')->get();           
         }
         elseif (request()->has('type') and request('type')=='online') 
@@ -1169,6 +1161,45 @@ class InstructorController extends Controller
         $classes = DB::select("SELECT * , (SELECT count(*) FROM `classes_student` WHERE class_id = `classes`.id ) AS count_students FROM `classes` WHERE `instructor_id` = '".auth()->user()->id."' ORDER BY id DESC ");
 
          return view('instructor.add_students',compact('students','classes'));
+    }
+
+    public function waiting_students()
+    {
+     if(request()->has('class_id'))
+     {
+         $students = ClassesStudent::where('teacher_id',\Auth::user()->id)
+           ->where('class_id',request('class_id'))->where('status','=','-1')
+           ->orderBy('id','DESC')->get(); 
+
+        $classes = DB::select("SELECT * , (SELECT count(*) FROM `classes_student` WHERE class_id = `classes`.id ) AS count_students FROM `classes` WHERE `instructor_id` = '".auth()->user()->id."' ORDER BY id DESC ");
+
+         return view('instructor.waiting_approval_students',compact('students','classes')); 
+     }  
+    }
+
+    public function approval_student()
+    {
+     if(request()->has('class_id') and request()->has('student_id'))
+     {
+        $class = DB::table('classes')->where('id',request('class_id'))->first();
+            
+             if(!empty($class))
+             {
+                    $getTotalStudentInClass = getTotalStudentInClass($class->id);
+
+                    if($getTotalStudentInClass < $class->num_of_student )
+                    {
+                      DB::table('classes_student')->where('class_id',request('class_id'))->where('student_id',request('student_id'))->update(['status'=>'1']);
+                      \Session::flash('success','Student has been approved successfully');
+                    }
+                    else
+                    {
+                     \Session::flash('error','This class is complete, this student cannot be added to the class');
+                    }
+            }       
+     }  
+             return back();
+
     }
 
     public function add_students()

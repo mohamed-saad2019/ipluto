@@ -4,6 +4,14 @@
     <!-- start header -->
     <div class="header">
         <div class="headerText">
+            @if(Session::has('typeLogin') and !empty(Session::get('typeLogin')))
+            <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet"/>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+            <script type="text/javascript">
+             toastr.success("Awaiting official approval","Successfully Registered");
+            </script>
+            @endif
           <h4>The natural science changes, </br>
               ipluto will support you.</h4>
             <p>the way of change by using digital lessons to make science better. we create animated digital visualization lessons Physics, Chemistry, and Biology. Do You Want To Join…?</p>

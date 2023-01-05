@@ -37,6 +37,7 @@
                     <tr>
                         <th scope="col" style="">id</th>
                         <th scope="col" style="">Name</th>
+                        <th scope="col" style="">Code</th>
                         <th scope="col" style="">Grade</th>
                         <th scope="col" style="">Day</th>
                         <th scope="col" style="">Duration</th>
@@ -51,6 +52,7 @@
                     <tr class="cus_table">
                         <td scope="row" style="">{{$class->id}}</td>
                         <td style="">{{$class->name}}</td>
+                        <td style="">{{$class->class_key}}</td>
                         <td style="">
                             @if(!empty($class->grade_id))
                              {{get_student_grade($class->grade_id)}}
