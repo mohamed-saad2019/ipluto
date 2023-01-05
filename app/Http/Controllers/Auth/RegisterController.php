@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\InstructorStudents;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -19,6 +20,7 @@ use App\Wallet;
 use Illuminate\Support\Str;
 use Module;
 use Illuminate\Support\Facades\Schema;
+use DB;
 class RegisterController extends Controller
 {
     /*
@@ -84,7 +86,8 @@ class RegisterController extends Controller
                 'country'=>'required',
                 'govern'=> 'required',
                 'city'  => 'nullable',
-                'address'=>'nullable|min:3|max:255' 
+                'address'=>'nullable|min:3|max:255',
+                'class_key'=>'nullable|min:5|max:5|exists:App\Classes,class_key' 
             ]);
 
         }
@@ -99,7 +102,6 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
 
-        
         $setting = Setting::first();
 
         if($setting->mobile_enable == 1)
@@ -177,8 +179,6 @@ class RegisterController extends Controller
                 'city_id'=>$data['city'],
                 'address'=>$data['address'],
                 'country_id'=>$data['country'],
-
-
             ]);
         }
         else{
@@ -197,7 +197,7 @@ class RegisterController extends Controller
                 'city_id'=>$data['city'],
                 'address'=>$data['address'],
                 'country_id'=>$data['country'],
-
+                'type'=>'center',
             ]);
 
         }
@@ -274,11 +274,41 @@ class RegisterController extends Controller
         //     }
         // }
         
-         $code = generate_student_code($user->id,$user->fname,$user->lname);
-
+          $code = generate_student_code($user->id,$user->fname,$user->lname);
           User::where('id',$user->id)->update(['code'=>$code]);
 
-          
+          if(!empty($data['class_key']))
+          {
+            $class = getClassByKey($data['class_key']);
+            
+             if(!empty($class))
+             {
+                    $getTotalStudentInClass = getTotalStudentInClass($class->id);
+
+                    if($getTotalStudentInClass < $class->num_of_student )
+                    {
+                      DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".$class->id."','".$class->instructor_id."','".$user->id."',0,NOW())") ;
+                      User::where('id',$user->id)->update(['class_key'=>$data['class_key']]);
+                                      \Session::put('typeLogin', '-1'); 
+                    }
+                  else
+                  {
+                      DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".$class->id."','".$class->instructor_id."','".$user->id."','-1',NOW())") ;
+                      \Session::put('typeLogin', '-1');
+     
+                  }
+
+                $input = InstructorStudents::create([
+                        'instructor_id'=>$class->instructor_id,
+                        'student_id'=>$user->id,
+                        'type'=>'center',
+                        'status'=> '1' ,
+                        'created_at'=>now(),
+                        'updated_at'=>now(),
+                     ]);
+             }
+          }          
+        
         return $user;
     }
 }

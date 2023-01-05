@@ -659,6 +659,9 @@ Route::middleware(['web'])->group(function () {
             Route::get('instructor/students', 'InstructorController@students_list')
                    ->name('instructor.students');
 
+            Route::get('instructor/waiting_students', 'InstructorController@waiting_students');
+            Route::get('instructor/approval_student', 'InstructorController@approval_student');
+
              Route::get('instructor/add_students', 'InstructorController@add_students')
                    ->name('instructor.add_students');
 

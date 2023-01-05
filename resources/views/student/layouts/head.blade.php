@@ -210,6 +210,13 @@
                         <li class="breadcrumb-item active d-flex align-items-center" aria-current="page">
                             <img src="./images/Profile/breadcrumb_icon.png" class="img-fluid" alt="">
                             @yield('title')
+                             <div style="margin:0px 40px;">
+                               <form  method="GET">
+                                 <input type="text" name="class_key" value="@if(request()->has('class_key')) {{request('class_key')}} @else  {{auth()->user()->class_key}} @endif" 
+                                  style="width:150px;padding:0px 5px" minlength="5" maxlength="5" required placeholder="Class Code">
+                                  <input  class="btn btn-success" type="submit" value="Join" style="padding:0px 5px">
+                               </form>
+                             </div>
                         </li>
                         <a href="{{url()->previous()}}"
                             style="margin:10px;color: #fff;border: 1px solid #FFE;padding: 0px 14px;">

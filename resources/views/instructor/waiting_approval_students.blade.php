@@ -1,97 +1,37 @@
 @extends('instructor.layouts.head')    
 @section('title',' Student List')
-
 @if(Auth::User()->role == "instructor")
-
-
-
 @section('maincontent')
          
 
              <div class="Become" style="margin: -15px 0;">
                 <div class="">
                     <div class="formTe" style="width:100%">
-             @if(!request()->has('class_id'))
-                <h4 style="display:inline;"> 
-                   <span> Student  </span> List @if(request()->has('type'))({{request('type')}})@endif
-                    <li class="dropdown auth-drp" style="display:inline;margin:0px 5px !important;
-                    margin-top:-10px !important;">
-                    <a href="#" class="btn bt-sm btn-primary" data-toggle="dropdown"
-                       style="border:none;margin-right:10px;border-radius:5px;color:white !important;
-                       background-color: #f6a233 !important;">
-                        <i class="fas fa-sort"></i> Type of Students</a>
-                    </a>
-                    <ul class="dropdown-menu user-auth-dropdown" data-dropdown-in="flipInX"
-                        data-dropdown-out="flipOutX" style="padding:10px">
-                        <li>
-                            <a href="{{url('/instructor/students')}}">
-                             <i class="fa fa-filter"></i> All Students</a>
-                        </li>
-                        <li class="dropdown-divider" style="border:1px solid #eee;"></li>
-                        
-                        <li>
-                            <a href="{{url('/instructor/students?type=center')}}">
-                                <i class="fa fa-filter"></i> Center Students</a>
-                        </li>
-
-                        <li class="dropdown-divider" style="border:1px solid #eee;"></li>
-
-                        <li>
-                            <a href="{{url('/instructor/students?type=online')}}">
-                                <i class="fa fa-filter"></i> Online Students</a>
-                        </li>
-
-                    </ul>
-                </li>
-                   <div class="dropdown" style="float:right;display:inline;">
-                  <button class="btn dropdown-toggle togCreate btn-primary" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false" style="margin-top:0px;width:140px;">
-                 <i class="fa fa-plus" style="margin:0px 2px;font-size:12px !important;"></i>
-                 Add Student</button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    
-                    <li class="dropdown-item dropdown-itemLesspar">
-                      <a href="{{url('instructor/add_students?type=online')}}" class="icon">
-                      <i class="fa fa-plus" style="margin:0px 2px;font-size:12px !important;"></i>
-                         Add Student(Online)
-                      </a>
-                    </li>
-
-                    <li class="dropdown-divider" style="border:1px solid #eee;"></li>
-
-                   <li class="dropdown-item dropdown-itemLesspar">
-                      <a href="{{url('instructor/add_students?type=center')}}" class="icon">
-                      <i class="fa fa-plus" style="margin:0px 2px;font-size:12px !important;"></i>
-                         Add Student(Center)
-                      </a>
-                    </li>
-                    
-                    <li class="dropdown-divider" style="border:1px solid #eee;"></li>
-                    
-                    <li class="dropdown-item dropdown-itemLesspar">
-                      <a href="{{url('instructor/add_students?type=pluck')}}" class="icon">
-                      <i class="fa fa-plus" style="margin:0px 2px;font-size:12px !important;"></i>
-                         Add Students (Excel Sheet)
-                      </a>
-                    </li>
-                  </div>
-                </div>
-             @elseif(request()->has('class_id'))
-               <a href="{{url('instructor/waiting_students?class_id='.request('class_id'))}}"style="color:#fff;padding:10px;background:#506fe4;"> Waiting Approval</a>
-            @endif
-            </h4>
-        <br>
-
-             @if ($errors->any())
-                    <div class="alert alert-danger">
-                      <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                      </ul>
-                    </div>
-            @endif
-
+                     @if(Session::has('success') and !empty(Session::get('success')))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{{ Session::get('success') }}</strong>
+                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                               <span aria-hidden="true">&times;</span>
+                         </button>
+                        </div> 
+                      @endif
+                        @if(Session::has('error') and !empty(Session::get('error')))
+                                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                        <strong>{{ Session::get('error') }}</strong>
+                                       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                           <span aria-hidden="true">&times;</span>
+                                     </button>
+                                    </div> 
+                      @endif
+                      @if ($errors->any())
+                            <div class="alert alert-danger">
+                              <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                              </ul>
+                            </div>
+                    @endif
                     <div class="table-responsive" style="margin-top: 30px;">
                         <table class="table table-hover" id='example1'>
                             <thead class="thead-dark">
@@ -101,11 +41,9 @@
                               <th scope="col">Email</th>
                               <th scope="col">Grade</th>
                               <th scope="col">Code</th>
-                        @if(!request()->has('class_id'))
-                              <th scope="col">Type</th>
-                        @endif
                               <th scope="col">Last Seen</th>
                               <th scope="col">Class</th>
+                              <th scope="col">Approval</th>
                          @if(request()->has('class_id') and !empty(request('class_id')))
                               <th scope="col">Settings</th>
                           @endif
@@ -127,9 +65,6 @@
                                    @endif
                                  </td>
                                  <td>{{$st->student()->value('code')}} </td>
-                            @if(!request()->has('class_id'))
-                                 <td>{{$st->type}}</td>
-                            @endif
                                  <td>
                                       @if(!empty($st->student()->value('last_seen')))
                                         {{ \Carbon\Carbon::parse($st->student()->value('last_seen'))->shortRelativeDiffForHumans() }}
@@ -173,21 +108,16 @@
                                   </div>
                                 @endif
                                </td>
+                               <td>
+                                   <a href="{{url('instructor/approval_student?class_id='.request('class_id').'&student_id='.$st->student()->value('id'))}}">Approval</a>
+                               </td>
                         @if(request()->has('class_id') and !empty(request('class_id')))
                                  <td>
-                                  <label class="switch">
-                                   <input class="user" type="checkbox"  data-id="{{$st->id}}" name="status" {{ $st->status == '1' ? 'checked' : '' }}> 
-                                   <span class="knob"></span>
-                                </label>
-
-                               
-
                                     <a href="" class="btn btn-danger btn-xs delete" title="delete"
                                     data-toggle="modal" data-target="#delete{{ $st->id }}"
                                      style="padding:5px 10px !important">
                                      <i class="fa fa-trash-o" style="font-size:18px"> </i> 
                                     </a>
-
                                       <!-- delete Modal start -->
                                       <div class="modal fade" id="delete{{$st->id}}" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
                                       <div class="modal-dialog" role="document">
@@ -241,22 +171,4 @@
     }) 
     
   </script>
-
-<script type="text/javascript">
-    $(document).on("change",".user",function() {
-        
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            url: "{{url('instructor/status_student')}}",
-            data: {'id': $(this).data('id')},
-            success: function(data){
-                // alert('{{request("class_id")}}');
-            },
-            error: function(data){
-                // alert('class_id');
-            }
-        });
-    })
-</script>
 @endsection
