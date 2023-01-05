@@ -52,7 +52,7 @@
                     <tr class="cus_table">
                         <td scope="row" style="">{{$class->id}}</td>
                         <td style="">{{$class->name}}</td>
-                        <td style="">{{$class->class_key}}</td>
+                        <td style="">@if(!empty($class->class_key)){{$class->class_key}}@endif</td>
                         <td style="">
                             @if(!empty($class->grade_id))
                              {{get_student_grade($class->grade_id)}}
