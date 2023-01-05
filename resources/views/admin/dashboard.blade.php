@@ -60,6 +60,12 @@
                             <div class="row align-items-center">
                                 <div class="col-6">
                                     <h4>{{ $userss }}</h4>
+                                    T <i class="fa fa-circle" style="color:green" aria-hidden="true"></i> {{\App\User::where('role','instructor')->where('last_seen','>=',date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s")) - (15 * 60)))->count();}} | 
+                                    <i class="fa fa-circle" style="color:gray" aria-hidden="true"></i> {{\App\User::where('role','instructor')->where('last_seen','<',date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s")) - (15 * 60)))->count();}}
+                                    <br/>
+                                    S <i class="fa fa-circle" style="color:green" aria-hidden="true"></i> {{\App\User::where('role','user')->where('last_seen','>=',date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s")) - (15 * 60)))->count();}} | 
+                                    <i class="fa fa-circle" style="color:gray" aria-hidden="true"></i> {{\App\User::where('role','user')->where('last_seen','<',date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s")) - (15 * 60)))->count();}}
+                                    
                                     <p class="font-14 mb-0">{{ __('Users') }}</p>
                                 </div> 
                               <div class="col-6 text-right">
