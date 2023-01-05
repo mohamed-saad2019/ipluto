@@ -11,6 +11,7 @@ use App\ChildCategory;
 use App\Comment;
 use Illuminate\Http\Request;
 use Auth;
+use DB;
 use App\InstructorGrade;
 use App\LibraryFile;
 use App\File;
@@ -20,47 +21,51 @@ class StudentController extends Controller
   
    public function profile()
     {
+      
+        return view('student.profile');
+    }
+
+    public function joinClass()
+    {
         if(request()->has('class_key') and !empty(request('class_key')))
         {
           $class = getClassByKey(request('class_key'));
-          
+          $sub   = '';
           if(!empty($class))
             {
                $class_student = ClassesStudent::where('class_id',$class->id)->where('student_id',auth()->user()->id)->first(); 
-              if($class_student->status=='1')
-                {
-                  User::where('id',auth()->user()->id)->update(['class_key'=>request('class_key')]);
-                }
-              else
-               {
-                   \Session::flash('info','You cannot join this class...waiting for approval from the administrator');
-               }
+             if(!empty($class_student))
+              {
+                    if($class_student->status=='1')
+                        {
+                          User::where('id',auth()->user()->id)->update(['subject_id'=>$class->subject_id,'class_key'=>request('class_key')]);
+
+                          $sub = $class->subject_id;
+                        }
+                      else
+                       {
+                           \Session::flash('info','You cannot join this class...waiting for approval from the administrator');
+                       }
+              }
+             else
+             {
+                 DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".$class->id."','".$class->instructor_id."','".auth()->user()->id."','-1',NOW())") ;
+
+                \Session::flash('info','A request has been made to join the class, pending approval from the administrators');
+
+             }
             }
           else
            {
               \Session::flash('info','An error in the class code');
            }
+             return redirect('student/profile?subject_id='.$class->subject_id);
         }
-        return view('student.profile');
     }
 
 
     public function lessons()
     {
-
-        if(request()->has('class_key') and !empty(request('class_key')))
-        {
-            $class = getClassByKey(request('class_key'));
-
-          if(!empty($class))
-            {
-
-            }
-          else
-           {
-              \Session::flash('info','An error in the class code');
-           }
-        }
 
         if(request()->has('subject_id') and !empty(request('subject_id')))
         {
@@ -191,16 +196,16 @@ class StudentController extends Controller
 
     public function subject_videos(Request $request)
     {
-      $subject_id = $request->subject_id ;
+         $subject_id = $request->subject_id ;
       
-      $lessons    = Lessons::where('subject',$subject_id)->pluck('id')->toArray();
-      
-      $videos  = File::with("instructor:id,fname,lname,user_img")
-            ->WhereIn("lesson_id",$lessons)
-            ->Where("hash_name",'!=','Video From Dashboard')
-            ->Where('mime_type', 'like', '%video%')
-            ->orderBy('created_at','DESC')->get();
+         $lessons    = Lessons::where('subject',$subject_id)->pluck('id')->toArray();
+          
+         $videos  = File::with("instructor:id,fname,lname,user_img")
+                ->WhereIn("lesson_id",$lessons)
+                ->Where("hash_name",'!=','Video From Dashboard')
+                ->Where('mime_type', 'like', '%video%')
+                ->orderBy('created_at','DESC')->get();
 
-      return view("student.show_library" , compact("videos"));      
+          return view("student.show_library" , compact("videos"));      
     }
  }
