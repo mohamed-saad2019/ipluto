@@ -43,9 +43,7 @@
         <div class="form-group form-check d-flex justify-content-between">
         <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-          <label class="form-check-label" for="exampleCheck1"
-            >Check me out</label
-          >
+          <label class="form-check-label" for="exampleCheck1">Remember be</label>
           @if (Route::has('password.request'))
               <a class="btn btn-link" href="{{ route('password.request') }}">
                   {{ __('Forgot Your Password?') }}
