@@ -40,10 +40,10 @@
                                 </a>
                                 <ul class="vertical-submenu">
 
-                                    {{--<li>
+                                    <li>
                                         <a class="{{ Nav::isResource('user') }}"
                                             href="{{route('user.index')}}">Admins</a>
-                                    </li>--}}
+                                    </li>
 
                                     <li>
                                         <a class="{{ Nav::isResource('allusers') }}"

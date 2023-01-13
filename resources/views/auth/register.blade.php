@@ -1,7 +1,21 @@
 @extends('theme.master')
 @section('title', 'Online Courses')
 @section('content')
+<style>
+  .close1 {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
 
+.close1:hover,
+.close1:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
 <div class="reg">
       <form class="signup-form" method="POST" action="{{ route('register') }}">
         @csrf
@@ -11,7 +25,7 @@
         <div class="row">
           <div class="col-12 col-md-6">
             <label for="exampleInputPassword1">First name</label>
-            <input type="text" class="form-control {{ $errors->has('fname') ? ' is-invalid' : '' }}"  name="fname" value="{{ old('fname') }}" id="fname" autofocus required/>
+            <input type="text" class="form-control {{ $errors->has('fname') ? ' is-invalid' : '' }}"  name="fname" value="{{ old('fname') }}" id="fname" autofocus required placeholder="Write Your First Name"/>
             @if ($errors->has('fname'))
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $errors->first('fname') }}</strong>
@@ -20,7 +34,7 @@
           </div>
           <div class="col-12 col-md-6">
             <label for="exampleInputPassword1">Last name</label>
-            <input type="text" class="form-control{{ $errors->has('lname') ? ' is-invalid' : '' }}" name="lname" value="{{ old('lname') }}" id="lname" required autocomplete="last_name" autofocus/>
+            <input type="text" class="form-control{{ $errors->has('lname') ? ' is-invalid' : '' }}" name="lname" value="{{ old('lname') }}" id="lname" required autocomplete="last_name" autofocus placeholder="Write Your Last Name"/>
             @if($errors->has('lname'))
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $errors->first('lname') }}</strong>
@@ -33,7 +47,7 @@
           <label for="exampleInputEmail1">Email address</label>
           <input
             type="email"
-            class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" id="email" required
+            class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" id="email" required placeholder="Write Your Email Address"
             aria-describedby="emailHelp"
           />
           @if($errors->has('email'))
@@ -42,12 +56,12 @@
               </span>
           @endif
           <small id="emailHelp" class="form-text text-muted"
-            >We'll never share your email with anyone else.</small
+            >We'll never share your email with anyone.</small
           >
         </div>
         <div class="col-12 col-md-6">
           <label for="exampleInputEmail1">Mobile</label>
-          <input type="number"class="form-control{{ $errors->has('mobile') ? ' is-invalid' : '' }}" name="mobile" value="{{ old('mobile') }}" id="mobile" required autofocus/>
+          <input type="number"class="form-control{{ $errors->has('mobile') ? ' is-invalid' : '' }}" name="mobile" value="{{ old('mobile') }}" id="mobile" required autofocus placeholder="Write Your Mobile"/>
           @if($errors->has('mobile'))
               <span class="invalid-feedback" role="alert">
                   <strong>{{ $errors->first('mobile') }}</strong>
@@ -78,7 +92,7 @@
         </div>
           <div class="col-12 col-md-6">
            <label for="class_key">Class Code</label>
-           <input type="text" id="class_key" name="class_key" value="{{old('class_key')}}" minlength ="5" maxlength="5" class="form-control{{ $errors->has('class_key') ? ' is-invalid' : '' }}">
+           <input type="text" id="class_key" name="class_key" value="{{old('class_key')}}" minlength ="5" maxlength="5" class="form-control{{ $errors->has('class_key') ? ' is-invalid' : '' }}"  placeholder="Write Your Class Code">
             @if($errors->has('class_key'))
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $errors->first('class_key') }}</strong>
@@ -119,7 +133,7 @@
        <div class="row">
          <div class="col-md-12">
           <label for="address">Address</label>
-          <input class="form-control" type="text" name="address">
+          <input class="form-control" type="text" name="address" placeholder="Write Your Adress">
           @if($errors->has('address'))
               <span class="invalid-feedback" role="alert">
                   <strong>{{ $errors->first('address') }}</strong>
@@ -134,7 +148,7 @@
           data-toggle="modal"
           data-target="#staticBackdrop"
           id="hiddenAvatarBut"
-        ></div>
+        >What are your professional aspirations?</div>
         @if($errors->has('image'))
         <span class="invalid-feedback" role="alert">
           <strong>{{ $errors->first('image') }}</strong>
@@ -158,7 +172,14 @@
         >
         <div class="modal-dialog choosePhotoContent">
             <div class="modal-content">
-              <div class="row">
+               <div class="modal-header">
+                <h5 class="modal-title">What are your professional aspirations?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+             <div class="modal-body">
+                 <div class="row">
                 <img
                   data-dismiss="modal"
                   src="{{url('images/avatar/artist(1).png')}}"
@@ -400,6 +421,7 @@
                   alt="veterinarian(40)"
                 />
               </div>
+             </div>
             </div>
           </div>
         </div>

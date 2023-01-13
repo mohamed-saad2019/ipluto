@@ -9,7 +9,7 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
             <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
             <script type="text/javascript">
-             toastr.success("Awaiting official approval","Successfully Registered");
+             toastr.success("Thank you for registering on the I-Pluto platform...You are being approved to join the class","Successfully Registered");
             </script>
             @endif
           <h4>The natural science changes, </br>

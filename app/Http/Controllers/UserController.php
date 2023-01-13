@@ -44,7 +44,7 @@ class UserController extends Controller
 
     public function viewAllUser()
     {
-        $users = User::orderBy('created_at','DESC')->get();
+        $users = User::where('role','admin')->orderBy('created_at','DESC')->get();
         return view('admin.user.index', compact('users'));
     }
 
@@ -79,7 +79,6 @@ class UserController extends Controller
             'password' => 'required|min:6|max:20',
             'role' => 'required',
             'user_img' => 'mimes:jpg,jpeg,png,bmp,tiff',
-            'state_id' => 'required'
         ]);
 
 

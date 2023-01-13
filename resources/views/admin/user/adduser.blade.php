@@ -1,5 +1,5 @@
 @extends('admin.layouts.master')
-@section('title','Create a new user')
+@section('title','Create a new admin')
 @section('breadcum')
 @component('components.breadcumb',['secondaryactive' => 'active'])
 @slot('heading')
@@ -36,7 +36,7 @@
     <div class="col-lg-12">
       <div class="card m-b-30">
         <div class="card-header">
-          <h5 class="box-tittle">{{ __('adminstaticword.Add') }} {{ __('adminstaticword.User') }}</h5>
+          <h5 class="box-tittle">Add Admin</h5>
         </div>
         <div class="card-body">
           <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
@@ -50,7 +50,21 @@
                   <input value="{{ old('fname') }}" autofocus required name="fname" type="text" class="form-control"
                     placeholder="{{ __('adminstaticword.Enter') }} {{ __('adminstaticword.FirstName') }}" />
                 </div>
-
+                  <div class="form-group">
+                  <label class="text-dark" for="mobile">{{ __('adminstaticword.Email') }}: <sup
+                      class="text-danger">*</sup></label>
+                  <input value="{{ old('email')}}" required type="email" name="email"
+                    placeholder="{{ __('adminstaticword.Enter') }} {{ __('adminstaticword.Email') }}"
+                    class="form-control">
+                </div>
+                <div class="form-group">
+                  <label class="text-dark" for="mobile">{{ __('adminstaticword.Mobile') }}: <sup
+                      class="text-danger">*</sup></label>
+                  <input value="{{ old('mobile')}}" required type="text" name="mobile"
+                    placeholder="{{ __('adminstaticword.Enter') }} {{ __('adminstaticword.Mobile') }}"
+                    class="form-control">
+                </div>
+                {{--
                 <div class="form-group">
                   <label class="text-dark" for="exampleInputDetails">{{ __('adminstaticword.Address') }}:</label>
                   <textarea name="address" rows="2" class="form-control"
@@ -100,7 +114,7 @@
                   </label>
                   <input autofocus name="youtube_url" type="text" class="form-control" placeholder="youtube.com/" />
                 </div>
-
+                --}}
 
 
               </div>
@@ -113,21 +127,6 @@
                   <input value="{{ old('lname')}}" required name="lname" type="text" class="form-control"
                     placeholder="{{ __('adminstaticword.Enter') }} {{ __('adminstaticword.LastName') }}" />
                 </div>
-
-                <div class="form-group">
-                  <label class="text-dark" for="mobile">{{ __('adminstaticword.Email') }}: <sup
-                      class="text-danger">*</sup></label>
-                  <input value="{{ old('email')}}" required type="email" name="email"
-                    placeholder="{{ __('adminstaticword.Enter') }} {{ __('adminstaticword.Email') }}"
-                    class="form-control">
-                </div>
-                <div class="form-group">
-                  <label class="text-dark" for="mobile">{{ __('adminstaticword.Mobile') }}: <sup
-                      class="text-danger">*</sup></label>
-                  <input value="{{ old('mobile')}}" required type="text" name="mobile"
-                    placeholder="{{ __('adminstaticword.Enter') }} {{ __('adminstaticword.Mobile') }}"
-                    class="form-control">
-                </div>
                 <div class="form-group">
                   <label class="text-dark" for="mobile">{{ __('adminstaticword.Password') }}: <sup
                       class="text-danger">*</sup> </label>
@@ -135,6 +134,9 @@
                     placeholder="{{ __('adminstaticword.Enter') }} {{ __('adminstaticword.Password') }}"
                     class="form-control">
                 </div>
+                <input type="hidden" name="role" value="admin">
+                <input type="hidden" name="status" value="1">
+               {{-- 
                 <div class="form-group">
                   <label class="text-dark" for="role">{{ __('adminstaticword.SelectRole') }}: <sup
                       class="text-danger">*</sup></label>
@@ -146,7 +148,7 @@
                     <option value="admin">{{ __('adminstaticword.Admin') }}</option>
                     <option value="instructor">{{ __('adminstaticword.Instructor') }}</option>
                   </select>
-                </div>
+                </div>--}}
                 <div class="form-group">
                   <label class="text-dark" for="exampleInputSlug">{{ __('adminstaticword.Image') }}: </label>
 
@@ -164,6 +166,7 @@
                       <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                     </div>
                   </div>
+                  {{--
                   <div class="form-group">
                     <label class="text-dark" for="twitter_url">
                       {{ __('adminstaticword.TwitterUrl') }}:
@@ -202,11 +205,14 @@
               <button type="reset" class="btn btn-danger-rgba"><i class="fa fa-ban"></i> Reset</button>
               <button type="submit" class="btn btn-primary-rgba"><i class="fa fa-check-circle"></i>
                 Create</button>
-            </div>
+            </div>--}}
 
             <div class="clear-both"></div>
-        </div>
+              
 
+        </div>
+         <button type="submit" class="btn btn-primary-rgba"><i class="fa fa-check-circle"></i>
+                Create</button>
       </div>
     </div>
   </div>

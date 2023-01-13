@@ -25,7 +25,7 @@
         <!-- Start col -->
         <div class="col-lg-12">
 
-            <div class="alert alert-success alert-dismissible fade show">
+            <div class="">
         
         
                 <span id="update_text">
@@ -101,7 +101,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>{{--
                 <div class="col-md-3 col-12">
                     <div class="card m-b-30 shadow-sm">
                         <div class="card-body">
@@ -509,7 +509,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 mt-md-3  chart_height">
+             <div class="col-md-6 mt-md-3  chart_height">
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">Total Orders in 2021</h5>
@@ -665,6 +665,7 @@
                     </div>
                     @endif
                 </div>
+                    --}}
             </div>
         </div>
     </div>

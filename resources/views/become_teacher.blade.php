@@ -185,21 +185,16 @@
                         @endif
                     </div>
                     <div class="form-group col-md-12">
-                        <div class="file-placeholder">
-                            <!-- <label></label> -->
+                            <label> Select Your Profile</label>
                             <input type="file" class="{{ $errors->has('image') ? ' is-invalid' : '' }}" name="image"
-                                value="{{ old('image') }}" name="image">
+                                value="{{ old('image') }}" name="image" style="border:1px solid #ddd;width:100%;">
                             @if($errors->has('image'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('image') }}</strong>
                             </span>
                             @endif
-                            <div class="file-browse">
-                                <span class="file-browse-txt">Select image </span>
-                                <span class="browse">Browse</span>
-                            </div>
-                        </div>
                     </div>
+
                     <div class="form-group col-md-12">
                         <textarea class="form-control" rows="5" name="detail"
                             placeholder="massage">{{old('detail')}}</textarea>

@@ -30,7 +30,28 @@
                                   
                                       <td>{{++$sum}}</td>
                                       <td>{{$z->name}}</td>
-                                      <td><a href="{{$z->url}}">{{$z->url}}</a></td>
+                                      <td><a href="{{$z->url}}">{{$z->url}}</a>
+                                             <input type="hidden" value="{{$z->url}}" id="link_{{$z->name}}">
+                                              <a id="a_{{$z->name}}" onclick="Copy('link_{{$z->name}}','a_{{$z->name}}')" title="{{__('main.copy_link')}}" style="color:#4839EB;font-size:20px;margin:0px 10px;cursor: pointer;" class="links">
+                                                   <span class="action-edit"><i class="feather icon-copy"></i></span>
+                                                 </a>
+
+                                                 <script type="text/javascript">
+                                                        
+                                                   function Copy(id,id2)
+                                                     {
+                                                        $('.links').css('color','blue');
+                                                        $('#'+id2).css('color','green');
+                                                        var $temp = $("<input>");
+                                                        $("body").append($temp);
+                                                        $temp.val($('#'+id).val()).select();
+                                                        document.execCommand("copy");
+                                                        $temp.remove();
+                                                    }
+                                                    
+                                                 </script>
+
+                                      </td>
                                       <td>{{$z->code}}</td>
                                       <td>{{$z->start_time}}</td>
                                       <td>{{$z->created_at}}</td>

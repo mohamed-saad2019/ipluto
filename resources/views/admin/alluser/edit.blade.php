@@ -192,7 +192,15 @@
                         @endif
                     </select>
                 </div>
-
+                  <div class="form-group" id="">
+                  <label class="text-dark" for="class_key">Class Code</label>
+                   <input type="text" id="class_key" name="class_key" value="{{$user->class_key}}" minlength ="5" maxlength="5" class="form-control{{ $errors->has('class_key') ? ' is-invalid' : '' }}"  placeholder="Write Your Class Code" class="form-control">
+                    @if($errors->has('class_key'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('class_key') }}</strong>
+                        </span>
+                    @endif
+                </div>
                  <input type="hidden" name="country_id" value="64">
 
                 <div class="form-group">

@@ -16,7 +16,7 @@
     <div class="widgetbar">
         <button type="button" class="float-right btn btn-danger-rgba mr-2 " data-toggle="modal" data-target="#bulk_delete"><i
             class="feather icon-trash mr-2"></i> Delete Selected</button>
-        <a href="{{route('user.add')}}"  class="float-right btn btn-primary-rgba mr-2"><i class="feather icon-plus mr-2"></i>Add User</a>
+        <a href="{{route('user.add')}}"  class="float-right btn btn-primary-rgba mr-2"><i class="feather icon-plus mr-2"></i>Add Admin</a>
         
     </div>                        
 </div>
@@ -30,7 +30,7 @@
             <div class="col-lg-12">
                 <div class="card m-b-30">
                     <div class="card-header">
-                        <h5 class="box-title">All Users</h5>
+                        <h5 class="box-title">All Admin</h5>
                     </div>
                     <div class="card-body">
                     
@@ -43,7 +43,7 @@
                                         value="all" />
                                     <label for="checkboxAll" class="material-checkbox"></label>   # 
                                     </th>
-                                    <th>{{ __('adminstaticword.Image') }}</th>
+                                    {{--<th>{{ __('adminstaticword.Image') }}</th>--}}
                                     <th>{{ __('adminstaticword.Users') }}</th>
                                     <th>{{ __('adminstaticword.Role') }}</th>
                                     <th>{{ __('adminstaticword.Country') }}</th>
@@ -57,7 +57,7 @@
                                         @if($user->id != Auth::User()->id)
                                         <?php $i++;?>
                                             <tr>
-                                                
+                                              
                                                 <td>
                                                      
                                                     <input type='checkbox' form='bulk_delete_form' class='check filled-in material-checkbox-input'
@@ -89,12 +89,12 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div></td>
+                                                </div></td>{{--
                                                 @if($image = @file_get_contents('../public/images/user_img/'.$user->user_img))
                                                 <td><img   @error('photo') is-invalid @enderror src="{{ url('images/user_img/'.$user->user_img) }}" alt="profilephoto" class="img-responsive img-circle" ></td>
                                                 @else
                                                 <td><img   @error('photo') is-invalid @enderror src="{{ Avatar::create($user->fname)->toBase64() }}" alt="profilephoto" class="img-responsive img-circle"></td>
-                                                @endif  
+                                                @endif  --}}
                                                 <td>
                                                 <p><b>{{ __('Name') }}</b>: {{ $user['fname'] }} {{ $user['lname'] }}</p>
                                                 <p><b>{{ __('Email') }}</b>: {{ $user['email'] }}</p>
