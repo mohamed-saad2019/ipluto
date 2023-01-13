@@ -57,6 +57,8 @@ $rtl = array('ar','he','ur', 'arc', 'az', 'dv', 'ku', 'fa'); //make a list of rt
 
     });
 
+    
+
   });
 </script>
 
@@ -194,6 +196,7 @@ $rtl = array('ar','he','ur', 'arc', 'az', 'dv', 'ku', 'fa'); //make a list of rt
   var USER_ID = '{{  auth()->user()?auth()->user()->id:"" }}';
 </script>
 <script  src="{{ url('js/onesignal.js') }}"></script>
+
 
 @endif
 

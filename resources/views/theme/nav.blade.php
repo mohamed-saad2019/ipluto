@@ -124,7 +124,7 @@
 
                 <div class="login-block">
 
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <a href="{{ route('logout') }}" class="doLogout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();hiddenName();">
                         <div id="notificationFooter">
                             {{ __('frontstaticword.Logout') }}
                             
@@ -134,7 +134,11 @@
                         </div>
                     </a>
                 </div>
-
+                <script>
+                    function hiddenName(){
+                        document.getElementById('logout-form').remove();
+                    }
+                </script>
                 @endauth
 
                 @php
@@ -594,7 +598,7 @@
                                 <a href="{{ route('my.leaderboard') }}"><li><i class="fas fa-user-tag"></i>{{ __('frontstaticword.MyLeaderboard') }}</li></a>
                                 
 
-                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <a href="{{ route('logout') }}"  class="doLogout"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();hiddenName();">
                                     <div id="notificationFooter">
                                         {{ __('frontstaticword.Logout') }}
                                         
@@ -603,6 +607,11 @@
                                         </form>
                                     </div>
                                 </a>
+                                <script>
+                                    function hiddenName(){
+                                        document.getElementById('logout-form').remove();
+                                    }
+                                </script>
                             </ul>
                           </div>
                         </div>

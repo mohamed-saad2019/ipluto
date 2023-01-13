@@ -23,6 +23,10 @@ Route::get('/phpinfo',function(){
     return phpinfo();
 });
 
+Route::get('/logout',function(){
+    return redirect()->route('login') ;
+});
+
 Route::get('/clear-cache',function(){
     \Artisan::call('config:clear');
     \Artisan::call('cache:clear');
