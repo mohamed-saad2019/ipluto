@@ -105,8 +105,8 @@
                     <div class="user-detailss">
                         Hi, {{ Auth::User()->fname }}
                     </div>
-                    <a href="{{ route('logout') }}"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <a href="{{ route('logout') }}" class="doLogout" 
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();hiddenName();">
                         {{ __('frontstaticword.Logout') }}
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="display-none">
@@ -119,5 +119,10 @@
             </div>
         </div>
     </nav>
+    <script>
+        function hiddenName(){
+            document.getElementById('logout-form').remove();
+        }
+    </script>
 
     <!-- end Navbar -->

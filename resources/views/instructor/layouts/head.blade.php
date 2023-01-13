@@ -185,8 +185,8 @@
                                         <a class="dropdown-item" href="#">Notification Preferences</a>
                                         <a class="dropdown-item" href="#">Help & FAQs</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <a class="dropdown-item doLogout" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();hiddenName();">
                                             {{ __('frontstaticword.Logout') }}
 
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -195,7 +195,11 @@
                                             </form>
                                         </a>
                                     </div>
-
+                                    <script>
+                                        function hiddenName(){
+                                            document.getElementById('logout-form').remove();
+                                        }
+                                    </script>
                                     @if(Auth()->User()['user_img'] != null && Auth()->User()['user_img'] !='' &&
                                     @file_get_contents('images/user_img/'.Auth::user()['user_img']))
                                     <img src="{{ url('images/user_img/'.Auth()->User()['user_img'])}}"
@@ -434,6 +438,8 @@
                     });
                 }
             });
+
+
 
         });
     </script>
