@@ -1314,18 +1314,18 @@ class InstructorController extends Controller
             'class_key'=>'nullable|min:5|max:5|exists:App\Classes,class_key'
         ]);
  
-        $input = $request->all();
-        $input['password'] = \Hash::make($request->password);
-        $input['detail'] = $request->detail;
-        $input['email_verified_at'] = \Carbon\Carbon::now()->toDateTimeString(); 
-        $input['role'] = 'user';
-        $input['grade']=  $request->grade_id;          
-        $data = User::create($input);
-        $data->save(); 
+        $data = $request->all();
+        $data['password'] = \Hash::make($request->password);
+        $data['detail'] = $request->detail;
+        $data['email_verified_at'] = \Carbon\Carbon::now()->toDateTimeString(); 
+        $data['role'] = 'user';
+        $data['grade']=  $request->grade_id;          
+        $user = User::create($data);
+        $user->save(); 
 
 
-         $code = generate_student_code($data->id,$data->fname,$data->lname);
-           User::where('id',$data->id)->update(['code'=>$code]);
+         $code = generate_student_code($user->id,$user->fname,$user->lname);
+           User::where('id',$user->id)->update(['code'=>$code]);
 
         if(!empty($data['class_key']))
           {
