@@ -1311,6 +1311,7 @@ class InstructorController extends Controller
             'email' => 'required|unique:users,email',
             'password' => 'required|min:6|max:20|confirmed',
             'grade_id' => 'required',
+            'class_key'=>'nullable|min:5|max:5|exists:App\Classes,class_key'
         ]);
  
         $input = $request->all();
@@ -1326,16 +1327,37 @@ class InstructorController extends Controller
          $code = generate_student_code($data->id,$data->fname,$data->lname);
            User::where('id',$data->id)->update(['code'=>$code]);
 
-            $input = InstructorStudents::create(
-                 [
-                'instructor_id'=>\Auth::user()->id,
-                'student_id'=>$data->id,
-                'type'=>'center',
-                'status'=> '1' ,
-                'created_at'=>now(),
-                'updated_at'=>now(),
-                 ]
-                );
+        if(!empty($data['class_key']))
+          {
+            $class = getClassByKey($data['class_key']);
+            
+             if(!empty($class))
+             {
+                    $getTotalStudentInClass = getTotalStudentInClass($class->id);
+
+                    if($getTotalStudentInClass < $class->num_of_student )
+                    {
+                      DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".$class->id."','".$class->instructor_id."','".$user->id."',0,NOW())") ;
+                      User::where('id',$user->id)->update(['subject_id'=>$class->subject_id,'class_key'=>$data['class_key']]);
+                                      \Session::put('typeLogin', '-1'); 
+                    }
+                  else
+                  {
+                      DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".$class->id."','".$class->instructor_id."','".$user->id."','-1',NOW())") ;
+                      \Session::put('typeLogin', '-1');
+     
+                  }
+
+                $input = InstructorStudents::create([
+                        'instructor_id'=>$class->instructor_id,
+                        'student_id'=>$user->id,
+                        'type'=>'center',
+                        'status'=> '1' ,
+                        'created_at'=>now(),
+                        'updated_at'=>now(),
+                     ]);
+             }
+          } 
 
         \Session::flash('success', trans('Student Added Successfully'));
         return redirect('instructor/students');

@@ -106,7 +106,7 @@
               style="margin-top:15px;border:1px solid #ddd; padding:30px;">
         @csrf
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-6">
             <label >First Name</label>
             <input type="text" class="form-control {{ $errors->has('fname') ? ' is-invalid' : '' }}"  name="fname" value="{{ old('fname') }}" id="fname" autofocus required/>
             @if ($errors->has('fname'))
@@ -115,7 +115,7 @@
                 </span>
             @endif
           </div>
-          <div class="col-md-4">
+          <div class="col-md-6">
             <label>Last Name</label>
             <input type="text" class="form-control{{ $errors->has('lname') ? ' is-invalid' : '' }}" name="lname" value="{{ old('lname') }}" id="lname" required autocomplete="last_name" autofocus/>
             @if($errors->has('lname'))
@@ -124,7 +124,7 @@
                 </span>
             @endif
         </div>
-        <div class="col-md-4 accordion form1">
+        <div class="col-md-6 accordion form1">
          <label >Choose Grade</label>
            <select class="form-control select2 {{$errors->has('lname')?'is-invalid':''}}" name="grade_id" required >
              @if($grades)
@@ -142,7 +142,15 @@
                 </span>
             @endif            
        </div>
-
+        <div class="col-md-6">
+            <label for="class_key">Class Code</label>
+           <input type="text" id="class_key" name="class_key" value="{{old('class_key')}}" minlength ="5" maxlength="5" class="form-control{{ $errors->has('class_key') ? ' is-invalid' : '' }}"  placeholder="Write Class Code">
+            @if($errors->has('class_key'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('class_key') }}</strong>
+                </span>
+            @endif
+        </div>
         <div class="col-12 col-md-6">
           <label >Email address</label>
           <input
