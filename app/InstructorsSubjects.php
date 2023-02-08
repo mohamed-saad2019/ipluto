@@ -14,6 +14,11 @@ class InstructorsSubjects extends Model
     {
     	return $this->belongsTo('App\ChildCategory','subject_id','id');
     }
+
+    public function instructor()
+    {
+        return $this->belongsTo('App\User','instructor_id','id');
+    }
     
 
 }
