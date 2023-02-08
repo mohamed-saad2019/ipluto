@@ -913,7 +913,7 @@ class InstructorController extends Controller
                     }
 
     
-        DB::insert("INSERT INTO `classes`(`id`, `name`, `instructor_id`, `grade_id`,`subject_id`,`num_of_student`,`class_key`,`duration`, `status`, `created_at`) VALUES (NULL,'".$request->name."','".auth()->user()->id."','".auth()->user()->subject_id."','".$request->grade_id."','".$request->num_of_student."','".generate_class_key()."','".$request->duration."','1',NOW())");
+        DB::insert("INSERT INTO `classes`(`id`, `name`, `instructor_id`, `grade_id`,`subject_id`,`num_of_student`,`class_key`,`duration`, `status`, `created_at`) VALUES (NULL,'".$request->name."','".auth()->user()->id."','".$request->grade_id."','".auth()->user()->subject_id."','".$request->num_of_student."','".generate_class_key()."','".$request->duration."','1',NOW())");
 
         $last_id = DB::getPdo()->lastInsertId();
 
