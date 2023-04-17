@@ -117,7 +117,7 @@
                              <!-- begin subject -->
                             <div class="accordion col-md-6 " id="accordionExample`+index+`">
                                 <div class="card">
-                                    <select class="form-control" name="subject[]">
+                                    <select class="form-control" name="subject[]" required>
                                         "`+selectSubjects+`"
                                     </select>
                                 </div>
@@ -125,7 +125,7 @@
                             <!-- end subject -->
                             <!-- begin grade -->
                             <div class="accordion col-md-6" id="gradeAccordion">
-                            <select class="form-control select2" multiple="multiple" id="`+index+`select2" name="grade_`+index+`[]">
+                            <select class="form-control select3" multiple="multiple" id="`+index+`select3" name="grade_`+index+`[]" required>
                                 "`+ optionsGrade +`"
                             </select>
                             </div>
@@ -133,7 +133,7 @@
                         </div>
                     </div>
                     `); //add input box
-                    $('#'+index+'select2').select2({allowClear: true});
+                    $('#'+index+'select3').select2({ placeholder: "Select Grade",allowClear: true});
                 } 
             );
 

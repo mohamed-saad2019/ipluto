@@ -75,7 +75,10 @@
         <div class="formTe card shadow-sm w-75">
             <h4 class="text-center mb-5"> <img src="{{url('images/teacher.png')}}"> join our <span> team </span> </h4>
             @if(Session::has('success'))
-            <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('success') }}</p>
+            <p class="alert  alert-success">{{ Session::get('success') }}</p>
+            @endif
+            @if(Session::has('error'))
+            <p class="alert  alert-danger">{{ Session::get('error') }}</p>
             @endif
             <form class="signup-form" method="POST" action="{{ route('save_teacher') }}" enctype="multipart/form-data">
                 @csrf
@@ -103,7 +106,8 @@
                         <div class="row" id="becomeTeacher__wrapper">
                             <!-- begin subject -->
                             <div class="accordion col-md-6 " id="accordionExample">
-                                <select class="form-control selectSubjects" name="subject[]">
+                                <select class="form-control selectSubjects" name="subject[]" required>
+                                        <option value="">Select Subject</option>
                                     @if($subjects)
                                         @foreach($subjects as $subject)
                                         <option value="{{$subject->id}}">{{$subject->title}}</option>
@@ -119,7 +123,7 @@
                             <!-- end subject -->
                             <!-- begin grade -->
                             <div class="accordion col-md-6" id="gradeAccordion">
-                            <select class="form-control select2 selectGrades" multiple="multiple" name="grade_0[]">
+                            <select class="form-control select3 selectGrades" multiple="multiple" name="grade_0[]" required>
                                 @if($subjects)
                                     @foreach($grades as $grade)
                                         <option value="{{$grade->id}}">{{$grade->title}}</option>
@@ -133,38 +137,9 @@
 
                     <div class="col-md-12">
                          <div class="text-right mb-3">
-                           <button type="button" class="btn btn-primary add_more"> <i class="fa fa-plus"></i></button>
-                           <button type="button" class="btn btn-danger del_buttonEn"> <i class="fa fa-trash"></i></button>
+                           <button type="button" class="btn btn-primary add_more" title="add new subject and grade row"> <i class="fa fa-plus"></i></button>
+                           <button type="button" class="btn btn-danger del_buttonEn" title="delete last subject and grade "> <i class="fa fa-trash"></i></button>
                          </div>
-                    </div>
-
-                    <div class="form-group col-md-12 form4">
-                        <input type="number" class="form-control {{ $errors->has('mobile') ? ' is-invalid' : '' }}"
-                            name="mobile" value="{{ old('mobile') }}" id="inputAddress" placeholder="mobile">
-                        @if($errors->has('mobile'))
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('mobile') }}</strong>
-                        </span>
-                        @endif
-                    </div>
-                    <div class="form-group col-md-12 form6">
-                        <input type="text" class="form-control {{ $errors->has('governorate') ? ' is-invalid' : '' }}"
-                            name="governorate" value="{{ old('governorate') }}" id="inputAddress2"
-                            placeholder="governorate">
-                        @if($errors->has('governorate'))
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('governorate') }}</strong>
-                        </span>
-                        @endif
-                    </div>
-                    <div class="form-group col-md-12">
-                        <input type="text" class="form-control {{ $errors->has('city') ? ' is-invalid' : '' }}"
-                            name="city" value="{{ old('city') }}" id="inputCity" placeholder="City">
-                        @if($errors->has('city'))
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('city') }}</strong>
-                        </span>
-                        @endif
                     </div>
                     <div class="form-group col-md-12">
                         <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}"
@@ -175,19 +150,72 @@
                         </span>
                         @endif
                     </div>
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-12 form4">
+                        <input type="number" class="form-control {{ $errors->has('mobile') ? ' is-invalid' : '' }}"
+                            name="mobile" value="{{ old('mobile') }}" id="inputAddress" placeholder="mobile">
+                        @if($errors->has('mobile'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('mobile') }}</strong>
+                        </span>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-5">
                         <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}"
-                            name="password" value="{{ old('password') }}" id="inputPassword" placeholder="password">
+                            name="password" value="{{ old('password') }}" id="passInput" placeholder="password">
                         @if($errors->has('password'))
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $errors->first('password') }}</strong>
                         </span>
                         @endif
                     </div>
+                    <div class="form-group col-md-1">
+                       <i class="fa fa-eye" id="showPass" style="margin-top:10px;cursor: pointer;"></i>
+                    </div>
+                    <div class="form-group col-md-5">
+                        <input type="password" class="form-control {{ $errors->has('confirm_password') ? ' is-invalid' : '' }}" name="confirm_password" value="{{ old('confirm_password') }}" id="passInput1" placeholder="confirm password">
+                        @if($errors->has('confirm_password'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('confirm_password') }}</strong>
+                        </span>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-1">
+                       <i class="fa fa-eye" id="showPass1" style="margin-top:10px;cursor: pointer;"></i>
+                    </div>
+                    <div class="form-group col-md-12 form6">
+                     <select class="form-control {{ $errors->has('governorate') ? ' is-invalid' : '' }} " name="governorate"  id="govern" required>
+                            <option value="">governorate</option>
+                              @foreach(getGovern(64) as $govern)
+                                <option value="{{$govern->id}}">{{$govern->name}}</option>
+                              @endforeach
+                          </select>
+
+                        @if($errors->has('governorate'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('governorate') }}</strong>
+                        </span>
+                        @endif
+                    </div>
                     <div class="form-group col-md-12">
-                            <label> Select Your Profile</label>
-                            <input type="file" class="{{ $errors->has('image') ? ' is-invalid' : '' }}" name="image"
-                                value="{{ old('image') }}" name="image" style="border:1px solid #ddd;width:100%;">
+                        <select id="city" class="form-control {{ $errors->has('city') ? ' is-invalid' : '' }}" name="city">
+                            <option value="">City</option>
+                         </select>
+                        @if($errors->has('city'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('city') }}</strong>
+                        </span>
+                        @endif
+                    </div>
+
+                     <div class="form-group col-md-12">
+                      <textarea name="address" rows="2" class="form-control {{ $errors->has('address') ? ' is-invalid' : '' }}"
+                        placeholder="{{ __('adminstaticword.Enter') }} address"></textarea>
+                     </div>
+                 
+                    <div class="form-group col-md-12">
+                            <label> Select Your Profile </label>
+                            <input type="file" class="{{ $errors->has('image') ? ' is-invalid' : '' }}" name="image"  value="{{ old('image') }}" name="image" style="border:1px solid #ddd;width:100%;">
+                            <small>Recommended size (1375 x 409px) and type (jpg,jpeg,png,tiff)</small>
                             @if($errors->has('image'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('image') }}</strong>
@@ -207,5 +235,55 @@
         </div>
     </div>
 
-
     @endsection
+@section('custom-script')
+
+    <script type="text/javascript">
+        $(".select3").select2({
+            placeholder: "Select Grade",
+            allowClear: true
+        });
+
+
+     $("#govern").change(function(){
+              jQuery.ajax({
+                    type: "GET",
+                    url: "/admin/select2/city",
+                    data: {
+                      _token: "{{ csrf_token() }}",
+                       govern:$("#govern").val()
+                    },
+                    success: function (data) {
+                      $("#city").html(data);
+                       // alert('error');
+                    },
+                    error: function()
+                    {
+                        // alert('error');
+                    }
+                }); 
+         });
+    
+       $('#showPass').on('click', function(){
+              var passInput=$("#passInput");
+              if(passInput.attr('type')==='password')
+                {
+                  passInput.attr('type','text');
+              }else{
+                 passInput.attr('type','password');
+              }
+          })
+
+        $('#showPass1').on('click', function(){
+              var passInput=$("#passInput1");
+              if(passInput.attr('type')==='password')
+                {
+                  passInput.attr('type','text');
+              }else{
+                 passInput.attr('type','password');
+              }
+          })
+
+    </script>
+
+@endsection

@@ -179,13 +179,15 @@ class HomeController extends Controller
     public function saveTeacher(Request $request)
     {
         $data = $this->validate($request, [
-            'fname'         => 'required',
-            'lname'         => 'required',
-            'mobile'        => 'required|regex:/[0-9]{9}/',
+            'fname'         => 'required|string|min:3|max:15',
+            'lname'         => 'required|string|min:3|max:15',
+            'mobile'        => 'required|unique:users,mobile|starts_with:01|digits:11',
             'email'         => 'required|unique:users,email',
             'password'      => 'required|min:6',
-            'governorate'   => 'required|string',
-            'city'          => 'required|string',
+            'confirm_password' => 'required|min:6|same:password',
+            'governorate'   => 'required',
+            'city'          => 'required',
+            'address'       => 'nullable|min:6|max:50',
             'subject'       => 'required',
             // 'grade'         => 'required',
             'image'         => 'required|mimes:jpg,jpeg,png,bmp,tiff'
@@ -202,7 +204,14 @@ class HomeController extends Controller
             
         }
 
-
+        $original_array = $request->subject;
+        $temp_array = array_unique($original_array);
+        if( sizeof($temp_array) != sizeof($original_array))
+        {
+           Session::flash('error', 'error : duplicated subject for same teacher');
+           return back();
+        }
+        
         $user = User::create([
             'fname'     => $request->fname ,
             'lname'     => $request->lname,
@@ -213,7 +222,9 @@ class HomeController extends Controller
             'password'  => Hash::make($request->password),
             'detail'    => $request->detail,
             'user_img'  => $input['user_img'] ?? '',
-            'address'   => $request->governorate . " - " . $request->city ,
+            'state_id'  => $request->governorate,
+            'city'      => $request->city,
+            'address'   => $request->address,
             'status'    => 0 ,
             'storage'   => 100
         ]);
@@ -242,7 +253,7 @@ class HomeController extends Controller
         }        
 
         Session::flash('success', trans('flash.successfully_registered'));
-        return redirect('become_teacher');
+        return back();
 
     }
 

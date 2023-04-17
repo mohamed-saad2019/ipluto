@@ -385,7 +385,7 @@ class InstructorController extends Controller
         $full_name = request('name');
 
         
-         if(request()->hasfile('img') and !empty(request(file)))
+         if(request()->hasfile('img') and !empty(request('img')))
          {
               
                 $file = request()->file('img');
