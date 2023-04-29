@@ -65,8 +65,8 @@ class RegisterController extends Controller
 
         if($setting->captcha_enable == 1){
             return Validator::make($data, [
-                'fname' => ['required', 'string', 'max:255'],
-                'lname' => ['required', 'string', 'max:255'],
+                'fname' => ['required', 'regex:/^[a-zA-Z]+$/u', 'max:15'],
+                'lname' => ['required', 'regex:/^[a-zA-Z]+$/u', 'max:15'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => ['required', 'string', 'min:6', 'confirmed'],
                 'g-recaptcha-response' => 'required|captcha',
@@ -76,11 +76,11 @@ class RegisterController extends Controller
         }
         else{
             return Validator::make($data, [
-                'fname' => ['required', 'string', 'max:255'],
-                'lname' => ['required', 'string', 'max:255'],
+                'fname' => ['required', 'regex:/^[a-zA-Z]+$/u', 'min:3', 'max:15'],
+                'lname' => ['required', 'regex:/^[a-zA-Z]+$/u', 'min:3', 'max:15'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => ['required', 'string', 'min:6', 'confirmed'],
-                'mobile' => ['regex:/^([0-9\s\-\+\(\)]*)$/', 'max:17'],
+                'mobile' => ['required','unique:users,mobile','starts_with:01','digits:11'],
                 'image'    => 'nullable',
                 'grade' => 'required',
                 'country'=>'required',

@@ -348,7 +348,7 @@
                         <div class="Login-btn">
                          
                             <a href="{{ route('login') }}" class="btn btn-secondary" title="login">{{ __('frontstaticword.Login') }}</a>
-                            <a href="{{ route('register') }}" class="btn btn-primary" title="register">{{ __('frontstaticword.Signup') }}</a>
+                       
                             
                         </div> 
                     </div>

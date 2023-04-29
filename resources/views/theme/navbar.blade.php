@@ -11,7 +11,7 @@
     <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet">
 
     <link rel="stylesheet" href="{{url('css/custom-style.css')}}">
-    <title>Ipluto</title>
+    <title>@yield('title') | {{ $gsetting->project_title ?? '' }}</title>
 </head>
 
 <body>
@@ -28,7 +28,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('home')}}"> <span></span>Home </a>
                     </li>
+
                     @if(!Auth::check())
+                     <li class="nav-item">
+                      <a class="nav-link" href="{{ route('register') }}"> <span></span>Become A Student</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('become_teacher')}}"> <span></span>Become A Teacher </a>
 
@@ -77,7 +81,7 @@
                 @guest
                 <div class="iconUserShp">
                     <a href="{{ route('login') }}">Login</a>
-                    <a href="{{ route('register') }}">Register</a>
+                    {{--<a href="{{ route('register') }}">Register</a>--}}
                 </div>
                 @endguest
                 @auth

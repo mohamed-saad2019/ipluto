@@ -282,9 +282,17 @@ if(!function_exists('generate_student_code'))
     {
        function generate_student_code($id,$fname,$lname)
         {
-          
-            $code = strtoupper($fname[0]).strtoupper($lname[0]).$id.rand(1,1000);
-
+            $str = $fname.$lname;
+            $key='';
+            $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            
+                for ($i = 0; $i < 2; $i++)
+                   {
+                        $index = rand(0, strlen($characters) - 1);
+                        $key .= $characters[$index];
+                    }
+            
+            $code = $key.$id.rand(1,1000);
             $count = \App\User::where('code',$code)->count();
 
              if($count==0)

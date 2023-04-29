@@ -167,6 +167,7 @@
                             <strong>{{ $errors->first('password') }}</strong>
                         </span>
                         @endif
+                         <small id="emailHelp" class="form-text text-muted">The password must be at least 6 characters long</small>
                     </div>
                     <div class="form-group col-md-1">
                        <i class="fa fa-eye" id="showPass" style="margin-top:10px;cursor: pointer;"></i>
@@ -215,7 +216,7 @@
                     <div class="form-group col-md-12">
                             <label> Select Your Profile </label>
                             <input type="file" class="{{ $errors->has('image') ? ' is-invalid' : '' }}" name="image"  value="{{ old('image') }}" name="image" style="border:1px solid #ddd;width:100%;">
-                            <small>Recommended size (1375 x 409px) and type (jpg,jpeg,png,tiff)</small>
+                            <small class="form-text text-muted">Recommended size (1375 x 409px) and type (jpg,jpeg,png,tiff)</small>
                             @if($errors->has('image'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('image') }}</strong>

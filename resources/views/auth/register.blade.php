@@ -1,5 +1,5 @@
 @extends('theme.master')
-@section('title', 'Online Courses')
+@section('title', 'Register As Student')
 @section('content')
 <style>
   .close1 {
@@ -23,6 +23,9 @@
           <img src="{{url('images/logo.jpeg')}}" alt="" />
         </div>
         <div class="row">
+          <div class="col-md-12">
+            <h4 class="text-center mb-5">  <small> Become A Student </small> </h4>
+          </div>  
           <div class="col-12 col-md-6">
             <label for="exampleInputPassword1">First name</label>
             <input type="text" class="form-control {{ $errors->has('fname') ? ' is-invalid' : '' }}"  name="fname" value="{{ old('fname') }}" id="fname" autofocus required placeholder="Write Your First Name"/>
@@ -105,7 +108,7 @@
         <div class="col-12 col-md-6">
           <label for="govern">Governorate</label>
           <select class="form-control select2" name="govern" id="govern" required>
-              <option>Choose Governorate</option>
+              <option value="">Choose Governorate</option>
             @foreach(getGovern(64) as $govern)
               <option value="{{$govern->id}}">{{$govern->name}}</option>
             @endforeach
@@ -119,8 +122,8 @@
 
        <div class="col-12 col-md-6">
           <label for="city">City</label>
-          <select class="form-control select2" name="city" id="city">
-             <option>Choose City</option>
+          <select class="form-control select2" name="city" id="city" required>
+             <option value="">Choose City</option>
           </select>
           @if($errors->has('city'))
               <span class="invalid-feedback" role="alert">
@@ -433,26 +436,32 @@
         <!--################################### End Choose A Photo ################################### -->
 
         <div class="row">
-          <div class="col-12 col-sm-6">
+          <div class="col-12 col-sm-5">
             <label for="exampleInputPassword1">Password</label>
             <input
               type="password"
-              class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" id="password" 
-              required
-            />
+              class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" id="passInput"  />
             @if ($errors->has('password'))
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $errors->first('password') }}</strong>
                 </span>
             @endif
           </div>
-          <div class="col-12 col-sm-6">
+          <div class="form-group col-md-1">
+             <i class="fa fa-eye" id="showPass" style="margin-top:50px;cursor: pointer;"></i>
+          </div>
+          <div class="col-12 col-sm-5">
             <label for="exampleInputPassword1">Confirm Password</label>
             <input
               type="password"
-              class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" name="password_confirmation" id="password-confirm" 
-              required
-            />
+              class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" name="password_confirmation" id="passInput1" 
+              required/>
+          </div>
+          <div class="form-group col-md-1">
+             <i class="fa fa-eye" id="showPass1" style="margin-top:50px;cursor: pointer;"></i>
+           </div>
+          <div class="col-md-12">
+            <small id="emailHelp" class="form-text text-muted">The password must be at least 6 characters long</small><br>
           </div>
         </div>
         <div class="form-group form-check">
@@ -464,5 +473,34 @@
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
+
+@endsection
+
+
+@section('custom-script')
+
+    <script type="text/javascript">
+ 
+       $('#showPass').on('click', function(){
+              var passInput=$("#passInput");
+              if(passInput.attr('type')==='password')
+                {
+                  passInput.attr('type','text');
+              }else{
+                 passInput.attr('type','password');
+              }
+          })
+
+        $('#showPass1').on('click', function(){
+              var passInput=$("#passInput1");
+              if(passInput.attr('type')==='password')
+                {
+                  passInput.attr('type','text');
+              }else{
+                 passInput.attr('type','password');
+              }
+          })
+
+    </script>
 
 @endsection
