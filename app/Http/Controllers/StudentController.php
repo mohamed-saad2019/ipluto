@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Classes;
 use App\ClassesStudent;
+use App\InstructorsSubjects;
 use App\Lessons;
 use App\Folders;
 use App\ShareLessons;
@@ -70,15 +71,14 @@ class StudentController extends Controller
         if(request()->has('subject_id') and !empty(request('subject_id')))
         {
 
-         $class_share    = ShareLessons::where('student_id',\Auth::user()->id)->pluck('class_id');
+          $class_share    = ShareLessons::where('student_id',\Auth::user()->id)->pluck('class_id');
          
-         $class_active   =  \DB::table('classes_student')->whereIn('class_id',$class_share)->where('student_id',\Auth::user()->id)->where('status','1')->pluck('class_id');
-
-         $instructor_sub = ShareLessons::where('student_id',\Auth::user()->id)->whereIn('class_id',$class_active);
-
-         $teacher_lesson = InstructorGrade::where('subject_id',request('subject_id'))
-         ->whereIN('instructor_id',$instructor_sub->pluck('instructor_id')->toArray())
-         ->where('grade_id',\Auth::user()->grade);
+          $class_active   =  \DB::table('classes_student')->whereIn('class_id',$class_share)->where('student_id',\Auth::user()->id)->where('status','1')->pluck('class_id');
+ 
+          $instructor_sub = ShareLessons::where('student_id',\Auth::user()->id)->whereIn('class_id',$class_active);
+ 
+          $teacher_lesson = InstructorsSubjects::where('subject_id',request('subject_id'))
+          ->whereIN('instructor_id',$instructor_sub->pluck('instructor_id')->toArray());
 
          if($teacher_lesson->pluck('instructor_id')->count() != 0)
 
