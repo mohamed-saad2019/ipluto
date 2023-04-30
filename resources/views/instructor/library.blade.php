@@ -547,7 +547,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
 
         $('.colorselector').colorselector({
           callback: function (value, color, title) {
-            $('#f_color').val(color);
+            $('.f_color').attr('value',color);
           }
         });
 

@@ -17,7 +17,7 @@
                   <input type="hidden" name="parent_id" 
                   value="{{request()->has('id')?request('id'):''}}">
                   <input type="hidden" name="instructor_id" value="{{ Auth::user()->id }}">
-                 <input type="hidden" name="color" value="#777" id="f_color">
+                 <input type="hidden" name="color" value="#777" id="" class="f_color">
                  <input type="hidden" name="lesson_id" class="lesson_moved" value="">
                <div class="row">
 
@@ -87,7 +87,7 @@
                    <input type="hidden" name="parent_id" 
                   value="{{request()->has('id')?request('id'):''}}">
                   <input type="hidden" name="instructor_id" value="{{ Auth::user()->id }}">
-                  <input type="hidden" name="color" value="" id="f_color">
+                  <input type="hidden" name="color" value="" id="" class="f_color">
 
               <div class="col-md-11" style="margin:10px auto">
                <label>Folder Name:<span class="redstar">*</span></label>

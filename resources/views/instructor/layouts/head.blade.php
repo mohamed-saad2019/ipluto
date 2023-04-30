@@ -25,7 +25,9 @@
                 <nav class="navbar navbar-expand-lg navbar-light">
                     <div class="container-fluid">
                         <div class="navbar-brand">
-                            <img src="../images/iPluto_Logo_Animation.gif" alt="">
+                          <a href="{{url('/')}}">
+                                <img src="../images/iPluto_Logo_Animation.gif" alt="">
+                          </a>
                         </div>
                         <button type="button" id="sidebarCollapse" class="btn btn-info">
                             <i class="fas fa-align-left"></i>
