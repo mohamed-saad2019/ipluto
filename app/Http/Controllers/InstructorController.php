@@ -1368,6 +1368,7 @@ class InstructorController extends Controller
 
  public function upload_students()
  {
+       return request()->all();
      $this->validate(request(), [
            'file' => 'required|file|mimes:xls,xlsx',
            'grade_id'=>'required'
@@ -1553,7 +1554,7 @@ class InstructorController extends Controller
     \Session::flash('adding', $total_adding); 
 
      \Session::flash('errorw', $errors); 
-     
+
      return redirect('instructor/add_students?type=pluck');                      
     }
 
