@@ -1368,10 +1368,194 @@ class InstructorController extends Controller
 
  public function upload_students()
  {
-     
+     $this->validate(request(), [
+           'file' => 'required|file|mimes:xls,xlsx',
+           'grade_id'=>'required'
+       ]);
 
+     if ( SimpleXLSX::parse( request('file') ) )
+                return 1;
+                        {
+                           $errors = [];$c=1;$total_adding=0;$total_not_adding=0;
 
-     return 1;                      
+                            foreach ( $xlsx->rows() as $r => $row )
+                            {
+                                if($r == 0)
+                                {
+                                    if(
+                                        $row[0]  != 'First Name' and 
+                                        $row[1]  != 'Last Name' and
+                                        $row[2]  != 'E-mail' and
+                                        $row[3]  != 'Phone Number' and
+                                        $row[4]  != 'Password' 
+                                      )
+
+                                    {
+                                        $errors['namefile'] = '';
+                                    }
+                                }
+
+                                if($r != 0)
+                                {
+                                    $students = [];
+                                     $str = '';
+
+                                    $students['fname']                     =   $row[0];
+                                    $students['lname']                     =   $row[1];
+                                    $students['email']                     =   $row[2];
+                                    $students['mobile']                    =   $row[3];
+                                    $students['class_key']                 =   $row[4];
+                                    $students['password']                  =   $row[5];
+                                    $students['confirm_password']          =   $row[6];
+
+                                     if ($students['fname'] =="" )
+                                    {
+                                        $str.='First name is blank ,';
+                                    }
+
+                                    if ($students['lname'] =="" )
+                                    {
+                                        $str.='Second name is blank ,';
+                                    }
+
+                                    if ($students['class_key'] =="" )
+                                    {
+                                        $str.='Class Code is blank ,';
+                                    }
+
+                                    if ($students['email'] == "" )
+                                    {
+                                        $str.='Email is blank ,';
+                                    }else
+                                    {
+                                        if(checkMail($students['email']) == false )
+                                        {
+                                            $str.='Email is not valid ,';
+                                        }
+                                    }
+
+                                   if ($students['mobile'] == "" )
+                                    {
+                                        $str.='Mobile is blank ,';
+                                    }else
+                                    {
+                                        if(VerfiedPhoneNumber($students['mobile']) == false )
+                                        {
+                                            $str.='Mobile is not valid ,';
+                                        }
+                                    }
+
+                                   if ($students['password'] !="" and $students['confirm_password'] !='')
+                                    {
+                                      if($students['password'] != $students['confirm_password'])
+                                        $str.='password confirmation does not match. ,';
+                                      else
+                                       $pass = $students['password'];
+                                    }
+
+                                   if($students['password'] =="" or $students['confirm_password'] =='')
+                                    {
+                                       $str.='password or password confirmation is blank. ,';
+                                    }
+                                   
+                                   $check  = checkDuplicated('mobile',$students['mobile']);
+                                   $check1 = checkDuplicated('email',$students['email']);
+
+                                            if($check==true or $check1)
+                                            {
+
+                                                $st_id =get_student($students['email'],$students['mobile']);
+
+                                         if(check_student_in_instructor($st_id,\Auth::user()->id)==false)
+                                                {
+                                                         $input = InstructorStudents::create(
+                                                     [
+                                                    'instructor_id'=>\Auth::user()->id,
+                                                    'student_id'=>$st_id,
+                                                    'type'=>'center',
+                                                    'status'=> '1' ,
+                                                    'created_at'=>now(),
+                                                    'updated_at'=>now(),
+                                                     ]
+                                                    );
+
+                                                 $str.='This student is already registered on the system ... but is currently added to you in the list of students';
+
+                                                }
+                                               
+                                         else
+                                          {
+                                                 $str.='This student is already registered on the system ... and added to you in the list of students';
+                                           }
+                                              
+                                         }
+
+                             if(empty($str))
+                            {
+                                $students['password'] = \Hash::make($pass);
+                                $students['email_verified_at'] = \Carbon\Carbon::now()->toDateTimeString();
+                                $students['role'] = 'user'; 
+                                $students['grade'] = request('grade_id');         
+
+                                $data = User::create($students);
+                                $data->save();
+
+                                 $code = generate_student_code($data->id,$data->fname,$data->lname);
+                                 User::where('id',$data->id)->update(['code'=>$code]);
+
+                                if(!empty($data['class_key']))
+                                  {
+                                    $class = getClassByKey($data['class_key']);
+                                    
+                                     if(!empty($class))
+                                     {
+                                            $getTotalStudentInClass = getTotalStudentInClass($class->id);
+
+                                            if($getTotalStudentInClass < $class->num_of_student )
+                                            {
+                                              DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".$class->id."','".$class->instructor_id."','".$data->id."',0,NOW())") ;
+                                              User::where('id',$data->id)->update(['subject_id'=>$class->subject_id,'class_key'=>$data['class_key']]);
+                                                              \Session::put('typeLogin', '-1'); 
+                                            }
+                                          else
+                                          {
+                                              DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".$class->id."','".$class->instructor_id."','".$data->id."','-1',NOW())") ;
+                                              \Session::put('typeLogin', '-1');
+                             
+                                          }
+
+                                        $input = InstructorStudents::create([
+                                                'instructor_id'=>$class->instructor_id,
+                                                'student_id'=>$data->id,
+                                                'type'=>'center',
+                                                'status'=> '1' ,
+                                                'created_at'=>now(),
+                                                'updated_at'=>now(),
+                                             ]);
+                                     }
+                                  } 
+
+                               $total_adding++;
+                            }
+                            else
+                            {
+                                $errors[$c] = $str;
+                                $str='';
+                                $total_not_adding++;    
+                            }
+                                    $c++;
+                                    $i = $r;
+                               }
+                        }
+                    }
+    
+    \Session::flash('not_adding', $total_not_adding); 
+
+    \Session::flash('adding', $total_adding); 
+
+     \Session::flash('errorw', $errors); 
+
+     return back();                      
     }
 
 
