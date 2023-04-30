@@ -1373,9 +1373,8 @@ class InstructorController extends Controller
            'grade_id'=>'required'
        ]);
 
-     if ( $xlsx = SimpleXLSX::parse( request('file') ) )
-               return request()->all();
-
+     if ( SimpleXLSX::parse( request('file') ) )
+                return 1;
                         {
                            $errors = [];$c=1;$total_adding=0;$total_not_adding=0;
 
