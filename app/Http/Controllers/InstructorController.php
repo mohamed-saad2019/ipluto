@@ -1368,10 +1368,7 @@ class InstructorController extends Controller
 
  public function upload_students()
  {
-     $this->validate(request(), [
-           'file' => 'required|file|mimes:xls,xlsx',
-           'grade_id'=>'required'
-       ]);
+     
 
 
      return 1;                      
