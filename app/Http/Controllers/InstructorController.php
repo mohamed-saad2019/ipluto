@@ -1549,11 +1549,11 @@ class InstructorController extends Controller
                         }
                     }
     
-    \Session::flash('not_adding', $total_not_adding); 
+    // \Session::flash('not_adding', $total_not_adding); 
 
-    \Session::flash('adding', $total_adding); 
+    // \Session::flash('adding', $total_adding); 
 
-     \Session::flash('errorw', $errors); 
+    //  \Session::flash('errorw', $errors); 
 
      return back();                      
     }
