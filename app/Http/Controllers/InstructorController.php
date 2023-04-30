@@ -1366,13 +1366,12 @@ class InstructorController extends Controller
         return redirect('instructor/students');
  }
 
- public function upload_students()
+ public function upload_students(Request $request)
  {
-     // $this->validate(request(), [
-     //       'file' => 'required|file|mimes:xls,xlsx',
-     //       'grade_id'=>'required'
-     //   ]);
-     //        return request()->all();
+    $data = $this->validate($request, [
+               'file' => 'required|file|mimes:xls,xlsx',
+               'grade_id'=>'required'
+           ]);
 
      if ( $xlsx = SimpleXLSX::parse( request('file') ) )
                         {
