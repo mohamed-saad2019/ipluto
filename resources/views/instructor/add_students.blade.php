@@ -43,9 +43,9 @@
 
                     </ul>
                 </li>
-                   <div class="dropdown" style="float:right;display:inline;">
+                   <div class="dropdown" style="float:right;display:inline;margin-right:50px;">
                   <button class="btn dropdown-toggle togCreate btn-primary" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false" style="margin-top:0px;width:140px;">
+                aria-haspopup="true" aria-expanded="false" style="margin-top:0px;width:170px;">
                  <i class="fa fa-plus" style="margin:0px 2px;font-size:12px !important;"></i>
                  Add Student</button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -53,7 +53,7 @@
                     <li class="dropdown-item dropdown-itemLesspar">
                       <a href="{{url('instructor/add_students?type=online')}}" class="icon">
                       <i class="fa fa-plus" style="margin:0px 2px;font-size:12px !important;"></i>
-                         Add Student(Online)
+                        Online
                       </a>
                     </li>
 
@@ -62,7 +62,7 @@
                    <li class="dropdown-item dropdown-itemLesspar">
                       <a href="{{url('instructor/add_students?type=center')}}" class="icon">
                       <i class="fa fa-plus" style="margin:0px 2px;font-size:12px !important;"></i>
-                         Add Student(Center)
+                        Center
                       </a>
                     </li>
                     
@@ -71,7 +71,7 @@
                     <li class="dropdown-item dropdown-itemLesspar">
                       <a href="{{url('instructor/add_students?type=pluck')}}" class="icon">
                       <i class="fa fa-plus" style="margin:0px 2px;font-size:12px !important;"></i>
-                         Add Students (Excel Sheet)
+                         Excel Sheet
                       </a>
                     </li>
                   </div>
@@ -91,6 +91,12 @@
                       </ul>
                     </div>
             @endif
+                        @if(Session::has('success'))
+                        <p class="alert  alert-success">{{ Session::get('success') }}</p>
+                        @endif
+                        @if(Session::has('error'))
+                        <p class="alert  alert-danger">{{ Session::get('error') }}</p>
+                        @endif
 
                     <div class="table-responsive" style="margin-top: 30px;">
                         <table class="table table-hover" id='example1'>

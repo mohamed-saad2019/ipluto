@@ -877,7 +877,7 @@ class InstructorController extends Controller
                              if(empty($str))
                             {
                                 $students['password'] = \Hash::make($students['password']);
-                                $students['email_verified_at'] = \Carbon\Carbon::now()->toDateTimeString(); 
+                                $students['email_verified_at'] = \Carbon\Carbon::now()->toDateTimeString();
                                 $students['role'] = 'user';
                                 $students['grade'] = $request->grade_id ;         
                                $data = User::create($students);
@@ -1247,6 +1247,9 @@ class InstructorController extends Controller
                 $students = InstructorStudents::where('instructor_id',\Auth::user()->id)->get();
 
                 \Session::flash('success','Student ( '.$data->fname.' '.$data->lname.' ) has been added successfully');
+
+                  return redirect(url('instructor/students'));
+
               }
               else
               {
@@ -1305,13 +1308,13 @@ class InstructorController extends Controller
  public function register_student(Request $request)
  {
      $data = $this->validate($request, [
-            'fname' => 'required|string|min:2',
-            'lname' => 'required|string|min:2',
-            'mobile' => 'required|max:11|min:11|starts_with:01|unique:users,mobile',
+            'fname' => ['required', 'alpha', 'min:3', 'max:15'],
+            'lname' => ['required', 'alpha', 'min:3', 'max:15'],
+            'mobile' => ['required','unique:users,mobile','starts_with:01','digits:11'],
             'email' => 'required|unique:users,email',
             'password' => 'required|min:6|max:20|confirmed',
             'grade_id' => 'required',
-            'class_key'=>'nullable|min:5|max:5|exists:App\Classes,class_key'
+            'class_key'=>'required|min:5|max:5|exists:App\Classes,class_key'
         ]);
  
         $data = $request->all();
@@ -1400,17 +1403,25 @@ class InstructorController extends Controller
                                     $students['lname']                     =   $row[1];
                                     $students['email']                     =   $row[2];
                                     $students['mobile']                    =   $row[3];
-                                    $students['password']                  =   $row[4];
+                                    $students['class_key']                 =   $row[4];
+                                    $students['password']                  =   $row[5];
+                                    $students['confirm_password']          =   $row[6];
 
                                      if ($students['fname'] =="" )
                                     {
                                         $str.='First name is blank ,';
                                     }
 
-                                      if ($students['lname'] =="" )
+                                    if ($students['lname'] =="" )
                                     {
                                         $str.='Second name is blank ,';
                                     }
+
+                                    if ($students['class_key'] =="" )
+                                    {
+                                        $str.='Class Code is blank ,';
+                                    }
+
                                     if ($students['email'] == "" )
                                     {
                                         $str.='Email is blank ,';
@@ -1433,6 +1444,19 @@ class InstructorController extends Controller
                                         }
                                     }
 
+                                   if ($students['password'] !="" and $students['confirm_password'] !='')
+                                    {
+                                      if($students['password'] != $students['confirm_password'])
+                                        $str.='password confirmation does not match. ,';
+                                      else
+                                       $pass = $students['password'];
+                                    }
+
+                                   if($students['password'] =="" or $students['confirm_password'] =='')
+                                    {
+                                       $str.='password or password confirmation is blank. ,';
+                                    }
+                                   
                                    $check  = checkDuplicated('mobile',$students['mobile']);
                                    $check1 = checkDuplicated('email',$students['email']);
 
@@ -1467,26 +1491,49 @@ class InstructorController extends Controller
 
                              if(empty($str))
                             {
-                                $students['password'] = \Hash::make($students['password']);
-                                $students['email_verified_at'] = \Carbon\Carbon::now()->toDateTimeString(); 
+                                $students['password'] = \Hash::make($pass);
+                                $students['email_verified_at'] = \Carbon\Carbon::now()->toDateTimeString();
                                 $students['role'] = 'user'; 
-                                $students['role'] = request('grade_id');         
-                               $data = User::create($students);
-                               $data->save();
+                                $students['grade'] = request('grade_id');         
+
+                                $data = User::create($students);
+                                $data->save();
 
                                  $code = generate_student_code($data->id,$data->fname,$data->lname);
                                  User::where('id',$data->id)->update(['code'=>$code]);
 
-                                $input = InstructorStudents::create(
-                                 [
-                                'instructor_id'=>\Auth::user()->id,
-                                'student_id'=>$data->id,
-                                'type'=>'center',
-                                'status'=> '1' ,
-                                'created_at'=>now(),
-                                'updated_at'=>now(),
-                                 ]
-                                );
+                                if(!empty($data['class_key']))
+                                  {
+                                    $class = getClassByKey($data['class_key']);
+                                    
+                                     if(!empty($class))
+                                     {
+                                            $getTotalStudentInClass = getTotalStudentInClass($class->id);
+
+                                            if($getTotalStudentInClass < $class->num_of_student )
+                                            {
+                                              DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".$class->id."','".$class->instructor_id."','".$data->id."',0,NOW())") ;
+                                              User::where('id',$data->id)->update(['subject_id'=>$class->subject_id,'class_key'=>$data['class_key']]);
+                                                              \Session::put('typeLogin', '-1'); 
+                                            }
+                                          else
+                                          {
+                                              DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".$class->id."','".$class->instructor_id."','".$data->id."','-1',NOW())") ;
+                                              \Session::put('typeLogin', '-1');
+                             
+                                          }
+
+                                        $input = InstructorStudents::create([
+                                                'instructor_id'=>$class->instructor_id,
+                                                'student_id'=>$data->id,
+                                                'type'=>'center',
+                                                'status'=> '1' ,
+                                                'created_at'=>now(),
+                                                'updated_at'=>now(),
+                                             ]);
+                                     }
+                                  } 
+
                                $total_adding++;
                             }
                             else
@@ -1506,8 +1553,7 @@ class InstructorController extends Controller
     \Session::flash('adding', $total_adding); 
 
      \Session::flash('errorw', $errors); 
-
-
+     
      return redirect('instructor/add_students?type=pluck');                      
     }
 

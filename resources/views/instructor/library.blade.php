@@ -154,13 +154,13 @@ $current_storage = str_replace("MB","",get_size_instructor());
       <li style="font-size:22px;">
         @if($p->id != request('id'))
         <a href="{{url('/instructor/library?id='.$p->id.'&parent_id='.$p->parent_id)}}"
-          style="color:{{$p->color}}">{{$p->name}} </a>
+          style="color:{{$p->color}}">{{str_limit($p->name,15)}} </a>
         <span style="padding:0px 20px;"> > </span>
         @else
         @php $color = $p->color @endphp
         <div class="dropdown">
           <span id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-            class="dropdown-toggle" style="color:{{$p->color}}"> {{$p->name}}
+            class="dropdown-toggle" style="color:{{$p->color}}"> {{str_limit($p->name,15)}}
           </span>
           <div class="dropdown-menu folder_elem" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item"
@@ -210,7 +210,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
             <a class="w-100 d-flex align-items-center" style="color:{{$folder->color}}"
               href="{{url('instructor/library?id='.$folder->id.'&parent_id='.$folder->parent_id)}}">
               <i class="fa fa-folder"></i>
-              <span class="description ml-2">{{$folder->name}}</span>
+              <span class="description ml-2">{{str_limit($folder->name,15)}}</span>
             </a>
           </div>
           <div class="sizing d-flex align-items-end mr-1 mb-1">

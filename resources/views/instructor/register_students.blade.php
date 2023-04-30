@@ -16,7 +16,13 @@
                             </div>
                         </h4>
 
-                      
+                       @if(Session::has('success'))
+                        <p class="alert  alert-success">{{ Session::get('success') }}</p>
+                        @endif
+                        @if(Session::has('error'))
+                        <p class="alert  alert-danger">{{ Session::get('error') }}</p>
+                        @endif
+
                       @if(request('type')=='online')
 
 
@@ -186,11 +192,11 @@
         <!--################################### End Choose A Photo ################################### -->
 
         <div class="row">
-          <div class="col-12 col-sm-6">
+          <div class="col-12 col-sm-5">
             <label for="exampleInputPassword1">Password</label>
             <input
               type="password"
-              class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" id="password" 
+              class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" id="passInput" 
               required
             />
             @if ($errors->has('password'))
@@ -199,13 +205,22 @@
                 </span>
             @endif
           </div>
-          <div class="col-12 col-sm-6">
+           <div class="form-group col-md-1">
+             <i class="fa fa-eye" id="showPass" style="margin-top:50px;cursor: pointer;"></i>
+          </div>
+          <div class="col-12 col-sm-5">
             <label for="exampleInputPassword1">Confirm Password</label>
             <input
               type="password"
-              class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" name="password_confirmation" id="password-confirm" 
+              class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" name="password_confirmation" id="passInput1" 
               required
             />
+          </div>
+            <div class="form-group col-md-1">
+             <i class="fa fa-eye" id="showPass1" style="margin-top:50px;cursor: pointer;"></i>
+          </div>
+           <div class="col-md-12">
+            <small id="emailHelp" class="form-text text-muted">The password must be at least 6 characters long</small><br>
           </div>
           <div class="col-12 col-sm-6">
               <br><input type="submit" class="btn btn-primary" value="Add student">
@@ -250,5 +265,28 @@
       })
     });
 
-</script>
+
+ 
+       $('#showPass').on('click', function(){
+              var passInput=$("#passInput");
+              if(passInput.attr('type')==='password')
+                {
+                  passInput.attr('type','text');
+              }else{
+                 passInput.attr('type','password');
+              }
+          })
+
+        $('#showPass1').on('click', function(){
+              var passInput=$("#passInput1");
+              if(passInput.attr('type')==='password')
+                {
+                  passInput.attr('type','text');
+              }else{
+                 passInput.attr('type','password');
+              }
+          })
+
+    </script>
+
 @endsection

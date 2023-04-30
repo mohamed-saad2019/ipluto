@@ -179,8 +179,8 @@ class HomeController extends Controller
     public function saveTeacher(Request $request)
     {
         $data = $this->validate($request, [
-            'fname'         => 'required|regex:/^[a-zA-Z]+$/u|min:3|max:15',
-            'lname'         => 'required|regex:/^[a-zA-Z]+$/u|min:3|max:15',
+            'fname'         => 'required|alpha|min:3|max:15',
+            'lname'         => 'required|alpha|min:3|max:15',
             'mobile'        => 'required|unique:users,mobile|starts_with:01|digits:11',
             'email'         => 'required|unique:users,email',
             'password'      => 'required|min:6',

@@ -838,11 +838,13 @@ class ZoomController extends Controller
 
     public function zoom_list(Request $request)
     {
+       $id = auth()->user()->id;
         $zoom  = \DB::select("SELECT classes.name,zoom.start_time,zoom.code,zoom.url,
             zoom.created_at FROM zoom
              INNER JOIN zoom_classes ON zoom_classes.zoom_id = zoom.id
              INNER JOIN classes ON classes.id = zoom_classes.class_id
-             ORDER BY zoom.created_at");
+             WHERE zoom.instructor_id = $id
+             ORDER BY zoom.created_at desc");
 
       $sum   = 0 ;
       return view('instructor.zoom_list',compact('zoom','sum'));
