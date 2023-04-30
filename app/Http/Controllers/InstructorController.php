@@ -1368,11 +1368,11 @@ class InstructorController extends Controller
 
  public function upload_students(Request $request)
  {
-     $data = $this->validate($request, [
+        $validator = \Validator::make(request()->all(), [
             'file' => ['required', 'file', 'mimes:xls,xlsx'],
             'grade_id' => ['required'],
-        ]);
-     
+            ]); // create the validations
+
      if ( $xlsx = SimpleXLSX::parse( request('file') ) )
                         {
                            $errors = [];$c=1;$total_adding=0;$total_not_adding=0;
