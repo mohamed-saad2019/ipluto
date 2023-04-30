@@ -1373,8 +1373,8 @@ class InstructorController extends Controller
            'grade_id'=>'required'
        ]);
 
-     
-     return redirect('instructor/add_students?type=pluck');                      
+
+     return 1;                      
     }
 
 
