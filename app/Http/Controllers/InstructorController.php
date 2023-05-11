@@ -348,6 +348,8 @@ class InstructorController extends Controller
 
     public function update_lesson($id)
     {
+                    return request()->all();
+
         $validator = \Validator::make(request()->all(), [
             'name' => 'required|max:255|min:3', 
             'des' => 'nullable|string|max:500|min:3', 
@@ -382,8 +384,6 @@ class InstructorController extends Controller
            $units = implode(',', request('units'));
         }
 
-            return request()->all();
-            
         if(request()->hasfile('img') and !empty(request('img')))
          {
               
