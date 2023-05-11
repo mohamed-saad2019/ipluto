@@ -381,12 +381,18 @@ class InstructorController extends Controller
         if (request()->has('units') and !empty(request('units'))) {
            $units = implode(',', request('units'));
         }
-            
+
+        $full_name = request('name');
+
+        
         if(request()->hasfile('img') and !empty(request('img')))
          {
               
-             
-               return 'alalssalslalas';
+                $file = request()->file('img');
+                $f_name = $file->getClientOriginalName();
+                $hashName = $file->hashName();
+                $file->store('public/'.\Auth::user()->id.'/'.$id);
+                $img_lesson = \Auth::user()->id.'/'.$id.'/'.$hashName;
 
          }
         else
@@ -416,11 +422,8 @@ class InstructorController extends Controller
 
         $subjects = ChildCategory::where('status', '1')->GroupBy('slug')->orderBy('id','ASC')->get();
         $grades   = SubCategory::where('status', '1')->orderBy('id','ASC')->get();
-
         
-           return 1;
-
-
+        return redirect(url('instructor/add_lesson?id='.$id));
 
     }
 
@@ -428,6 +431,7 @@ class InstructorController extends Controller
 
     public function upload_files($id)
     {
+
 
        if (request()->hasFile('file'))
          {
@@ -461,7 +465,7 @@ class InstructorController extends Controller
                        'size'=>  get_size_lesson($id,'no_unit'),
                        'updated_at'=>now(),
                     ]);
-                return 1;
+
                 return response (['status' => true,'id'=>$add->id,'type'=>$add->mime_type,'size'=>$size,'name'=>$name] , 200 );
             // }
             // else
