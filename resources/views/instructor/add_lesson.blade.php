@@ -638,9 +638,6 @@ $current_storage = str_replace("MB","",get_size_instructor());
           headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
           url: "{{url('instructor/update_lesson/'.$id)}}",
           data: data,
-          processData: true,
-          contentType: true,
-          cache: true,
           success: function (data) {
 
             $('#exampleModalCenter').modal('hide');
