@@ -691,6 +691,8 @@ $current_storage = str_replace("MB","",get_size_instructor());
     function myFunction(x) {
 
       $('#dropzoneUpload').dropzone({
+        "headers": {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
+        "contentType": 'application/json; charset=utf-8',
         url: "{{url('instructor/upload_files/'.$id)}}",
         paramName: 'file',
         // uploadMultiple : false,
@@ -698,8 +700,8 @@ $current_storage = str_replace("MB","",get_size_instructor());
         maxFilessize: 15, //MB,
         parallelUploads: 1,
         acceptedFiles: x,
-        // acceptedFiles:"image/,video/,audio/*,application/pdf,.doc,.docx,.xls,.xlsx,.csv,.html,.zip,.txt,.xml,.ppt,.pptx",
-        // dictDefaultMessage:'<img src="https://static.vecteezy.com/system/resources/previews/004/896/060/non_2x/drag-and-drop-document-files-here-to-upload-concept-illustration-flat-design-eps10-folder-empty-state-icon-ui-vector.jpg" style="width:120px;height:80px;"><br><span>UPLOAD FILES Here</span>',
+        acceptedFiles:"image/,video/,audio/*,application/pdf,.doc,.docx,.xls,.xlsx,.csv,.html,.zip,.txt,.xml,.ppt,.pptx",
+        dictDefaultMessage:'<img src="https://static.vecteezy.com/system/resources/previews/004/896/060/non_2x/drag-and-drop-document-files-here-to-upload-concept-illustration-flat-design-eps10-folder-empty-state-icon-ui-vector.jpg" style="width:120px;height:80px;"><br><span>UPLOAD FILES Here</span>',
         params: {
           _token: '{{csrf_token()}}'
         },
