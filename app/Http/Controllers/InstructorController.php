@@ -382,8 +382,8 @@ class InstructorController extends Controller
            $units = implode(',', request('units'));
         }
 
-
-        
+            return request()->all();
+            
         if(request()->hasfile('img') and !empty(request('img')))
          {
               
@@ -391,7 +391,7 @@ class InstructorController extends Controller
                 $f_name = $file->getClientOriginalName();
                 $hashName = $file->hashName();
                 $file->store('public/'.\Auth::user()->id.'/'.$id);
-            return    $img_lesson = \Auth::user()->id.'/'.$id.'/'.$hashName;
+                $img_lesson = \Auth::user()->id.'/'.$id.'/'.$hashName;
 
          }
         else
