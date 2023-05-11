@@ -655,7 +655,9 @@ Route::middleware(['web'])->group(function () {
             Route::post('instructor/add_viedo_to_lesson/{id}', 'InstructorController@add_viedo_to_lesson')
                    ->name('instructor.add_viedo_to_lesson');
 
-            Route::post('instructor/update_lesson/{id}', 'InstructorController@update_lesson')->name('instructor.update_lesson');
+            Route::post('instructor/update_lesson/{id}', function(){
+                    return "true";
+                });
 
 
             Route::post('instructor/upload_files/{id}', 'InstructorController@upload_files')
