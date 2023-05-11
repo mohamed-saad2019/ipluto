@@ -9,6 +9,12 @@ $current_storage = str_replace("MB","",get_size_instructor());
 @endphp
 
 @section('maincontent')
+<style>
+  .lesson ul li
+  {
+    width: 25% !important;
+  }
+</style>
 <div class="wrap">
   <div class="lesson">
     <div class="container">
@@ -92,9 +98,10 @@ $current_storage = str_replace("MB","",get_size_instructor());
       @endif
 
           <li class="tab" id='tab_del'><i class="fas fa-trash"></i>Delete</li>
-          <li class="tab"><i class="fas fa-copy"></i>Copy</li>
-          <li class="tab"><i class="fas fa-clone"></i>Past</li>
-          <li class="tab"><i class="fas fa-pen"></i>Convert</li>
+          <li class="tab" id='tab_copy'><i class="fas fa-copy"></i>Copy</li>
+          <li class="tab" id='tab_paste'><i class="fas fa-clone"></i>Past</li>
+          <!-- <li class="tab"><i class="fas fa-pen"></i>Convert</li> -->
+          <input type="hidden" name="" id="copied" value="false">
       </ul>
     </div>
   </div>
@@ -764,6 +771,59 @@ $current_storage = str_replace("MB","",get_size_instructor());
 
       $('#del_show_empty').modal('show');
 
+    });
+
+
+     $("#tab_copy").click(function () {
+      $(".tab").removeClass("active");
+      $("#tab_copy").addClass("active");
+
+      if ($('.del').length == 0) {
+
+        if ($('.contTechFolder').length != 0) {
+          $('#slide_del_msg').text('Please Select the slides you want to copy first by clicking on them.');
+        } else {
+          $('#slide_del_msg').text('There are no slides you can copy!');
+        }
+         $('#del_show_empty').modal('show');
+      } else {
+        var arr = '';
+
+        $('.del').each(function () {
+          arr = arr + this.id + ',';
+        });
+
+         $('#copied').attr('value',arr);
+         toastr.success('copied ' +$('.del').length+' slide successfully.');
+      }
+    });
+
+    $("#tab_paste").click(function () {
+      $(".tab").removeClass("active");
+      $("#tab_copy").addClass("active");
+
+      if ($('.del').length == 0) {
+
+        if ($('.contTechFolder').length != 0) {
+          $('#slide_del_msg').text('Please select the slides you want to paste and then click the copy button first.');
+        } else {
+          $('#slide_del_msg').text('There are no slides you can paste!');
+        }
+              $('#del_show_empty').modal('show');
+      } else {
+
+        var copied = $('#copied').attr('value'); 
+
+        if(copied != 'false')
+        {
+         window.location.href="{{url('/instructor/paste_sildes?lesson_id='.request('id'))}}"+'&id='+copied;
+        }
+        else
+        {
+           $('#slide_del_msg').text('Please select the slides you want to paste and then click the copy button first.');
+           $('#del_show_empty').modal('show');
+        }
+      }
     });
 
     var count = $(".go").children().length;

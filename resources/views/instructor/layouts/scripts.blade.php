@@ -51,6 +51,7 @@
 <script src="{{ url('js/custom-file-input.js')}}"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-colorselector@0.1.0/dist/bootstrap-colorselector.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 
 
 <script>

@@ -12,7 +12,10 @@
     <link href="https://kit-pro.fontawesome.com/releases/v5.15.3/css/pro.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./../style.css" />
     <!-- <link rel="stylesheet" href="{{ url('css/style.css') }}" /> -->
+
     @include('admin.layouts.head')
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+
     <title>@yield('title')</title>
 
 </head>

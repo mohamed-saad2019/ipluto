@@ -49,7 +49,7 @@
                                         aria-expanded="true" aria-controls="collapseOneDay">
                                         Day
                                     </button>
-                                    <input type="hidden" id="hiddenDayClasses" name="day[]" required>
+                                    <input type="hidden" id="hiddenDayClasses" name="day[]" >
                                 </h2>
                             </div>
                             <div id="collapseOneDay" class="collapse" aria-labelledby="headingOneDay"
@@ -106,7 +106,7 @@
 
                     <div class="col-md-6" id="">
                        <input type="number" value="{{old('num_of_student')}}" class="form-control" 
-                                   step="any" name="num_of_student" required placeholder="Number Of Students" required>
+                                   step="any" name="num_of_student" required placeholder="Number Of Students" required min="1" max="2000">
                     </div>
 
                     <div class="accordion col-md-12" >

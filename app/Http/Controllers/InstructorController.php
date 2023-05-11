@@ -382,7 +382,7 @@ class InstructorController extends Controller
            $units = implode(',', request('units'));
         }
 
-        $full_name = request('name');
+     return   $full_name = request('name');
 
         
         if(request()->hasfile('img') and !empty(request('img')))
@@ -435,7 +435,6 @@ class InstructorController extends Controller
     public function upload_files($id)
     {
 
-
        if (request()->hasFile('file'))
          {
                
@@ -468,7 +467,7 @@ class InstructorController extends Controller
                        'size'=>  get_size_lesson($id,'no_unit'),
                        'updated_at'=>now(),
                     ]);
-
+                return 1;
                 return response (['status' => true,'id'=>$add->id,'type'=>$add->mime_type,'size'=>$size,'name'=>$name] , 200 );
             // }
             // else
@@ -587,20 +586,13 @@ class InstructorController extends Controller
 
      public function del_class()
     {
-    
         if (request('id') and !empty(request('id'))) 
         {
-           
-            
              DB::table('classes')->where('id', request('id'))->delete();
-
              DB::table('class_days')->where('class_id', request('id'))->delete();
-
              DB::table('classes_student')->where('class_id', request('id'))->delete();
-
-                         \Session::flash('success','Class has been deleted');
+            \Session::flash('success','Class has been deleted');
         }
-
         return back();
     }
 
@@ -630,6 +622,29 @@ class InstructorController extends Controller
         }
 
         return back();
+    }
+    public function paste_sildes()
+    {
+      if (request('lesson_id') and !empty(request('lesson_id')) and request('id') and !empty(request('id')))
+      { 
+        foreach (explode(',', request('id')) as $id) {
+
+         $file= File::where('id',$id)->first();
+                if($file)
+                     File::create([
+                    'file_name' =>  $file->file_name ,
+                    'size'      =>  $file->size ,
+                    'hash_name' =>  $file->hash_name,
+                    'path'      =>  $file->path,
+                    'mime_type' =>  $file->mime_type ,
+                    'file_type' =>  'Lessons',
+                    'instructor_id'=> \Auth::user()->id,
+                    'lesson_id'=>request('lesson_id'),
+                    ]);   
+            }
+        }
+      \Session::flash('success','Slides pasted successfully');
+       return back();
     }
 
 
@@ -723,11 +738,13 @@ class InstructorController extends Controller
 
     public function store_class(Request $request)
     {
+        \DB::beginTransaction();
+     
         $studentsAleardyExistsInOtherClass = [];
-
+            // return request()->all();
         if (!request()->has('students'))
         {
-             $ch_file = 'required|file|mimes:xls,xlsx';
+             $ch_file = 'file|mimes:xls,xlsx';
         }
         else
         {
@@ -735,13 +752,15 @@ class InstructorController extends Controller
         }
 
         $validator = \Validator::make($request->all(),[
-            'name'=>'required|string',
+            'name'=>'required|string|max:15',
             'file' => $ch_file,
-            'num_of_student'=>'required|numeric'
+            'day'  => 'required|array|in:Saturday,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday',
+            'num_of_student'=>'required|numeric|gt:0'
          ],[],['name'=>'Class Name','file'=>'Class Students','num_of_student'=>'Number Of Students']);
 
          if ($validator->fails())   //check all validations are fine, if not then redirect and show error messages
             {
+                 \DB::rollBack();
                 return back()->withInput()->withErrors($validator);
             }
 
@@ -749,6 +768,7 @@ class InstructorController extends Controller
 
             if($count[0]->total != 0)
             {
+                  \DB::rollBack();
                 $validator = 'The Class Name has already been taken.';
                 return back()->withInput()->withErrors($validator);
             }
@@ -761,6 +781,7 @@ class InstructorController extends Controller
 
                 if($count_students > request('num_of_student'))
                 {
+                     \DB::rollBack();
                     return back()->withInput()->withErrors('The number of students must not be more than '.request('num_of_student')); 
                 } 
             }
@@ -773,6 +794,7 @@ class InstructorController extends Controller
                            
                             if($count_students > request('num_of_student'))
                             {
+                                  \DB::rollBack();
                               return back()->withInput()->withErrors('The number of students must not be more than '.request('num_of_student')); 
                             }
 
@@ -919,7 +941,18 @@ class InstructorController extends Controller
 
          foreach($request->day as $k=>$_day)
          {
+            $checkSameDay =  DB::table('class_days')->where('class_id',$last_id)
+                    ->where('day',$_day)->where('time',$request->time[$k])->count();
+            
+            if($checkSameDay == 0)
+            {
              DB::insert("INSERT INTO `class_days` (`id`,`class_id`,`day`,`time`,`created_at`) VALUE( NULL ,'".$last_id."' , '".$_day."' , '".$request->time[$k]."' ,NOW() ) ") ;
+            }
+            else
+            {
+                  \DB::rollBack();
+                return back()->withInput()->withErrors('It is not possible to specify the same day and the same time'); 
+            }
          }
         
          
@@ -974,6 +1007,9 @@ class InstructorController extends Controller
         }
 
        \Session::flash('success','The Class has been successfully added'); 
+
+        \DB::commit();
+
        return redirect(route('list_classes'));
 
     }
@@ -1014,11 +1050,13 @@ class InstructorController extends Controller
 
     public function update_class($id,Request $request)
     {
+              \DB::beginTransaction();
+
         $studentsAleardyExistsInOtherClass = [];
         $id = request('id');
 
         $validator = \Validator::make($request->all(),[
-            'name'=>'required|string',
+            'name'=>'required|string|max:15',
             'students' => 'required|array',
             'num_of_student'=>'required|numeric'
 
@@ -1026,6 +1064,7 @@ class InstructorController extends Controller
 
          if ($validator->fails())   //check all validations are fine, if not then redirect and show error messages
             {
+                 \DB::rollBack();
                 return back()->withInput()->withErrors($validator);
             }
 
@@ -1033,12 +1072,14 @@ class InstructorController extends Controller
 
             if($count[0]->total != 0)
             {
+                 \DB::rollBack();
                 $validator = 'The Class Name has already been taken.';
                 return back()->withInput()->withErrors($validator);
             }
 
            if(count(request('students')) > request('num_of_student'))
            {
+             \DB::rollBack();
              return back()->withInput()->withErrors('The number of students must not be more than '.request('num_of_student')); 
            } 
             
@@ -1056,8 +1097,19 @@ class InstructorController extends Controller
         
          foreach(request('day') as $k=>$_day)
          {
+             $checkSameDay =  DB::table('class_days')->where('class_id',$id)
+                    ->where('day',$_day)->where('time',$request->time[$k])->count();
+            
+            if($checkSameDay == 0)
+            {
              DB::insert("INSERT INTO `class_days` (`id`,`class_id`,`day`,`time`,`created_at`) VALUE( NULL ,'"
                 .$id."' , '".$_day."' , '".request('time')[$k]."' ,NOW() ) ") ;
+            }
+            else
+            {
+                  \DB::rollBack();
+                return back()->withInput()->withErrors('It is not possible to specify the same day and the same time'); 
+            }
          }
         
 
@@ -1097,6 +1149,9 @@ class InstructorController extends Controller
         }
 
        \Session::flash('success','The Class has been successfully updated'); 
+
+       \DB::commit();
+
        return redirect(route('list_classes'));
 
     }
