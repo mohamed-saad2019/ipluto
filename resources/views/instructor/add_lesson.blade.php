@@ -637,9 +637,11 @@ $current_storage = str_replace("MB","",get_size_instructor());
           enctype: "multipart/form-data",
           url: "{{url('instructor/update_lesson/'.$id)}}",
           data: data,
-          processData: true,
-          contentType: true,
-          cache: true,
+          processData: false,
+          contentType: false,
+          cache: false,
+          "headers": {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
+          "contentType": 'application/json; charset=utf-8',
           success: function (data) {
 
             $('#exampleModalCenter').modal('hide');
