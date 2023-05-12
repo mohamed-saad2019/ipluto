@@ -22,10 +22,7 @@ $rtl = array('ar','he','ur', 'arc', 'az', 'dv', 'ku', 'fa'); //make a list of rt
 <link href="{{ url('admin_assets_rtl/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput-typeahead.css') }}" rel="stylesheet" type="text/css">
 <link href="{{ url('admin_assets_rtl/assets/plugins/pnotify/css/pnotify.custom.min.css') }}" rel="stylesheet" type="text/css">
 <link href="{{ url('admin_assets_rtl/assets/css/flag-icon.min.css') }}" rel="stylesheet" type="text/css">
-<link href="{{ url('admin_assets_rtl/assets/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ url('admin_assets_rtl/assets/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
  <!-- Responsive Datatable css -->
-<link href="{{ url('admin_assets_rtl/assets/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ url('admin_assets_rtl/assets/css/style.css') }}" rel="stylesheet" type="text/css">
 <!-- jQuery ui css -->
 <link href="{{ url('admin_assets_rtl/assets/plugins/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet" type="text/css">

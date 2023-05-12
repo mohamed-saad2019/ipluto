@@ -18,6 +18,15 @@
 
     <title>@yield('title')</title>
 
+    <style>
+        .dataTables_wrapper select
+            {
+             width: 60px;
+             height: 40px ;
+             border: 1px solid #fff;
+            }
+    </style>
+
 </head>
 
 <body>

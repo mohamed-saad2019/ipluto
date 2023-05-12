@@ -240,11 +240,16 @@
 @section('scripts')
 
 <script>
-    $(function () {
+     $(function () {
       $('#example1').DataTable({
-               'ordering'    : false,
+        'ordering'    : false,
       })
     }) 
+    $(function () {
+    setTimeout(function () {
+        $('#example1_length select').removeClass('form-control');
+    }, 100);
+});
     
   </script>
 

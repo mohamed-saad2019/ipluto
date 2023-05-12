@@ -608,3 +608,4 @@ if(!function_exists('generate_class_key'))
     }
 
 }
+
