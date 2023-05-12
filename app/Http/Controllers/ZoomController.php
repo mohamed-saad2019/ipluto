@@ -685,6 +685,17 @@ class ZoomController extends Controller
       {
         $start_time = date('Y-m-dTh:i:00').'Z' ;
       }else{
+        
+            $validator = \Validator::make($request->all(),[
+              'date'=>'required|after:yesterday',
+              'time' => 'required',
+           ],[],['date'=>'Date','time'=>'Time']);
+
+           if ($validator->fails())   
+              {
+                  return back()->withInput()->withErrors($validator);
+              }
+
         $datetime = $request->date." ".$request->time ;
         $start_time = date('Y-m-dTh:i:00',strtotime($datetime)).'Z' ;
       }
