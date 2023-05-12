@@ -505,14 +505,17 @@ class InstructorController extends Controller
         
         $subject = get_subject_instructor(\Auth::user()->id);
 
-        $grade   = request('grade');
+        $instructorGrade   = InstructorGrade::where('subject_id', auth()->user()->subject_id)
+          ->where('instructor_id',auth()->user()->id)->orderBy('id','ASC')->pluck('grade_id')->toArray();
 
-        $grades = SubCategory::where('status', '1')->orderBy('id','ASC')->get();
+        $grades = SubCategory::where('status', '1')
+                 ->whereIn('id',!empty(request('grade'))?[request('grade')]:$instructorGrade)
+                 ->orderBy('id','ASC');
 
-        $all_units = Video::where('subject_id',$subject)->where('unit','!=','')
+        $all_units = Video::where('subject_id', auth()->user()->subject_id)->where('unit','!=','')
                             ->groupBy('unit')->pluck('unit')->toArray();
 
-        
+        $grade = request('grade');
 
         if(request('unit') and is_array(request('unit')))
         {
@@ -527,8 +530,11 @@ class InstructorController extends Controller
             $units   = $all_units;
         }
 
-        $videos = Video::where('status','1')->where('subject_id',$subject)->where('grade_id',$grade)
-                        ->whereIn('unit',$units)->orderBy('id','DESC')->get() ;
+        $videos = Video::where('status','1')->where('subject_id',auth()->user()->subject_id)
+                    ->whereIn('grade_id',$grades->pluck('id')->toArray())
+                    ->orderBy('id','DESC')->get() ;
+
+        $grades = $grades->get();
 
         return view('instructor.videos' , compact('videos','grades','grade','units','all_units'));
     }
@@ -785,7 +791,7 @@ class InstructorController extends Controller
                 if($count_students > request('num_of_student'))
                 {
                      \DB::rollBack();
-                    return back()->withInput()->withErrors('The number of students must not be more than '.request('num_of_student')); 
+                    return back()->withInput()->withErrors('The number of students should be greater than '.request('num_of_student')); 
                 } 
             }
            
@@ -798,7 +804,7 @@ class InstructorController extends Controller
                             if($count_students > request('num_of_student'))
                             {
                                   \DB::rollBack();
-                              return back()->withInput()->withErrors('The number of students must not be more than '.request('num_of_student')); 
+                              return back()->withInput()->withErrors('The number of students should be greater than '.request('num_of_student')); 
                             }
 
                            $errors = [];$c=1;$total_adding=0;$total_not_adding=0;$st_ids=[];
@@ -1086,7 +1092,7 @@ class InstructorController extends Controller
            if(count(request('students')) > request('num_of_student'))
            {
              \DB::rollBack();
-             return back()->withInput()->withErrors('The number of students must not be more than '.request('num_of_student')); 
+             return back()->withInput()->withErrors('The number of students should be greater than '.request('num_of_student')); 
            } 
             
  
@@ -1285,7 +1291,7 @@ class InstructorController extends Controller
 
             if($count==0)
             {
-             \Session::flash('success','This student is not on the system');
+             \Session::flash('error','This student is not on the system');
              
              redirect(url('instructor/add_students?code='.request('code')));
             }
@@ -1321,7 +1327,7 @@ class InstructorController extends Controller
               else
               {
 
-                \Session::flash('success','This student was added ( '.$data->fname.' '.$data->lname.' ) from previously');
+                \Session::flash('error','This student was added ( '.$data->fname.' '.$data->lname.' ) from previously');
               }
     
              return back();
@@ -1385,7 +1391,7 @@ class InstructorController extends Controller
                   Rule::exists('classes', 'class_key')                     
                             ->where('grade_id', $request->grade_id)
                             ->where('instructor_id',auth()->user()->id) ]
-                 ]);
+           ],[],['fname'=>'First Name','lname'=>'Last Name']);
  
         $data = $request->all();
         $data['password'] = \Hash::make($request->password);

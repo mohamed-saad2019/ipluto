@@ -242,7 +242,8 @@
 <script>
      $(function () {
       $('#example1').DataTable({
-        'ordering'    : false,
+        'ordering' : false,
+        stateSave: true ,
       })
     }) 
     $(function () {

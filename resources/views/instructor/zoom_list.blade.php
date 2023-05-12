@@ -65,6 +65,7 @@
     $(function () {
       $('#example1').DataTable({
         'ordering'    : false,
+        stateSave: true ,
       })
     }) 
 
