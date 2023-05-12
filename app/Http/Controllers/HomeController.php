@@ -190,7 +190,7 @@ class HomeController extends Controller
             'address'       => 'nullable|min:6|max:50',
             'subject'       => 'required',
             // 'grade'         => 'required',
-            'image'         => 'required|mimes:jpg,jpeg,png,bmp,tiff'
+            // 'image'         => 'required|mimes:jpg,jpeg,png,bmp,tiff'
         ]);
 
 
