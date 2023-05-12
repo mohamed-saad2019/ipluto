@@ -19,11 +19,13 @@ use App\ChildCategory;
 use App\SubCategory;
 use App\File;
 use App\InstructorStudents;
+use App\InstructorGrade;
 use App\Video;
 use App\Excel\SimpleXLSX;
 use App\ClassesStudent;
 use App\ShareLessons;
 use App\Classes;
+use Illuminate\Validation\Rule;
 
 class InstructorController extends Controller
 {
@@ -722,8 +724,11 @@ class InstructorController extends Controller
     public function add_class(Request $request)
     {
 
-        $grades   = SubCategory::where('status', '1')->orderBy('id','ASC')->get();
-
+      $instructor_grades   = InstructorGrade::where('subject_id', auth()->user()->subject_id)
+          ->where('instructor_id',auth()->user()->id)->orderBy('id','ASC')->pluck('grade_id')->toArray();
+     
+    $grades=SubCategory::whereIn('id',$instructor_grades)->where('status', '1')->orderBy('id','ASC')->get();
+    
         $student_instructor = InstructorStudents::where('instructor_id',\Auth::user()->id)->orderBy('id','DESC')->where('status','1')->pluck('student_id');
         
          $students = User::whereIn('id',$student_instructor)->where('role','user')->where('status','1')->get();
@@ -1026,8 +1031,11 @@ class InstructorController extends Controller
         {
         
         $id = request('id');
-        $grades   = SubCategory::where('status', '1')->orderBy('id','ASC')->get();
 
+        $instructor_grades   = InstructorGrade::where('subject_id', auth()->user()->subject_id)
+          ->where('instructor_id',auth()->user()->id)->orderBy('id','ASC')->pluck('grade_id')->toArray();
+     
+     $grades=SubCategory::whereIn('id',$instructor_grades)->where('status', '1')->orderBy('id','ASC')->get(); 
         $student_instructor = InstructorStudents::where('instructor_id',\Auth::user()->id)->orderBy('id','DESC')->where('status','1')->pluck('student_id');
         
          $students = User::whereIn('id',$student_instructor)->where('role','user')->where('status','1')->get();
@@ -1258,8 +1266,14 @@ class InstructorController extends Controller
     public function add_students()
     {
      $students = InstructorStudents::where('instructor_id',\Auth::user()->id)->get();
-     $grades   = SubCategory::where('status', '1')->orderBy('id','ASC')->get();
+     
+     $instructor_grades   = InstructorGrade::where('subject_id', auth()->user()->subject_id)
+          ->where('instructor_id',auth()->user()->id)->orderBy('id','ASC')->pluck('grade_id')->toArray();
+     
+     $grades=SubCategory::whereIn('id',$instructor_grades)->where('status', '1')->orderBy('id','ASC')->get();
+    
         return view('instructor.register_students',compact('students','grades'));
+    
     }
 
     public function save_student()
@@ -1367,8 +1381,11 @@ class InstructorController extends Controller
             'email' => 'required|unique:users,email',
             'password' => 'required|min:6|max:20|confirmed',
             'grade_id' => 'required',
-            'class_key'=>'required|min:5|max:5|exists:App\Classes,class_key'
-        ]);
+            'class_key'=>['required','min:5','max:5',
+                  Rule::exists('classes', 'class_key')                     
+                            ->where('grade_id', $request->grade_id)
+                            ->where('instructor_id',auth()->user()->id) ]
+                 ]);
  
         $data = $request->all();
         $data['password'] = \Hash::make($request->password);

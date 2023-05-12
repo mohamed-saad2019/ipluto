@@ -226,10 +226,10 @@ class HomeController extends Controller
             'city'      => $request->city,
             'address'   => $request->address,
             'status'    => 0 ,
-            'storage'   => 100
+            'storage'   => 100,
         ]);
         
-        $k = 0 ;
+        $k = 0 ; $last_sub = 0 ; 
         // print_r($request->subject ); exit;
         foreach($request->subject as $subject)
         {
@@ -239,6 +239,7 @@ class HomeController extends Controller
                 'subject_id'    => $subject ,
                 'status'        => 1 
             ]);
+            $last_sub = $subject;
             $_grades = "grade_".$k ;
             foreach(request($_grades) as $_grade)
             {
@@ -252,7 +253,10 @@ class HomeController extends Controller
             $k += 1 ;
         }        
 
+        User::where('id',$user->id)->where("role","instructor")->update(['subject_id' => $last_sub]);
+
         Session::flash('success', trans('flash.successfully_registered'));
+        
         return back();
 
     }
