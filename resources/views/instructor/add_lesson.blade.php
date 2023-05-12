@@ -325,13 +325,14 @@ $current_storage = str_replace("MB","",get_size_instructor());
     aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content" style="width:650px!important;padding: 20px;">
-       <form id='form' method="post" enctype="multipart/form-data" action="{{url('instructor/update_lesson/'.$id)}}">
-         @csrf
+
         <div class="modal-body" style="border:0px !important">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true" style="font-size:22px">×</span>
           </button><br>
+          <form id='form' enctype="multipart/form-data">
             <div class="row">
+              @csrf
               <div class="col-md-12">
                 <center>
                   <img src="https://a3.nearpod.com/4.1.1660323733/img/create/customize.png" style="margin-top:-15px">
@@ -383,12 +384,13 @@ $current_storage = str_replace("MB","",get_size_instructor());
               <input type="hidden" name="id" value="{{$id}}" id='five' />
               <input type="hidden" name="instructor_id" value="{{ Auth::user()->id }}" id='sex'>
             </div>
+          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary" id="save">Save</button>
+          <button type="button" class="btn btn-primary" id="save">Save</button>
+
         </div>
-       </form>
       </div>
     </div>
   </div>
@@ -626,61 +628,62 @@ $current_storage = str_replace("MB","",get_size_instructor());
         }
       });
 
-    //   $("#save").click(function () {
-    //     var form = $('#form')[0];
-    //     var data = new FormData(form);
-    //     $.ajax({
+      $("#save").click(function () {
+        var form = $('#form')[0];
+        var data = new FormData(form);
+        $.ajax({
 
-    //       type: "GET",
-    //       enctype: "multipart/form-data",
-    //       url: "{{url('instructor/update_lesson/'.$id)}}",
-    //       data: data,
-    //       processData: false,
-    //       contentType: false,
-    //       cache: false,
-    //       success: function (data) {
+          type: "POST",
+          enctype: "multipart/form-data",
+          url: "{{url('instructor/update_lesson/'.$id)}}",
+          data: data,
+          processData: false,
+          contentType: false,
+          cache: false,
+          success: function (data) {
 
-    //         $('#exampleModalCenter').modal('hide');
-    //         $('.msg_lesson').css('display', 'block');
+            $('#exampleModalCenter').modal('hide');
+            $('.msg_lesson').css('display', 'block');
 
-    //         if (data == 1) {
-    //           $('#change_name').html($('#one').val());
-    //           $('.msg_lesson').addClass('alert-success');
-    //           $('.msg_lesson').removeClass('alert-danger');
-    //           $('.msg_lesson p').text('Lesson Settings have been updated.');
-    //           window.location.href = "{{url('instructor/add_lesson?id='.$id)}}";
-    //         }
+            if (data == 1) {
+              $('#change_name').html($('#one').val());
+              $('.msg_lesson').addClass('alert-success');
+              $('.msg_lesson').removeClass('alert-danger');
+              $('.msg_lesson p').text('Lesson Settings have been updated.');
+              window.location.href = "{{url('instructor/add_lesson?id='.$id)}}";
+            }
 
-    //         if (data == -1) {
-    //           $('.msg_lesson').addClass('alert-danger');
-    //           $('.msg_lesson').removeClass('alert-success');
-    //           $('.msg_lesson p').text(
-    //             'Error Lesson Name: Required, must not be numeric, must contain at least 3 or no more than 255 characters.'
-    //             );
-    //         }
+            if (data == -1) {
+              $('.msg_lesson').addClass('alert-danger');
+              $('.msg_lesson').removeClass('alert-success');
+              $('.msg_lesson p').text(
+                'Error Lesson Name: Required, must not be numeric, must contain at least 3 or no more than 255 characters.'
+                );
+            }
 
-    //         if (data == -2) {
-    //           $('.msg_lesson').addClass('alert-danger');
-    //           $('.msg_lesson').removeClass('alert-success');
-    //           $('.msg_lesson p').text('The Lesson Name has already been taken.');
-    //         }
+            if (data == -2) {
+              $('.msg_lesson').addClass('alert-danger');
+              $('.msg_lesson').removeClass('alert-success');
+              $('.msg_lesson p').text('The Lesson Name has already been taken.');
+            }
 
 
 
-    //         // console.log('dssdds');
-    //         // alert(data);
-    //       },
+            // console.log('dssdds');
+            // alert(data);
+          },
 
-    //       error: function (response) {
+          error: function (response) {
 
-    //         $.each(response.responseJSON.errors, function (field_name, error) {
-    //           $(document).find('[name=' + field_name + ']').after(
-    //             '<span class="text-strong textdanger alert-danger">' + error + '</span>')
-    //         })
-    //       },
-    //     });
-    //   });
-    // });
+            $.each(response.responseJSON.errors, function (field_name, error) {
+              $('.filed_'+field_name).html('');
+              $(document).find('[name=' + field_name + ']').after(
+                '<span class="text-strong textdanger alert-danger filed_'+field_name+'">' + error + '</span>')
+            })
+          },
+        });
+      });
+    });
 
     Dropzone.autoDiscover = false;
 

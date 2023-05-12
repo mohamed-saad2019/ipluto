@@ -423,7 +423,7 @@ class InstructorController extends Controller
         $subjects = ChildCategory::where('status', '1')->GroupBy('slug')->orderBy('id','ASC')->get();
         $grades   = SubCategory::where('status', '1')->orderBy('id','ASC')->get();
         
-        return redirect(url('instructor/add_lesson?id='.$id));
+          return 1;
 
     }
 
