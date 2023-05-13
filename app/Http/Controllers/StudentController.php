@@ -77,8 +77,8 @@ class StudentController extends Controller
  
           $instructor_sub = ShareLessons::where('student_id',\Auth::user()->id)->whereIn('class_id',$class_active);
  
-        return  $teacher_lesson = InstructorsSubjects::where('subject_id',request('subject_id'))
-          ->whereIN('instructor_id',$instructor_sub->pluck('instructor_id')->toArray())->pluck('instructor_id');
+          $teacher_lesson = InstructorsSubjects::where('subject_id',request('subject_id'))
+          ->whereIN('instructor_id',$instructor_sub->pluck('instructor_id')->toArray());
 
          if($teacher_lesson->pluck('instructor_id')->count() != 0)
 
