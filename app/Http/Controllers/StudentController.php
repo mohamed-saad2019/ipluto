@@ -60,7 +60,7 @@ class StudentController extends Controller
            {
               \Session::flash('info','An error in the class code');
            }
-             return redirect('student/profile?subject_id='.$class->subject_id);
+             return back();
         }
     }
 
