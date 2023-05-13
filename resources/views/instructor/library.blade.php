@@ -11,6 +11,7 @@ $current_storage = str_replace(["kB", "MB", "GB", "TB"],"",get_size_instructor()
 <div class="Mylesson">
   <div class="custom-container">
 
+   {{--
     @if($current_storage >= $storage)
     <div class="alert alert-danger alert-dismissible fade show" style="background-color:#b31c20;">
       <h6 style="color:#fff;">
@@ -19,7 +20,7 @@ $current_storage = str_replace(["kB", "MB", "GB", "TB"],"",get_size_instructor()
         <a href="#" style="color: #f6a233;text-decoration:underline;">do a space upgrade</a>
       </h6>
     </div>
-    @endif
+    @endif--}}
 
     @if(Session::has('success') and !empty(Session::get('success')))
       <div class="alert alert-success alert-dismissible fade show" role="alert">

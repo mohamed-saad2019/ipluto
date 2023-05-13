@@ -240,17 +240,17 @@ class InstructorController extends Controller
     {
      if(Auth::User()->role == "instructor")
        {
-             $storage = \Auth::user()->storage==null?100:\Auth::user()->storage;
-             $current_storage = str_replace("MB","",get_size_instructor());
+             // $storage = \Auth::user()->storage==null?100:\Auth::user()->storage;
+             // $current_storage = str_replace("MB","",get_size_instructor());
 
 
                 
-                if($current_storage >= $storage)
-                {
-                        \Session::flash('success','You cannot add lessons because the storage space is enough (100MB), delete some lessons or do a space upgrade');
+             //    if($current_storage >= $storage)
+             //    {
+             //            \Session::flash('success','You cannot add lessons because the storage space is enough (100MB), delete some lessons or do a space upgrade');
 
-                         return back();
-                }
+             //             return back();
+             //    }
 
 
         $full_name='';$id='';$des='';$subject='';$grade='';$files=[];$folder_id=0;
