@@ -6,9 +6,8 @@
         <div class="container">
           <div class="row">
           @if(count($videos) == 0)
-              <div class="alert alert-danger alert-dismissible fade show" style="background-color:#b31c20;">
-                <h6 style="color:#fff;">
-                  <i class="fa fa-info-circle" aria-hidden="true" style="font-size:25px"></i>No Videos in this subject</h6>
+              <div class="col-md-12 alert alert-danger alert-dismissible fade show" style="">
+                 <i class="fa fa-info-circle" aria-hidden="true" style="font-size:25px"></i> No Videos in this subject
               </div>
           @else
              @foreach($videos as $v)
