@@ -21,6 +21,15 @@ $current_storage = str_replace("MB","",get_size_instructor());
     </div>
     @endif
 
+    @if(Session::has('success') and !empty(Session::get('success')))
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ Session::get('success') }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      @endif
+      
     @if(!request()->has('id') and !request()->has('parent_id'))
     <div class="myLessoncont d-flex justify-content-between">
       <div class="sort d-flex align-items-center">

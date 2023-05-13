@@ -1070,7 +1070,7 @@ class InstructorController extends Controller
         $validator = \Validator::make($request->all(),[
             'name'=>'required|string|max:15',
             'students' => 'required|array',
-            'num_of_student'=>'required|numeric'
+            'num_of_student'=>'nullable|numeric'
 
          ],[],['name'=>'Class Name','file'=>'Class Students','num_of_student'=>'Number Of Students']);
 

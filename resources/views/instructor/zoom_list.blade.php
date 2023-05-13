@@ -29,17 +29,24 @@
                                   
                                       <td>{{++$sum}}</td>
                                       <td>{{$z->name}}</td>
-                                      <td><a href="{{$z->url}}">{{str_limit($z->url,30)}}</a>
+                                      <td>
+                                        @if(\carbon\carbon::parse($z->start_time)->format('d-m-Y') == 
+                                           \carbon\carbon::now()->format('d-m-Y'))
+
+                                             <a href="{{$z->url}}">{{str_limit($z->url,30)}}</a>
                                              <input type="hidden" value="{{$z->url}}" id="link_{{$z->code}}">
                                               <a id="a_{{$z->code}}" onclick="Copy('link_{{$z->code}}','a_{{$z->code}}')" title="{{__('main.copy_link')}}" style="color:#4839EB;font-size:20px;margin:0px 10px;cursor: pointer;" class="links">
                                                    <span class="action-edit"><i class="feather icon-copy"></i></span>
                                                  </a>
+                                        @else
+                                            <a href="{{$z->url}}" style="color:#999">{{str_limit($z->url,30)}}</a>
+                                        @endif
                                       </td>
                                       <td>
                                           {{str_limit($z->code,20)}}
                                       </td>
-                                      <td>{{$z->start_time}}</td>
-                                      <td>{{$z->created_at}}</td>
+                                      <td>{{\carbon\carbon::parse($z->start_time)->format('d-m-Y h:i')}}</td>
+                                      <td>{{\carbon\carbon::parse($z->created_at)->format('d-m-Y h:i')}}</td>
                              </tr>
                             @endforeach
                            

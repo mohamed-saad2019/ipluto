@@ -284,7 +284,16 @@
                  passInput.attr('type','password');
               }
           })
-
+         $('form input').focus(function(){
+           $(this).siblings(".invalid-feedback").hide(); 
+           $(this).removeClass('is-invalid');
+         });
+         $('form select').change(function(){
+           if($(this).attr('value') != "")
+           {
+            $(this).siblings(".invalid-feedback").hide(); 
+            $(this).removeClass('is-invalid');
+           }
+         });
     </script>
-
 @endsection

@@ -27,7 +27,6 @@ use Redirect ;
 use App\Notification;
 use App\ShareLessons;
 
-
 class ZoomController extends Controller
 {
     public function dashboard(Request $request){
@@ -688,7 +687,7 @@ class ZoomController extends Controller
         
             $validator = \Validator::make($request->all(),[
               'date'=>'required|after:yesterday',
-              'time' => 'required',
+              'time' => 'required|after:now',
            ],[],['date'=>'Date','time'=>'Time']);
 
            if ($validator->fails())   
@@ -755,7 +754,7 @@ class ZoomController extends Controller
       $code = "Z".auth()->user()->id.rand(1111,9999) ;
       $now  = ($request->now == 'on') ? 1 : 0 ;
       $zoom = Zoom::create([
-                "start_time"      =>  $data->start_time,
+                "start_time"      =>  !empty($datetime)?$datetime:now(),
                 "now"             =>  $now ,
                 "instructor_id"   =>  auth()->user()->id,
                 "code"            =>  $code,
@@ -805,13 +804,13 @@ class ZoomController extends Controller
 
       if($request->now == 'on')
       {
-        $start_time = date('Y-m-dTh:i:00').'Z' ;
+         header("Location: ".$data->join_url); 
+          exit;
       }else{
-        $datetime = $request->date." ".$request->time ;
-        $start_time = date('Y-m-dTh:i:00',strtotime($datetime)).'Z' ;
+        return redirect(url('/instructor/library'))
+          ->with('success','Zoom meeting created successfully on '.\carbon\carbon::parse($datetime)->format('d-m-Y h:m'));
       }
-      header("Location: ".$data->join_url); 
-      exit;
+     
       
     }
 
