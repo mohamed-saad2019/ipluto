@@ -224,7 +224,6 @@
                                </form>
                              </div>
                         </li>
-                        <span style="margin:0px 20px;"> {{\Auth::user()->code}}</span>
                         <a href="{{url()->previous()}}"
                             style="margin:10px;color: #fff;border: 1px solid #FFE;padding: 0px 14px;">
                             <i class="feather icon-arrow-left mr-2"></i>Back
