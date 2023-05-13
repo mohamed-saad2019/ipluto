@@ -73,7 +73,7 @@ class StudentController extends Controller
 
           $class_share    = ShareLessons::where('student_id',\Auth::user()->id)->pluck('class_id');
          
-          $class_active   =  \DB::table('classes_student')->whereIn('class_id',$class_share)->where('student_id',\Auth::user()->id)->where('status','1')->pluck('class_id');
+       return   $class_active   =  \DB::table('classes_student')->whereIn('class_id',$class_share)->where('student_id',\Auth::user()->id)->where('status','1')->pluck('class_id');
  
           $instructor_sub = ShareLessons::where('student_id',\Auth::user()->id)->whereIn('class_id',$class_active);
  
