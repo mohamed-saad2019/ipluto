@@ -158,7 +158,7 @@
                                                     <h6 style="margin-top:-8px !important;">{{\Auth::user()->email}}
                                                     </h6>
                                                     <h6 style="margin-top:0px !important;">
-                                                        {{\Auth::user()->code}}
+                                                       Your Code Is : {{\Auth::user()->code}}
                                                     </h6>
 
                                                 </div>
