@@ -1900,7 +1900,12 @@ class InstructorController extends Controller
       if(request()->has('type') and !empty(request('type')))
       {
 
-         $grades    = SubCategory::where('status', '1')->orderBy('id','ASC')->get();
+         $instructorGrade   = InstructorGrade::where('subject_id', auth()->user()->subject_id)
+          ->where('instructor_id',auth()->user()->id)->orderBy('id','ASC')->pluck('grade_id')->toArray();
+
+        $grades = SubCategory::where('status', '1')
+                 ->whereIn('id',!empty(request('grade'))?[request('grade')]:$instructorGrade)
+                 ->orderBy('id','ASC');
 
          if (request('type') == 'center')
           {

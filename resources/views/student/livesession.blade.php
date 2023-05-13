@@ -8,7 +8,7 @@
             <div class="join__lesson">
                 <div class="text-center">
                 <h4 class="h4 title"> Join a Lesson</h3>
-                    <p class="">Your teacher will give you 5 letter CODE to enter </p>
+                    <p class="">Your teacher will give you CODE to enter  </p>
                 </div>
                 <form method="post" action="{{route('join.zoom')}}"  enctype="multipart/form-data">
                     {{ csrf_field() }}
