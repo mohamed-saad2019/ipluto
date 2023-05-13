@@ -48,7 +48,7 @@
                     </h6>
                     <h6 class="h6">
                         {{ \Carbon\Carbon::parse($v->created_at)->shortRelativeDiffForHumans() }} - 
-                        {{$v->size}} 
+                        {{get_size_file(!empty($v->size)?$v->size:1)}} 
                     </h6>
                     <h6 class="h6">
                      <span>
