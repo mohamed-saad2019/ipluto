@@ -216,7 +216,6 @@
                         <li class="breadcrumb-item active d-flex align-items-center" aria-current="page">
                             <img src="./images/Profile/breadcrumb_icon.png" class="img-fluid" alt="">
                             @yield('title')  
-                            <span style="margin:0px 20px;"> ({{\Auth::user()->code}})</span>
                              <div style="margin:0px 40px;">
                                <form action="{{url('student/joinClass')}}" method="GET">
                                  <input type="text" name="class_key" value="@if(request()->has('class_key')){{request('class_key')}} @else{{auth()->user()->class_key}}@endif" 
@@ -225,6 +224,7 @@
                                </form>
                              </div>
                         </li>
+                        <span style="margin:0px 20px;"> {{\Auth::user()->code}}</span>
                         <a href="{{url()->previous()}}"
                             style="margin:10px;color: #fff;border: 1px solid #FFE;padding: 0px 14px;">
                             <i class="feather icon-arrow-left mr-2"></i>Back
