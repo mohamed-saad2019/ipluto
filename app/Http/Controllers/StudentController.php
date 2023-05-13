@@ -118,7 +118,7 @@ class StudentController extends Controller
           }
           else
           {
-              \Session::flash('info','There are no teachers for this subject');
+              \Session::flash('info','The lesson is empty, it does not contain any materials.');
 
               return  redirect('/student/profile?subject_id='.request('subject_id'));
           } 
