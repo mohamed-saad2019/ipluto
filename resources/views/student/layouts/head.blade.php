@@ -27,7 +27,9 @@
                     <nav class="navbar navbar-expand-lg navbar-light">
                         <div class="container-fluid">
                             <div class="navbar-brand">
-                                <img src="../images/iPluto_Logo_Animation.gif" alt="">
+                              <a href="{{url('/student/profile')}}">
+                                    <img src="../images/iPluto_Logo_Animation.gif" alt="">
+                              </a>
                             </div>
                             <div class="collapse navbar-collapse d-flex justify-content-between "
                                 id="navbarSupportedContent">
