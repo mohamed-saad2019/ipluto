@@ -1672,7 +1672,7 @@ class InstructorController extends Controller
 
         $grades = SubCategory::where('status', '1')
                  ->whereIn('id',$instructorGrade)
-                 ->orderBy('id','ASC');
+                 ->orderBy('id','ASC')->get();
 
        $all_units = Video::where('unit','!=','')->groupBy('unit')->pluck('unit')
                     ->toArray();
@@ -1905,12 +1905,12 @@ class InstructorController extends Controller
       if(request()->has('type') and !empty(request('type')))
       {
 
-         $instructorGrade   = InstructorGrade::where('subject_id', auth()->user()->subject_id)
+        $instructorGrade   = InstructorGrade::where('subject_id', auth()->user()->subject_id)
           ->where('instructor_id',auth()->user()->id)->orderBy('id','ASC')->pluck('grade_id')->toArray();
 
         $grades = SubCategory::where('status', '1')
                  ->whereIn('id',$instructorGrade)
-                 ->orderBy('id','ASC');
+                 ->orderBy('id','ASC')->get();
 
          if (request('type') == 'center')
           {
