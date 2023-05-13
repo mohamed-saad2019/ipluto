@@ -6,7 +6,7 @@
 @php $storage = \Auth::user()->storage==null?100:\Auth::user()->storage;
 $current_storage = str_replace("MB","",get_size_instructor());
 @endphp
-
+{{get_size_instructor()}}
 @section('maincontent')
 <div class="Mylesson">
   <div class="custom-container">
@@ -29,7 +29,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
         </button>
       </div>
       @endif
-      
+
     @if(!request()->has('id') and !request()->has('parent_id'))
     <div class="myLessoncont d-flex justify-content-between">
       <div class="sort d-flex align-items-center">
