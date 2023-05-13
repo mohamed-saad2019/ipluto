@@ -1667,7 +1667,12 @@ class InstructorController extends Controller
        $classes   = Classes::where('instructor_id',Auth::user()->id)->where('status',1)
                     ->get();
 
-       $grades    = SubCategory::where('status', '1')->orderBy('id','ASC')->get();
+       $instructorGrade   = InstructorGrade::where('subject_id', auth()->user()->subject_id)
+          ->where('instructor_id',auth()->user()->id)->orderBy('id','ASC')->pluck('grade_id')->toArray();
+
+        $grades = SubCategory::where('status', '1')
+                 ->whereIn('id',!empty(request('grade'))?[request('grade')]:$instructorGrade)
+                 ->orderBy('id','ASC');
 
        $all_units = Video::where('unit','!=','')->groupBy('unit')->pluck('unit')
                     ->toArray();
