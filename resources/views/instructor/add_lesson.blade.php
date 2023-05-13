@@ -99,10 +99,14 @@ $current_storage = str_replace("MB","",get_size_instructor());
             <i class="fas fa-plus"></i>Add
           </li>
       @endif--}}
-           <li data-toggle="modal" data-target="#exampleModalCenter2"
+         @if(!empty($grade)) 
+            <li data-toggle="modal" data-target="#exampleModalCenter2"
             class='tab' id='tab_add'>
             <i class="fas fa-plus"></i>Add
             </li>
+          @else
+          <li data-toggle="modal" data-target="#exampleModalCenter" class='tab' id='tab_add'>Add</li>
+          @endif
           <li class="tab" id='tab_del'><i class="fas fa-trash"></i>Delete</li>
           <li class="tab" id='tab_copy'><i class="fas fa-copy"></i>Copy</li>
           <li class="tab" id='tab_paste'><i class="fas fa-clone"></i>Past</li>
