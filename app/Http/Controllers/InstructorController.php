@@ -534,12 +534,15 @@ class InstructorController extends Controller
                     ->whereIn('grade_id',$grades->pluck('id')->toArray())
                     ->orderBy('id','DESC')->get() ;
 
-        $grades = $grades->get();
+        $grades = SubCategory::where('status', '1')
+                 ->whereIn('id',$instructorGrade)
+                 ->orderBy('id','ASC')->get();
+
 
         return view('instructor.videos' , compact('videos','grades','grade','units','all_units'));
     }
 
-    public function add_viedo_to_lesson()
+    public function add_viedo_to_lesson($id)
     {
       if (request()->has('videos') and !empty(request('videos')))
       {
