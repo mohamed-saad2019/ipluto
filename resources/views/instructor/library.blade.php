@@ -4,9 +4,9 @@
 @if(Auth::User()->role == "instructor")
 
 @php $storage = \Auth::user()->storage==null?100:\Auth::user()->storage;
-$current_storage = str_replace("MB","",get_size_instructor());
+$current_storage = str_replace(["kB", "MB", "GB", "TB"],"",get_size_instructor());
 @endphp
-{{get_size_instructor()}}
+
 @section('maincontent')
 <div class="Mylesson">
   <div class="custom-container">
