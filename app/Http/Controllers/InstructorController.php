@@ -1667,10 +1667,10 @@ class InstructorController extends Controller
        $classes   = Classes::where('instructor_id',Auth::user()->id)->where('status',1)
                     ->get();
 
-     return  $instructorGrade   = InstructorGrade::where('subject_id', auth()->user()->subject_id)
+       $instructorGrade   = InstructorGrade::where('subject_id', auth()->user()->subject_id)
           ->where('instructor_id',auth()->user()->id)->orderBy('id','ASC')->pluck('grade_id')->toArray();
 
-        $grades = SubCategory::where('status', '1')
+     return   $grades = SubCategory::where('status', '1')
                  ->whereIn('id',!empty(request('grade'))?[request('grade')]:$instructorGrade)
                  ->orderBy('id','ASC');
 
