@@ -6,7 +6,6 @@
 @php $storage = \Auth::user()->storage==null?100:\Auth::user()->storage;
 $current_storage = str_replace(["kB", "MB", "GB", "TB"],"",get_size_instructor());
 @endphp
-{{$current_storage}}   - {{$storage}}
 @section('maincontent')
 <div class="Mylesson">
   <div class="custom-container">

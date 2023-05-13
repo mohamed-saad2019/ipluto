@@ -27,6 +27,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
       </div>
       @endif
 
+    {{--
       @if($current_storage >= $storage)
       <div class="alert alert-danger alert-dismissible fade show" style="background-color:#b31c20;">
         <h6 style="color:#fff;">
@@ -36,7 +37,7 @@ $current_storage = str_replace("MB","",get_size_instructor());
         </h6>
       </div>
       @endif
-
+        --}}
 
       <div class="alert msg_lesson" role="alert" style="display:none">
         <p> </p>
