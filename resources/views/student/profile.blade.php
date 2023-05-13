@@ -53,7 +53,7 @@
             <div class="col-md-4">
              <a class='grids' href="{{url('/student/lessons?subject_id='.request('subject_id'))}}">
                   <div class="student_dashbord_card text-center">
-                  <h3 class="h4 card__header text-capitalize"> Lesson matrials</h3>
+                  <h3 class="h4 card__header text-capitalize"> Lesson Materials</h3>
                   <div class="card-content">
                     <img src="./images/Profile/Layer 32.png" class="img-fluid" alt="" srcset="">
                   </div>
