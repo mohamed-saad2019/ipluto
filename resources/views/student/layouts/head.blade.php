@@ -157,12 +157,10 @@
                                                     <h5>{{\Auth::user()->fname.' '.\Auth::user()->lname}}</h5>
                                                     <h6 style="margin-top:-8px !important;">{{\Auth::user()->email}}
                                                     </h6>
-                                                    <h6 style="margin-top:0px !important;">
-                                                       Your Code Is : {{\Auth::user()->code}}
-                                                    </h6>
-
                                                 </div>
-
+                                                <h6 style="margin-top:0px !important;">
+                                                       Your Code Is : {{\Auth::user()->code}}
+                                                </h6>
                                             </div>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="#">Manage ipluto account</a>
