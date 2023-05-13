@@ -6,10 +6,7 @@
         <div class="container">
           <div class="row">
           @if(empty($videos))
-              <div class="alert alert-danger alert-dismissible fade show" style="background-color:#b31c20;">
-                <h6 style="color:#fff;">
-                  <i class="fa fa-info-circle" aria-hidden="true" style="font-size:25px"></i>No Videos in this subject</h6>
-              </div>
+              5855555
           @else
              @foreach($videos as $v)
             <div class="col-md-3 mb-4">

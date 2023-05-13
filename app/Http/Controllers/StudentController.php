@@ -200,7 +200,7 @@ class StudentController extends Controller
       
          $lessons    = Lessons::where('subject',$subject_id)->pluck('id')->toArray();
           
-       return  $videos  = File::with("instructor:id,fname,lname,user_img")
+         $videos  = File::with("instructor:id,fname,lname,user_img")
                 ->WhereIn("lesson_id",$lessons)
                 ->Where("hash_name",'!=','Video From Dashboard')
                 ->Where('mime_type', 'like', '%video%')
