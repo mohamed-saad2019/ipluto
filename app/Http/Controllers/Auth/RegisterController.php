@@ -88,7 +88,7 @@ class RegisterController extends Controller
                 'city'  => 'nullable',
                 'address'=>'nullable|min:3|max:255',
                 'class_key'=>'nullable|min:5|max:5|exists:App\Classes,class_key' 
-            ]);
+            ],[],['fname' => 'First Name','lname'=>'Last Name']);
 
         }
     }
