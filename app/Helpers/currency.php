@@ -157,7 +157,7 @@ if(!function_exists('get_size_lesson'))
 
 if(!function_exists('get_size_file'))
     {
-       function get_size_file($size)
+       function get_size_file($size = 0)
         {
           $base = log($size) / log(1024);
           $suffix = array("", "KB", "MB", "GB", "TB")[floor($base)];
