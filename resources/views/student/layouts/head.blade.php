@@ -154,11 +154,10 @@
                                                 @endif
                                                 <div class="dropdownHeadText">
                                                     <br>
-                                                    <h5>{{\Auth::user()->fname.' '.\Auth::user()->lname}}</h5>
+                                                    <h5>{{\Auth::user()->fname.' '.\Auth::user()->lname}}
+                                                            ({{\Auth::user()->code}})
+                                                    </h5>
                                                     <h6 style="margin-top:-8px !important;">{{\Auth::user()->email}}
-                                                    </h6>
-                                                    <h6 style="margin-top:-8px !important;">
-                                                        {{\Auth::user()->code}}
                                                     </h6>
 
                                                 </div>
