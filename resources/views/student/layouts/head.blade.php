@@ -154,10 +154,11 @@
                                                 @endif
                                                 <div class="dropdownHeadText">
                                                     <br>
-                                                    <h5>{{\Auth::user()->fname.' '.\Auth::user()->lname}}
-                                                            ({{\Auth::user()->code}})
-                                                    </h5>
+                                                    <h5>{{\Auth::user()->fname.' '.\Auth::user()->lname}}</h5>
                                                     <h6 style="margin-top:-8px !important;">{{\Auth::user()->email}}
+                                                    </h6>
+                                                    <h6 style="margin-top:0px !important;">
+                                                        {{\Auth::user()->code}}
                                                     </h6>
 
                                                 </div>
@@ -215,7 +216,7 @@
                     <ol class="breadcrumb inner__breadcrumb d-flex justify-content-between">
                         <li class="breadcrumb-item active d-flex align-items-center" aria-current="page">
                             <img src="./images/Profile/breadcrumb_icon.png" class="img-fluid" alt="">
-                            @yield('title')  
+                            @yield('title')
                              <div style="margin:0px 40px;">
                                <form action="{{url('student/joinClass')}}" method="GET">
                                  <input type="text" name="class_key" value="@if(request()->has('class_key')){{request('class_key')}} @else{{auth()->user()->class_key}}@endif" 
