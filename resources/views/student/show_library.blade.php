@@ -27,11 +27,21 @@
                     <i class="fa fa-info"></i> 
                   </button>
                 </div>
-                <video width="100%" height="100%" controls controlsList="nodownload" poster="@if(!empty($v->lesson->value('background'))){{url('storage/'.$v->lesson->value('background'))}}@else {{'./images/Profile/logo.png'}} @endif">
-                  <source src="{{url('storage/'.$v->path.'/'.$v->hash_name)}}" type="video/mp4">
-                  <source src="{{url('storage/'.$v->path.'/'.$v->hash_name)}}" type="video/ogg">
+
+               @if($v->hash_name !='Video From Dashboard')
+                <video width="100%" height="100%" controls controlsList="nodownload">
+                <source src="{{url('storage/'.$v->path.'/'.$v->hash_name)}}" type="video/mp4">
+                <source src="{{url('storage/'.$v->path.'/'.$v->hash_name)}}" type="video/ogg">
                   Your browser does not support the video tag.
                 </video>
+               @else
+                <video width="100%" height="100%" controls controlsList="nodownload">
+                  <source src="{{url('storage/vedioTeachr/'.$v->path)}}" type="video/mp4">
+                  <source src="{{url('storage/vedioTeachr/'.$v->path)}}" type="video/ogg">
+                  Your browser does not support the video tag.
+                </video>
+               @endif
+
 
                 <div class="video__details mt-3 d-flex">
                   <div class="logo__icon">

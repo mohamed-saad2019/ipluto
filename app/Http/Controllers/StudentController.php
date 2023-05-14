@@ -45,7 +45,7 @@ class StudentController extends Controller
                         }
                       else
                        {
-                           \Session::flash('info','You cannot join this class...waiting for approval from the administrator');
+                           \Session::flash('error','You are already a member of the class');
                        }
               }
              else
@@ -58,7 +58,7 @@ class StudentController extends Controller
             }
           else
            {
-              \Session::flash('info','An error in the class code');
+              \Session::flash('error','An error in the class code');
            }
              return back();
         }
@@ -145,7 +145,7 @@ class StudentController extends Controller
        
         $files = File::with("instructor:id,fname,lname,user_img")
             ->WhereIn("lesson_id",$lessons)
-            ->Where("hash_name",'!=','Video From Dashboard')
+            // ->Where("hash_name",'!=','Video From Dashboard')
             ->Where('mime_type', 'like', '%video%')
             ->select("id","file_name","path","hash_name","lesson_id","instructor_id","likes","dislikes","created_at")
             ->orderBy('id','ASC')
@@ -155,7 +155,7 @@ class StudentController extends Controller
      {
         $files = File::with("instructor:id,fname,lname,user_img")
             ->Where("lesson_id",$lesson_id)
-            ->Where("hash_name",'!=','Video From Dashboard')
+            // ->Where("hash_name",'!=','Video From Dashboard')
             ->Where('mime_type', 'like', '%video%')
             ->select("id","file_name","path","hash_name","lesson_id","instructor_id","likes","dislikes","created_at")
             ->orderBy('id','ASC')
@@ -164,7 +164,7 @@ class StudentController extends Controller
 
       $mainVideo  = File::with("instructor:id,fname,lname,user_img")
             ->Where("lesson_id",$lesson_id)
-            ->Where("hash_name",'!=','Video From Dashboard')
+            // ->Where("hash_name",'!=','Video From Dashboard')
             ->Where('mime_type', 'like', '%video%')
             ->select("id","file_name","path","hash_name","lesson_id","instructor_id","likes","dislikes","viewers","created_at")
             ->find($file_id);
@@ -198,11 +198,14 @@ class StudentController extends Controller
     {
          $subject_id = $request->subject_id ;
       
-         $lessons    = Lessons::where('subject',$subject_id)->pluck('id')->toArray();
+         $lesson_share  = ShareLessons::where('student_id',\Auth::user()->id)
+                        ->where('class_id',request('class_id'))->pluck('lesson_id')->toArray();
+
+         $lessons    = Lessons::whereIn('id',$lesson_share)->pluck('id')->toArray();
           
          $videos  = File::with("instructor:id,fname,lname,user_img")
                 ->WhereIn("lesson_id",$lessons)
-                ->Where("hash_name",'!=','Video From Dashboard')
+                // ->Where("hash_name",'!=','Video From Dashboard')
                 ->Where('mime_type', 'like', '%video%')
                 ->orderBy('created_at','DESC')->get();
 

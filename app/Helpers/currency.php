@@ -365,8 +365,10 @@ if(!function_exists('getDaysClass'))
 
 if(!function_exists('get_student_subjects')){
     function get_student_subjects(){
-
-       return $mySubjects = \App\ChildCategory::where('subcategory_id',auth()->user()->grade)->get();
+        $class_st =  \App\ClassesStudent::where('student_id',auth()->user()->id)
+                    ->where('status','1')->pluck('class_id')->toArray();
+     return $classes  = \App\Classes::whereIn('id',$class_st)
+                        ->with('instructor')->with('childcategory')->get();
     }
 }
 
@@ -578,9 +580,10 @@ if(!function_exists('generate_class_key'))
    
      if( !function_exists('getClassByKey'))
         {
-            function getClassByKey($key)
+            function getClassByKey($key = '', $id = '')
             {
-               $class =  \DB::table('classes')->where('class_key', $key)->first();
+               $class =  \App\Classes::where('class_key', $key)->orWhere('id',$id)
+                             ->with('instructor')->with('childcategory')->first();
                if(!empty($class))
                {
                 return $class;

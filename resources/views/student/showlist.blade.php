@@ -14,11 +14,19 @@
           <div class="row">
             <div class="col-md-8">
               <div class="video_playnow w-100 bg-light">
+               @if($mainVideo->hash_name !='Video From Dashboard')
                 <video width="100%" height="100%" controls controlsList="nodownload">
-                  <source src="{{url('storage/'.$mainVideo->path.'/'.$mainVideo->hash_name)}}" type="video/mp4">
-                  <source src="{{url('storage/'.$mainVideo->path.'/'.$mainVideo->hash_name)}}" type="video/ogg">
+                <source src="{{url('storage/'.$mainVideo->path.'/'.$mainVideo->hash_name)}}" type="video/mp4">
+                <source src="{{url('storage/'.$mainVideo->path.'/'.$mainVideo->hash_name)}}" type="video/ogg">
                   Your browser does not support the video tag.
                 </video>
+               @else
+                <video width="100%" height="100%" controls controlsList="nodownload">
+                  <source src="{{url('storage/vedioTeachr/'.$mainVideo->path)}}" type="video/mp4">
+                  <source src="{{url('storage/vedioTeachr/'.$mainVideo->path)}}" type="video/ogg">
+                  Your browser does not support the video tag.
+                </video>
+               @endif
               </div>
               <div class="footer_video d-flex justify-content-between pt-3 m-2">
                 <div class="font-weight-bold">
@@ -180,13 +188,19 @@
                   @endif
                 <div class="list_video d-flex">
                   <div class="video_next w-75 h-100">
-
-
-                      <video width="100%" height="100%" controls controlsList="nodownload">
-                        <source src="{{url('storage/'.$file->path.'/'.$file->hash_name)}}" type="video/mp4">
-                        <source src="{{url('storage/'.$file->path.'/'.$file->hash_name)}}" type="video/ogg">
-                        Your browser does not support the video tag.
-                      </video>
+              @if($mainVideo->hash_name !='Video From Dashboard')
+                <video width="100%" height="100%" controls controlsList="nodownload">
+                <source src="{{url('storage/'.$mainVideo->path.'/'.$mainVideo->hash_name)}}" type="video/mp4">
+                <source src="{{url('storage/'.$mainVideo->path.'/'.$mainVideo->hash_name)}}" type="video/ogg">
+                  Your browser does not support the video tag.
+                </video>
+               @else
+                <video width="100%" height="100%" controls controlsList="nodownload">
+                  <source src="{{url('storage/vedioTeachr/'.$mainVideo->path)}}" type="video/mp4">
+                  <source src="{{url('storage/vedioTeachr/'.$mainVideo->path)}}" type="video/ogg">
+                  Your browser does not support the video tag.
+                </video>
+               @endif
                     </div>
                     <div class="video_next_content h-100 p-2 " >
                       <h5 class="video__listTile font-weight-bold">{{getTitle($file->file_name)}} </h5>

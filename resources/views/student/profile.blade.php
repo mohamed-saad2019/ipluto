@@ -16,6 +16,14 @@
                                <span aria-hidden="true">&times;</span>
                          </button>
                         </div> 
+           @elseif(Session::has('error') and !empty(Session::get('error')))
+                       <br>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ Session::get('error') }}</strong>
+                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                               <span aria-hidden="true">&times;</span>
+                         </button>
+                        </div> 
            @endif
           <div class="row">
             <div class="col-md-4">
@@ -29,7 +37,7 @@
               </a>
             </div>
             <div class="col-md-4">
-               <a class='grids' href="{{url('student/show_subject_videos?subject_id='.request('subject_id'))}}">
+               <a class='grids' href="{{url('student/show_subject_videos?subject_id='.request('subject_id').'&class_id='.request('class_id').'&instructor_id='.request('instructor_id'))}}">
                   <div class="student_dashbord_card text-center">
                   <h3 class="h4 card__header text-capitalize">Videos</h3>
                   <div class="card-content">
@@ -51,7 +59,7 @@
               </a>
             </div>
             <div class="col-md-4">
-             <a class='grids' href="{{url('/student/lessons?subject_id='.request('subject_id'))}}">
+             <a class='grids' href="{{url('/student/lessons?subject_id='.request('subject_id').'&class_id='.request('class_id').'&instructor_id='.request('instructor_id'))}}">
                   <div class="student_dashbord_card text-center">
                   <h3 class="h4 card__header text-capitalize"> Lesson Materials</h3>
                   <div class="card-content">

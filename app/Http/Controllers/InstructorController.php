@@ -1335,7 +1335,7 @@ class InstructorController extends Controller
               else
               {
 
-                \Session::flash('error','This student was added ( '.$data->fname.' '.$data->lname.' ) from previously');
+                \Session::flash('error','This student  ( '.$data->fname.' '.$data->lname.' ) was added before ');
               }
     
              return back();
