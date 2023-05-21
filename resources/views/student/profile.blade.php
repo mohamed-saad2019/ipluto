@@ -37,7 +37,7 @@
               </a>
             </div>
             <div class="col-md-4">
-               <a class='grids' href="{{url('student/show_subject_videos?subject_id='.request('subject_id').'&class_id='.request('class_id').'&instructor_id='.request('instructor_id'))}}">
+               <a class='grids' href="{{url('student/show_subject_videos?subject_id='.request('subject_id').'&class_id='.request('class_id').'&instructor_id='.request('instructor_id').'&data='.request('data'))}}">
                   <div class="student_dashbord_card text-center">
                   <h3 class="h4 card__header text-capitalize">Videos</h3>
                   <div class="card-content">
@@ -59,7 +59,7 @@
               </a>
             </div>
             <div class="col-md-4">
-             <a class='grids' href="{{url('/student/lessons?subject_id='.request('subject_id').'&class_id='.request('class_id').'&instructor_id='.request('instructor_id'))}}">
+             <a class='grids' href="{{url('/student/lessons?subject_id='.request('subject_id').'&class_id='.request('class_id').'&instructor_id='.request('instructor_id').'&data='.request('data'))}}">
                   <div class="student_dashbord_card text-center">
                   <h3 class="h4 card__header text-capitalize"> Lesson Materials</h3>
                   <div class="card-content">

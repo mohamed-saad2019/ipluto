@@ -34,33 +34,23 @@ class StudentController extends Controller
           $sub   = '';
           if(!empty($class))
             {
-               $class_student = ClassesStudent::where('class_id',$class->id)->where('student_id',auth()->user()->id)->first(); 
+            $class_student = ClassesStudent::where('class_id',$class->id)->where('student_id',auth()->user()->id)->first(); 
              if(!empty($class_student))
               {
-                    if($class_student->status=='1')
-                        {
-                          User::where('id',auth()->user()->id)->update(['subject_id'=>$class->subject_id,'class_key'=>request('class_key')]);
-
-                          $sub = $class->subject_id;
-                        }
-                      else
-                       {
-                           \Session::flash('error','You are already a member of the class');
-                       }
+               \Session::flash('error','You are already a member of the class');
               }
              else
              {
                  DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".$class->id."','".$class->instructor_id."','".auth()->user()->id."','-1',NOW())") ;
 
                 \Session::flash('info','A request has been made to join the class, pending approval from the administrators');
-
              }
             }
           else
            {
               \Session::flash('error','An error in the class code');
            }
-             return back();
+                return redirect(url('/student/profile'));
         }
     }
 
@@ -71,11 +61,19 @@ class StudentController extends Controller
         if(request()->has('subject_id') and !empty(request('subject_id')))
         {
 
-          $class_share    = ShareLessons::where('student_id',\Auth::user()->id)->pluck('class_id');
+          $class_share    = ShareLessons::where('student_id',\Auth::user()->id)->where('status','1')
+                            ->pluck('class_id');
+
+          if(request()->has('class_id') and !empty(request('class_id')))
+          {
+            $class_share    = ShareLessons::where('student_id',\Auth::user()->id)->where('status','1')
+                            ->where('class_id',request('class_id'))->pluck('class_id');
+          }
          
           $class_active   =  \DB::table('classes_student')->whereIn('class_id',$class_share)->where('student_id',\Auth::user()->id)->where('status','1')->pluck('class_id');
  
-          $instructor_sub = ShareLessons::where('student_id',\Auth::user()->id)->whereIn('class_id',$class_active);
+          $instructor_sub = ShareLessons::where('student_id',\Auth::user()->id)
+                            ->where('status','1')->whereIn('class_id',$class_active);
  
           $teacher_lesson = InstructorsSubjects::where('subject_id',request('subject_id'))
           ->whereIN('instructor_id',$instructor_sub->pluck('instructor_id')->toArray());
@@ -120,7 +118,7 @@ class StudentController extends Controller
           {
               \Session::flash('info','The lesson is empty, it does not contain any materials.');
 
-              return  redirect('/student/profile?subject_id='.request('subject_id'));
+              return  redirect(url('/student/profile'));
           } 
             
         }
@@ -198,7 +196,7 @@ class StudentController extends Controller
     {
          $subject_id = $request->subject_id ;
       
-         $lesson_share  = ShareLessons::where('student_id',\Auth::user()->id)
+         $lesson_share  = ShareLessons::where('student_id',\Auth::user()->id)->where('status','1')
                         ->where('class_id',request('class_id'))->pluck('lesson_id')->toArray();
 
          $lessons    = Lessons::whereIn('id',$lesson_share)->pluck('id')->toArray();

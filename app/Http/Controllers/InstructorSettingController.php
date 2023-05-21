@@ -138,9 +138,9 @@ class InstructorSettingController extends Controller
         return redirect()->route('instructor.pay')->with('success',trans('flash.UpdatedSuccessfully'));
     }
 
-    public function instructorprofile($id)
-    {
-
+    public function instructorprofile()
+    {   
+        $id = auth()->user()->id;
         $user = User::where('id', $id)->first();
         $course = Course::where('user_id', $user->id)->paginate(10);
 

@@ -87,13 +87,15 @@
                 @auth
                 <div class="iconUserShp" style="display: contents;">
                     @if(Auth::User()['role'] == 'instructor')
-                    <a href="{{url('instructor/library')}}"><button class="form-control" style="margin-top: 9px">
+                    <a href="{{url('instructor')}}"><button class="form-control" style="margin-top: 5px">
                             My Dashboard
                         </button></a>
                     @elseif(Auth::User()['role'] == 'user')
-                    <a href="{{url('student/profile?subject_id='.auth()->user()->subject_id)}}"><button class="form-control" style="margin-top: 9px">
+                     @if(!empty(get_student_subjects()))
+                    <a href="{{url('student/profile?subject_id='.auth()->user()->subject_id.'&class_id='.auth()->user()->class_key)}}"><button class="form-control" style="margin-top: 5px">
                             My Dashboard
-                        </button></a>
+                        </button></a>                        
+                     @endif
                     @endif
                     <span><i class="fas fa-shopping-cart"></i></span>
                     @if(Auth::User()['user_img'] != null && Auth::User()['user_img'] !='' &&

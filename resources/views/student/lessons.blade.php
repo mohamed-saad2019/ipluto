@@ -1,7 +1,7 @@
 @extends('student.layouts.head')    
 @section('title', ' Lessons Materials ( ' . get_name_subject(request('subject_id')) .' ) ')
 @section('select_subject') 
-        @include('student.partial.select_subject_and_teacher')
+        @include('student.partial.select_subject')
 @endsection
 @section('maincontent')
 <div class="tableClassList">

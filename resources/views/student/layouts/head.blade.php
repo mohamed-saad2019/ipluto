@@ -220,7 +220,7 @@
                             @yield('title')
                              <div style="margin:0px 40px;">
                                <form action="{{url('student/joinClass')}}" method="GET">
-                                 <input type="text" name="class_key" value="@if(request()->has('class_key')){{request('class_key')}} @else{{auth()->user()->class_key}}@endif" 
+                                 <input type="text" name="class_key" value="@if(old('class_key')){{old('class_key')}} @endif" 
                                   style="width:300px;padding:0px 5px" minlength="5" maxlength="5" required placeholder="Enter  your Code Join Class ">
                                   <input  class="btn btn-success" type="submit" value="Join" style="padding:0px 5px">
                                </form>

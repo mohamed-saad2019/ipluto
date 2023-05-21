@@ -627,6 +627,7 @@ Route::middleware(['web'])->group(function () {
         
         /* start route lessons */
         Route::get('lessons/index', 'LessonController@index')->name('lessons.index');
+        Route::get('instructor/status_share_lesson', 'LessonController@status_share_lesson');
         Route::post('add_lesson_to_folder', 'LessonController@add_lesson_to_folder');
         /* end route lessons */
 
@@ -870,7 +871,7 @@ Route::middleware(['web'])->group(function () {
         { 
 
             Route::resource('requestinstructor', 'InstructorRequestController');
-            Route::get('instructor/{id}/{name}', 'InstructorSettingController@instructorprofile')->name('instructor.profile');
+            Route::get('instructor/profile', 'InstructorSettingController@instructorprofile')->name('instructor.profile');
 
             Route::post('rating/show/{id}','ReviewratingController@rating')->name('course.rating');
             Route::post('reports/insert/{id}','ReportReviewController@store')->name('report.review');

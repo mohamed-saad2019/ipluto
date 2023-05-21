@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Lessons;
 use App\Folders;
+use App\Classes;
 use Auth;
-
+use DB;
 class LessonController extends Controller
 {
     public function index(Request $request)
@@ -16,9 +17,12 @@ class LessonController extends Controller
                                 {
                                     $q->whereHas('classes') ;
                                 }
-                            })
+                            })->with('classes')
                             ->orderBy('id','DESC')->get();
-        return view ('instructor.lessons.index' , compact('lessons')) ;
+
+        $class  = Classes::find($request->class_id); 
+
+        return view ('instructor.lessons.index' , compact('lessons','class')) ;
     }
 
 
@@ -39,6 +43,32 @@ class LessonController extends Controller
      return back();
 
    }
+
+ 
+  public function status_share_lesson()
+    {
+         if (request('class_id') and !empty(request('class_id')) 
+            and request('lesson_id') and !empty(request('lesson_id'))) 
+          {
+    
+           $st =  DB::table('share_lessons')->where('lesson_id',request('lesson_id'))
+                     ->where('class_id',request('class_id'))->first();
+
+             if ($st->status == '0') {
+             DB::table('share_lessons')->where('lesson_id',request('lesson_id'))
+                     ->where('class_id',request('class_id'))->update(['status'=>'1']);
+             }
+
+            else
+            {
+              DB::table('share_lessons')->where('lesson_id',request('lesson_id'))
+                     ->where('class_id',request('class_id'))->update(['status'=>'0']);
+            } 
+        }
+
+        return true;
+    }
+
 
    
 }

@@ -11,6 +11,9 @@
             <script type="text/javascript">
              toastr.success("Thank you for registering on the I-Pluto platform...You are being approved to join the class","Successfully Registered");
             </script>
+            <div class="alert alert-success"  style="margin-top:-170px">
+               <small> Thank you for registering on the I-Pluto platform...You are being approved to join the class</small>
+            </div><br>
             @endif
           <h4>The natural science changes, </br>
               ipluto will support you.</h4>

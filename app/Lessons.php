@@ -28,7 +28,7 @@ class Lessons extends Model
     {
         return $this->belongsToMany(Classes::class,'share_lessons','lesson_id','class_id');
     } 
-
+    
     public function subject()
     {
       return $this->hasOne('\App\ChildCategory', 'id','subject');

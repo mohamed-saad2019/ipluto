@@ -252,7 +252,8 @@ $current_storage = str_replace(["kB", "MB", "GB", "TB"],"",get_size_instructor()
                      class="btn live__Session d-flex align-items-center justify-content-center">
                    <i class="fa fa-folder mr-2"></i>Live Session</a>
 
-                  <button class="btn in__Class d-flex align-items-center justify-content-center"> <i class="fa fa-folder mr-2"></i>In Class</button>
+                  <a href="{{route('lesson.share',$lesson->id)}}"
+                     class="btn in__Class d-flex align-items-center justify-content-center"> <i class="fa fa-share-alt mr-2"></i>Share In Class</a>
 
                 </div>
                 <div class="">
@@ -354,9 +355,9 @@ $current_storage = str_replace(["kB", "MB", "GB", "TB"],"",get_size_instructor()
                       Delete
 
                     </a>
-                    <a class="dropdown-item cu_items" href="{{route('lesson.share',$lesson->id)}}">
+                   {{-- <a class="dropdown-item cu_items" href="{{route('lesson.share',$lesson->id)}}">
                       <i class="fa fa-share-alt" style="font-size: 18px;" aria-hidden="true"> Share </i>
-                    </a>
+                    </a>--}}
 
                   </div>
                 </div>
