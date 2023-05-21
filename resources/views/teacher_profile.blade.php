@@ -33,12 +33,12 @@
               <p>{{$teacher->address}}</p>
               <p>{!! $teacher->detail !!}</p>
               <div class="teacherBut">
-                {{--
-                <a href="/student/courses.html">
+
+                <a href="#">
                   <button>
                     Videos <span><i class="fas fa-play"></i></span>
                   </button>
-                </a>--}}
+                </a>
                 
                 <a href="/calendar/index.html" target="_blank"><button type="submit" class="primaryLast">live session</button></a>
               </div>
