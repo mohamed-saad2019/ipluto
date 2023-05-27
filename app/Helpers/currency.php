@@ -352,11 +352,15 @@ if(!function_exists('getStudentClass'))
 
 if(!function_exists('getDaysClass'))
     {
-       function getDaysClass($class_id)
+       function getDaysClass($class_id,$day='')
         {
+           $class_days = DB::select("SELECT * FROM `class_days` WHERE `class_id` = '".$class_id."'"); 
           
-        $class_days = DB::select("SELECT * FROM `class_days` WHERE `class_id` = '".$class_id."'");   
-
+            if($day != '')  
+             {
+                $class_days = DB::select("SELECT * FROM `class_days` WHERE `class_id` = '".$class_id."' AND `day` = '".$day."' "); 
+             }
+            
             return $class_days;
         }
     }

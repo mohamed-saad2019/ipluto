@@ -49,7 +49,8 @@
                 <tbody style="background:#fff !important;">
                     @if($classes)
                     @foreach($classes as $class)
-                    <tr class="cus_table">
+                    @if(getDaysClass($class->id,request('today')))
+                         <tr class="cus_table">
                         <td scope="row" style="">{{$class->id}}</td>
                         <td style="">{{$class->name}}</td>
                         <td style="">@if(!empty($class->class_key)){{$class->class_key}}@endif</td>
@@ -121,6 +122,7 @@
                 
                         </td>
                     </tr>
+                    @endif
                     @endforeach
                     @endif
                 </tbody>

@@ -19,18 +19,115 @@ use App\ChildCategory;
 use App\SubCategory;
 use App\File;
 use App\InstructorStudents;
-use App\InstructorGrade;
 use App\Video;
 use App\Excel\SimpleXLSX;
 use App\ClassesStudent;
 use App\ShareLessons;
 use App\Classes;
+use App\InstructorsSubjects;
+use App\InstructorGrade;
 use Illuminate\Validation\Rule;
 
 class InstructorController extends Controller
 {
 
+    public function instructorprofile()
+    {   
+        $id = auth()->user()->id;
+        $user = User::where('id', $id)->first();
+        $subjects = ChildCategory::where('status', '1')->GroupBy('slug')->orderBy('id','ASC')->get();
+        $user_subjects = InstructorsSubjects::where('instructor_id',$id)->get();
+        $grades   = SubCategory::where('status', '1')->orderBy('id','ASC')->get();
+        return view('instructor.profile', compact('user','user_subjects','subjects','grades'));
+    }
 
+    public function instructorsaveprofile(Request $request)
+    {   
+        $data = $this->validate($request, [
+            'fname'         => 'required|alpha|min:3|max:15',
+            'lname'         => 'required|alpha|min:3|max:15',
+            'mobile'        => 'required|unique:users,mobile,'.auth()->user()->id.'|starts_with:01|digits:11',
+            'email'         => 'required|unique:users,email,'. auth()->user()->id,
+            'password'      => 'required|min:6',
+            'confirm_password' => 'required|min:6|same:password',
+            'state_id'      => 'required',
+            'city_id'       => 'required',
+            'address'       => 'nullable|min:6|max:50',
+            'image'         => 'nullable|mimes:jpg,jpeg,png,bmp,tiff'
+        ]);
+
+        $input['user_img'] = Auth()->User()['user_img'];
+
+        if ($file = $request->file('user_img')) 
+        {            
+            $optimizeImage = \Image::make($file);
+            $optimizePath = public_path().'/images/user_img/';
+            $image = time().$file->getClientOriginalName();
+            $optimizeImage->save($optimizePath.$image, 72);
+            $input['user_img'] = $image;
+            
+        }
+
+         $user = User::where('id',auth()->user()->id)->update([
+            'fname'     => $request->fname ,
+            'lname'     => $request->lname,
+            'email'     => $request->email,
+            'mobile'    => $request->mobile,
+            'password'  => \Hash::make($request->password),
+            'user_img'  => $input['user_img'] ?? '',
+            'state_id'  => $request->state_id,
+            'city_id'   => $request->city_id,
+            'address'   => $request->address,
+        ]);
+
+        \Session::flash('success','Your profile has been updated successfully'); 
+        return back();
+    }
+
+    public function updatesubjects(Request $request)
+    {
+        $id = auth()->user()->id;
+
+        InstructorsSubjects::where('instructor_id',$id)->delete();
+        InstructorGrade::where('instructor_id',$id)->delete();
+
+          $k = 0 ; $last_sub = 0 ; $arr = [];
+
+        foreach($request->subjects as $subject)
+        {           
+
+           if(!in_array($subject,$arr))
+            {
+                InstructorsSubjects::create([
+                'instructor_id' => $id ,
+                'subject_id'    => $subject ,
+                'status'        => 1 
+                 ]);
+
+                $last_sub = $subject;
+
+                $_grades = "grade_".$k ;
+
+                foreach(request($_grades) as $_grade)
+                {
+                    InstructorGrade::create([
+                        'instructor_id' =>  $id ,
+                        'subject_id'    =>  $subject ,
+                        'grade_id'      =>  $_grade
+                    ]);
+                }
+                $k += 1 ;
+               array_push($arr,$subject);
+            }
+        }        
+
+        User::where('id',$id)->where("role","instructor")->update(['subject_id' => $last_sub]);
+
+        \Session::flash('success','subjects and grades have been updated successfully');
+        
+        return back();
+    }
+    
     public function index()
     {   
         if(Auth::User()->role == "instructor")
@@ -931,7 +1028,7 @@ class InstructorController extends Controller
 
         $validator = \Validator::make($request->all(),[
             'name'=>'required|string|max:15',
-            'students' => 'required|array',
+            'students' => 'nullable|array',
             'num_of_student'=>'nullable|numeric'
 
          ],[],['name'=>'Class Name','file'=>'Class Students','num_of_student'=>'Number Of Students']);
@@ -951,7 +1048,7 @@ class InstructorController extends Controller
                 return back()->withInput()->withErrors($validator);
             }
 
-           if(count(request('students')) > request('num_of_student'))
+           if(request()->has('students') and count(request('students')) > request('num_of_student'))
            {
              \DB::rollBack();
              return back()->withInput()->withErrors('The number of students should be greater than '.request('num_of_student')); 
@@ -986,8 +1083,9 @@ class InstructorController extends Controller
             }
          }
         
-
-        foreach(request('students') as $_s)
+      if(request()->has('students'))
+       {
+         foreach(request('students') as $_s)
         {
             $checkStudentInClass = DB::select("SELECT * FROM `classes_student` WHERE  `student_id` = '".$_s."' AND `teacher_id` = '".auth()->user()->id."' LIMIT 1");
 
@@ -1015,6 +1113,7 @@ class InstructorController extends Controller
                   );
             }
         }
+       }
 
 
         if(!empty($studentsAleardyExistsInOtherClass))

@@ -37,7 +37,7 @@
                 <nav class="navbar navbar-expand-lg navbar-light">
                     <div class="container-fluid">
                         <div class="navbar-brand">
-                          <a href="{{url('/')}}">
+                          <a href="{{url('/instructor')}}">
                                 <img src="../images/iPluto_Logo_Animation.gif" alt="">
                           </a>
                         </div>
@@ -194,7 +194,9 @@
 
                                         </div>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Manage ipluto account</a>
+                                        <a class="dropdown-item" href="{{url('instructor/setting')}}">
+                                          Manage ipluto account
+                                         </a>
                                         <a class="dropdown-item" href="#">Lesson Settings</a>
                                         <a class="dropdown-item" href="#">Notification Preferences</a>
                                         <a class="dropdown-item" href="#">Help & FAQs</a>
@@ -387,11 +389,16 @@
                     <div id="content">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <div class="container">
-                                    <li class="breadcrumb-item active" aria-current="page">
+                                <div class="container" style="margin-bottom:-10px;">
+                                    <li class="breadcrumb-item active" aria-current="page" style="float: left;display:inline;">
+                                       @if(Request::is('instructor/setting') == 'profile')
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                       @else
                                         <i class="fa fa-line-chart" aria-hidden="true"></i>
+                                       @endif
                                         @yield('title')
                                     </li>
+                                     <a href="{{url()->previous()}}" class="float-right btn btn-primary-rgba mr-2"> <i class="feather icon-arrow-left mr-2"></i>Back </a> 
                                 </div>
                             </ol>
                         </nav>

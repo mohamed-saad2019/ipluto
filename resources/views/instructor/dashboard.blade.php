@@ -23,13 +23,13 @@
                                 <div class="col-6">
                                     <h4>
                                         {{
-                                             \App\InstructorsSubjects::where('instructor_id',auth()->user()->id)->count()
+                                            \App\InstructorsSubjects::where('instructor_id',auth()->user()->id)->count()
                                         }}
                                     </h4>  
                                     <p class="font-14 mb-0">Total Subjects</p>
                                 </div> 
                               <div class="col-6 text-right">
-                                <a href="#"><i
+                                <a href="{{url('/instructor/setting?active=subject')}}"><i
                                     class="text-info feather icon-book-open icondashboard"></i></a>
                                 </div>
                             </div>
@@ -43,13 +43,13 @@
                                 <div class="col-6">
                                     <h4>
                                       {{
-                                             \App\InstructorGrade::where('instructor_id',auth()->user()->id)->groupBy('subject_id')->count()
+                                        count(array_unique(\App\InstructorGrade::where('instructor_id',auth()->user()->id)->pluck('grade_id')->toArray()))
                                         }}
                                     </h4>
                                     <p class="font-12 mb-0">Total Grades</p>
                                 </div>
                                 <div class="col-6 text-right">
-                                    <a href="#"><i
+                                    <a href="{{url('/instructor/setting?active=subject')}}"><i
                                         class="text-warning feather icon-book-open icondashboard"></i></a>
                                     </div>
                             </div>
@@ -85,6 +85,7 @@
 
                                       @php
                                        $classes = \App\Classes::where('instructor_id',auth()->user()->id)->pluck('id')->toArray();
+
                                       @endphp
 
                                       {{
@@ -96,7 +97,8 @@
                                     <p class="font-12 mb-0">Total  today’s Classes</p>
                                 </div>
                                 <div class="col-6 text-right">
-                                    <a href="{{url('/instructor/list_classes')}}"><i
+
+                                    <a href="{{url('/instructor/list_classes?today='.\Carbon\Carbon::parse(now())->locale('en')->dayName)}}"><i
                                         class="text-warning feather icon-aperture icondashboard"></i></a>
                                     </div>
                             </div>
