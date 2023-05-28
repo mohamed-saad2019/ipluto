@@ -53,8 +53,10 @@
 
                                                 @elseif($n->notifiable_type == 'add_lesson' ) href="{{url('student/view_lesson?lesson_id='.$n->notifiable_id)}}"
 
+                                                @elseif($n->notifiable_type == 'del_lesson' ) href="#"
+
                                                 @else href="" @endif> {{$n->data}} </a> </p>
-                                                 
+
                                              @endif
                                            </div>
                                         </div>                                     

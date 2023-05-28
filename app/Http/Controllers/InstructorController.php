@@ -414,6 +414,27 @@ class InstructorController extends Controller
                     'lesson_id'=>$id,
                 ]);
 
+                  $share  = ShareLessons::where('status','1')->where('lesson_id',$add->lesson_id)->get();
+          
+                      if($share)
+                      {
+                        $lesson = Lessons::find($add->lesson_id);
+                            foreach($share as $s)
+                               {
+                                        Notification::create([
+                                        'type'            => 'instructor',
+                                        'notifiable_type' => 'add_lesson',
+                                        'notifiable_id'   => $add->lesson_id,
+                                        'data'            => 'Add New Slide To '
+                                                              .ucwords($lesson->name??'').'  Lesson',
+                                        'student_id'      => $s->student_id,
+                                        'reading'         => 0,
+                                        'created_by'      => auth()->user()->id,
+                                        'notify_date'     => now(),
+                                      ]);
+                               }
+                      }
+
 
                  $file->store('public/'.\Auth::user()->id.'/'.$id);
                  // return $add->id;
@@ -444,6 +465,28 @@ class InstructorController extends Controller
                     'instructor_id'=> \Auth::user()->id,
                     'lesson_id'=>$id,
                 ]);
+
+                $share  = ShareLessons::where('status','1')->where('lesson_id',$add->lesson_id)->get();
+          
+                      if($share)
+                      {
+                        $lesson = Lessons::find($add->lesson_id);
+                            foreach($share as $s)
+                               {
+                                        Notification::create([
+                                        'type'            => 'instructor',
+                                        'notifiable_type' => 'add_lesson',
+                                        'notifiable_id'   => $add->lesson_id,
+                                        'data'            => 'Add New URL To '
+                                                              .ucwords($lesson->name??'').'  Lesson',
+                                        'student_id'      => $s->student_id,
+                                        'reading'         => 0,
+                                        'created_by'      => auth()->user()->id,
+                                        'notify_date'     => now(),
+                                      ]);
+                               }
+                      }
+
 
               DB::table('instructor_lessons')->where('id',$id)
                     ->update([
@@ -511,7 +554,7 @@ class InstructorController extends Controller
           $count = File::where('file_name',$v)->where('instructor_id',\Auth::user()->id)->where('lesson_id',request('id'))->count();
           if($count==0)
                  {
-                    File::create([
+                   $add = File::create([
                     'file_name' =>  $v ,
                     'size'      =>  '' ,
                     'hash_name' =>  'Video From Dashboard',
@@ -521,6 +564,27 @@ class InstructorController extends Controller
                     'instructor_id'=> \Auth::user()->id,
                     'lesson_id'=>request('id'),
                     ]);
+
+                     $share  = ShareLessons::where('status','1')->where('lesson_id',$add->lesson_id)->get();
+                      if($share)
+                      {
+                        $lesson = Lessons::find($add->lesson_id);
+                            foreach($share as $s)
+                               {
+                                        Notification::create([
+                                        'type'            => 'instructor',
+                                        'notifiable_type' => 'add_lesson',
+                                        'notifiable_id'   => $add->lesson_id,
+                                        'data'            => 'Add New URL To '
+                                                              .ucwords($lesson->name??'').'  Lesson',
+                                        'student_id'      => $s->student_id,
+                                        'reading'         => 0,
+                                        'created_by'      => auth()->user()->id,
+                                        'notify_date'     => now(),
+                                      ]);
+                               }
+                      }
+
                     $total++;
                 }
         }
@@ -543,6 +607,28 @@ class InstructorController extends Controller
     
         if (request('id') and !empty(request('id'))) {
             
+             $add = Lessons::find(request('id'));
+
+             $share  = ShareLessons::where('status','1')->where('lesson_id',$add->id)->get();
+                      if($share)
+                      {
+                        $lesson = Lessons::find($add->id);
+                            foreach($share as $s)
+                               {
+                                        Notification::create([
+                                        'type'            => 'instructor',
+                                        'notifiable_type' => 'del_lesson',
+                                        'notifiable_id'   => $add->id,
+                                        'data'            => 'Delete  '
+                                                              .ucwords($lesson->name??'').'  Lesson',
+                                        'student_id'      => $s->student_id,
+                                        'reading'         => 0,
+                                        'created_by'      => auth()->user()->id,
+                                        'notify_date'     => now(),
+                                      ]);
+                               }
+                      }
+
              Lessons::where('id','=',request('id'))->delete();
              File::where('lesson_id',request('id'))->delete();
         }
@@ -568,6 +654,32 @@ class InstructorController extends Controller
         if (request('id') and !empty(request('id'))) {
             
             foreach (explode(',', request('id')) as $id) {
+
+                 $add = Lessons::find($id);
+
+                 if($add)
+                 {
+                    $share  = ShareLessons::where('status','1')->where('lesson_id',$add->id)->get();
+                      if($share)
+                      {
+                        $lesson = Lessons::find($add->id);
+                            foreach($share as $s)
+                               {
+                                        Notification::create([
+                                        'type'            => 'instructor',
+                                        'notifiable_type' => 'del_lesson',
+                                        'notifiable_id'   => $add->id,
+                                        'data'            => 'Delete  '
+                                                              .ucwords($lesson->name??'').'  Lesson',
+                                        'student_id'      => $s->student_id,
+                                        'reading'         => 0,
+                                        'created_by'      => auth()->user()->id,
+                                        'notify_date'     => now(),
+                                      ]);
+                               }
+                      }
+                 }
+
                 Lessons::where('id','=',$id)->delete();
                 File::where('lesson_id',$id)->delete();
             }
@@ -582,8 +694,32 @@ class InstructorController extends Controller
         if (request('id') and !empty(request('id'))) {
             
             foreach (explode(',', request('id')) as $id) {
+              $file   = File::where('id',$id)->first();
+              if($file)
+              {
+                $share  = ShareLessons::where('status','1')->where('lesson_id',$file->lesson_id)->get();
+          
+                  if($share)
+                  {
+                    $lesson = Lessons::find($file->lesson_id);
+                        foreach($share as $s)
+                           {
+                                    Notification::create([
+                                    'type'            => 'instructor',
+                                    'notifiable_type' => 'add_lesson',
+                                    'notifiable_id'   => $file->lesson_id,
+                                    'data'            => 'Delete Slide From '
+                                                          .ucwords($lesson->name??'').'  Lesson',
+                                    'student_id'      => $s->student_id,
+                                    'reading'         => 0,
+                                    'created_by'      => auth()->user()->id,
+                                    'notify_date'     => now(),
+                                  ]);
+                           }
+                  }
+                  File::where('id',$id)->delete();
+              }
 
-                 File::where('id',$id)->delete();
             }
         }
 
@@ -597,7 +733,8 @@ class InstructorController extends Controller
 
          $file= File::where('id',$id)->first();
                 if($file)
-                     File::create([
+                {
+                   $new_file =  File::create([
                     'file_name' =>  $file->file_name ,
                     'size'      =>  $file->size ,
                     'hash_name' =>  $file->hash_name,
@@ -607,6 +744,28 @@ class InstructorController extends Controller
                     'instructor_id'=> \Auth::user()->id,
                     'lesson_id'=>request('lesson_id'),
                     ]);   
+
+                    $share  = ShareLessons::where('status','1')->where('lesson_id',$file->lesson_id)->get();
+          
+                      if($share)
+                      {
+                        $lesson = Lessons::find($file->lesson_id);
+                            foreach($share as $s)
+                               {
+                                        Notification::create([
+                                        'type'            => 'instructor',
+                                        'notifiable_type' => 'add_lesson',
+                                        'notifiable_id'   => $file->lesson_id,
+                                        'data'            => 'Add New Slide To '
+                                                              .ucwords($lesson->name??'').'  Lesson',
+                                        'student_id'      => $s->student_id,
+                                        'reading'         => 0,
+                                        'created_by'      => auth()->user()->id,
+                                        'notify_date'     => now(),
+                                      ]);
+                               }
+                      }
+                }
             }
         }
       \Session::flash('success','Slides pasted successfully');
