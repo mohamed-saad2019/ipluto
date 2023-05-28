@@ -783,6 +783,7 @@ class ZoomController extends Controller
             'instructor_id'   => auth()->user()->id,
             'reading'         => '0',
             'created_by'      => -1,
+            'notify_date'     =>!empty($datetime)?$datetime:now(),
           ]);
 
           foreach($students as $student)
@@ -796,6 +797,7 @@ class ZoomController extends Controller
                 'student_id'      => $student,
                 'reading'         => 0,
                 'created_by'      => auth()->user()->id,
+                'notify_date'     =>!empty($datetime)?$datetime:now(),
               ]);
           }
       }

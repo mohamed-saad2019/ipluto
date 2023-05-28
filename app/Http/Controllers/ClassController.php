@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Classes;
 use App\ClassesStudent;
 use App\Lessons;
+use App\Notification;
 use App\ShareLessons;
 use Illuminate\Http\Request;
 
@@ -97,6 +98,7 @@ class ClassController extends Controller
             $explode_item   =   explode('_',$_item);
             $class_id       =   $explode_item[0] ;
             $student_id     =   $explode_item[1] ;
+            $class          = Classes::find($class_id);
 
             ShareLessons::create([
                 "lesson_id"         =>  $request->lesson_id ,
@@ -105,6 +107,19 @@ class ClassController extends Controller
                 "student_id"        =>  $student_id ,
                 "type"              =>  'lesson' 
             ]);
+
+
+            Notification::create([
+                        'type'            => 'instructor',
+                        'notifiable_type' => 'add_lesson',
+                        'notifiable_id'   => $request->lesson_id,
+                        'data'            => 'Add New Lesson To Class '
+                                              .ucwords($class->name??'').'  Class',
+                        'student_id'      => $student_id,
+                        'reading'         => 0,
+                        'created_by'      => auth()->user()->id,
+                        'notify_date'     => now(),
+                      ]);
         }
 
         \Session::flash('success','Updated successfully'); 

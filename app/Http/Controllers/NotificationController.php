@@ -36,9 +36,9 @@ class NotificationController extends Controller
     {
       if (request()->has('colum') and !empty(request('colum'))) {
         
-         Notification::where(request('colum'),auth()->user()->id)->update(['reading'=>'1','read_at'=>now()]);
+         // Notification::where(request('colum'),auth()->user()->id)->update(['reading'=>'1','read_at'=>now()]);
          
-         return Notification::where(request('colum'),auth()->user()->id)->where('reading','0')->count();
+         return Notification::where(request('colum'),auth()->user()->id)->where('notify_date','<=',now())->count();
 
 
        }

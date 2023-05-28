@@ -19,6 +19,7 @@ class Notification extends Model
         'student_id',
         'reading',
         'created_by',
+        'notify_date'
     ];
 
      public function user()

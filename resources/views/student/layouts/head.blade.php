@@ -27,14 +27,14 @@
                     <nav class="navbar navbar-expand-lg navbar-light">
                         <div class="container-fluid">
                             <div class="navbar-brand">
-                              <a href="{{url('/student/profile')}}">
+                              <a href="{{url('/student/profile')}}" class="">
                                     <img src="../images/iPluto_Logo_Animation.gif" alt="">
                               </a>
                             </div>
                             <div class="collapse navbar-collapse d-flex justify-content-between "
                                 id="navbarSupportedContent">
                                 <div class="search ml-5">
-                                    <i class="fas fa-search"></i>
+                                    <i class="fas fa-search"></i> 
                                     <input type="text" class="form-control shadow-sm" placeholder="Search" />
                                 </div>
 
@@ -55,7 +55,7 @@
                                          @endif
                                     </div>
 
-                                    <div class="notifications_menu" id="box">
+                                    <div class="notifications_menu" id="box" style="display:none;">
                                         <div class="h1 font-weight-bold d-flex justify-content-between"
                                         style="border-bottom: 1px solid #DDD;">
                                             <span>
@@ -71,38 +71,31 @@
                             <div id="notifications" >
                                @foreach(notifications('student_id') as $n)
                                    <!-- begin notifications-item -->
-                                     <div class="notifications-item"  syle="display:flex !important">
-                                         @if($n->notifiable_type == 'zoom')
-                                           @php 
-                                           $zoom = \App\Zoom::where('id',$n->notifiable_id)->first();
-                                           @endphp
-                                          {{-- <!-- <a href="{{$zoom->url}}">  -->--}}
-                                          @else
-                                           <!-- <a href="#"> -->
-                                          @endif
-                                         
-                                          @if($n->type == 'ipluto')
-                                            <img src="../images/logo.png">
-                                          @elseif($n->type == 'instructor')
-                                            @if($n->user->user_img != null && $n->user->user_img && @file_get_contents('images/user_img/'.$n->user->user_img))
-                                                <img src="{{ url('images/user_img/'.$n->user->user_img)}}"
-                                                    alt="profilephoto" class="rounded-circle">
-
-                                                @elseif($n->user->user_img != null && $n->user->user_img
-                                                !='' && @file_get_contents('images/avatar/'. $n->user->user_img))
-                                                <img src="{{ url('images/avatar/'.$n->user->user_img)}}"
-                                                    alt="profilephoto" class="rounded-circle">
-
-                                                @else
-
-                                                <img @error('photo') is-invalid @enderror
-                                                    src="{{ Avatar::create($n->user->fname)->toBase64() }}"
-                                                    alt="profilephoto" class="rounded-circle">
-                                                @endif
-
-                                          @endif
+                                     <div class="notifications-item">                                    
                                          <div class="text row" style="margin-right:0px;">
-                                           <div class="col-md-8">
+                                           <div class="col-md-2">
+                                            @if($n->type == 'ipluto')
+                                            <img src="../images/logo.png">
+                                              @elseif($n->type == 'instructor')
+                                                @if($n->user->user_img != null && $n->user->user_img && @file_get_contents('images/user_img/'.$n->user->user_img))
+                                                    <img src="{{ url('images/user_img/'.$n->user->user_img)}}"
+                                                        alt="profilephoto" class="rounded-circle">
+
+                                                    @elseif($n->user->user_img != null && $n->user->user_img
+                                                    !='' && @file_get_contents('images/avatar/'. $n->user->user_img))
+                                                    <img src="{{ url('images/avatar/'.$n->user->user_img)}}"
+                                                        alt="profilephoto" class="rounded-circle">
+
+                                                    @else
+
+                                                    <img @error('photo') is-invalid @enderror
+                                                        src="{{ Avatar::create($n->user->fname)->toBase64() }}"
+                                                        alt="profilephoto" class="rounded-circle">
+                                                    @endif
+
+                                              @endif
+                                           </div>
+                                           <div class="col-md-5">
                                                <h4 class="text-capitalize">
                                                 @if($n->type == 'ipluto')
                                                   Ipluto
@@ -118,11 +111,22 @@
                                                  {{ \Carbon\Carbon::parse($n->created_at)->shortRelativeDiffForHumans() }}
                                                  </p>
                                            </div>
-                                           <div class="col-md-12">
-                                               <p>{{$n->data}}</p>
-                                           </div>
+                                          <div class="col-md-12" style="margin: -20px 50px 1px;">
+                                            @if($n->notifiable_type == 'zoom' )
+                                               @php 
+                                               $zoom = \App\Zoom::where('id',$n->notifiable_id)->first();
+                                               @endphp
+                                               <p><a href="{{$zoom->url ?? '#'}}"> {{$n->data}} </a> </p>
+                                             @else
+                                               <p><a 
+                                                @if($n->notifiable_type == 'today_class' ) href="{{url('student/livesession')}}" 
+
+                                                @elseif($n->notifiable_type == 'add_lesson' ) href="{{url('student/view_lesson?lesson_id='.$n->notifiable_id)}}"
+
+                                                @else href="" @endif> {{$n->data}} </a> </p>
+                                             @endif
+                                           </div>   
                                         </div>
-                                      {{-- <!-- </a> -->--}}
                                  </div>
                                    <!-- End notifications-item -->
                                 @endforeach
@@ -251,15 +255,19 @@
                 $('#bell').click(function (e) {
 
                     var color = $(this).text();
-                    if (down) {
+                       if (down) {
 
                         $('#box').css('height', '0px');
                         $('#box').css('opacity', '0');
+                        $('#box').css('display', 'none');
+
                         down = false;
                     } else {
 
                         $('#box').css('height', 'auto');
                         $('#box').css('opacity', '1');
+                        $('#box').css('display', 'block');
+
                         down = true;
 
                     }

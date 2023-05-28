@@ -16,13 +16,41 @@ use DB;
 use App\InstructorGrade;
 use App\LibraryFile;
 use App\File;
+use App\Notification;
 use App\User;
 class StudentController extends Controller
 {
   
    public function profile()
     {
-      
+     $count =  Notification::where('notifiable_type','today_class')->whereDate('notify_date',now())->count();
+        if($count == 0 and !empty(get_student_subjects()))
+        {
+            $day = \Carbon\Carbon::parse(now())->locale('en')->dayName;
+
+            foreach(get_student_subjects() as $class)
+            {
+              $class_day = DB::table('class_days')->where('class_id',$class->id)->where('day',$day)->first();
+
+              if($class_day) 
+                {
+                    
+                  Notification::create([
+                        'type'            => 'ipluto',
+                        'notifiable_type' => 'today_class',
+                        'notifiable_id'   => $class->id,
+                        'data'            => "Today class ("
+                                              .ucwords($class->name).'  ) in '.$class_day->time.':00',
+                        'student_id'      => auth()->user()->id,
+                        'reading'         => 0,
+                        'created_by'      =>'-1',
+                        'notify_date'=> \Carbon\Carbon::parse(now())->format('Y-m-d').' '.$class_day->time.':00'
+                       ]);
+                    
+                }
+            }
+        }
+       
         return view('student.profile');
     }
 

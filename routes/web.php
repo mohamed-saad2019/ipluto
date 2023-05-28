@@ -634,11 +634,7 @@ Route::middleware(['web'])->group(function () {
         Route::post('add_lesson_to_folder', 'LessonController@add_lesson_to_folder');
         /* end route lessons */
 
-        /* start route Notifications */
-    Route::get('notificationInterval','NotificationController@notificationInterval');
-    Route::get('read_notifications','NotificationController@read_notifications')->name('read_notifications');
 
-        /* end route Notifications */
 
         /* start route zoom */
         Route::get('zoom_create', 'ZoomController@startZoom')->name('create.zoom');
@@ -1266,3 +1262,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get("admin/select2/city","CityController@getCityInGovern")->name('select2.city');
+
+
+        /* start route Notifications */
+    Route::get('notificationInterval','NotificationController@notificationInterval');
+    Route::get('read_notifications','NotificationController@read_notifications')->name('read_notifications');
+
+        /* end route Notifications */

@@ -20,6 +20,7 @@ use App\SubCategory;
 use App\File;
 use App\InstructorStudents;
 use App\Video;
+use App\Notification;
 use App\Excel\SimpleXLSX;
 use App\ClassesStudent;
 use App\ShareLessons;
@@ -582,7 +583,7 @@ class InstructorController extends Controller
             
             foreach (explode(',', request('id')) as $id) {
 
-                             File::where('id',$id)->delete();
+                 File::where('id',$id)->delete();
             }
         }
 
@@ -1218,6 +1219,19 @@ class InstructorController extends Controller
                     if($getTotalStudentInClass < $class->num_of_student )
                     {
                       DB::table('classes_student')->where('class_id',request('class_id'))->where('student_id',request('student_id'))->update(['status'=>'1']);
+
+                      Notification::create([
+                        'type'            => 'instructor',
+                        'notifiable_type' => 'approved_class',
+                        'notifiable_id'   => $class->id,
+                        'data'            => 'I have been approved to join '
+                                              .ucwords($class->name).'  Class',
+                        'student_id'      => request('student_id'),
+                        'reading'         => 0,
+                        'created_by'      => auth()->user()->id,
+                        'notify_date'     => now(),
+                      ]);
+
                       \Session::flash('success','Student has been approved successfully');
                     }
                     else

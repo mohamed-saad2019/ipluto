@@ -12,18 +12,10 @@
 
                 },
                 success: function (data) {
-                    // alert(data);
-                   var count = {{notifications_count('student_id')}};
-                  $("#notifications").html(data);
+                    // alert(1);
+                   // var count = '{{notifications_count("student_id")}}';
 
-                  if (count > 0 ) 
-                  {
-                    $('#bell').html('<i class="far fa-bell fa-lg"></i><span class="notification--num">'+count+'</span>');
-                  }
-                  else
-                  {
-                    $('#bell').html('<i class="far fa-bell fa-lg"></i>'); 
-                  }
+                  $("#notifications").html(data);
 
                 },
                 error: function () {
@@ -32,21 +24,33 @@
               });    
 }
 
+  
+
 $(".disabled_loading").keydown(function(){
     if (event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)){document.getElementById('form_comm').submit();this.disabled = true;}};
 });
 
 
  $("#bell").click(function(){
+      // alert(0);
+      // return false
          $.ajax({
         type: "get",
-        url: "{{route('read_notifications_student')}}",
+        url: "{{route('read_notifications')}}",
         data: {'colum': 'student_id' },
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         },
         success: function(data){
-            $('.notification--num').html(data);
+            if(data > 0)
+            {
+                $('#bell').html(`<i class="far fa-bell fa-lg"></i><span class="notification--num"> `+ data +` </span>`); 
+            }
+            else
+            {
+                 $('#bell').html(`<i class="far fa-bell fa-lg"></i>`);
+            }
+          
         },
         error: function () {
         console.log('error');
@@ -54,7 +58,8 @@ $(".disabled_loading").keydown(function(){
     });
     });
 
-// window.setInterval(getNewNotification,8000); // 1000 indicated 1 second
+window.setInterval(getNewNotification,7000); // 1000 indicated 1 second
+window.setInterval(getCountNotification,7000); // 1000 indicated 1 second
 
     </script>
 

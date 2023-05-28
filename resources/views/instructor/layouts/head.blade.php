@@ -89,14 +89,14 @@
 
                                     <div class="icon" id="bell">
                                       <i class="far fa-bell fa-lg num_notif"></i>
-                                       @if(notifications_count('instructor_id') != 0)
+                                       @if(notifications_count('instructor_id') > 0)
                                             <span class="notification--num">
                                                 {{notifications_count('instructor_id')}}
                                             </span>
                                         @endif
                                     </div>
 
-                                    <div class="notifications_menu" id="box">
+                                    <div class="notifications_menu" id="box" style="display:none;">
                                         <div class="h1 font-weight-bold d-flex justify-content-between"
                                         style="border-bottom: 1px solid #DDD;">
                                             <span>
@@ -112,17 +112,19 @@
                                 <div id="notifications" >
                                 @foreach(notifications('instructor_id') as $n)
                                    <!-- begin notifications-item -->
-                                     <div class="notifications-item" syle="display:inline-flex !important">
-                                         @if($n->notifiable_type == 'zoom')
+                                     <div class="notifications-item">
+                                     @if($n->notifiable_type == 'zoom')
                                            @php 
                                            $zoom = \App\Zoom::where('id',$n->notifiable_id)->first();
                                            @endphp
-                                       {{--   <!-- <a href="{{$zoom->url}}">  -->
-                                          @if($n->type == 'ipluto')
-                                            <img src="../images/logo.png"/>
-                                          @endif
+
                                         <div class="text row" style="margin-right:0px;">
-                                           <div class="col-md-8">
+                                           <div class="col-md-2">
+                                                @if($n->type == 'ipluto')
+                                                    <img src="../images/logo.png"/>
+                                                  @endif
+                                           </div>
+                                           <div class="col-md-6">
                                                <h4 class="text-capitalize">
                                                 @if($n->type == 'ipluto')
                                                   Ipluto
@@ -134,11 +136,10 @@
                                                  {{ \Carbon\Carbon::parse($n->created_at)->shortRelativeDiffForHumans() }}
                                                  </p>
                                            </div>
-                                           <div class="col-md-12">
-                                               <p>{{$n->data}}</p>
+                                           <div class="col-md-12" style="margin: -20px 50px 1px;">
+                                               <p><a href="{{$zoom->url ?? '#'}}"> {{$n->data}} </a> </p>
                                            </div>
                                         </div>
-                                       <!-- </a> -->--}}
                                     @endif
                                  </div>
                                    <!-- End notifications-item -->
@@ -425,11 +426,15 @@
 
                     $('#box').css('height', '0px');
                     $('#box').css('opacity', '0');
+                    $('#box').css('display', 'none');
+
                     down = false;
                 } else {
 
                     $('#box').css('height', 'auto');
                     $('#box').css('opacity', '1');
+                    $('#box').css('display', 'block');
+
                     down = true;
 
                 }
