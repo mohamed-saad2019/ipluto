@@ -12,6 +12,7 @@ class InstructorStudents extends Model
         'instructor_id',
         'student_id',
         'status',
+        'subject_id',
         'type',
         'created_at',
         'updated_at',
@@ -21,4 +22,5 @@ class InstructorStudents extends Model
     {
         return $this->belongsTo('App\User','student_id','id');
     }
+
 }

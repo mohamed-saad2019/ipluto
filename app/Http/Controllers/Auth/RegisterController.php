@@ -290,10 +290,36 @@ class RegisterController extends Controller
                       DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".$class->id."','".$class->instructor_id."','".$user->id."',0,NOW())") ;
                       User::where('id',$user->id)->update(['subject_id'=>$class->subject_id,'class_key'=>$data['class_key']]);
                                       \Session::put('typeLogin', '-1'); 
+                        \App\Notification::create([
+                            'type'            => 'student',
+                            'notifiable_type' => 'new request',
+                            'notifiable_id'   => $class->id,
+                            'data'            => 'You have a new request to join the  '
+                                                              .ucwords($class->name??'').'  class',
+                            'instructor_id'   => $class->instructor_id,
+                            'reading'         => 0,
+                            'created_by'      => $user->id,
+                            'notify_date'     => now(),
+                            'notify_url'      =>'/instructor/students?class_id='.$class->id,
+                         ]);
                     }
                   else
                   {
                       DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".$class->id."','".$class->instructor_id."','".$user->id."','-1',NOW())") ;
+
+                         \App\Notification::create([
+                            'type'            => 'student',
+                            'notifiable_type' => 'new request',
+                            'notifiable_id'   => $class->id,
+                            'data'            => 'You have a new request in waiting list to join the  '
+                                                              .ucwords($class->name??'').'  class',
+                            'instructor_id'   => $class->instructor_id,
+                            'reading'         => 0,
+                            'created_by'      => $user->id,
+                            'notify_date'     => now(),
+                            'notify_url'      =>'/instructor/waiting_students?class_id='.$class->id,
+                         ]);
+
                       \Session::put('typeLogin', '-1');
      
                   }
@@ -302,6 +328,7 @@ class RegisterController extends Controller
                         'instructor_id'=>$class->instructor_id,
                         'student_id'=>$user->id,
                         'type'=>'center',
+                        'subject_id'=>$class->subject_id,
                         'status'=> '1' ,
                         'created_at'=>now(),
                         'updated_at'=>now(),

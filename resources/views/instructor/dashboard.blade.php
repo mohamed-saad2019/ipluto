@@ -43,7 +43,7 @@
                                 <div class="col-6">
                                     <h4>
                                       {{
-                                        count(array_unique(\App\InstructorGrade::where('instructor_id',auth()->user()->id)->pluck('grade_id')->toArray()))
+                                        count(array_unique(\App\InstructorGrade::where('instructor_id',auth()->user()->id)->where('subject_id',auth()->user()->subject_id)->pluck('grade_id')->toArray()))
                                         }}
                                     </h4>
                                     <p class="font-12 mb-0">Total Grades</p>
@@ -63,7 +63,7 @@
                                 <div class="col-6">
                                     <h4>
                                       {{
-                                             \App\Classes::where('instructor_id',auth()->user()->id)->count()
+                                             \App\Classes::where('instructor_id',auth()->user()->id)->where('subject_id',auth()->user()->subject_id)->count()
                                         }}
                                     </h4>
                                     <p class="font-12 mb-0">Total Classes</p>
@@ -84,7 +84,7 @@
                                     <h4>
 
                                       @php
-                                       $classes = \App\Classes::where('instructor_id',auth()->user()->id)->pluck('id')->toArray();
+                                       $classes = \App\Classes::where('instructor_id',auth()->user()->id)->where('subject_id',auth()->user()->subject_id)->pluck('id')->toArray();
 
                                       @endphp
 
@@ -111,7 +111,7 @@
                             <div class="row align-items-center">
                                 <div class="col-6">
                                     <h4>{{
-                                    \App\InstructorStudents::where('instructor_id',\Auth::user()->id)->where('type','center')->count();
+                                    \App\InstructorStudents::where('instructor_id',\Auth::user()->id)->where('subject_id',\Auth::user()->subject_id)->where('type','center')->count();
                                     }}</h4>
                                     <p class="font-13 mb-0">Total Students<br>(Center)</p>
                                 </div>
@@ -130,12 +130,31 @@
                             <div class="row align-items-center">
                                 <div class="col-6">
                                     <h4>{{
-                                    \App\InstructorStudents::where('instructor_id',\Auth::user()->id)->where('type','online')->count();
+                                    \App\InstructorStudents::where('instructor_id',\Auth::user()->id)->where('subject_id',\Auth::user()->subject_id)->where('type','online')->count();
                                     }}</h4>
                                     <p class="font-13 mb-0">Total Students<br>(Online)</p>
                                 </div>
                                 <div class="col-6 text-right">
                                     <a href="{{url('/instructor/students?type=online')}}"><i
+                                        class="text-primary feather icon-users icondashboard"></i></a>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="col-md-3 col-12">
+                    <div class="card m-b-30 shadow-sm">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <h4>{{
+                                    $students
+                                    }}</h4>
+                                    <p class="font-13 mb-0">Total Students<br>(Active)</p>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <a href="{{url('/instructor/students?active=true')}}"><i
                                         class="text-primary feather icon-users icondashboard"></i></a>
                                     </div>
                             </div>

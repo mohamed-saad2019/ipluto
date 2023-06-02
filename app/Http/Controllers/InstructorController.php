@@ -49,13 +49,15 @@ class InstructorController extends Controller
             'lname'         => 'required|alpha|min:3|max:15',
             'mobile'        => 'required|unique:users,mobile,'.auth()->user()->id.'|starts_with:01|digits:11',
             'email'         => 'required|unique:users,email,'. auth()->user()->id,
-            'password'      => 'required|min:6',
-            'confirm_password' => 'required|min:6|same:password',
+            'password'      => 'nullable|min:6',
+            'confirm_password' => 'nullable|min:6|same:password',
             'state_id'      => 'required',
             'city_id'       => 'required',
             'address'       => 'nullable|min:6|max:50',
-            'image'         => 'nullable|mimes:jpg,jpeg,png,bmp,tiff'
+            'user_img'      => 'nullable|mimes:jpg,jpeg,png,bmp,tiff'
         ]);
+
+        $user = User::find(auth()->user()->id);
 
         $input['user_img'] = Auth()->User()['user_img'];
 
@@ -69,13 +71,20 @@ class InstructorController extends Controller
             
         }
 
+        $password = $user->password;
+
+        if(request()->has('password') and !empty(request('password')))
+        {
+           $password =  \Hash::make($request->password);
+        }
+
          $user = User::where('id',auth()->user()->id)->update([
             'fname'     => $request->fname ,
             'lname'     => $request->lname,
             'email'     => $request->email,
             'mobile'    => $request->mobile,
-            'password'  => \Hash::make($request->password),
-            'user_img'  => $input['user_img'] ?? '',
+            'password'  => $password,
+            'user_img'  => $input['user_img'] ?? $user->user_img,
             'state_id'  => $request->state_id,
             'city_id'   => $request->city_id,
             'address'   => $request->address,
@@ -133,8 +142,46 @@ class InstructorController extends Controller
     {   
         if(Auth::User()->role == "instructor")
         {
-          
-            return view('instructor.dashboard');
+          $count =  Notification::where('notifiable_type','today_class')
+            ->where('instructor_id',auth()->user()->id)
+            ->whereDate('notify_date',now())->count();
+
+         $classes =  Classes::where('instructor_id',auth()->user()->id)->get();
+      
+        if($count == 0 and !empty($classes))
+        {
+            $day = \Carbon\Carbon::parse(now())->locale('en')->dayName;
+
+            foreach($classes as $class)
+            {
+              $class_day = DB::table('class_days')->where('class_id',$class->id)->where('day',$day)->first();
+
+              if($class_day) 
+                {
+                    
+                  Notification::create([
+                        'type'            => 'ipluto',
+                        'notifiable_type' => 'today_class',
+                        'notifiable_id'   => $class->id,
+                        'data'            => "Today class ("
+                                              .ucwords($class->name).'  ) in '.$class_day->time.':00',
+                        'instructor_id'   => auth()->user()->id,
+                        'reading'         => 0,
+                        'created_by'      =>'-1',
+                        'notify_date'=> \Carbon\Carbon::parse(now())->format('Y-m-d').' '.$class_day->time.':00'
+                       ]);
+                    
+                }
+            }
+        }
+
+        $from =  Carbon::parse(now())->subHours(1)->format('Y-m-d h:i:s');
+
+        $students = InstructorStudents::where('instructor_id',\Auth::user()->id)
+                    ->where('subject_id',\Auth::user()->subject_id)
+                    ->orderBy('id','DESC')->pluck('student_id')->toArray();
+        $students = User::whereIn('id',$students)->where('last_seen','>=',$from)->count();
+        return view('instructor.dashboard',compact('students'));
         }
         else
         {
@@ -160,6 +207,7 @@ class InstructorController extends Controller
                     $folders = Folders::where('parent_id',Null)->where('instructor_id',\Auth::user()->id )->orderBy('id','ASC')->get();
 
                     $lessons = Lessons::where('instructor_id','=',\Auth::user()->id)
+                              ->where('subject',auth()->user()->subject_id)
                               ->orderBy($orderBy,'DESC')->where('saved',1)->where('folder_id',0)->get();
                  }
                  else
@@ -172,6 +220,7 @@ class InstructorController extends Controller
                       $folders = Folders::where('parent_id',request('id'))->where('instructor_id',\Auth::user()->id )->orderBy('id','ASC')->get();
 
                      $lessons = Lessons::where('instructor_id','=',\Auth::user()->id)
+                      ->where('subject',auth()->user()->subject_id)
                       ->orderBy($orderBy,'DESC')->where('saved',1)->where('folder_id',request('id'))->get();
                  }
     
@@ -1003,6 +1052,7 @@ class InstructorController extends Controller
                                                     'student_id'=>$st_id,
                                                     'type'=>'center',
                                                     'status'=> '1' ,
+                                                    'subject_id'=>\Auth::user()->subject_id,
                                                     'created_at'=>now(),
                                                     'updated_at'=>now(),
                                                      ]
@@ -1042,6 +1092,7 @@ class InstructorController extends Controller
                                 'student_id'=>$data->id,
                                 'type'=>'center',
                                 'status'=> '1' ,
+                                'subject_id'=>\Auth::user()->subject_id,
                                 'created_at'=>now(),
                                 'updated_at'=>now(),
                                  ]
@@ -1121,6 +1172,7 @@ class InstructorController extends Controller
                       'student_id'=>$_s,
                       'type'=>'center',
                       'status'=> '1' ,
+                      'subject_id'=>\Auth::user()->subject_id,
                       'created_at'=>now(),
                       'updated_at'=>now(),
                     ]
@@ -1144,7 +1196,7 @@ class InstructorController extends Controller
 
     public function list_classes()
     {
-        $classes = DB::select("SELECT * , (SELECT count(*) FROM `classes_student` WHERE class_id = `classes`.id ) AS count_students , (SELECT count(distinct lesson_id) FROM `share_lessons` sh WHERE sh.class_id = `classes`.id ) AS count_lessons FROM `classes` WHERE `instructor_id` = '".auth()->user()->id."' ORDER BY id DESC ");
+        $classes = DB::select("SELECT * , (SELECT count(*) FROM `classes_student` WHERE class_id = `classes`.id ) AS count_students , (SELECT count(distinct lesson_id) FROM `share_lessons` sh WHERE sh.class_id = `classes`.id ) AS count_lessons FROM `classes` WHERE `instructor_id` = '".auth()->user()->id."' AND `subject_id` = '".auth()->user()->subject_id."' ORDER BY id DESC ");
         
         return view('instructor.list_classes' , compact('classes')) ;
  
@@ -1267,6 +1319,7 @@ class InstructorController extends Controller
                       'student_id'=>$_s,
                       'type'=>'center',
                       'status'=> '1' ,
+                      'subject_id'=>\Auth::user()->subject_id,
                       'created_at'=>now(),
                       'updated_at'=>now(),
                     ]
@@ -1328,23 +1381,42 @@ class InstructorController extends Controller
     {
         if (request()->has('class_id')) 
         {
+           $class = Classes::where('id',request('class_id'))->where('subject_id',\Auth::user()->subject_id)->first();
+
            $students = ClassesStudent::where('teacher_id',\Auth::user()->id)
-           ->where('class_id',request('class_id'))->where('status','!=','-1')
+           ->where('class_id',$class->id??0)->where('status','!=','-1')
            ->orderBy('id','DESC')->get();           
         }
         elseif (request()->has('type') and request('type')=='online') 
         {
-           $students = InstructorStudents::where('instructor_id',\Auth::user()->id)->where('type','online')->orderBy('id','DESC')->get();
+           $students = InstructorStudents::where('instructor_id',\Auth::user()->id)
+            ->where('subject_id',\Auth::user()->subject_id)
+            ->where('type','online')->orderBy('id','DESC')->get();
         }
 
         elseif (request()->has('type') and request('type')=='center') 
        {
-            $students = InstructorStudents::where('instructor_id',\Auth::user()->id)->where('type','center')->orderBy('id','DESC')->get();
+            $students = InstructorStudents::where('instructor_id',\Auth::user()->id)
+            ->where('subject_id',\Auth::user()->subject_id)
+            ->where('type','center')->orderBy('id','DESC')->get();
+       }
+       elseif (request()->has('active') and request('active')=='true')
+       {
+          $from =  Carbon::parse(now())->subHours(1)->format('Y-m-d h:i:s');
+
+        $students = InstructorStudents::where('instructor_id',\Auth::user()->id)
+                    ->where('subject_id',\Auth::user()->subject_id)
+                    ->orderBy('id','DESC')->pluck('student_id')->toArray();
+        $students = User::whereIn('id',$students)->where('last_seen','>=',$from)->pluck('id')->toArray();
+
+        $students = InstructorStudents::where('student_id',$students)->orderBy('id','DESC')->get();
        }
 
        else
        {
-            $students = InstructorStudents::where('instructor_id',\Auth::user()->id)->orderBy('id','DESC')->get();
+            $students = InstructorStudents::where('instructor_id',\Auth::user()->id)
+                    ->where('subject_id',\Auth::user()->subject_id)
+                    ->orderBy('id','DESC')->get();
        }
         $classes = DB::select("SELECT * , (SELECT count(*) FROM `classes_student` WHERE class_id = `classes`.id ) AS count_students FROM `classes` WHERE `instructor_id` = '".auth()->user()->id."' ORDER BY id DESC ");
 
@@ -1446,6 +1518,7 @@ class InstructorController extends Controller
                 'student_id'=>$data->id,
                 'type'=>'online',
                 'status'=> '1' ,
+                'subject_id'=>\Auth::user()->subject_id,
                 'created_at'=>now(),
                 'updated_at'=>now(),
                  ]
@@ -1566,6 +1639,7 @@ class InstructorController extends Controller
                         'student_id'=>$user->id,
                         'type'=>'center',
                         'status'=> '1' ,
+                        'subject_id'=>\Auth::user()->subject_id,
                         'created_at'=>now(),
                         'updated_at'=>now(),
                      ]);
@@ -1683,6 +1757,7 @@ class InstructorController extends Controller
                                                     'student_id'=>$st_id,
                                                     'type'=>'center',
                                                     'status'=> '1' ,
+                                                    'subject_id'=>\Auth::user()->subject_id,
                                                     'created_at'=>now(),
                                                     'updated_at'=>now(),
                                                      ]
@@ -1738,6 +1813,7 @@ class InstructorController extends Controller
                                                 'student_id'=>$data->id,
                                                 'type'=>'center',
                                                 'status'=> '1' ,
+                                               'subject_id'=>\Auth::user()->subject_id,
                                                 'created_at'=>now(),
                                                 'updated_at'=>now(),
                                              ]);
@@ -2007,9 +2083,11 @@ class InstructorController extends Controller
       //                        ->where('instructor_id',Auth::user()->id)->with('lessons')->get();  
 
       $lessons_count  =  Lessons::where('instructor_id','=',\Auth::user()->id)
+                              ->where('subject',\Auth::user()->subject_id)
                               ->where('grade',request('grade_id'))->orderBy('id','DESC')->count();
 
       $lessons        = Lessons::where('instructor_id','=',\Auth::user()->id)
+                                ->where('subject',\Auth::user()->subject_id)
                                 ->where('grade',request('grade_id'))->orderBy('id','DESC')->get();       
        if($lessons_count > 0)
        {

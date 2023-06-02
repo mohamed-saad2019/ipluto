@@ -108,7 +108,7 @@
                           <div class="form-group row class__dropdown">
                                   <label for="passInput" class="col-sm-2 col-form-label">Password</label>
                                 <div class="col-sm-8 dropdown" id="">
-                                   <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" value="" id="passInput" placeholder="Password" required>
+                                   <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" value="" id="passInput" placeholder="Password" >
                                        @if($errors->has('password'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('password') }}</strong>
@@ -123,7 +123,7 @@
                             <div class="form-group row class__dropdown">
                                   <label for="password" class="col-sm-2 col-form-label">Confirm Password</label>
                                 <div class="col-sm-8 dropdown" id="">
-                                   <input type="password" required class="form-control {{ $errors->has('confirm_password') ? ' is-invalid' : '' }}" name="confirm_password" value="" id="passInput1" placeholder="Confirm Password">
+                                   <input type="password" class="form-control {{ $errors->has('confirm_password') ? ' is-invalid' : '' }}" name="confirm_password" value="" id="passInput1" placeholder="Confirm Password">
                                        @if($errors->has('confirm_password'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('confirm_password') }}</strong>
@@ -140,7 +140,7 @@
                                      Governorate
                                 </label>
                                 <div class="col-sm-8 dropdown">
-                                    <select class="form-control form-control {{ $errors->has('state_id') ? ' is-invalid' : '' }} " required id="govern"
+                                    <select class="form-control form-control {{ $errors->has('state_id') ? ' is-invalid' : '' }} "  id="govern"
                                      style="border:1px solid #ddd;color:#000;" name="state_id">
                                      <option  value="">Governorate</option>
                                         @foreach(getGovern(64) as $govern)
@@ -165,7 +165,7 @@
                                 <div class="col-sm-8 dropdown">
                                     <select class="form-control form-control {{ $errors->has('city_id') ? ' is-invalid' : '' }} " required id="city"
                                      style="border:1px solid #ddd;color:#000;" name="city_id">
-                                     <option  value="$user->city">{{$user->city()->value('name')}}</option>
+                                     <option  value="{{$user->city_id}}">{{$user->city()->value('name')}}</option>
                                       
                                     </select>
                                 </div>
@@ -178,7 +178,7 @@
 
                               <div class="form-group row class__dropdown">
                                 <label for="address" class="col-sm-2 col-form-label">
-                                    info
+                                    Address
                                 </label>
                                 <div class="col-sm-8 dropdown" id="">
                                   <textarea name="address" rows="2" class="form-control {{ $errors->has('address') ? ' is-invalid' : '' }}" id="address" 
@@ -188,7 +188,7 @@
 
                               <div class="form-group row class__dropdown">
                                 <label for="lesson__dropdown" class="col-sm-2 col-form-label">
-                                    Files / Videos
+                                   Profile Image
                                 </label>
                                 <div class="col-sm-8 dropdown" id="lesson__dropdown">
                                    <div class="drop-zone" 
@@ -230,7 +230,7 @@
                                 <div class=" @if($sum !=1) inserted @endif">
                                   <div class="form-group row class__dropdown">
                                         <label for="subjects" class="col-sm-2 col-form-label">
-                                             Subject{{$sum}}
+                                             Subject {{$sum}}
                                         </label>
                                         <div class="col-sm-3 dropdown">
                                          <select class="form-control{{ $errors->has('subjects') ? ' is-invalid' : '' }} @if($sum==1) selectSubjects @endif" required id="subjects" style="border:1px solid #ddd;color:#000;" name="subjects[]">
@@ -447,7 +447,7 @@ $('#showPass1').on('click', function(){
                     <div class="inserted">
                         <div class=" form-group row">
                            <label for="subjects" class="col-sm-2 col-form-label">
-                                             Subject`+index+`
+                                             Subject `+index+`
                             </label>
                              <!-- begin subject -->
                             <div class="dropdown col-md-3 " id="accordionExample`+index+`">

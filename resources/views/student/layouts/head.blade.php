@@ -108,7 +108,7 @@
                                            </div>
                                            <div class="col-md-4">
                                                 <p >
-                                                 {{ \Carbon\Carbon::parse($n->created_at)->shortRelativeDiffForHumans() }}
+                                                 {{ \Carbon\Carbon::parse($n->notify_date)->shortRelativeDiffForHumans() }}
                                                  </p>
                                            </div>
                                           <div class="col-md-12" style="margin: -20px 50px 1px;">
@@ -122,6 +122,9 @@
                                                 @if($n->notifiable_type == 'today_class' ) href="{{url('student/livesession')}}" 
 
                                                 @elseif($n->notifiable_type == 'add_lesson' ) href="{{url('student/view_lesson?lesson_id='.$n->notifiable_id)}}"
+
+                                                @elseif($n->notifiable_type == 'del_lesson' ) href="#"
+
 
                                                 @else href="" @endif> {{$n->data}} </a> </p>
                                              @endif

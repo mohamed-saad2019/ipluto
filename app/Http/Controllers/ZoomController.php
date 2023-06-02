@@ -779,7 +779,7 @@ class ZoomController extends Controller
             'type'            => 'ipluto',
             'notifiable_type' => 'zoom',
             'notifiable_id'   => $zoom->id,
-            'data'           =>'Zoom Meeting Was Created For '.ucwords($name).' Class',
+            'data'           =>'Zoom Meeting For '.ucwords($name).' Class',
             'instructor_id'   => auth()->user()->id,
             'reading'         => '0',
             'created_by'      => -1,
@@ -850,12 +850,13 @@ class ZoomController extends Controller
 
     public function zoom_list(Request $request)
     {
-       $id = auth()->user()->id;
+       $id = auth()->user()->id; $subject = auth()->user()->subject_id;
         $zoom  = \DB::select("SELECT classes.name,zoom.start_time,zoom.code,zoom.url,
             zoom.created_at FROM zoom
              INNER JOIN zoom_classes ON zoom_classes.zoom_id = zoom.id
              INNER JOIN classes ON classes.id = zoom_classes.class_id
              WHERE zoom.instructor_id = $id
+             AND classes.subject_id = $subject
              ORDER BY zoom.created_at desc");
 
       $sum   = 0 ;

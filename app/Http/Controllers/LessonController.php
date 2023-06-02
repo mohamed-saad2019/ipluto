@@ -12,6 +12,7 @@ class LessonController extends Controller
     public function index(Request $request)
     {
         $lessons = Lessons::where('instructor_id','=',auth()->user()->id)
+                            ->where('subject','=',auth()->user()->subject_id)
                             ->where( function($q)use($request){
                                 if(isset($request->class_id) && $request->class_id != 0 )
                                 {

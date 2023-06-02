@@ -23,7 +23,8 @@ class StudentController extends Controller
   
    public function profile()
     {
-     $count =  Notification::where('notifiable_type','today_class')->whereDate('notify_date',now())->count();
+     $count =  Notification::where('notifiable_type','today_class')->where('student_id',auth()->user()->id)
+             ->whereDate('notify_date',now())->count();
         if($count == 0 and !empty(get_student_subjects()))
         {
             $day = \Carbon\Carbon::parse(now())->locale('en')->dayName;

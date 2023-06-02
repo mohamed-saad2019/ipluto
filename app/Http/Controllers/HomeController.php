@@ -223,7 +223,7 @@ class HomeController extends Controller
             'detail'    => $request->detail,
             'user_img'  => $input['user_img'] ?? '',
             'state_id'  => $request->governorate,
-            'city'      => $request->city,
+            'city_id'   => $request->city,
             'address'   => $request->address,
             'status'    => 0 ,
             'storage'   => 100,
