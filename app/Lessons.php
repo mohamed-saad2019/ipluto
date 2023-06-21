@@ -20,7 +20,8 @@ class Lessons extends Model
         'ensure_save',
         'unit',
         'size',
-        'change_default_name'
+        'change_default_name',
+        'status'
     ];
 
 

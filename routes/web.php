@@ -582,6 +582,8 @@ Route::middleware(['web'])->group(function () {
 
          Route::get('instructor/saved_lesson', 'InstructorController@saved_lesson')->name('instructor.saved_lesson');
 
+        Route::get('instructor/edit_status_lesson/{id}', 'InstructorController@EditLessonStatus')->name('instructor.edit_status_lesson');
+
          Route::get('instructor/multiple_del_lesson', 'InstructorController@multiple_del_lesson')->name('instructor.multiple_del_lesson');
 
         /* start route folder */

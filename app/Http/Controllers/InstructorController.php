@@ -2281,4 +2281,20 @@ class InstructorController extends Controller
         }
 
     }
+
+  public function EditLessonStatus($id)
+    {
+      $lesson = Lessons::find($id);
+      if($lesson->status == 1)
+       {
+         Lessons::where('id',$id)->update(['status'=>0]);
+       }
+      else
+       {
+        Lessons::where('id',$id)->update(['status'=>1]);
+       }
+
+       \Session::flash('success','Lesson status updated successfully'); 
+        return back();
+    }
 }

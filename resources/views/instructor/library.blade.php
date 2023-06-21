@@ -355,9 +355,17 @@ $current_storage = str_replace(["kB", "MB", "GB", "TB"],"",get_size_instructor()
                       Delete
 
                     </a>
-                   {{-- <a class="dropdown-item cu_items" href="{{route('lesson.share',$lesson->id)}}">
-                      <i class="fa fa-share-alt" style="font-size: 18px;" aria-hidden="true"> Share </i>
-                    </a>--}}
+                   
+                <a class="dropdown-item cu_items" 
+                   href="{{url('instructor/edit_status_lesson/'.$lesson->id)}}">
+                     <i class="fa fa-share-alt" style="font-size: 18px;" aria-hidden="true">  </i>
+                      Edit Status To
+                       @if($lesson->status == 1)
+                          Unactive
+                       @else
+                           Active
+                       @endif
+                    </a>
 
                   </div>
                 </div>
@@ -379,15 +387,18 @@ $current_storage = str_replace(["kB", "MB", "GB", "TB"],"",get_size_instructor()
                 </div>
               </div>
            
+            <p class="mt-2 pl-3 lessons__Unsaved px-2 py-1">
              @if($lesson->ensure_save != '1')
-              <p class="mt-2 pl-3 lessons__Unsaved px-2 py-1">
                 Unsaved
-              </p>
              @else
-               <p class="mt-2 pl-3 lessons__Unsaved px-2 py-1">
                  Saved
-              </p>
              @endif
+             @if($lesson->status == 1)
+                - Active 
+             @else
+                - Unactive 
+             @endif
+            </p>
               <div class="lesson_image">
                 @if(!empty($lesson->background))
                 <img class="img-fluid " width="100%" style="height: 7em;"

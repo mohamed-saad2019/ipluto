@@ -127,6 +127,7 @@ class StudentController extends Controller
             $myLessons  = Lessons::whereIn('id',$instructor_sub->pluck('lesson_id'))
                           ->where('instructor_id',$my_teacher->id)
                           ->where('ensure_save',1)
+                          ->where('status',1)
                           ->where('folder_id',$folder_id)->orderBy('updated_at','DESC')
                           ->get();
 
@@ -168,7 +169,8 @@ class StudentController extends Controller
       if(request()->has('subject_id') and !empty(request('subject_id')))
       {
         $subject_id = $request->subject_id ;
-        $lessons    = Lessons::where('subject',$subject_id)->pluck('id')->toArray();
+        $lessons    = Lessons::where('subject',$subject_id)->where('ensure_save',1)
+                          ->where('status',1)->pluck('id')->toArray();
        
         $files = File::with("instructor:id,fname,lname,user_img")
             ->WhereIn("lesson_id",$lessons)
@@ -228,7 +230,8 @@ class StudentController extends Controller
          $lesson_share  = ShareLessons::where('student_id',\Auth::user()->id)->where('status','1')
                         ->where('class_id',request('class_id'))->pluck('lesson_id')->toArray();
 
-         $lessons    = Lessons::whereIn('id',$lesson_share)->pluck('id')->toArray();
+         $lessons    = Lessons::whereIn('id',$lesson_share)->where('ensure_save',1)
+                          ->where('status',1)->pluck('id')->toArray();
           
          $videos  = File::with("instructor:id,fname,lname,user_img")
                 ->WhereIn("lesson_id",$lessons)
