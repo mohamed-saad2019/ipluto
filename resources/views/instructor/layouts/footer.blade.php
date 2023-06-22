@@ -36,6 +36,7 @@
 
                 },
                 success: function (data) {
+                  $("#notifications").html(data);
                     jQuery.ajax({
                       async: true,
                       type: "GET",
@@ -60,7 +61,6 @@
                         // alert('error');
                       }
                     });    
-                  $("#notifications").html(data);
                 },
                 error: function () {
                   // alert('error');
