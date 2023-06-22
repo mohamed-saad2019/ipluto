@@ -1,5 +1,5 @@
 @extends('student.layouts.head')        
-@section('title','My Profile')
+@section('title','Home')
 @section('select_subject') 
         @include('student.partial.select_subject')
 @endsection

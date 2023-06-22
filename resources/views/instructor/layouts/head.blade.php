@@ -89,7 +89,7 @@
                                     <div class="icon" id="bell">
                                       <i class="far fa-bell fa-lg num_notif"></i>
                                        @if(notifications_count('instructor_id') > 0)
-                                            <span class="notification--num">
+                                          <span id="notifications_count" class="notification--num">
                                                 {{notifications_count('instructor_id')}}
                                             </span>
                                         @endif
@@ -135,18 +135,17 @@
                                                     @endif
                                             @endif
                                            </div>
-                                           <div class="col-md-6">
+                                           <div class="col-md-7">
                                                <h4 class="text-capitalize">
                                                  @if($n->type == 'ipluto')
                                                   Ipluto
 
                                                  @elseif($n->type == 'instructor' or $n->type == 'student')
-                                                   {{ucwords($n->user->fname)}} 
-                                                   {{ucwords($n->user->lname)}} 
+                                                   {{str_limit($n->user->fname.' '.$n->user->lname,15)}} 
                                                 @endif
                                                 </h4>
                                            </div>
-                                           <div class="col-md-4">
+                                           <div class="col-md-3">
                                                 <p >
                                                  {{ \Carbon\Carbon::parse($n->notify_date)->shortRelativeDiffForHumans() }}
                                                  </p>
@@ -465,12 +464,12 @@
             });
 
             $('.changeSubject').change(function (e) {
-
+                // alert(656);
                 var sub_id = $(this).val();
                 if (sub_id) {
                     $.ajax({
                         type: "post",
-                        url: "changeSubject",
+                        url: "{{url('/instructor/changeSubject')}}",
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
@@ -482,6 +481,7 @@
                             }
                         },
                         error: function (data) {
+                          alert(data);
                         console.log(data)
                         }
                     });

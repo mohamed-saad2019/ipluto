@@ -25,18 +25,20 @@
                                                     @endif
                                               @endif
                                            </div>
-                                           <div class="col-md-5">
-                                               <h4 class="text-capitalize">
+                                           <div class="col-md-7">
+                                               <h6 class="text-capitalize">
                                                 @if($n->type == 'ipluto')
                                                   Ipluto
 
-                                                 @elseif($n->type == 'instructor' or $n->type == 'student')
-                                                   {{ucwords($n->user->fname)}} 
-                                                   {{ucwords($n->user->lname)}} 
+                                                 @elseif($n->type == 'instructor')
+                                                  Mr {{str_limit($n->user->fname.' '.$n->user->lname,15)}} 
+
+                                                 @elseif($n->type == 'student')
+                                                  {{str_limit($n->user->fname.' '.$n->user->lname,15)}} 
                                                 @endif
-                                                </h4>
+                                                </h6>
                                            </div>
-                                           <div class="col-md-4">
+                                           <div class="col-md-3">
                                                 <p >
                                                  {{ \Carbon\Carbon::parse($n->notify_date)->shortRelativeDiffForHumans() }}
                                                  </p>

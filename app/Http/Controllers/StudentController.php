@@ -18,9 +18,70 @@ use App\LibraryFile;
 use App\File;
 use App\Notification;
 use App\User;
+use App\SubCategory;
+
 class StudentController extends Controller
 {
-  
+   public function account()
+    {   
+        $id = auth()->user()->id;
+        $user = User::where('id', $id)->first();
+        $subjects = ChildCategory::where('status', '1')->GroupBy('slug')->orderBy('id','ASC')->get();
+
+        $grades   = SubCategory::where('status', '1')->orderBy('id','ASC')->get();
+        return view('student.account', compact('user','subjects','grades'));
+    }
+    public function saveaccount(Request $request)
+    {   
+        $data = $this->validate($request, [
+            'fname'         => 'required|alpha|min:3|max:15',
+            'lname'         => 'required|alpha|min:3|max:15',
+            'mobile'        => 'required|unique:users,mobile,'.auth()->user()->id.'|starts_with:01|digits:11',
+            'email'         => 'required|unique:users,email,'. auth()->user()->id,
+            'password'      => 'nullable|min:6',
+            'confirm_password' => 'nullable|min:6|same:password',
+            'state_id'      => 'required',
+            'city_id'       => 'required',
+            'address'       => 'nullable|min:6|max:50',
+            'user_img'      => 'nullable|mimes:jpg,jpeg,png,bmp,tiff'
+        ]);
+
+        $user = User::find(auth()->user()->id);
+
+        $input['user_img'] = Auth()->User()['user_img'];
+
+        if ($file = $request->file('user_img')) 
+        {            
+            $optimizeImage = \Image::make($file);
+            $optimizePath = public_path().'/images/user_img/';
+            $image = time().$file->getClientOriginalName();
+            $optimizeImage->save($optimizePath.$image, 72);
+            $input['user_img'] = $image;
+            
+        }
+
+        $password = $user->password;
+
+        if(request()->has('password') and !empty(request('password')))
+        {
+           $password =  \Hash::make($request->password);
+        }
+
+         $user = User::where('id',auth()->user()->id)->update([
+            'fname'     => $request->fname ,
+            'lname'     => $request->lname,
+            'email'     => $request->email,
+            'mobile'    => $request->mobile,
+            'password'  => $password,
+            'user_img'  => $input['user_img'] ?? $user->user_img,
+            'state_id'  => $request->state_id,
+            'city_id'   => $request->city_id,
+            'address'   => $request->address,
+        ]);
+
+        \Session::flash('success','Your profile has been updated successfully'); 
+        return back();
+    }
    public function profile()
     {
      $count =  Notification::where('notifiable_type','today_class')->where('student_id',auth()->user()->id)
@@ -71,6 +132,18 @@ class StudentController extends Controller
              else
              {
                  DB::insert("INSERT INTO `classes_student`(`id`, `class_id`, `teacher_id`, `student_id`, `status`, `created_at`) VALUES (NULL,'".$class->id."','".$class->instructor_id."','".auth()->user()->id."','-1',NOW())") ;
+
+                 \App\Notification::create([
+                            'type'            => 'student',
+                            'notifiable_type' => 'new request',
+                            'notifiable_id'   => $class->id,
+                            'data'            => 'You have a new request in waiting list to join the  '.ucwords($class->name??'').'  class',
+                            'instructor_id'   => $class->instructor_id,
+                            'reading'         => 0,
+                            'created_by'      => auth()->user()->id,
+                            'notify_date'     => now(),
+                            'notify_url'      =>'/instructor/waiting_students?class_id='.$class->id,
+                         ]);
 
                 \Session::flash('info','A request has been made to join the class, pending approval from the administrators');
              }

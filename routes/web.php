@@ -901,6 +901,8 @@ Route::middleware(['web'])->group(function () {
            Route::group(['middleware' => ['center_student']], function () {
                 Route::get('student/lessons', 'StudentController@lessons')->name('student.lessons');
                 Route::get('student/profile', 'StudentController@profile')->name('student.profile');
+                Route::get('student/account', 'StudentController@account')->name('student.account');
+                 Route::post('student/saveaccount', 'StudentController@saveaccount')->name('student.saveaccount');
                 Route::get('student/joinClass', 'StudentController@joinClass');
                 Route::get('student/livesession', 'ZoomController@liveSession')->name('student.livesession');
                 Route::post('student/join_zoom', 'ZoomController@joinZoom')->name('join.zoom');

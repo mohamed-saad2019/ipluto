@@ -36,18 +36,31 @@
 
                 },
                 success: function (data) {
-                    // alert('asa');
-                  // var count = "{{notifications_count('instructor_id')}}";
-                  
+                    jQuery.ajax({
+                      async: true,
+                      type: "GET",
+                      url: "{{url('read_notifications')}}",
+                      data: {
+                        _token: "{{ csrf_token() }}",
+                         colum:'instructor_id'
+
+                      },
+                      success: function (data) {
+                         if(data > 0)
+                          {
+                              $('#bell').html(`<i class="far fa-bell fa-lg"></i><span class="notification--num"> `+ data +` </span>`); 
+                          }
+                          else
+                          {
+                               $('#bell').html(`<i class="far fa-bell fa-lg"></i>`);
+                          }
+
+                      },
+                      error: function () {
+                        // alert('error');
+                      }
+                    });    
                   $("#notifications").html(data);
-                  // if (count > 0 ) 
-                  // {
-                  //   $('#bell').html('<i class="far fa-bell fa-lg"></i><span class="notification--num">'+count+'</span>');
-                  // }
-                  // else
-                  // {
-                  //   $('#bell').html('<i class="far fa-bell fa-lg"></i>'); 
-                  // }
                 },
                 error: function () {
                   // alert('error');
@@ -55,50 +68,8 @@
               });    
 }
 
-    function getCountNotification() {
-       jQuery.ajax({
-                async: true,
-                type: "GET",
-                url: "{{url('read_notifications')}}",
-                data: {
-                  _token: "{{ csrf_token() }}",
-                   colum:'instructor_id'
 
-                },
-                success: function (data) {
-                   if(data > 0)
-                    {
-                        $('#bell').html(`<i class="far fa-bell fa-lg"></i><span class="notification--num"> `+ data +` </span>`); 
-                    }
-                    else
-                    {
-                         $('#bell').html(`<i class="far fa-bell fa-lg"></i>`);
-                    }
-
-                },
-                error: function () {
-                  // alert('error');
-                }
-              });    
-}
-window.setInterval(getCountNotification,7000); // 1000 indicated 1 second
-window.setInterval(getNewNotification,7000); // 1000 indicated 1 second
- // $("#bell").click(function(){
- //         $.ajax({
- //        type: "get",
- //        url: "{{route('read_notifications')}}",
- //        data: {'colum': 'instructor_id' },
- //        headers: {
- //            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
- //        },
- //        success: function(data){
- //            $('.notification--num').html(data);
- //        },
- //        error: function () {
- //        console.log('error');
- //        }
- //    });
- //    });
+window.setInterval(getNewNotification,7000); // 1000 indicated 1 
     </script>
 </body>
 </html>

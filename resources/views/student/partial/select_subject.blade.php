@@ -20,13 +20,20 @@
                   @endif
                  @endif
               </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenu2" style="width:330px !important;font-size: 16px !important;">
+              <div class="dropdown-menu" aria-labelledby="dropdownMenu2" style="width:460px !important;font-size: 16px !important; overflow:hidden;">
                   @foreach(get_student_subjects() as $sub)
-                    <a class="dropdown-item" href="{{url()->current().'?subject_id='.$sub->childcategory->id.'&class_id='.$sub->id.'&instructor_id='.$sub->instructor->id.'&data='. $sub->childcategory->title . ' ( ' .$sub->name .') ( ' .$sub->instructor->fname.' '. $sub->instructor->lname .')' }}" >
-                       {{$sub->childcategory->title}} 
-                       
-                        ( {{$sub->name}}) ( {{$sub->instructor->fname}} {{$sub->instructor->lname}} )  
-                       
+                    <a class="dropdown-item" href="{{url()->current().'?subject_id='.$sub->childcategory->id.'&class_id='.$sub->id.'&instructor_id='.$sub->instructor->id.'&data='. $sub->childcategory->title . ' ( ' .$sub->name .') ( ' .$sub->instructor->fname.' '. $sub->instructor->lname .')' }}" 
+                    title="{{$sub->childcategory->title}}( {{$sub->name}}) ( {{$sub->instructor->fname}}{{$sub->instructor->lname}} )">
+                      
+                      @php 
+                       $days = \DB::table('class_days')->where('class_id',$sub->id)->where('day',\Carbon\Carbon::parse(now())->locale('en')->dayName)->pluck('class_id')->toArray();
+                      @endphp
+
+                       {{str_limit($sub->childcategory->title .'('.$sub->name.') - Mr '.$sub->instructor->fname.' '.$sub->instructor->lname,40)}} 
+                      
+                       @if(in_array($sub->id,$days))
+                        - Today
+                       @endif
                     </a>
                   @endforeach
               </div>

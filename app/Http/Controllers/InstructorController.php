@@ -1451,6 +1451,17 @@ class InstructorController extends Controller
                     {
                       DB::table('classes_student')->where('class_id',request('class_id'))->where('student_id',request('student_id'))->update(['status'=>'1']);
 
+                       InstructorStudents::create(
+                         [
+                            'instructor_id'=>\Auth::user()->id,
+                            'student_id'=>request('student_id'),
+                            'type'=>'center',
+                            'status'=> '1' ,
+                            'subject_id'=>$class->subject_id,
+                            'created_at'=>now(),
+                            'updated_at'=>now(),
+                         ]);
+
                       Notification::create([
                         'type'            => 'instructor',
                         'notifiable_type' => 'approved_class',

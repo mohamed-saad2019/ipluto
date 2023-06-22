@@ -1,4 +1,4 @@
-@extends('instructor.layouts.head')
+@extends('student.layouts.head')    
 @section('title','Profile')
 @section('maincontent')
 <style>
@@ -10,7 +10,16 @@
     {
         display: none;
     }
-    
+    .form-control:disabled,a.form-control,a.form-control:hover
+    {
+        background-color: #3d9bfb;
+        color: #fff;
+    }
+    p.form-control
+    {
+        background-color: orange;
+        color: #fff;
+    }
 </style>
 <div class="uplode__page">
     <div class="container">
@@ -34,7 +43,7 @@
         <div class="shadow-sm p-3 mb-5 bg-white rounded ">
             <div class="row">
                
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <!-- begin File tab -->
                         <li class="nav-item" role="presentation">
@@ -44,7 +53,7 @@
                         <!-- begin Video tab -->
                         <li class="nav-item" role="presentation">
                             <button class="nav-link @if(request('active')=='subject') active @endif" id="Video-tab" data-toggle="tab" data-target="#Video" type="button" role="tab" aria-controls="Video" aria-selected="false">
-                                Subjects
+                                Subjects&Classes Info
                             </button>
                         </li>
                         <!-- End Video tab -->
@@ -56,7 +65,7 @@
                         <div class="tab-pane fade @if(! request('active')) show active @endif" id="File" role="tabpanel" aria-labelledby="File-tab">
                             
                         <!-- begin class dropdown  -->
-                         <form action="{{url('instructor/save_profile')}}" method="POST"
+                         <form action="{{url('student/saveaccount')}}" method="POST"
                               enctype="multipart/form-data">
                             {{ csrf_field() }}
 
@@ -199,7 +208,8 @@
                                    <div class="drop-zone" 
                                         style="width:445px;max-width: 445px;">
                                     <div class="drop-zone__prompt">
-                                     <img src="{{ url('images/user_img/'.Auth()->User()['user_img'])}}"
+                                     <img src="@if($user->user_img != null && $user->user_img && @file_get_contents('images/user_img/'.$user->user_img)) {{ url('images/user_img/'.Auth()->User()['user_img'])}} @elseif($user->user_img != null && $user->user_img
+                                   !='' &&@file_get_contents('images/avatar/'. $user->user_img)) {{ url('images/avatar/'.$user->user_img)}} @endif"
                                        alt="profilephoto" style="width:420px;height:180px;">
                                     </div>
                                     <input type="file" name="user_img" class="drop-zone__input">
@@ -222,84 +232,93 @@
                                 <div class="tab-pane fade show active" id="home" role="tabpanel"
                                     aria-labelledby="home-tab">
                                     <!-- begin class dropdown  -->
-                                    <div class=" class__dropdown">
-                                <form action="{{url('instructor/save_sub_grade')}}"
-                                 method="POST"   enctype="multipart/form-data" id="form">
-                                    {{ csrf_field() }}
+                                <div class=" class__dropdown">
+                                 @php 
+                                    $a = []; $b = []; $c = [];
+                                 @endphp
+                                
+                             @foreach(get_student_subjects() as $sub)
+                                  @php 
+                              if(!in_array($sub->instructor->id,$a))
+                               {
+                                array_push($a,$sub->instructor->id);
+                               }
 
-                                  @php $sum=1 ; $index=0; @endphp
+                              if(!in_array($sub->id,$b))
+                               {
+                                array_push($b,$sub->id);
+                               }
+                             
+                            if(!in_array($sub->childcategory->id,$c))
+                             {
+                              array_push($c,$sub->childcategory->id);
+                             }
+                                  @endphp
+                              @endforeach
+                              
+                                  <div class="row">
+                                     <div class="col-sm-6 dropdown">
+                                        <h6>
+                                          Total Subjects : 
+                                           {{count($c)}}
+                                        </h6>
+                                     </div>
+                                     
+                                      <div class="col-sm-6 dropdown">
+                                        <h6>
+                                          Total Instructors : 
+                                           {{count($a)}}
+                                        </h6>
+                                     </div>
+
+                                      <div class="col-sm-6 dropdown">
+                                        <h6>
+                                          Total Classes : 
+                                           {{count($b)}}
+                                        </h6>
+                                     </div>
+
+                                     <div class="col-sm-6 dropdown">
+                                        <h6>
+                                          Total today’s Classes : 
+                                        {{
+                                        \DB::table('class_days')->whereIn('class_id',$b)
+                                         ->where('day',\Carbon\Carbon::parse(now())->locale('en')->dayName)->count();
+                                         }}
+                                        </h6>
+                                     </div>
+
+                                  </div>
+                                  <hr>
                                   
-                                   @if($user_subjects)
-                                    <div class="" id="becomeTeacher__wrapper" style="width:1100px">
-                                    @foreach($user_subjects as $user_subject)
-                                <div class=" @if($sum !=1) inserted @endif">
-                                  <div class="form-group row class__dropdown">
-                                        <label for="subjects" class="col-sm-2 col-form-label">
-                                             Subject {{$sum}}
-                                        </label>
-                                        <div class="col-sm-3 dropdown">
-                                         <select class="form-control{{ $errors->has('subjects') ? ' is-invalid' : '' }} @if($sum==1) selectSubjects @endif" required id="subjects" style="border:1px solid #ddd;color:#000;" name="subjects[]">
-                                             @if($subjects)
-                                                @foreach($subjects as $subject)
-                                                <option value="{{$subject->id}}" @if($user_subject->subject_id == $subject->id) selected @endif>{{$subject->title}}</option>
-                                                @endforeach
-                                            @endif
-                                         </select>
-                                        </div>
-                                         @if($errors->has('subjects'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('subjects') }}</strong>
-                                            </span>
-                                        @endif
+                                  @foreach(get_student_subjects() as $sub)
+                                   <div class="row">
+                                     <div class="col-sm-5 dropdown">
+                                       <a class="form-control" href="{{url('/student/profile').'?subject_id='.$sub->childcategory->id.'&class_id='.$sub->id.'&instructor_id='.$sub->instructor->id.'&data='. $sub->childcategory->title . ' ( ' .$sub->name .') ( ' .$sub->instructor->fname.' '. $sub->instructor->lname .')' }}" > {{$sub->childcategory->title}} ( {{$sub->name}} - {{$sub->class_key}} ) -  Mr {{$sub->instructor->fname.' '.$sub->instructor->lname}}</a>
+                                     </div>
+                                    <div class="col-sm-7 dropdown">
+                                     @php 
+                                      $days =  
+                                      \DB::table('class_days')->where('class_id',$sub->id)->get();
+                                     @endphp
+                                     <div class="row">
+                                     @foreach($days as $day)
                                          <div class="col-sm-4 dropdown">
-                                         <select class="form-control  {{ $errors->has('grades_'.$index) ? ' is-invalid' : '' }} @if($sum==1) selectGrades @endif" required id="select_{{$sum}}" style="border:1px solid #ddd;color:#000;" name="grade_{{$index}}[]" multiple="multiple" required>
-                                             @if($grades)
-                                              @php 
-                                              $user_grade = \App\InstructorGrade::where('instructor_id',auth()->user()->id)
-                                              ->where('subject_id',$user_subject->subject_id)
-                                              ->pluck('grade_id')->toArray();
-                                              @endphp
-
-                                                @foreach($grades as $grade)
-                                                 <option value="{{$grade->id}}" @if(in_array($grade->id,$user_grade)) selected @endif>{{$grade->title}}</option>
-                                                @endforeach
-                                            @endif
-                                         </select>
-                                        </div>
-                                  {{--
-                                     @if($sum==1)
-                                        <div class="col-sm-3 dropdown">
-                                         <button type="button" class="btn btn-primary add_more" title="add new subject and grade row"> <i class="fa fa-plus"></i></button>
-                                         <button type="button" class="btn btn-danger del_buttonEn" title="delete last subject and grade "> <i class="fa fa-trash"></i></button>
-                                        </div>
-                                     @endif --}}
-                                    </div>
-                                      @php $sum++ ; $index++ ; @endphp
-                                    </div>
-                                    @endforeach
-                                    </div>
-                                   @endif
-
-                                     <div class="col-sm-10 dropdown"><br>
-                                  {{--
-                                      <input type="submit"  class="btn btn-primary text-capitalize px-5" value="Save" style="float:right;">
-                                      --}}
-                                    </div>
-                                 </form>
-                                 
+                                            <p class="form-control" @if($day->day == \Carbon\Carbon::parse(now())->locale('en')->dayName) style="background:green" @endif>
+                                              {{$day->day == \Carbon\Carbon::parse(now())->locale('en')->dayName ? 'Today' : $day->day}} - {{$day->time}} 
+                                            </p>
+                                         </div>
+                                     @endforeach
+                                      </div>
+                                   </div>
+                                   </div>
+                                   <br>
+                                  @endforeach
                               </div>
-
-                                    <!-- End class dropdown  -->
                              </div>
-                        
                             </div>
-
-
-
-
                         </div>
                         <!-- End Video-tab -->
-
                     </div>
                     <!--End tab-content -->
                     <div class="uplode__footer">
@@ -435,7 +454,7 @@ $('#showPass1').on('click', function(){
             var add_buttonEn = $(".add_more");
             var wrapperEn = $("#becomeTeacher__wrapper");
 
-            let index = '{{$index}}'; let v = 0;
+            let index = 0; let v = 0;
 
              $(add_buttonEn).click(function(e) {
                 // console.log($(".selectGrades option").contents() ) ;
@@ -480,7 +499,7 @@ $('#showPass1').on('click', function(){
                 } 
             );
     
-             for (var i = 0 ; i <= '{{$sum}}' ; i++) 
+             for (var i = 0 ; i <= 0 ; i++) 
              {
                  $('#select_'+i).select2({ placeholder: "Select Grade",allowClear: false});
              }

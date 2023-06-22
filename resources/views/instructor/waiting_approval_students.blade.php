@@ -1,5 +1,5 @@
 @extends('instructor.layouts.head')    
-@section('title',' Student List')
+@section('title',' Students awaiting approval')
 @if(Auth::User()->role == "instructor")
 @section('maincontent')
          

@@ -295,7 +295,7 @@ class RegisterController extends Controller
                             'notifiable_type' => 'new request',
                             'notifiable_id'   => $class->id,
                             'data'            => 'You have a new request to join the  '
-                                                              .ucwords($class->name??'').'  class',
+                            .ucwords($class->name??'').'  class',
                             'instructor_id'   => $class->instructor_id,
                             'reading'         => 0,
                             'created_by'      => $user->id,
@@ -311,8 +311,7 @@ class RegisterController extends Controller
                             'type'            => 'student',
                             'notifiable_type' => 'new request',
                             'notifiable_id'   => $class->id,
-                            'data'            => 'You have a new request in waiting list to join the  '
-                                                              .ucwords($class->name??'').'  class',
+                            'data'            => 'You have a new request in waiting list to join the  '.ucwords($class->name??'').'  class',
                             'instructor_id'   => $class->instructor_id,
                             'reading'         => 0,
                             'created_by'      => $user->id,

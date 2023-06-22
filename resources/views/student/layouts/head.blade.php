@@ -33,9 +33,11 @@
                             </div>
                             <div class="collapse navbar-collapse d-flex justify-content-between "
                                 id="navbarSupportedContent">
+
                                 <div class="search ml-5">
+                                  {{--  
                                     <i class="fas fa-search"></i> 
-                                    <input type="text" class="form-control shadow-sm" placeholder="Search" />
+                                    <input type="text" class="form-control shadow-sm" placeholder="Search" />--}}
                                 </div>
 
 
@@ -49,7 +51,7 @@
                                     <div class="icon" id="bell">
                                         <i class="far fa-bell fa-lg"></i>
                                          @if(notifications_count('student_id') != 0)
-                                            <span class="notification--num">
+                                            <span id="notifications_count" class="notification--num">
                                                 {{notifications_count('student_id')}}
                                             </span>
                                          @endif
@@ -95,18 +97,17 @@
 
                                               @endif
                                            </div>
-                                           <div class="col-md-5">
+                                           <div class="col-md-7">
                                                <h4 class="text-capitalize">
                                                 @if($n->type == 'ipluto')
                                                   Ipluto
 
                                                  @elseif($n->type == 'instructor')
-                                                   {{ucwords($n->user->fname)}} 
-                                                   {{ucwords($n->user->lname)}} 
+                                                 Mr  {{str_limit($n->user->fname.' '.$n->user->lname,15)}} 
                                                 @endif
                                                 </h4>
                                            </div>
-                                           <div class="col-md-4">
+                                           <div class="col-md-3">
                                                 <p >
                                                  {{ \Carbon\Carbon::parse($n->notify_date)->shortRelativeDiffForHumans() }}
                                                  </p>
@@ -173,8 +174,9 @@
 
                                             </div>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Manage ipluto account</a>
-                                            <a class="dropdown-item" href="#">Lesson Settings</a>
+                                            <a class="dropdown-item" href="{{url('/student/account')}}">Manage ipluto account</a>
+
+                                            <a class="dropdown-item" href="{{url('/student/account?active=subject')}}">Subjects&Classes Info</a>
                                             <a class="dropdown-item" href="#">Notification Preferences</a>
                                             <a class="dropdown-item" href="#">Help & FAQs</a>
                                             <div class="dropdown-divider"></div>
