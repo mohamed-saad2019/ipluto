@@ -522,7 +522,7 @@ if(!function_exists('notifications_count')){
 if(!function_exists('notifications')){
     function notifications($colum){
        return \App\Notification::where($colum,\Auth::user()->id)
-             ->where('notify_date','<=',\Carbon\Carbon::parse(now())->format('Y-m-d h:i:s'))
+             ->where('notify_date','<=',now())
              ->with('user')->orderBy('created_at','DESC')->get();
     }
 }
