@@ -122,8 +122,8 @@ class ClassController extends Controller
                       ]);
         }
 
-        \Session::flash('success','Updated successfully'); 
-        return back();
+        \Session::flash('success','Lesson Shared Successfully'); 
+        return redirect('/instructor/library');
         
     }
 

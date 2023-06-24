@@ -91,6 +91,11 @@ class InstructorController extends Controller
         ]);
 
         \Session::flash('success','Your profile has been updated successfully'); 
+        if(request()->has('password') and !empty(request('password')))
+        {
+          \Auth::logout();
+          return redirect('/login');
+        }
         return back();
     }
 
@@ -1418,7 +1423,7 @@ class InstructorController extends Controller
                     ->where('subject_id',\Auth::user()->subject_id)
                     ->orderBy('id','DESC')->get();
        }
-        $classes = DB::select("SELECT * , (SELECT count(*) FROM `classes_student` WHERE class_id = `classes`.id ) AS count_students FROM `classes` WHERE `instructor_id` = '".auth()->user()->id."' ORDER BY id DESC ");
+        $classes = DB::select("SELECT * , (SELECT count(*) FROM `classes_student` WHERE class_id = `classes`.id ) AS count_students FROM `classes` WHERE `instructor_id` = '".auth()->user()->id."' AND `subject_id` = '".auth()->user()->subject_id."'  ORDER BY id DESC ");
 
          return view('instructor.add_students',compact('students','classes'));
     }

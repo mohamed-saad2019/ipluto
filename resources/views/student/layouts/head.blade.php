@@ -176,7 +176,7 @@
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="{{url('/student/account')}}">Manage ipluto account</a>
 
-                                            <a class="dropdown-item" href="{{url('/student/account?active=subject')}}">Subjects&Classes Info</a>
+                                            <a class="dropdown-item" href="{{url('/student/account?active=subject')}}">Subjects & Classes Info</a>
                                             <a class="dropdown-item" href="#">Notification Preferences</a>
                                             <a class="dropdown-item" href="#">Help & FAQs</a>
                                             <div class="dropdown-divider"></div>

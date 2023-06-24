@@ -53,7 +53,7 @@
                         <!-- begin Video tab -->
                         <li class="nav-item" role="presentation">
                             <button class="nav-link @if(request('active')=='subject') active @endif" id="Video-tab" data-toggle="tab" data-target="#Video" type="button" role="tab" aria-controls="Video" aria-selected="false">
-                                Subjects&Classes Info
+                                Subjects & Classes Info
                             </button>
                         </li>
                         <!-- End Video tab -->
@@ -257,28 +257,36 @@
                               @endforeach
                               
                                   <div class="row">
-                                     <div class="col-sm-6 dropdown">
+                                     
+                                     <div class="col-sm-4 dropdown">
+                                        <h6>
+                                          Grade : 
+                                           {{auth()->user()->studentGrade()->value('title')}}
+                                        </h6>
+                                     </div>
+
+                                     <div class="col-sm-4 dropdown">
                                         <h6>
                                           Total Subjects : 
                                            {{count($c)}}
                                         </h6>
                                      </div>
                                      
-                                      <div class="col-sm-6 dropdown">
+                                      <div class="col-sm-4 dropdown">
                                         <h6>
                                           Total Instructors : 
                                            {{count($a)}}
                                         </h6>
                                      </div>
 
-                                      <div class="col-sm-6 dropdown">
+                                      <div class="col-sm-4 dropdown">
                                         <h6>
                                           Total Classes : 
                                            {{count($b)}}
                                         </h6>
                                      </div>
 
-                                     <div class="col-sm-6 dropdown">
+                                     <div class="col-sm-4 dropdown">
                                         <h6>
                                           Total today’s Classes : 
                                         {{
@@ -305,7 +313,7 @@
                                      @foreach($days as $day)
                                          <div class="col-sm-4 dropdown">
                                             <p class="form-control" @if($day->day == \Carbon\Carbon::parse(now())->locale('en')->dayName) style="background:green" @endif>
-                                              {{$day->day == \Carbon\Carbon::parse(now())->locale('en')->dayName ? 'Today' : $day->day}} - {{$day->time}} 
+                                              {{$day->day == \Carbon\Carbon::parse(now())->locale('en')->dayName ? 'Today' : $day->day}} - {{\Carbon\Carbon::parse($day->time)->format('g:i A')}} 
                                             </p>
                                          </div>
                                      @endforeach

@@ -42,7 +42,7 @@ class StudentController extends Controller
             'confirm_password' => 'nullable|min:6|same:password',
             'state_id'      => 'required',
             'city_id'       => 'required',
-            'address'       => 'nullable|min:6|max:50',
+            'address'       => 'nullable|max:50',
             'user_img'      => 'nullable|mimes:jpg,jpeg,png,bmp,tiff'
         ]);
 
@@ -79,7 +79,13 @@ class StudentController extends Controller
             'address'   => $request->address,
         ]);
 
-        \Session::flash('success','Your profile has been updated successfully'); 
+     \Session::flash('success','Your profile has been updated successfully'); 
+        if(request()->has('password') and !empty(request('password')))
+        {
+          \Auth::logout();
+          return redirect('/login');
+        }
+
         return back();
     }
    public function profile()
@@ -128,6 +134,10 @@ class StudentController extends Controller
              if(!empty($class_student))
               {
                \Session::flash('error','You are already a member of the class');
+              }
+             elseif($class->grade_id != auth()->user()->grade)
+              {
+                 \Session::flash('error',"You cannot join this class due to the difference in the student's academic year");
               }
              else
              {
