@@ -955,7 +955,9 @@ class InstructorController extends Controller
                 return back()->withInput()->withErrors($validator);
             }
            
-             $count_students = 0;
+           $my_classes = Classes::where('instructor_id',auth()->user()->id)->pluck('id')->toArray();
+
+           $count_students = 0;
 
             if(request()->has('students'))
             {
@@ -1125,14 +1127,18 @@ class InstructorController extends Controller
 
          foreach($request->day as $k=>$_day)
          {
-            $checkSameDay =  DB::table('class_days')->where('class_id',$last_id)
+           $checkSameDay =  DB::table('class_days')->where('class_id',$last_id)
                     ->where('day',$_day)->where('time',$request->time[$k])->count();
+
+           $my_classes = Classes::where('instructor_id',auth()->user()->id)->pluck('id')->toArray();
+
+          $checkSameDay1 = DB::table('class_days')->whereIn('class_id',$my_classes)->where('day',$_day)->whereTime('time',$request->time[$k])->count();
             
-            if($checkSameDay == 0)
+            if($checkSameDay == 0 and $checkSameDay1 == 0)
             {
              DB::insert("INSERT INTO `class_days` (`id`,`class_id`,`day`,`time`,`created_at`) VALUE( NULL ,'".$last_id."' , '".$_day."' , '".$request->time[$k]."' ,NOW() ) ") ;
             }
-            else
+            elseif($checkSameDay > 0 or $checkSameDay1 > 0 )
             {
                   \DB::rollBack();
                 return back()->withInput()->withErrors('It is not possible to specify the same day and the same time'); 
@@ -1285,15 +1291,19 @@ class InstructorController extends Controller
         
          foreach(request('day') as $k=>$_day)
          {
-             $checkSameDay =  DB::table('class_days')->where('class_id',$id)
+          $checkSameDay =  DB::table('class_days')->where('class_id',$id)
                     ->where('day',$_day)->where('time',$request->time[$k])->count();
             
-            if($checkSameDay == 0)
+          $my_classes = Classes::where('id','!=',$id)->where('instructor_id',auth()->user()->id)->pluck('id')->toArray();
+           
+          $checkSameDay1 = DB::table('class_days')->whereIn('class_id',$my_classes)->where('day',$_day)->whereTime('time',$request->time[$k])->count();
+            
+            if($checkSameDay == 0 and $checkSameDay1 == 0)
             {
-             DB::insert("INSERT INTO `class_days` (`id`,`class_id`,`day`,`time`,`created_at`) VALUE( NULL ,'"
+              DB::insert("INSERT INTO `class_days` (`id`,`class_id`,`day`,`time`,`created_at`) VALUE( NULL ,'"
                 .$id."' , '".$_day."' , '".request('time')[$k]."' ,NOW() ) ") ;
             }
-            else
+            elseif($checkSameDay > 0 or $checkSameDay1 > 0 )
             {
                   \DB::rollBack();
                 return back()->withInput()->withErrors('It is not possible to specify the same day and the same time'); 
